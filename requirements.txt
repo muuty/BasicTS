@@ -1,4 +1,3 @@
-easy-torch
 easydict
 packaging
 setproctitle
