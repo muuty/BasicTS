@@ -62,7 +62,10 @@ def to_device(src: Union[torch.Tensor, nn.Module], device_id: int = None,
         else:
             return src.to('mlu:{:d}'.format(device_id), **kwargs)
     elif _DEVICE_TYPE == 'mps':
-        return src.to(torch.device("mps"))
+        try:
+            return src.to(torch.device("mps"))
+        except Exception:
+            return src
     elif _DEVICE_TYPE == 'cpu':
         return src.cpu()
     else:

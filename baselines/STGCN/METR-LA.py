@@ -120,7 +120,6 @@ CFG.TRAIN.LR_SCHEDULER.PARAM = {
 CFG.TRAIN.DATA = EasyDict()
 CFG.TRAIN.DATA.BATCH_SIZE = 16
 CFG.TRAIN.DATA.SHUFFLE = True
-CFG.TRAIN.DATA.SAMPLING_RATIO = 0.1
 
 ############################## Validation Configuration ##############################
 CFG.VAL = EasyDict()

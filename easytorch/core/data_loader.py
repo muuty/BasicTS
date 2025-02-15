@@ -3,18 +3,12 @@ import random
 
 from torch.utils.data import Dataset, DataLoader
 from torch.utils.data.distributed import DistributedSampler
-from torch.utils.data import Sampler, SubsetRandomSampler
+from torch.utils.data import SubsetRandomSampler
 
+from easytorch.core.selection.factory import get_selection
 from ..utils import get_rank, get_world_size
 from ..utils.data_prefetcher import DataLoaderX
 
-
-def get_random_subset_indices(dataset: Dataset, ratio: float, seed: int = 42):
-    random.seed(seed)
-    indices = list(range(len(dataset)))
-    sampled_size = int(len(dataset) * ratio)
-    sampled_indices = random.sample(indices, sampled_size)  # 랜덤 샘플링
-    return sampled_indices
 
 def build_data_loader(dataset: Dataset, data_cfg: Dict) -> DataLoader:
     """Build dataloader from `data_cfg`
@@ -36,12 +30,9 @@ def build_data_loader(dataset: Dataset, data_cfg: Dict) -> DataLoader:
     Returns:
         data loader
     """
-    coreset_ratio = data_cfg.get('SAMPLING_RATIO', 1.0)
-    if coreset_ratio < 1.0:
-        sampled_indices = get_random_subset_indices(dataset, coreset_ratio)
-        sampler = SubsetRandomSampler(sampled_indices)
-    else:
-        sampler = None
+    selection = get_selection(data_cfg.get('SELECTION_STRATEGY'), data_cfg.get('SELECTION_RATIO'), dataset)
+    sampler = SubsetRandomSampler(selection.select_indices()) if selection is not None else None
+
 
     return (DataLoaderX if data_cfg.get('PREFETCH', False) else DataLoader)(
         dataset,
