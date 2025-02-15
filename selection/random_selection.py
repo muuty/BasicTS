@@ -1,6 +1,6 @@
 from typing import List
-from torch.utils.data import Dataset, DataLoader
-from easytorch.core.selection.base import BaseSelection
+from torch.utils.data import Dataset
+from selection.base import BaseSelection
 import random
 
 class RandomSelection(BaseSelection):

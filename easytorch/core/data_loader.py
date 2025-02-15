@@ -1,11 +1,11 @@
 from typing import Dict
-import random
 
 from torch.utils.data import Dataset, DataLoader
 from torch.utils.data.distributed import DistributedSampler
 from torch.utils.data import SubsetRandomSampler
 
-from easytorch.core.selection.factory import get_selection
+from selection.embedding.factory import get_embedding
+from selection.factory import get_selection
 from ..utils import get_rank, get_world_size
 from ..utils.data_prefetcher import DataLoaderX
 
@@ -30,7 +30,11 @@ def build_data_loader(dataset: Dataset, data_cfg: Dict) -> DataLoader:
     Returns:
         data loader
     """
-    selection = get_selection(data_cfg.get('SELECTION_STRATEGY'), data_cfg.get('SELECTION_RATIO'), dataset)
+    embedding = get_embedding(data_cfg.get('EMBEDDING_STRATEGY')) if data_cfg.get('EMBEDDING_STRATEGY') else None
+    selection = get_selection(type=data_cfg.get('SELECTION_STRATEGY'),
+                              selection_ratio=data_cfg.get('SELECTION_RATIO'),
+                              embedding_model=embedding,
+                              dataset=dataset)
     sampler = SubsetRandomSampler(selection.select_indices()) if selection is not None else None
 
 
