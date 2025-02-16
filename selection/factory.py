@@ -2,6 +2,7 @@ from selection.base import BaseSelection
 from selection.embedding.base import BaseEmbedding
 from selection.random_selection import RandomSelection
 from selection.k_random_greedy import KCenterGreedySelection
+from selection.k_medoids import KMedoidsSelection
 from torch.utils.data import Dataset
 
 
@@ -16,6 +17,8 @@ def get_selection(type: str,
     if type == 'random':
         return RandomSelection(dataset, selection_ratio)
     if type == 'k_center_greedy':
-        return KCenterGreedySelection(dataset, selection_ratio, embedding_model=embedding_model)
+        return KCenterGreedySelection(dataset, ratio=selection_ratio, embedding_model=embedding_model)
+    if type == 'k_medoids':
+        return KMedoidsSelection(dataset, ratio=selection_ratio, embedding_model=embedding_model)
     else:
         raise ValueError('Unknown selection type!')
