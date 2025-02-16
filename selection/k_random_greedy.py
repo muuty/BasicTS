@@ -38,7 +38,9 @@ class KCenterGreedySelection(BaseSelection):
         sampled_size = int(dataset_size * self.ratio)
 
         # Convert dataset into numpy array
-        inputs = np.array([self.dataset[i]['inputs'] for i in range(dataset_size)])
+        inputs = np.array([self.dataset[i]['inputs'][:,:,0] +
+                           self.dataset[i]['target'][:, :, 0]
+                           for i in range(dataset_size)])
         inputs = inputs.reshape(dataset_size, -1)  # Flatten if necessary
 
         # Step 2: Apply Embedding

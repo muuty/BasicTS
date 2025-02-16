@@ -6,7 +6,8 @@ class TSNEEmbedding(BaseEmbedding):
         self.n_components = n_components
         self.perplexity = perplexity
         self.random_state = random_state
+        self.max_iter = 500
 
     def transform(self, data: np.ndarray) -> np.ndarray:
-        tsne = TSNE(n_components=self.n_components, perplexity=self.perplexity, random_state=self.random_state)
+        tsne = TSNE(n_components=self.n_components, perplexity=self.perplexity, random_state=self.random_state, max_iter=self.max_iter)
         return tsne.fit_transform(data)
