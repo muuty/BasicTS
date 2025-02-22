@@ -1,6 +1,5 @@
 from baselines.STGCN.PEMS03 import *
 from datetime import datetime
-print(CFG)
 from selection.hdbscan_selection import HDBSCANSelection
 from selection.random_selection import RandomSelection
 from selection.k_random_greedy import KCenterGreedySelection
