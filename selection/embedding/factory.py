@@ -14,6 +14,9 @@ def get_embedding(type: str):
     Returns:
         BaseEmbedding: Embedding instance.
     """
+    if not type:
+        return None
+
     if type == 'raw':
         return RawEmbedding()
     if type == 'tsne':
