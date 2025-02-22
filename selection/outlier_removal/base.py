@@ -1,10 +1,6 @@
-import hdbscan
-from sklearn.preprocessing import StandardScaler
-
 from typing import List
 from torch.utils.data import Dataset
 from typing import Protocol
-import numpy as np
 
 
 class OutlierRemoval(Protocol):
