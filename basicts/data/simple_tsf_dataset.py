@@ -131,7 +131,7 @@ class TimeSeriesForecastingDataset(BaseDataset):
         """
         history_data = self.data[index:index + self.input_len]
         future_data = self.data[index + self.input_len:index + self.input_len + self.output_len]
-        return {'inputs': history_data, 'target': future_data}
+        return {'inputs': history_data, 'target': future_data, 'index': index}
 
     def __len__(self) -> int:
         """

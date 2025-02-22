@@ -9,7 +9,8 @@ from torch.utils.data import Dataset
 def get_selection(type: str,
                   selection_ratio: float,
                   embedding_model: BaseEmbedding | None,
-                  dataset: Dataset) -> BaseSelection | None:
+                  dataset: Dataset
+                  ) -> BaseSelection | None:
 
     if not type or selection_ratio == 1.0:
         return None
@@ -17,8 +18,12 @@ def get_selection(type: str,
     if type == 'random':
         return RandomSelection(dataset, selection_ratio)
     if type == 'k_center_greedy':
-        return KCenterGreedySelection(dataset, ratio=selection_ratio, embedding_model=embedding_model)
+        return KCenterGreedySelection(dataset,
+                                      ratio=selection_ratio,
+                                      embedding_model=embedding_model)
     if type == 'k_medoids':
-        return KMedoidsSelection(dataset, ratio=selection_ratio, embedding_model=embedding_model)
+        return KMedoidsSelection(dataset,
+                                 ratio=selection_ratio,
+                                 embedding_model=embedding_model)
     else:
         raise ValueError('Unknown selection type!')

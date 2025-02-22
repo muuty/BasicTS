@@ -148,7 +148,7 @@ class Runner(metaclass=ABCMeta):
         if torch.distributed.is_initialized():
             return build_data_loader_ddp(dataset, cfg['TRAIN.DATA'])
         else:
-            return build_data_loader(dataset, cfg['TRAIN.DATA'])
+            return build_data_loader(dataset, cfg['TRAIN.DATA'], cfg)
 
     def build_val_data_loader(self, cfg: Config) -> DataLoader:
         """Build val dataset and dataloader.
