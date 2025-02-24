@@ -37,12 +37,11 @@ class HDBSCANOutlierRemoval(OutlierRemoval):
         clusterer = HDBSCAN(min_cluster_size=self.min_cluster_size, min_samples=self.min_samples)
         clusterer.fit(inputs)
 
-        # Outlier score 기반 필터링
         outlier_scores = clusterer.outlier_scores_
         num_remove = int(len(outlier_scores) * self.removal_ratio)  # 제거할 개수 계산
-        threshold = np.sort(outlier_scores)[-num_remove] if num_remove > 0 else float('inf')
 
-        # outlier score가 threshold 이하인 인덱스만 유지
-        inlier_indices = np.where(outlier_scores <= threshold)[0].tolist()
+        # 정확한 개수만 제거하도록 처리
+        sorted_indices = np.argsort(outlier_scores)  # Outlier score 기준으로 정렬 (오름차순)
+        inlier_indices = sorted_indices[:-num_remove] if num_remove > 0 else sorted_indices
 
-        return inlier_indices
+        return inlier_indices.tolist()
