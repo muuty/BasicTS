@@ -1,7 +1,7 @@
 from selection.base import BaseSelection
 from selection.embedding.base import BaseEmbedding
 from selection.random_selection import RandomSelection
-from selection.k_random_greedy import KCenterGreedySelection
+from selection.k_center_greedy import KCenterGreedySelection
 from selection.k_medoids import KMedoidsSelection
 from torch.utils.data import Dataset
 
