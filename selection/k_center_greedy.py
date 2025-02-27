@@ -44,10 +44,11 @@ class KCenterGreedySelection(BaseSelection):
         inputs = inputs.reshape(dataset_size, -1)  # Flatten if necessary
 
         # Step 2: Apply Embedding
-        embedded_data = self.embedding_model.transform(inputs)  # ✅ t-SNE 등 사용 가능
+        if self.embedding_model is not None:
+            inputs = self.embedding_model.transform(inputs)  # ✅ t-SNE 등 사용 가능
 
         # Step 3: Compute Distance Matrix in Embedded Space
-        distance_matrix = self._compute_distance_matrix(embedded_data)
+        distance_matrix = self._compute_distance_matrix(inputs)
 
         # Step 4: Initialize with a random point
         first_index = np.random.choice(dataset_size)
