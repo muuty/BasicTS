@@ -52,8 +52,9 @@ def build_data_loader(dataset: Dataset, data_cfg: Dict, model_cfg: Dict = None) 
                               dataset=dataset
                               )
 
-    with open(os.path.join(data_cfg.get('CKPT_SAVE_DIR'), 'coreset-selection.json'), 'w') as f:
-        json.dump(selection.select_indices(), f)
+    if 'CKPT_SAVE_DIR' in data_cfg:
+        with open(os.path.join(data_cfg.get('CKPT_SAVE_DIR'), 'coreset-selection.json'), 'w') as f:
+            json.dump(selection.select_indices(), f)
 
     sampler = SubsetRandomSampler(selection.select_indices()) if selection is not None else None
 
