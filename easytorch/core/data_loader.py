@@ -1,4 +1,6 @@
 from typing import Dict
+import json
+import os
 
 from torch.utils.data import Dataset, DataLoader, Subset
 from torch.utils.data.distributed import DistributedSampler
@@ -49,6 +51,10 @@ def build_data_loader(dataset: Dataset, data_cfg: Dict, model_cfg: Dict = None) 
                               embedding_model=embedding,
                               dataset=dataset
                               )
+
+    with open(os.path.join(data_cfg.get('CKPT_SAVE_DIR'), 'coreset-selection.json'), 'w') as f:
+        json.dump(selection.select_indices(), f)
+
     sampler = SubsetRandomSampler(selection.select_indices()) if selection is not None else None
 
     return (DataLoaderX if data_cfg.get('PREFETCH', False) else DataLoader)(
