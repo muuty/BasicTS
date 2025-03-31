@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error vs Distance Viewer</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #scatterPlot, #linePlot-inputs, #linePlot-target {
+            width: 90%;
+            height: 500px;
+            margin-bottom: 30px;
+        }
+        #hoverinfo {
+            margin: 10px;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label for="datasetSelect">Select Dataset:</label>
+        <select id="datasetSelect">
+            <option value="PEMS03">PEMS03</option>
+            <option value="PEMS04">PEMS04</option>
+            <option value="PEMS07">PEMS07</option>
+            <option value="PEMS08">PEMS08</option>
+            <option value="PEMS_BAY">PEMS_BEY</option>
+            <option value="METR_LA">METR_LA</option>
+        </select>
+    </div>
+    <div id="container">
+        <div id="scatterPlot"></div>
+        <div id="hoverinfo"></div>
+        <div id="info"></div>
+        <div id="linePlot-inputs"></div>
+        <div id="linePlot-target"></div>
+    </div>
+
+    <script>
+        async function fetchData(dataset) {
+            const response = await fetch(`data/${dataset}_tab.txt`);
+            const text = await response.text();
+            return text.trim().split("\n").map(line => {
+                const [x, y, index, topkStr] = line.split('   ');
+                return {
+                    x: parseFloat(x),
+                    y: parseFloat(y),
+                    index: parseInt(index),
+                    topk: JSON.parse(topkStr)
+                };
+            });
+        }
+
+        async function renderScatter(dataset) {
+            const dataPoints = await fetchData(dataset);
+
+            const trace = {
+                x: dataPoints.map(p => p.x),
+                y: dataPoints.map(p => p.y),
+                customdata: dataPoints.map(p => ({ index: p.index, topk: p.topk })),
+                mode: 'markers',
+                type: 'scatter',
+                name: dataset,
+                marker: { size: 6, opacity: 0.6 }
+            };
+
+            const layout = {
+                hovermode: 'closest',
+                title: `${dataset} - Distance vs Error`,
+                xaxis: { title: 'k-NN Distance to Coreset' },
+                yaxis: { title: 'Prediction Error' }
+            };
+
+            Plotly.newPlot('scatterPlot', [trace], layout);
+
+            const scatterDiv = document.getElementById('scatterPlot');
+            const hoverInfo = document.getElementById('hoverinfo');
+
+            scatterDiv.on('plotly_hover', function(data){
+                const infotext = data.points.map(d => {
+                    return `${d.data.name}: distance = ${d.x}, error = ${d.y.toPrecision(3)}, index = ${d.customdata.index}`;
+                });
+                hoverInfo.innerHTML = infotext.join('<br/>');
+            }).on('plotly_unhover', function(){
+                hoverInfo.innerHTML = '';
+            });
+
+            scatterDiv.on('plotly_click', function(data) {
+                const point = data.points[0];
+                const queryIndex = point.customdata.index;
+                const topkIndices = point.customdata.topk;
+                const dataset = document.getElementById('datasetSelect').value;
+
+                const url = new URL("http://localhost:8000/data/batch");
+                url.searchParams.append("dataset", dataset);
+                url.searchParams.append("query_index", queryIndex);
+                topkIndices.forEach(idx => url.searchParams.append("topk_indices", idx));
+
+                fetch(url)
+                    .then(res => res.json())
+                    .then(json => {
+                        const infoDiv = document.getElementById('info');
+                        const first_ts = json.query_inputs[0][0];
+                        const last_ts = json.query_inputs[json.query_inputs.length - 1][0];
+
+                        const dayMap = ['일', '월', '화', '수', '목', '금', '토'];
+                        const start_day = Math.floor(first_ts[2] * 7);
+                        const end_day = Math.floor(last_ts[2] * 7);
+                        const start_hour = Math.floor(first_ts[1] * 24);
+                        const start_min = Math.round((first_ts[1] * 24 - start_hour) * 60);
+                        const end_hour = Math.floor(last_ts[1] * 24);
+                        const end_min = Math.round((last_ts[1] * 24 - end_hour) * 60);
+
+                        infoDiv.innerHTML = `<b>${dayMap[start_day]}요일 ${start_hour}시 ${start_min}분 ~ ${dayMap[end_day]}요일 ${end_hour}시 ${end_min}분</b>`;
+                        const flatten = arr => arr.flat().map(x => x[0]); // value only
+
+                        const q_input = flatten(json.query_inputs);
+                        const q_target = flatten(json.query_target);
+                        const s_input = json.topk_inputs.map(flatten);
+                        const s_target = json.topk_target.map(flatten);
+
+                        const input_traces = [
+    { y: q_input, mode: 'lines', name: 'query_input', line: { width: 2, color: 'red' }, opacity: 0.8 },
+    ...s_input.map((si, i) => ({ y: si, mode: 'lines', name: `support_${i}_input`, line: { width: 1 }, opacity: 0.4 }))
+];
+
+                        const target_traces = [
+    { y: q_target, mode: 'lines', name: 'query_target', line: { width: 2, color: 'red' }, opacity:0.8 },
+    ...s_target.map((st, i) => ({ y: st, mode: 'lines', name: `support_${i}_target`, line: { width: 1 }, opacity: 0.4 }))
+];
+
+                        Plotly.newPlot('linePlot-inputs', input_traces, {
+                            shapes: Array.from({ length: Math.floor(q_input.length / 12) }, (_, i) => ({
+                                type: 'line',
+                                x0: i * 12,
+                                x1: i * 12,
+                                y0: 0,
+                                y1: 1,
+                                xref: 'x',
+                                yref: 'paper',
+                                line: {
+                                    color: 'lightgray',
+                                    width: 1,
+                                    dash: 'dot'
+                                }
+                            })),
+                            title: `Sensor Inputs (Query + Supports)`
+                        });
+
+                        Plotly.newPlot('linePlot-target', target_traces, {
+                            shapes: Array.from({ length: Math.floor(q_target.length / 12) }, (_, i) => ({
+                                type: 'line',
+                                x0: i * 12,
+                                x1: i * 12,
+                                y0: 0,
+                                y1: 1,
+                                xref: 'x',
+                                yref: 'paper',
+                                line: {
+                                    color: 'lightgray',
+                                    width: 1,
+                                    dash: 'dot'
+                                }
+                            })),
+                            title: `Sensor Targets (Query + Supports)`
+                        });
+                    })
+                    .catch(err => console.error('Error fetching from FastAPI:', err));
+            });
+        }
+
+        document.getElementById('datasetSelect').addEventListener('change', (event) => {
+            renderScatter(event.target.value);
+        });
+
+        // 초기 렌더링
+        renderScatter(document.getElementById('datasetSelect').value);
+    </script>
+</body>
+</html>
