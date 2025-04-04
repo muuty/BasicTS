@@ -30,7 +30,7 @@ def get_selection(type: str,
                                  embedding_model=embedding_model)
     elif type == 'coverage_centric':
         scores_path = data_config['IMPORTANCE_SCORES_PATH']
-        scores = np.loadtxt(scores_path, delimiter=',')
+        scores = np.loadtxt("your_file.csv", delimiter=",", usecols=1).tolist()
         return CoverageCentricSelection(dataset,
                                         ratio=selection_ratio,
                                         importance_scores=scores)
