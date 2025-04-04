@@ -49,7 +49,9 @@ def build_data_loader(dataset: Dataset, data_cfg: Dict, model_cfg: Dict = None) 
     selection = get_selection(type=data_cfg.get('SELECTION_STRATEGY'),
                               selection_ratio=data_cfg.get('SELECTION_RATIO'),
                               embedding_model=embedding,
-                              dataset=dataset
+                              dataset=dataset,
+                              data_config=data_cfg,
+                              model_config=model_cfg
                               )
 
     if 'CKPT_SAVE_DIR' in data_cfg:
