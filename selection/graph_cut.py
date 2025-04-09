@@ -17,14 +17,27 @@ class GraphCutSMISelection:
 
     def compute_similarity_matrix(self) -> np.ndarray:
         """
-        Computes Euclidean similarity (negative squared distance).
-        Higher similarity = closer points.
+        Computes pairwise Euclidean similarity between time series samples.
+        For each sample, flatten `inputs[:,:,0]` to 1D vector.
         """
-        X = self.dataset
-        sq = np.sum(X**2, axis=1, keepdims=True)
-        dist_sq = sq + sq.T - 2 * np.dot(X, X.T)
-        sim = -dist_sq  # Negative distance as similarity
-        return sim
+        dataset_size = len(self.dataset)
+
+        # Step 1: Extract input vectors
+        inputs = np.array([
+            self.dataset[i]['inputs'][:, :, 0].flatten()
+            for i in range(dataset_size)
+        ])  # shape: (N, D)
+
+        # Step 2: Compute pairwise Euclidean distances (slower, but explicit)
+        distances = np.array([
+            [np.linalg.norm(inputs[i] - inputs[j]) for j in range(dataset_size)]
+            for i in range(dataset_size)
+        ])  # shape: (N, N)
+
+        # Step 3: Convert distances to similarity (negative distance)
+        similarity = -distances  # Higher similarity = closer
+
+        return similarity
 
     def select_indices(self) -> List[int]:
         np.random.seed(self.seed)
