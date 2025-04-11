@@ -2,6 +2,7 @@ from selection.base import BaseSelection
 from selection.coverage_centric import CoverageCentricSelection
 from selection.embedding.base import BaseEmbedding
 from selection.graph_cut import GraphCutSMISelection
+from selection.herding import HerdingSelection
 from selection.random_selection import RandomSelection
 from selection.recent_selection import RecentSelection
 from selection.k_center_greedy import KCenterGreedySelection
@@ -24,6 +25,13 @@ def get_selection(type: str,
         return RandomSelection(dataset=dataset, ratio=selection_ratio)
     elif type == 'recent':
         return RecentSelection(dataset=dataset, ratio=selection_ratio)
+    elif type == 'herding':
+        return HerdingSelection(
+            dataset=dataset,
+            ratio=selection_ratio,
+            model_config=model_config,
+            embedding_model=embedding_model
+        )
     elif type == 'k_center_greedy':
         return KCenterGreedySelection(dataset=dataset,
                                       ratio=selection_ratio,
