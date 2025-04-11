@@ -29,9 +29,9 @@ adj_mx = torch.Tensor(adj_mx[0])
 MODEL_PARAM = {
     "Ks" : 3,
     "Kt" : 3,
-    "blocks" : [[1], [64, 16, 64], [64, 16, 64], [128, 128], [12]],
+    "blocks" : [[3], [64, 16, 64], [64, 16, 64], [128, 128], [12]],
     "T" : 12,
-    "n_vertex" : 2805,
+    "n_vertex" : 2785,
     "act_func" : "glu",
     "graph_conv_type" : "cheb_graph_conv",
     "gso" : adj_mx,
