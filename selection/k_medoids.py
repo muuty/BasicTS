@@ -9,7 +9,13 @@ from sklearn.metrics.pairwise import euclidean_distances
 
 
 class KMedoidsSelection(BaseSelection):
-    def __init__(self, dataset: Dataset, embedding_model: BaseEmbedding, ratio: float, metric: str = "euclidean"):
+    def __init__(self, 
+            dataset: Dataset, 
+            embedding_model: BaseEmbedding, 
+            ratio: float, 
+            metric: str = "euclidean",
+            model_config: dict = None
+            ):
         """
         K-Medoids-based Selection with Precomputed Distance Matrix
 
@@ -21,6 +27,7 @@ class KMedoidsSelection(BaseSelection):
         self.ratio = ratio
         self.metric = metric  # Determines how distances are calculated
         self.embedding_model = embedding_model
+        self.model_config = model_config
 
     def select_indices(self) -> List[int]:
         """
@@ -31,11 +38,20 @@ class KMedoidsSelection(BaseSelection):
         dataset_size = len(self.dataset)
         sample_size = int(dataset_size * self.ratio)
 
+        mean = np.mean(self.dataset.data, axis=(0,1), keepdims=True)
+        std = np.std(self.dataset.data, axis=(0,1), keepdims=True)
+        std[std == 0] = 1.0
+
+        def transform(input_data):
+            return (input_data - mean) / std
+
         # Extract data from dataset
-        inputs = np.array([self.dataset[i]['inputs'][:,:,0] +
-                           self.dataset[i]['target'][:, :, 0]
+        inputs = np.array([
+                transform(self.dataset[i]['inputs'])[:,:,self.model_config.MODEL.FORWARD_FEATURES] +
+                transform(self.dataset[i]['target'])[:,:,self.model_config.MODEL.TARGET_FEATURES]
                            for i in range(dataset_size)])
         inputs = inputs.reshape(dataset_size, -1)  # Flatten if necessary
+
         # Step 2: Apply Embedding
         embedded_data = self.embedding_model.transform(inputs)  # ✅ t-SNE 등 사용 가능
 

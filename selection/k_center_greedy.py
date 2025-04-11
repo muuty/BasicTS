@@ -1,6 +1,8 @@
 import numpy as np
 import random
 from typing import List
+import torch
+from sklearn.preprocessing import StandardScaler
 from torch.utils.data import Dataset
 from selection.base import BaseSelection
 from selection.embedding.base import BaseEmbedding
@@ -11,7 +13,11 @@ class KCenterGreedySelection(BaseSelection):
     Implements k-Center-Greedy sampling using a given embedding space.
     """
 
-    def __init__(self, dataset: Dataset, ratio: float, embedding_model: BaseEmbedding, seed: int = 42):
+    def __init__(self, 
+            dataset: Dataset, ratio: float, 
+            embedding_model: BaseEmbedding, 
+            model_config: dict,
+            seed: int = 42):
         """
         Args:
             dataset (Dataset): PyTorch dataset with `__getitem__` implemented.
@@ -23,6 +29,7 @@ class KCenterGreedySelection(BaseSelection):
         self.ratio = ratio
         self.embedding_model = embedding_model
         self.seed = seed
+        self.model_config = model_config
 
     def _compute_distance_matrix(self, data_points: np.ndarray) -> np.ndarray:
         """Compute pairwise distance matrix."""
@@ -37,9 +44,18 @@ class KCenterGreedySelection(BaseSelection):
         dataset_size = len(self.dataset)
         sampled_size = int(dataset_size * self.ratio)
 
+        mean = np.mean(self.dataset.data, axis=(0,1), keepdims=True)
+        std = np.std(self.dataset.data, axis=(0,1), keepdims=True)
+        std[std == 0] = 1.0
+
+        def transform(input_data):
+            return (input_data - mean) / std
+
+
         # Convert dataset into numpy array
-        inputs = np.array([self.dataset[i]['inputs'][:,:,0] +
-                           self.dataset[i]['target'][:, :, 0]
+        inputs = np.array([
+            transform(self.dataset[i]['inputs'])[:,:,self.model_config.MODEL.FORWARD_FEATURES] +
+            transform(self.dataset[i]['target'])[:,:,self.model_config.MODEL.TARGET_FEATURES]
                            for i in range(dataset_size)])
         inputs = inputs.reshape(dataset_size, -1)  # Flatten if necessary
 
