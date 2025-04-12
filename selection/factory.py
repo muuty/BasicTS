@@ -49,6 +49,7 @@ def get_selection(type: str,
                                         importance_scores=scores)
     elif type == 'graph_cut':
         return GraphCutSMISelection(dataset=dataset,
-                                        ratio=selection_ratio)
+                                    model_config=model_config,
+                                    ratio=selection_ratio)
     else:
         raise ValueError('Unknown selection type!')
