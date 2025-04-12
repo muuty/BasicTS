@@ -1,5 +1,9 @@
 from typing import List, Optional
 import numpy as np
+import torch
+
+from basicts.data.simple_tsf_dataset import TimeSeriesForecastingDataset
+from selection.utils import get_distance_matrix, get_normalized_input,distance_to_similarity_rbf
 
 class GraphCutSMISelection:
     """
@@ -8,64 +12,51 @@ class GraphCutSMISelection:
     using greedy forward selection.
     """
 
-    def __init__(self, dataset: np.ndarray, ratio: float, seed: int = 42,
-                 precomputed_similarity: Optional[np.ndarray] = None):
+    def __init__(
+            self,
+            dataset: TimeSeriesForecastingDataset,
+            ratio: float,
+            model_config: dict,
+            seed: int = 42
+    ):
         self.dataset = dataset  # shape: (n, d)
         self.ratio = ratio
+        self.model_config = model_config
         self.seed = seed
-        self.similarity_matrix = precomputed_similarity  # shape: (n, n) or None
-
-    def compute_similarity_matrix(self) -> np.ndarray:
-        """
-        Computes pairwise Euclidean similarity between time series samples.
-        For each sample, flatten `inputs[:,:,0]` to 1D vector.
-        """
-        dataset_size = len(self.dataset)
-
-        # Step 1: Extract input vectors
-        inputs = np.array([
-            self.dataset[i]['inputs'][:, :, 0].flatten()
-            for i in range(dataset_size)
-        ])  # shape: (N, D)
-
-        # Step 2: Compute pairwise Euclidean distances (slower, but explicit)
-        distances = np.array([
-            [np.linalg.norm(inputs[i] - inputs[j]) for j in range(dataset_size)]
-            for i in range(dataset_size)
-        ])  # shape: (N, N)
-
-        # Step 3: Convert distances to similarity (negative distance)
-        similarity = -distances  # Higher similarity = closer
-
-        return similarity
 
     def select_indices(self) -> List[int]:
         np.random.seed(self.seed)
-        n = len(self.dataset)
-        k = int(n * self.ratio)
+        N = len(self.dataset)
+        k = int(N * self.ratio)
 
-        # Compute similarity matrix if not provided
-        if self.similarity_matrix is None:
-            self.similarity_matrix = self.compute_similarity_matrix()
+        # Step 1: Compute distance matrix
+        inputs = get_normalized_input(self.dataset, self.model_config)
+        distance_matrix = get_distance_matrix(inputs)
+        distance_matrix= torch.from_numpy(distance_matrix).to('cuda').float()
+        similarity_matrix = distance_to_similarity_rbf(distance_matrix)
 
-        selected = set()
-        remaining = set(range(n))
+        selected_mask = torch.zeros(N, dtype=torch.bool, device=similarity_matrix.device)
+        gain = torch.zeros(N, device=similarity_matrix.device)
+
+        selected = []
 
         for _ in range(k):
-            max_gain = -np.inf
-            best_idx = -1
+            remaining_mask = ~selected_mask
 
-            for i in remaining:
-                Ai = selected | {i}
-                Bi = remaining - {i}
-                if not Bi:
-                    continue
-                gain = np.sum(self.similarity_matrix[np.ix_(list(Ai), list(Bi))]) * 2
-                if gain > max_gain:
-                    max_gain = gain
-                    best_idx = i
+            if selected:
+                # similarity to selected set (N,)
+                gain = similarity_matrix[:, selected_mask].sum(dim=1)
+            else:
+                gain.zero_()
 
-            selected.add(best_idx)
-            remaining.remove(best_idx)
+            # similarity to remaining set
+            gain += similarity_matrix[:, remaining_mask].sum(dim=1)
 
-        return list(selected)
+            # exclude already selected
+            gain[selected_mask] = -float('inf')
+
+            best_idx = torch.argmax(gain).item()
+            selected.append(best_idx)
+            selected_mask[best_idx] = True
+
+        return selected
