@@ -1,6 +1,7 @@
 from selection.base import BaseSelection
 from selection.coverage_centric import CoverageCentricSelection
 from selection.embedding.base import BaseEmbedding
+from selection.facility_location import FacilityLocationSelection
 from selection.graph_cut import GraphCutSMISelection
 from selection.herding import HerdingSelection
 from selection.random_selection import RandomSelection
@@ -51,5 +52,9 @@ def get_selection(type: str,
         return GraphCutSMISelection(dataset=dataset,
                                     model_config=model_config,
                                     ratio=selection_ratio)
+    elif type == 'facility_location':
+        return FacilityLocationSelection(dataset=dataset,
+                                         model_config=model_config,
+                                         ratio=selection_ratio)
     else:
         raise ValueError('Unknown selection type!')
