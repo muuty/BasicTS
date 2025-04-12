@@ -139,4 +139,4 @@ CFG.EVAL = EasyDict()
 
 # Evaluation parameters
 CFG.EVAL.HORIZONS = [3, 6, 12] # Prediction horizons for evaluation. Default: []
-CFG.EVAL.USE_GPU = True # Whether to use GPU for evaluation. Default: True
+CFG.EVAL.USE_GPU = False  # Whether to use GPU for evaluation. Default: True

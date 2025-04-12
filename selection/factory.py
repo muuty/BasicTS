@@ -40,6 +40,7 @@ def get_selection(type: str,
     elif type == 'k_medoids':
         return KMedoidsSelection(dataset=dataset,
                                  ratio=selection_ratio,
+                                 model_config=model_config,
                                  embedding_model=embedding_model)
     elif type == 'coverage_centric':
         scores = np.loadtxt(data_config['IMPORTANCE_SCORES_PATH'], delimiter=",", usecols=1)

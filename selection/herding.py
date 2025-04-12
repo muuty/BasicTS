@@ -69,4 +69,4 @@ class HerdingSelection(BaseSelection):
             # Herding update
             w = w + (mu - inputs[index])
 
-        return selected_indices
+        return [int(index) for index in selected_indices]
