@@ -11,6 +11,9 @@ from selection.k_medoids import KMedoidsSelection
 from torch.utils.data import Dataset
 import numpy as np
 
+from selection.stride import StrideSelection
+
+
 def get_selection(type: str,
                   selection_ratio: float,
                   embedding_model: BaseEmbedding | None,
@@ -26,6 +29,8 @@ def get_selection(type: str,
         return RandomSelection(dataset=dataset, ratio=selection_ratio)
     elif type == 'recent':
         return RecentSelection(dataset=dataset, ratio=selection_ratio)
+    elif type == 'stride':
+        return StrideSelection(dataset=dataset, ratio=selection_ratio)
     elif type == 'herding':
         return HerdingSelection(
             dataset=dataset,
