@@ -2,7 +2,7 @@ from typing import List
 import numpy as np
 import torch
 
-from basicts.data.simple_tsf_dataset import TimeSeriesForecastingDataset
+from torch.utils.data import Dataset
 from selection.utils import get_distance_matrix, get_normalized_input, distance_to_similarity_rbf
 
 class FacilityLocationSelection:
@@ -14,7 +14,7 @@ class FacilityLocationSelection:
 
     def __init__(
             self,
-            dataset: TimeSeriesForecastingDataset,
+            dataset: Dataset,
             ratio: float,
             model_config: dict,
             seed: int = 42

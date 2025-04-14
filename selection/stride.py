@@ -1,6 +1,6 @@
 from typing import List
 import numpy as np
-from basicts.data.simple_tsf_dataset import TimeSeriesForecastingDataset
+from torch.utils.data import Dataset
 
 class StrideSelection:
     """
@@ -10,7 +10,7 @@ class StrideSelection:
 
     def __init__(
         self,
-        dataset: TimeSeriesForecastingDataset,
+        dataset: Dataset,
         ratio: float,
         seed: int = 42
     ):
