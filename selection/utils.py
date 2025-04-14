@@ -1,7 +1,7 @@
 import numpy as np
 import torch
 
-from basicts.data.simple_tsf_dataset import TimeSeriesForecastingDataset
+from torch.utils.data import Dataset
 
 
 def get_distance_matrix(x_np: np.ndarray, device: str = 'cuda', batch_size: int = 512) -> np.ndarray:
@@ -32,7 +32,7 @@ def get_distance_matrix(x_np: np.ndarray, device: str = 'cuda', batch_size: int 
     return dist_mat.numpy()        # GPU → CPU
 
 
-def get_normalized_input(dataset: TimeSeriesForecastingDataset, model_config: dict) -> np.ndarray:
+def get_normalized_input(dataset: Dataset, model_config: dict) -> np.ndarray:
     mean = np.mean(dataset.data, axis=(0,1), keepdims=True)
     std = np.std(dataset.data, axis=(0,1), keepdims=True)
     std[std == 0] = 1.0
