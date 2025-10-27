@@ -7,14 +7,16 @@ sys.path.append(os.path.abspath(__file__ + '/../../..'))
 from basicts.metrics import masked_mae, masked_mape, masked_rmse
 from basicts.data import TimeSeriesForecastingDataset
 from basicts.runners import SimpleTimeSeriesForecastingRunner
+from contrastive.contrastive_loss import CosineDistanceLoss
 from basicts.scaler import ZScoreScaler
-from basicts.utils import get_regular_settings
+from basicts.utils import get_regular_settings, load_adj
 
-from .arch import STAEformer
+from .arch import STGCN
+from basicts.runners import IncidentAwareRunner
 
 ############################## Hot Parameters ##############################
 # Dataset & Metrics configuration
-DATA_NAME = 'PEMS03'  # Dataset name
+DATA_NAME = 'xtraffic/SAN_BERNARDINO'  # Dataset name
 regular_settings = get_regular_settings(DATA_NAME)
 INPUT_LEN = regular_settings['INPUT_LEN']  # Length of input sequence
 OUTPUT_LEN = regular_settings['OUTPUT_LEN']  # Length of output sequence
@@ -23,24 +25,20 @@ NORM_EACH_CHANNEL = regular_settings['NORM_EACH_CHANNEL'] # Whether to normalize
 RESCALE = regular_settings['RESCALE'] # Whether to rescale the data
 NULL_VAL = regular_settings['NULL_VAL'] # Null value in the data
 # Model architecture and parameters
-MODEL_ARCH = STAEformer
-
+MODEL_ARCH = STGCN
+adj_mx, _ = load_adj("datasets/" + DATA_NAME + "/adj_mx.pkl", "normlap")
+adj_mx = torch.Tensor(adj_mx[0])
 MODEL_PARAM = {
-    "in_steps": INPUT_LEN,
-    "out_steps": OUTPUT_LEN,
-    "steps_per_day": 288, # number of time steps per day
-    "input_dim": 3, # the C in [B, L, N, C]
-    "output_dim": 1,
-    "input_embedding_dim": 24,
-    "tod_embedding_dim": 24,
-    "dow_embedding_dim": 24,
-    "spatial_embedding_dim": 0,
-    "adaptive_embedding_dim": 80,
-    "feed_forward_dim": 256,
-    "num_heads": 4,
-    "num_layers": 3,
-    "dropout": 0.1,
-    "use_mixed_proj": True,
+    "Ks" : 3,
+    "Kt" : 3,
+    "blocks" : [[1], [64, 16, 64], [64, 16, 64], [128, 128], [12]],
+    "T" : 12,
+    "n_vertex" : 893,
+    "act_func" : "glu",
+    "graph_conv_type" : "cheb_graph_conv",
+    "gso" : adj_mx,
+    "bias": True,
+    "droprate" : 0.5
 }
 NUM_EPOCHS = 100
 
@@ -50,7 +48,13 @@ CFG = EasyDict()
 CFG.DESCRIPTION = 'An Example Config'
 CFG.GPU_NUM = 1 # Number of GPUs to use (0 for CPU mode)
 # Runner
-CFG.RUNNER = SimpleTimeSeriesForecastingRunner
+CFG.RUNNER = IncidentAwareRunner
+
+############################## Contrastive Loss Configuration ##############################
+CFG.CONTRASTIVE_LOSS = CosineDistanceLoss(
+    adj=adj_mx,
+)
+CFG.CONTRASTIVE_LOSS_WEIGHT = 0.01
 
 ############################## Dataset Configuration ##############################
 CFG.DATASET = EasyDict()
@@ -82,7 +86,7 @@ CFG.MODEL = EasyDict()
 CFG.MODEL.NAME = MODEL_ARCH.__name__
 CFG.MODEL.ARCH = MODEL_ARCH
 CFG.MODEL.PARAM = MODEL_PARAM
-CFG.MODEL.FORWARD_FEATURES = [0, 1, 2]
+CFG.MODEL.FORWARD_FEATURES = [0]
 CFG.MODEL.TARGET_FEATURES = [0]
 
 ############################## Metrics Configuration ##############################
@@ -103,22 +107,22 @@ CFG.TRAIN.NUM_EPOCHS = NUM_EPOCHS
 CFG.TRAIN.CKPT_SAVE_DIR = os.path.join(
     'checkpoints',
     MODEL_ARCH.__name__,
-    '_'.join([DATA_NAME, str(CFG.TRAIN.NUM_EPOCHS), str(INPUT_LEN), str(OUTPUT_LEN)])
+    '_'.join([DATA_NAME, "CL",str(CFG.CONTRASTIVE_LOSS_WEIGHT), str(CFG.TRAIN.NUM_EPOCHS), str(INPUT_LEN), str(OUTPUT_LEN)])
 )
 CFG.TRAIN.LOSS = masked_mae
 # Optimizer settings
 CFG.TRAIN.OPTIM = EasyDict()
 CFG.TRAIN.OPTIM.TYPE = "Adam"
 CFG.TRAIN.OPTIM.PARAM = {
-    "lr": 0.001,
+    "lr": 0.0004,
     "weight_decay": 0.0003,
 }
 # Learning rate scheduler settings
 CFG.TRAIN.LR_SCHEDULER = EasyDict()
 CFG.TRAIN.LR_SCHEDULER.TYPE = "MultiStepLR"
 CFG.TRAIN.LR_SCHEDULER.PARAM = {
-    "milestones": [20, 25],
-    "gamma": 0.1
+    "milestones": [1, 50],
+    "gamma": 0.5
 }
 # Train data loader settings
 CFG.TRAIN.DATA = EasyDict()
@@ -136,6 +140,8 @@ CFG.TEST = EasyDict()
 CFG.TEST.INTERVAL = 1
 CFG.TEST.DATA = EasyDict()
 CFG.TEST.DATA.BATCH_SIZE = 64
+# Incident metadata for incident-specific evaluation
+CFG.TEST.INCIDENT_METADATA_PATH = f"datasets/{DATA_NAME}/incident_metadata_2023.csv"
 
 ############################## Evaluation Configuration ##############################
 
