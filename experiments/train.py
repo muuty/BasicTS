@@ -21,7 +21,7 @@ def parse_args():
 
 def main():
     args = parse_args()
-    basicts.launch_training(args.cfg, 'mps', node_rank=0)
+    basicts.launch_training(args.cfg, '0', node_rank=0)
 
 
 if __name__ == '__main__':

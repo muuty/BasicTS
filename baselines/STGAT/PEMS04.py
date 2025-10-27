@@ -8,13 +8,13 @@ from basicts.metrics import masked_mae, masked_mape, masked_rmse
 from basicts.data import TimeSeriesForecastingDataset
 from basicts.runners import SimpleTimeSeriesForecastingRunner
 from basicts.scaler import ZScoreScaler
-from basicts.utils import get_regular_settings
+from basicts.utils import get_regular_settings, load_adj
 
-from .arch import STAEformer
+from .arch.model import GATSTAEformer
 
 ############################## Hot Parameters ##############################
 # Dataset & Metrics configuration
-DATA_NAME = 'PEMS03'  # Dataset name
+DATA_NAME = 'PEMS04'  # Dataset name
 regular_settings = get_regular_settings(DATA_NAME)
 INPUT_LEN = regular_settings['INPUT_LEN']  # Length of input sequence
 OUTPUT_LEN = regular_settings['OUTPUT_LEN']  # Length of output sequence
@@ -23,24 +23,24 @@ NORM_EACH_CHANNEL = regular_settings['NORM_EACH_CHANNEL'] # Whether to normalize
 RESCALE = regular_settings['RESCALE'] # Whether to rescale the data
 NULL_VAL = regular_settings['NULL_VAL'] # Null value in the data
 # Model architecture and parameters
-MODEL_ARCH = STAEformer
-
+MODEL_ARCH = GATSTAEformer
+adj_mx, _ = load_adj("datasets/" + DATA_NAME + "/adj_mx.pkl", "normlap")
+adj_mx = torch.Tensor(adj_mx[0])
 MODEL_PARAM = {
     "in_steps": INPUT_LEN,
     "out_steps": OUTPUT_LEN,
-    "steps_per_day": 288, # number of time steps per day
-    "input_dim": 3, # the C in [B, L, N, C]
+    "steps_per_day": 288,
+    "input_dim": 1,
     "output_dim": 1,
-    "input_embedding_dim": 24,
+    "input_embedding_dim": 48,
     "tod_embedding_dim": 24,
     "dow_embedding_dim": 24,
-    "spatial_embedding_dim": 0,
-    "adaptive_embedding_dim": 80,
     "feed_forward_dim": 256,
+    "model_dim": 96,
     "num_heads": 4,
     "num_layers": 3,
-    "dropout": 0.1,
-    "use_mixed_proj": True,
+    "adj_mx": adj_mx,
+    "dropout": 0.1
 }
 NUM_EPOCHS = 100
 
@@ -117,8 +117,8 @@ CFG.TRAIN.OPTIM.PARAM = {
 CFG.TRAIN.LR_SCHEDULER = EasyDict()
 CFG.TRAIN.LR_SCHEDULER.TYPE = "MultiStepLR"
 CFG.TRAIN.LR_SCHEDULER.PARAM = {
-    "milestones": [20, 25],
-    "gamma": 0.1
+    "milestones": [1, 50],
+    "gamma": 0.5
 }
 # Train data loader settings
 CFG.TRAIN.DATA = EasyDict()

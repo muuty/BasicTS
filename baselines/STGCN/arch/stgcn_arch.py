@@ -60,9 +60,11 @@ class STGCNChebGraphConv(nn.Module):
             torch.Tensor: prediction with shape [B, L, N, C]
         """
         x = history_data.permute(0, 3, 1, 2).contiguous()
-
         x = self.st_blocks(x)
+        repr = x.clone()                      # <-- representation
         x = self.output(x)
-
         x = x.transpose(2, 3)
-        return x
+        return {
+            'prediction': x,
+            'repr': repr                       # 추가
+        }
