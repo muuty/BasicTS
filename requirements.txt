@@ -1,3 +1,4 @@
+easy-torch
 easydict
 packaging
 setproctitle
@@ -8,3 +9,4 @@ sympy
 openpyxl
 setuptools==59.5.0
 numpy==1.24.4
+requests
