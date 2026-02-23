@@ -1,0 +1,19 @@
+description: "Test offline selection workflow: pre-compute indices, then train multiple models"
+
+# Step 1: Run `python experiments/select_coreset.py --cfg experiments/config/test_offline_selection.yaml`
+#   -> Generates coreset_indices/SAN_BERNARDINO/k_center_temporal_010_seed42.json
+#
+# Step 2: Run `python experiments/run_experiments.py --cfg experiments/config/test_offline_selection.yaml --arch=cuda`
+#   -> Each model loads the pre-computed indices (no re-selection)
+
+runs:
+  - name: "test_offline"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/AGCRN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["k_center"]
+      CORESET.SELECTION_RATIO: [0.1]
+      CORESET.DISTANCE_TYPE: ["temporal"]
+      CORESET.SEED: [42]
+      CORESET.INDEX_FILE: ["coreset_indices/SAN_BERNARDINO/k_center_temporal_010_seed42.json"]

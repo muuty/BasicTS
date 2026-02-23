@@ -1,0 +1,12 @@
+description: "Phase A: Cosine pipeline training (all distance-dependent methods)"
+
+runs:
+  - name: "phase_a_dist"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["k_center", "k_medoids", "graph_cut"]
+      CORESET.SELECTION_RATIO: [0.3, 0.7]
+      CORESET.DISTANCE_TYPE: ["cosine_raw", "cosine_temporal", "cosine_spatial", "cosine_combined"]
+      CORESET.SEED: [42, 123]

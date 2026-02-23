@@ -1,0 +1,14 @@
+description: "Phase A: Facility Location selection (all 8 distance types)"
+
+# Run: python experiments/select_coreset.py --cfg experiments/config/phase_a_facility_location.yaml --gpus 0
+
+runs:
+  - name: "facility_location"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["facility_location"]
+      CORESET.SELECTION_RATIO: [0.3, 0.7]
+      CORESET.DISTANCE_TYPE: ["euclidean", "temporal", "spatial", "combined",
+                               "cosine_raw", "cosine_temporal", "cosine_spatial", "cosine_combined"]
+      CORESET.SEED: [42, 123]

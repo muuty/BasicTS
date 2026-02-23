@@ -1,0 +1,34 @@
+description: "Adjacency Matrix Methods Comparison (Phase 1a): 4 adj methods x 2 models x 1 dataset x 3 seeds = 24 runs"
+
+runs:
+  # GWNet on SAN_BERNARDINO (12 runs)
+  - name: "GWNet_SAN_BERNARDINO"
+    configs:
+      - "project/adjacency_matrix/configs/GWNet_SAN_BERNARDINO_distance_s42.py"
+      - "project/adjacency_matrix/configs/GWNet_SAN_BERNARDINO_distance_s123.py"
+      - "project/adjacency_matrix/configs/GWNet_SAN_BERNARDINO_distance_s456.py"
+      - "project/adjacency_matrix/configs/GWNet_SAN_BERNARDINO_distance_sparse_s42.py"
+      - "project/adjacency_matrix/configs/GWNet_SAN_BERNARDINO_distance_sparse_s123.py"
+      - "project/adjacency_matrix/configs/GWNet_SAN_BERNARDINO_distance_sparse_s456.py"
+      - "project/adjacency_matrix/configs/GWNet_SAN_BERNARDINO_distance_dense_s42.py"
+      - "project/adjacency_matrix/configs/GWNet_SAN_BERNARDINO_distance_dense_s123.py"
+      - "project/adjacency_matrix/configs/GWNet_SAN_BERNARDINO_distance_dense_s456.py"
+      - "project/adjacency_matrix/configs/GWNet_SAN_BERNARDINO_identity_s42.py"
+      - "project/adjacency_matrix/configs/GWNet_SAN_BERNARDINO_identity_s123.py"
+      - "project/adjacency_matrix/configs/GWNet_SAN_BERNARDINO_identity_s456.py"
+
+  # MTGNN on SAN_BERNARDINO (12 runs)
+  - name: "MTGNN_SAN_BERNARDINO"
+    configs:
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_distance_s42.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_distance_s123.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_distance_s456.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_distance_sparse_s42.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_distance_sparse_s123.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_distance_sparse_s456.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_distance_dense_s42.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_distance_dense_s123.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_distance_dense_s456.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_identity_s42.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_identity_s123.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_identity_s456.py"

@@ -1,0 +1,16 @@
+description: "Phase A: Facility Location training (all 8 distance types)"
+
+# Submit after selection completes:
+#   python experiments/run_experiments.py --cfg experiments/config/phase_a_facility_location_training.yaml --arch=cuda --batch-size 5
+
+runs:
+  - name: "phase_a_fl"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["facility_location"]
+      CORESET.SELECTION_RATIO: [0.3, 0.7]
+      CORESET.DISTANCE_TYPE: ["euclidean", "temporal", "spatial", "combined",
+                               "cosine_raw", "cosine_temporal", "cosine_spatial", "cosine_combined"]
+      CORESET.SEED: [42, 123]

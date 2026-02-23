@@ -1,0 +1,14 @@
+description: "MTGNN SAN_BERNARDINO distance fix (normalize bug)"
+
+runs:
+  - name: "MTGNN_SB_distance_fix"
+    configs:
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_distance_s42.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_distance_s123.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_distance_s456.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_distance_sparse_s42.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_distance_sparse_s123.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_distance_sparse_s456.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_distance_dense_s42.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_distance_dense_s123.py"
+      - "project/adjacency_matrix/configs/MTGNN_SAN_BERNARDINO_distance_dense_s456.py"

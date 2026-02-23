@@ -1,0 +1,25 @@
+description: "Phase A remaining selections: L2 graph_cut + all cosine pipeline"
+
+# select_coreset.py will SKIP existing index files automatically.
+# Run: python experiments/select_coreset.py --cfg experiments/config/phase_a_selection_remaining.yaml --gpus 0
+
+runs:
+  # --- L2 graph_cut (corrected implementation, old indices deleted) ---
+  - name: "l2_graph_cut"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["graph_cut"]
+      CORESET.SELECTION_RATIO: [0.3, 0.7]
+      CORESET.DISTANCE_TYPE: ["euclidean", "temporal", "spatial", "combined"]
+      CORESET.SEED: [42, 123]
+
+  # --- Cosine pipeline: all distance-dependent methods ---
+  - name: "cosine_all"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["k_center", "k_medoids", "graph_cut"]
+      CORESET.SELECTION_RATIO: [0.3, 0.7]
+      CORESET.DISTANCE_TYPE: ["cosine_raw", "cosine_temporal", "cosine_spatial", "cosine_combined"]
+      CORESET.SEED: [42, 123]

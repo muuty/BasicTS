@@ -1,0 +1,11 @@
+description: "Quick pipeline test: new distance functions + k_center"
+
+runs:
+  - name: "test_pipeline"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["k_center"]
+      CORESET.SELECTION_RATIO: [0.1]
+      CORESET.DISTANCE_TYPE: ["temporal"]
+      CORESET.SEED: [42]

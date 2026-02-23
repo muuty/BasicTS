@@ -1,0 +1,24 @@
+description: "Phase A remaining: baseline methods + full data"
+
+runs:
+  # --- Baseline methods (distance-independent) ---
+  # 3 methods x 2 ratios x 2 seeds x 2 models = 24 training runs
+  - name: "phase_a_baseline"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["random", "stride", "recent"]
+      CORESET.SELECTION_RATIO: [0.3, 0.7]
+      CORESET.DISTANCE_TYPE: ["euclidean"]
+      CORESET.SEED: [42, 123]
+
+  # --- Full data baseline (no coreset, ratio=1.0) ---
+  - name: "phase_a_full"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["random"]
+      CORESET.SELECTION_RATIO: [1.0]
+      CORESET.SEED: [42, 123]

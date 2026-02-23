@@ -7,10 +7,10 @@ sys.path.append(os.path.abspath(__file__ + '/../../..'))
 from basicts.metrics import masked_mae, masked_mape, masked_rmse
 from basicts.data import TimeSeriesForecastingDataset
 from basicts.runners import SimpleTimeSeriesForecastingRunner
-from contrastive.contrastive_loss import CosineDistanceLoss
+from contrastive.contrastive_loss import CosineDistanceLossReverse
 from basicts.scaler import ZScoreScaler
 from basicts.utils import get_regular_settings, load_adj
-
+from contrastive.augmentation import BaseGSO
 from .arch import STGCN
 from basicts.runners import IncidentAwareRunner
 
@@ -28,6 +28,7 @@ NULL_VAL = regular_settings['NULL_VAL'] # Null value in the data
 MODEL_ARCH = STGCN
 adj_mx, _ = load_adj("datasets/" + DATA_NAME + "/adj_mx.pkl", "normlap")
 adj_mx = torch.Tensor(adj_mx[0])
+gso = BaseGSO(adj_mx)
 MODEL_PARAM = {
     "Ks" : 3,
     "Kt" : 3,
@@ -36,7 +37,7 @@ MODEL_PARAM = {
     "n_vertex" : 893,
     "act_func" : "glu",
     "graph_conv_type" : "cheb_graph_conv",
-    "gso" : adj_mx,
+    "gso" : gso,
     "bias": True,
     "droprate" : 0.5
 }
@@ -51,7 +52,7 @@ CFG.GPU_NUM = 1 # Number of GPUs to use (0 for CPU mode)
 CFG.RUNNER = IncidentAwareRunner
 
 ############################## Contrastive Loss Configuration ##############################
-CFG.CONTRASTIVE_LOSS = CosineDistanceLoss(
+CFG.CONTRASTIVE_LOSS = CosineDistanceLossReverse(
     adj=adj_mx,
 )
 CFG.CONTRASTIVE_LOSS_WEIGHT = 0.02
@@ -107,7 +108,7 @@ CFG.TRAIN.NUM_EPOCHS = NUM_EPOCHS
 CFG.TRAIN.CKPT_SAVE_DIR = os.path.join(
     'checkpoints',
     MODEL_ARCH.__name__,
-    '_'.join([DATA_NAME, "CL",str(CFG.CONTRASTIVE_LOSS_WEIGHT), str(CFG.TRAIN.NUM_EPOCHS), str(INPUT_LEN), str(OUTPUT_LEN)])
+    '_'.join([DATA_NAME, "COS_rev",str(CFG.CONTRASTIVE_LOSS_WEIGHT), str(CFG.TRAIN.NUM_EPOCHS), str(INPUT_LEN), str(OUTPUT_LEN)])
 )
 CFG.TRAIN.LOSS = masked_mae
 # Optimizer settings

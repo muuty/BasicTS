@@ -1,0 +1,11 @@
+description: "Coreset - SACRAMENTO (AGCRN, STGCN)"
+
+runs:
+  - name: "SACRAMENTO"
+    configs:
+      - "baselines/AGCRN/SACRAMENTO/SACRAMENTO.py"
+      - "baselines/STGCN/SACRAMENTO/SACRAMENTO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["k_medoids"]
+      CORESET.SELECTION_RATIO: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+      CORESET.SEED: [42]

@@ -1,0 +1,34 @@
+description: "Adjacency Matrix Methods Comparison (Phase 1a): CONTRA_COSTA - 4 adj methods x 2 models x 3 seeds = 24 runs"
+
+runs:
+  # GWNet on CONTRA_COSTA (12 runs)
+  - name: "GWNet_CONTRA_COSTA"
+    configs:
+      - "project/adjacency_matrix/configs/GWNet_CONTRA_COSTA_distance_s42.py"
+      - "project/adjacency_matrix/configs/GWNet_CONTRA_COSTA_distance_s123.py"
+      - "project/adjacency_matrix/configs/GWNet_CONTRA_COSTA_distance_s456.py"
+      - "project/adjacency_matrix/configs/GWNet_CONTRA_COSTA_distance_sparse_s42.py"
+      - "project/adjacency_matrix/configs/GWNet_CONTRA_COSTA_distance_sparse_s123.py"
+      - "project/adjacency_matrix/configs/GWNet_CONTRA_COSTA_distance_sparse_s456.py"
+      - "project/adjacency_matrix/configs/GWNet_CONTRA_COSTA_distance_dense_s42.py"
+      - "project/adjacency_matrix/configs/GWNet_CONTRA_COSTA_distance_dense_s123.py"
+      - "project/adjacency_matrix/configs/GWNet_CONTRA_COSTA_distance_dense_s456.py"
+      - "project/adjacency_matrix/configs/GWNet_CONTRA_COSTA_identity_s42.py"
+      - "project/adjacency_matrix/configs/GWNet_CONTRA_COSTA_identity_s123.py"
+      - "project/adjacency_matrix/configs/GWNet_CONTRA_COSTA_identity_s456.py"
+
+  # MTGNN on CONTRA_COSTA (12 runs)
+  - name: "MTGNN_CONTRA_COSTA"
+    configs:
+      - "project/adjacency_matrix/configs/MTGNN_CONTRA_COSTA_distance_s42.py"
+      - "project/adjacency_matrix/configs/MTGNN_CONTRA_COSTA_distance_s123.py"
+      - "project/adjacency_matrix/configs/MTGNN_CONTRA_COSTA_distance_s456.py"
+      - "project/adjacency_matrix/configs/MTGNN_CONTRA_COSTA_distance_sparse_s42.py"
+      - "project/adjacency_matrix/configs/MTGNN_CONTRA_COSTA_distance_sparse_s123.py"
+      - "project/adjacency_matrix/configs/MTGNN_CONTRA_COSTA_distance_sparse_s456.py"
+      - "project/adjacency_matrix/configs/MTGNN_CONTRA_COSTA_distance_dense_s42.py"
+      - "project/adjacency_matrix/configs/MTGNN_CONTRA_COSTA_distance_dense_s123.py"
+      - "project/adjacency_matrix/configs/MTGNN_CONTRA_COSTA_distance_dense_s456.py"
+      - "project/adjacency_matrix/configs/MTGNN_CONTRA_COSTA_identity_s42.py"
+      - "project/adjacency_matrix/configs/MTGNN_CONTRA_COSTA_identity_s123.py"
+      - "project/adjacency_matrix/configs/MTGNN_CONTRA_COSTA_identity_s456.py"

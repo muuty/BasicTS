@@ -1,0 +1,11 @@
+description: "Coreset - SAN_BERNARDINO (STGformer, STAEformer)"
+
+runs:
+  - name: "SAN_BERNARDINO"
+    configs:
+      - "baselines/STGformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["k_medoids"]
+      CORESET.SELECTION_RATIO: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+      CORESET.SEED: [42]

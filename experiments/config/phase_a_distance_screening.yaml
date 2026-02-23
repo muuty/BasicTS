@@ -1,0 +1,47 @@
+description: "Phase A: Distance screening — find best distance function(s)"
+
+# Experiment grid: 4 representations x 2 metrics = 8 distance types
+#   representation: raw, temporal, spatial, combined
+#   metric:         L2 (euclidean+RBF), cosine
+#
+# Workflow:
+#   1. python experiments/select_coreset.py --cfg experiments/config/phase_a_distance_screening.yaml --gpus 0
+#   2. python experiments/run_experiments.py --cfg experiments/config/phase_a_distance_screening.yaml --arch=cuda
+
+runs:
+  # --- Distance-dependent methods (k_center, k_medoids, graph_cut) ---
+  # 3 methods x 8 distances x 2 ratios x 2 seeds = 96 unique selections
+  # x 2 models = 192 training runs
+  - name: "phase_a_dist"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["k_center", "k_medoids", "graph_cut"]
+      CORESET.SELECTION_RATIO: [0.3, 0.7]
+      CORESET.DISTANCE_TYPE: ["euclidean", "temporal", "spatial", "combined",
+                               "cosine_raw", "cosine_temporal", "cosine_spatial", "cosine_combined"]
+      CORESET.SEED: [42, 123]
+
+  # --- Baseline methods (distance-independent, for reference) ---
+  # 3 methods x 2 ratios x 2 seeds = 12 unique selections
+  # x 2 models = 24 training runs
+  - name: "phase_a_baseline"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["random", "stride", "recent"]
+      CORESET.SELECTION_RATIO: [0.3, 0.7]
+      CORESET.DISTANCE_TYPE: ["euclidean"]
+      CORESET.SEED: [42, 123]
+
+  # --- Full data baseline (no coreset, ratio=1.0) ---
+  - name: "phase_a_full"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["random"]
+      CORESET.SELECTION_RATIO: [1.0]
+      CORESET.SEED: [42, 123]

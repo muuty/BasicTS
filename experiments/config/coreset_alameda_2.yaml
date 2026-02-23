@@ -1,0 +1,11 @@
+description: "Coreset - ALAMEDA (STGformer, STAEformer)"
+
+runs:
+  - name: "ALAMEDA"
+    configs:
+      - "baselines/STGformer/ALAMEDA/ALAMEDA.py"
+      - "baselines/STAEformer/ALAMEDA/ALAMEDA.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["k_medoids"]
+      CORESET.SELECTION_RATIO: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+      CORESET.SEED: [42]

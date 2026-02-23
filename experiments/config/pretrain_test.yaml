@@ -1,0 +1,6 @@
+description: "ContextAwareSTEncoder Pre-training Test"
+
+runs:
+  - name: "pretrain_test"
+    configs:
+      - "baselines/Encoder/SAN_BERNARDINO_pretrain.py"

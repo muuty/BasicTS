@@ -1,0 +1,10 @@
+description: "Re-run graph_cut selections with corrected implementation"
+
+dataset: "xtraffic/SAN_BERNARDINO"
+model_config: "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+
+selections:
+  - method: "graph_cut"
+    distance_types: ["euclidean", "temporal", "spatial", "combined"]
+    ratios: [0.3, 0.7]
+    seeds: [42, 123]

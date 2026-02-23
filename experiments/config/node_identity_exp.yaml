@@ -1,0 +1,21 @@
+# Node Identity Preservation Experiments
+#
+# Goal: Test if preserving node identity improves performance on incident cases
+#
+# Experiments:
+# 1. Baseline STGCN (for comparison)
+# 2. STGCN + Node Identity Embedding
+# 3. STGCN with Weakened Message Passing (alpha=0.5)
+
+runs:
+  - name: "baseline"
+    configs:
+      - baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO.py
+
+  - name: "node_identity"
+    configs:
+      - baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO_node_identity.py
+
+  - name: "weakened_mp"
+    configs:
+      - baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO_weakened_mp.py

@@ -1,0 +1,21 @@
+description: "Experience Replay"
+
+runs:
+  - name: "Replay"
+    configs:
+      # - "baselines/AGCRN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      # - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STGformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      # - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["k_medoids"]
+      CORESET.SELECTION_RATIO: [0.1, 0.5, 1.0]
+      CORESET.SEED: [42]
+
+
+  - name: "baseline"
+    configs:
+      # - "baselines/AGCRN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      # - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STGformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      # - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"

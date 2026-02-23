@@ -1,0 +1,11 @@
+description: "Phase A: STAEformer distance-dependent runs (k_center + k_medoids)"
+
+runs:
+  - name: "phase_a_dist"
+    configs:
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["k_center", "k_medoids"]
+      CORESET.SELECTION_RATIO: [0.3, 0.7]
+      CORESET.DISTANCE_TYPE: ["euclidean", "temporal", "spatial", "combined"]
+      CORESET.SEED: [42, 123]

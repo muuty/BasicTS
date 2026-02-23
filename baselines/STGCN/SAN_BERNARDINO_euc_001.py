@@ -7,7 +7,7 @@ sys.path.append(os.path.abspath(__file__ + '/../../..'))
 from basicts.metrics import masked_mae, masked_mape, masked_rmse
 from basicts.data import TimeSeriesForecastingDataset
 from basicts.runners import SimpleTimeSeriesForecastingRunner
-from contrastive.contrastive_loss import EuclideanDistanceLoss
+from contrastive.contrastive_loss import EuclideanDistanceLossReverse
 from basicts.scaler import ZScoreScaler
 from basicts.utils import get_regular_settings, load_adj
 
@@ -51,7 +51,7 @@ CFG.GPU_NUM = 1 # Number of GPUs to use (0 for CPU mode)
 CFG.RUNNER = IncidentAwareRunner
 
 ############################## Contrastive Loss Configuration ##############################
-CFG.CONTRASTIVE_LOSS = CosineDistanceLoss(
+CFG.CONTRASTIVE_LOSS = EuclideanDistanceLossReverse(
     adj=adj_mx,
 )
 CFG.CONTRASTIVE_LOSS_WEIGHT = 0.01
@@ -107,7 +107,7 @@ CFG.TRAIN.NUM_EPOCHS = NUM_EPOCHS
 CFG.TRAIN.CKPT_SAVE_DIR = os.path.join(
     'checkpoints',
     MODEL_ARCH.__name__,
-    '_'.join([DATA_NAME, "EUC",str(CFG.CONTRASTIVE_LOSS_WEIGHT), str(CFG.TRAIN.NUM_EPOCHS), str(INPUT_LEN), str(OUTPUT_LEN)])
+    '_'.join([DATA_NAME, "EUC_rev",str(CFG.CONTRASTIVE_LOSS_WEIGHT), str(CFG.TRAIN.NUM_EPOCHS), str(INPUT_LEN), str(OUTPUT_LEN)])
 )
 CFG.TRAIN.LOSS = masked_mae
 # Optimizer settings

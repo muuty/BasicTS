@@ -1,0 +1,12 @@
+description: "Phase A: L2 graph_cut training (after selection completes)"
+
+runs:
+  - name: "phase_a_dist"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["graph_cut"]
+      CORESET.SELECTION_RATIO: [0.3, 0.7]
+      CORESET.DISTANCE_TYPE: ["euclidean", "temporal", "spatial", "combined"]
+      CORESET.SEED: [42, 123]
