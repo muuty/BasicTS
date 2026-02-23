@@ -25,7 +25,7 @@ class TimeSeriesForecastingDataset(BaseDataset):
     """
 
     def __init__(self, dataset_name: str, train_val_test_ratio: List[float], mode: str, input_len: int, output_len: int, \
-        overlap: bool = False, logger: logging.Logger = None) -> None:
+        overlap: bool = False, data_range: tuple = None, logger: logging.Logger = None) -> None:
         """
         Initializes the TimeSeriesForecastingDataset by setting up paths, loading data, and 
         preparing it according to the specified configurations.
@@ -50,6 +50,7 @@ class TimeSeriesForecastingDataset(BaseDataset):
 
         self.data_file_path = f'datasets/{dataset_name}/data.dat'
         self.description_file_path = f'datasets/{dataset_name}/desc.json'
+        self.data_range = data_range
         self.description = self._load_description()
         self.data = self._load_data()
 
@@ -88,6 +89,10 @@ class TimeSeriesForecastingDataset(BaseDataset):
             data = np.memmap(self.data_file_path, dtype='float32', mode='r', shape=tuple(self.description['shape']))
         except (FileNotFoundError, ValueError) as e:
             raise ValueError(f'Error loading data file: {self.data_file_path}') from e
+
+        if self.data_range is not None:
+            start_idx, end_idx = self.data_range
+            data = data[start_idx:end_idx]
 
         total_len = len(data)
         valid_len = int(total_len * self.train_val_test_ratio[1])

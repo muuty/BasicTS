@@ -7,6 +7,7 @@ from typing import Dict, Optional, Tuple, Union
 
 import numpy as np
 import torch
+from torch.utils.data import Dataset, Subset
 from easydict import EasyDict
 from easytorch.utils import master_only
 from tqdm import tqdm
@@ -14,6 +15,7 @@ from tqdm import tqdm
 from ..metrics import (masked_mae, masked_mape, masked_mse, masked_rmse,
                        masked_wape)
 from .base_epoch_runner import BaseEpochRunner
+from coreset.factory import get_selection
 
 
 class BaseTimeSeriesForecastingRunner(BaseEpochRunner):
@@ -126,10 +128,54 @@ class BaseTimeSeriesForecastingRunner(BaseEpochRunner):
         self.forward(data=data, epoch=1, iter_num=0, train=train)
 
     def count_parameters(self):
-        """Count the number of parameters in the model."""
-
-        num_parameters = sum(p.numel() for p in self.model.parameters() if p.requires_grad)
-        self.logger.info(f'Number of parameters: {num_parameters}')
+        """Count the number of parameters in the model, with layer-wise breakdown."""
+        
+        # Count parameters by layer
+        trainable_by_layer: Dict[str, int] = {}
+        frozen_by_layer: Dict[str, int] = {}
+        total_trainable = 0
+        total_frozen = 0
+        
+        for param_name, param in self.model.named_parameters():
+            param_count = param.numel()
+            if param.requires_grad:
+                trainable_by_layer[param_name] = param_count
+                total_trainable += param_count
+            else:
+                frozen_by_layer[param_name] = param_count
+                total_frozen += param_count
+        
+        # Log summary
+        self.logger.info(f'Number of trainable parameters: {total_trainable:,}')
+        if total_frozen > 0:
+            self.logger.info(f'Number of frozen parameters: {total_frozen:,}')
+        self.logger.info(f'Total parameters: {total_trainable + total_frozen:,}')
+        
+        # Log layer-wise breakdown
+        if trainable_by_layer or frozen_by_layer:
+            self.logger.info('Parameter breakdown by layer:')
+            
+            # Group by module prefix (e.g., 'st_blocks.0', 'output')
+            from collections import defaultdict
+            trainable_by_module: Dict[str, int] = defaultdict(int)
+            frozen_by_module: Dict[str, int] = defaultdict(int)
+            
+            for param_name, count in trainable_by_layer.items():
+                # Extract module name (part before the last '.')
+                module_name = '.'.join(param_name.split('.')[:-1]) if '.' in param_name else param_name
+                trainable_by_module[module_name] += count
+            
+            for param_name, count in frozen_by_layer.items():
+                module_name = '.'.join(param_name.split('.')[:-1]) if '.' in param_name else param_name
+                frozen_by_module[module_name] += count
+            
+            # Log by module
+            all_modules = set(trainable_by_module.keys()) | set(frozen_by_module.keys())
+            for module_name in sorted(all_modules):
+                trainable = trainable_by_module.get(module_name, 0)
+                frozen = frozen_by_module.get(module_name, 0)
+                status = 'frozen' if frozen > 0 and trainable == 0 else 'trainable' if trainable > 0 else 'mixed'
+                self.logger.info(f'  {module_name}: {trainable + frozen:,} ({trainable:,} trainable, {frozen:,} frozen) [{status}]')
 
     def init_training(self, cfg: Dict):
         """Initialize training components, including loss, meters, etc.
@@ -194,16 +240,75 @@ class BaseTimeSeriesForecastingRunner(BaseEpochRunner):
             if 'mode' in inspect.signature(cfg['TRAIN']['DATA']['DATASET']['TYPE'].__init__).parameters:
                 cfg['TRAIN']['DATA']['DATASET']['PARAM']['mode'] = 'train'
             dataset = cfg['TRAIN']['DATA']['DATASET']['TYPE'](**cfg['TRAIN']['DATA']['DATASET']['PARAM'])
-            self.logger.info(f'Train dataset length: {len(dataset)}')
-            batch_size = cfg['TRAIN']['DATA']['BATCH_SIZE']
-            self.iter_per_epoch = math.ceil(len(dataset) / batch_size)
         else:
             dataset = cfg['DATASET']['TYPE'](mode='train', logger=self.logger, **cfg['DATASET']['PARAM'])
-            self.logger.info(f'Train dataset length: {len(dataset)}')
-            batch_size = cfg['TRAIN']['DATA']['BATCH_SIZE']
-            self.iter_per_epoch = math.ceil(len(dataset) / batch_size)
+        
+        if 'CORESET' in cfg:
+            index_file = cfg['CORESET'].get('INDEX_FILE', None)
+
+            # Auto-construct index file path if not explicitly set
+            if not index_file:
+                index_file = self._auto_index_path(cfg)
+
+            if index_file and os.path.exists(index_file):
+                # Load pre-computed indices (from experiments/select_coreset.py)
+                with open(index_file, 'r') as f:
+                    selected_indices = json.load(f)
+                self.logger.info(f'Loaded pre-computed coreset indices from {index_file}')
+            else:
+                # Compute selection on the fly
+                if index_file:
+                    self.logger.info(f'Index file not found ({index_file}), computing on the fly')
+                selection_method = get_selection(type=cfg['CORESET']['SELECTION_STRATEGY'],
+                            selection_ratio=cfg['CORESET']['SELECTION_RATIO'],
+                            dataset=dataset,
+                            model_config=cfg['MODEL'],
+                            distance_type=cfg['CORESET'].get('DISTANCE_TYPE', 'euclidean'),
+                            similarity_type=cfg['CORESET'].get('SIMILARITY_TYPE', 'rbf'),
+                            seed=cfg['CORESET'].get('SEED', 42))
+                selected_indices = selection_method.select_indices()
+            with open(os.path.join(self.ckpt_save_dir, 'coreset-selection.json'), 'w') as f:
+                json.dump(selected_indices, f)
+            dataset = Subset(dataset, selected_indices)
+
+        self.logger.info(f'Train dataset length: {len(dataset)}')
+        batch_size = cfg['TRAIN']['DATA']['BATCH_SIZE']
+        self.iter_per_epoch = math.ceil(len(dataset) / batch_size)
 
         return dataset
+
+
+
+    @staticmethod
+    def _auto_index_path(cfg: Dict) -> Optional[str]:
+        """Auto-construct index file path from CORESET params.
+
+        Uses the same naming convention as experiments/select_coreset.py:
+            coreset_indices/{dataset_name}/{method}_{distance}_{ratio}_seed{seed}.json
+        """
+        coreset = cfg['CORESET']
+        method = coreset.get('SELECTION_STRATEGY', '')
+        ratio = coreset.get('SELECTION_RATIO', 0)
+        distance = coreset.get('DISTANCE_TYPE', 'euclidean')
+        similarity = coreset.get('SIMILARITY_TYPE', 'rbf')
+        seed = coreset.get('SEED', 42)
+
+        # Get dataset name
+        if 'DATASET' in cfg and 'PARAM' in cfg['DATASET']:
+            dataset_name = cfg['DATASET']['PARAM'].get('dataset_name', '')
+        elif 'TRAIN' in cfg and 'DATA' in cfg['TRAIN']:
+            dataset_name = cfg['TRAIN']['DATA']['DATASET']['PARAM'].get('dataset_name', '')
+        else:
+            return None
+
+        clean_name = dataset_name.replace('xtraffic/', '').replace('/', '_')
+        ratio_str = f"{ratio:.2f}".replace('.', '')
+        parts = [method, distance, ratio_str, f"seed{seed}"]
+        if method == 'graph_cut' and similarity != 'rbf':
+            parts.insert(2, similarity)
+        filename = "_".join(parts) + ".json"
+
+        return os.path.join("coreset_indices", clean_name, filename)
 
     def build_val_dataset(self, cfg: Dict):
         """Build the validation dataset.

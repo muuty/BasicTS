@@ -4,6 +4,7 @@ from typing import Dict, Optional, Set
 
 import pandas as pd
 import torch
+from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 from basicts.runners import SimpleTimeSeriesForecastingRunner
@@ -29,7 +30,8 @@ class IncidentAwareRunner(SimpleTimeSeriesForecastingRunner):
             self.cl_weight = cfg['CONTRASTIVE_LOSS_WEIGHT']
             self.register_epoch_meter('train/cl_loss', 'train', '{:.4f}')
             self.register_epoch_meter('train/pred_loss', 'train', '{:.4f}')
-    
+
+
     def _load_incident_metadata(self) -> Optional[Dict]:
         """Load incident metadata and extract time slots by type."""
         if not os.path.exists(self.incident_metadata_path):
@@ -93,6 +95,8 @@ class IncidentAwareRunner(SimpleTimeSeriesForecastingRunner):
         
         # Collect all incident indices by type
         incident_indices_by_type = {}
+        all_incident_indices = set()  # 전체 incident indices
+        
         for incident_type, incident_slots in self.incident_slots.items():
             # Filter incident slots to only those in test data range
             test_incident_slots = {slot for slot in incident_slots if test_start_idx <= slot < test_end_idx}
@@ -101,11 +105,14 @@ class IncidentAwareRunner(SimpleTimeSeriesForecastingRunner):
                 # Convert absolute incident slots to relative test indices
                 relative_incident_indices = {slot - test_start_idx for slot in test_incident_slots}
                 incident_indices_by_type[incident_type] = relative_incident_indices
+                all_incident_indices.update(relative_incident_indices)
                 print(f"  {incident_type}: {len(relative_incident_indices)} incidents in test range")
         
         if not incident_indices_by_type:
             print("No incident types found in test data range")
             return None
+        
+        print(f"  Total unique incidents: {len(all_incident_indices)}")
         
         # Run prediction once for all test data
         print("Running predictions for all test data...")
@@ -132,37 +139,64 @@ class IncidentAwareRunner(SimpleTimeSeriesForecastingRunner):
         
         print(f"Total test samples: {len(all_predictions)}")
         
-        # Evaluate each incident type using pre-computed predictions
         all_incident_metrics = {}
         
+        # === 1. Non-incident metrics ===
+        non_incident_mask = torch.tensor(
+            [idx.item() not in all_incident_indices for idx in all_indices], 
+            dtype=torch.bool
+        )
+        if non_incident_mask.any():
+            print(f"Evaluating non-incident samples: {non_incident_mask.sum().item()}")
+            non_incident_returns = {
+                'prediction': all_predictions[non_incident_mask],
+                'target': all_targets[non_incident_mask],
+                'inputs': all_inputs[non_incident_mask]
+            }
+            non_incident_metrics = self.compute_evaluation_metrics(non_incident_returns)
+            all_incident_metrics.update({f'non_incident_{k}': v for k, v in non_incident_metrics.items()})
+        
+        # === 2. All incidents combined metrics ===
+        all_incident_mask = torch.tensor(
+            [idx.item() in all_incident_indices for idx in all_indices],
+            dtype=torch.bool
+        )
+        if all_incident_mask.any():
+            print(f"Evaluating all incident samples: {all_incident_mask.sum().item()}")
+            all_incident_returns = {
+                'prediction': all_predictions[all_incident_mask],
+                'target': all_targets[all_incident_mask],
+                'inputs': all_inputs[all_incident_mask]
+            }
+            combined_metrics = self.compute_evaluation_metrics(all_incident_returns)
+            all_incident_metrics.update({f'all_incident_{k}': v for k, v in combined_metrics.items()})
+        
+        # === 3. Per incident type metrics (기존 로직) ===
         for incident_type, incident_indices in incident_indices_by_type.items():
             print(f"Evaluating {incident_type} incidents...")
             
-            # Create mask for this incident type
-            incident_mask = torch.tensor([idx.item() in incident_indices for idx in all_indices], dtype=torch.bool)
+            incident_mask = torch.tensor(
+                [idx.item() in incident_indices for idx in all_indices], 
+                dtype=torch.bool
+            )
             
             if not incident_mask.any():
                 print(f"  No {incident_type} samples found in test data")
                 continue
             
-            # Filter predictions for this incident type
             incident_prediction = all_predictions[incident_mask]
             incident_target = all_targets[incident_mask]
             incident_input = all_inputs[incident_mask]
             
             print(f"  Evaluating on {len(incident_prediction)} {incident_type} samples")
             
-            # Compute metrics for this incident type
             incident_returns = {
                 'prediction': incident_prediction,
                 'target': incident_target,
                 'inputs': incident_input
             }
             incident_metrics = self.compute_evaluation_metrics(incident_returns)
-            
-            # Add prefix to distinguish by incident type
-            type_metrics = {f'{incident_type}_{k}': v for k, v in incident_metrics.items()}
-            all_incident_metrics.update(type_metrics)
+            all_incident_metrics.update({f'{incident_type}_{k}': v for k, v in incident_metrics.items()})
         
         return all_incident_metrics
     
@@ -179,7 +213,7 @@ class IncidentAwareRunner(SimpleTimeSeriesForecastingRunner):
         print(f"Incident metrics saved to: {save_path}")
         
         # Print summary
-        print("\nIncident Type Performance Summary:")
+        # print("\nIncident Type Performance Summary:")
         incident_types = set()
         for key in incident_metrics.keys():
             if '_horizon_' in key:
@@ -187,12 +221,12 @@ class IncidentAwareRunner(SimpleTimeSeriesForecastingRunner):
                 incident_types.add(incident_type)
         
         for incident_type in sorted(incident_types):
-            print(f"\n{incident_type}:")
+            # print(f"\n{incident_type}:"
             for horizon in [3, 6, 12]:
                 mae_key = f'{incident_type}_horizon_{horizon}'
                 if mae_key in incident_metrics:
                     mae_value = incident_metrics[mae_key]['MAE']
-                    print(f"  Horizon {horizon}: MAE = {mae_value:.4f}")
+                    # print(f"  Horizon {horizon}: MAE = {mae_value:.4f}")
 
     def train_iters(self, epoch, iter_index, data):
         iter_num = (epoch - 1) * self.iter_per_epoch + iter_index
@@ -201,11 +235,21 @@ class IncidentAwareRunner(SimpleTimeSeriesForecastingRunner):
         # 예측 손실
         pred_loss = self.metric_forward(self.loss, forward_return)
         if self.has_contrastive_loss:
-            # Contrastive 손실
             cl_loss = self.contrastive_loss(forward_return)
             total_loss = pred_loss + self.cl_weight * cl_loss
         else:
             total_loss = pred_loss
+
+        # === Joint Training: Replay loss를 여기서 계산하여 합침 ===
+        if self.has_experience_replay and epoch > 1 and self.replay.size() > 0:
+            replay_loss = self.compute_replay_loss(epoch)
+            if replay_loss is not None:
+                total_loss = total_loss + self.replay_weight * replay_loss
+                self.update_epoch_meter('train/replay_loss', replay_loss.item())
+
+        # Replay 버퍼 업데이트 (loss 계산 후에)
+        if self.has_experience_replay:
+            self.replay.push_batch(data=data, forward_return=forward_return)
 
         self.update_epoch_meter('train/loss', total_loss.item())
         if self.has_contrastive_loss:
@@ -217,3 +261,31 @@ class IncidentAwareRunner(SimpleTimeSeriesForecastingRunner):
             self.update_epoch_meter(f'train/{metric_name}', metric_item.item())
 
         return total_loss
+
+    def compute_replay_loss(self, epoch: int) -> torch.Tensor:
+        """Replay loss만 계산하여 반환 (backward 없이)"""
+        indices = self.replay.sample(self.replay.batch_size)
+        
+        if len(indices) == 0:
+            return None
+        
+        dataset = self.train_data_loader.dataset
+        samples = [dataset[idx] for idx in indices]
+        
+        batch = {
+            'inputs': torch.stack([torch.from_numpy(s['inputs']) for s in samples]),
+            'target': torch.stack([torch.from_numpy(s['target']) for s in samples]),
+            'index': torch.tensor([s['index'] for s in samples])
+        }
+        
+        device = next(self.model.parameters()).device
+        batch = {k: v.to(device) if isinstance(v, torch.Tensor) else v for k, v in batch.items()}
+
+        forward_return = self.forward(batch, epoch=epoch, iter_num=None, train=True)
+
+        prediction = forward_return['prediction']
+        target = forward_return['target']
+        _, T, N, _ = prediction.shape
+        replay_loss = (prediction - target).abs().mean(dim=3).sum() / (T * N) 
+        return replay_loss  # backward 없이 loss만 반환
+

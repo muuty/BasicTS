@@ -24,6 +24,7 @@ from tqdm import tqdm
 
 from ..utils import get_dataset_name
 from . import optim
+from experience_replay.factory import create_replay
 
 
 class BaseEpochRunner(metaclass=ABCMeta):
@@ -220,7 +221,7 @@ class BaseEpochRunner(metaclass=ABCMeta):
         if torch.distributed.is_initialized():
             return build_data_loader_ddp(dataset, cfg['TRAIN.DATA'])
         else:
-            return build_data_loader(dataset, cfg['TRAIN.DATA'], cfg)
+            return build_data_loader(dataset, cfg['TRAIN.DATA'])
 
     @abstractmethod
     def build_train_dataset(self, cfg: Dict) -> Dataset:
@@ -317,17 +318,32 @@ class BaseEpochRunner(metaclass=ABCMeta):
         self.train_data_loader = self.build_train_data_loader(cfg)
         self.register_epoch_meter('train/time', 'train', '{:.2f} (s)', plt=False)
 
-        # create optim
-        self.optim = self.build_optim(cfg['TRAIN.OPTIM'], self.model)
-        self.logger.info('Set optim: {}'.format(self.optim))
-
-        # create lr_scheduler
-        self.build_lr_scheduler(cfg)
-
-        # fine tune
+        # fine tune (must be before optimizer creation)
         if cfg.has('TRAIN.FINETUNE_FROM'):
             self.load_model(cfg['TRAIN.FINETUNE_FROM'], cfg.get('TRAIN.FINETUNE_STRICT_LOAD', True))
             self.logger.info('Start fine tuning')
+            
+            # freeze layers if specified (must be before optimizer creation)
+            if cfg.has('TRAIN.FREEZE_LAYERS'):
+                freeze_patterns = cfg['TRAIN.FREEZE_LAYERS']
+                if hasattr(self.model, 'freeze_layers'):
+                    self.model.freeze_layers(freeze_patterns)
+                    num_frozen = sum(1 for p in self.model.parameters() if not p.requires_grad)
+                    self.logger.info(f'Frozen {num_frozen} parameters matching patterns: {freeze_patterns}')
+
+        # create optim (after fine-tune and freeze, so optimizer only includes trainable params)
+        self.optim = self.build_optim(cfg['TRAIN.OPTIM'], self.model)
+        self.logger.info('Set optim: {}'.format(self.optim))
+        
+        # experience replay
+        self.has_experience_replay = cfg.get('EXPERIENCE_REPLAY', None) is not None
+        if self.has_experience_replay:
+            self.replay = create_replay(cfg, self.train_data_loader.dataset)
+            self.replay_weight = cfg.EXPERIENCE_REPLAY.get('WEIGHT')
+            self.register_epoch_meter('train/replay_loss', 'train', '{:.4f}')
+    
+        # create lr_scheduler
+        self.build_lr_scheduler(cfg)
 
         # resume
         self.load_model_resume()
