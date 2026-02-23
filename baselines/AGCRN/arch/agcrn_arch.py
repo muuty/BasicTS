@@ -34,9 +34,6 @@ class AVWDCRNN(nn.Module):
                 inner_states.append(state)
             output_hidden.append(state)
             current_inputs = torch.stack(inner_states, dim=1)
-        # current_inputs: the outputs of last layer: (B, T, N, hidden_dim)
-        # output_hidden: the last state for each layer: (num_layers, B, N, hidden_dim)
-        #last_state: (B, N, hidden_dim)
         return current_inputs, output_hidden
 
     def init_hidden(self, batch_size):
@@ -44,7 +41,6 @@ class AVWDCRNN(nn.Module):
         for i in range(self.num_layers):
             init_states.append(
                 self.dcrnn_cells[i].init_hidden_state(batch_size))
-        # (num_layers, B, N, hidden_dim)
         return torch.stack(init_states, dim=0)
 
 

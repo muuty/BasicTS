@@ -11,21 +11,12 @@ class STGCNChebGraphConv(nn.Module):
     Ref Code: https://github.com/hazdzz/STGCN
     Venue: IJCAI 2018
     Task: Spatial-Temporal Forecasting
-    Note:  
+    Note:
         https://github.com/hazdzz/STGCN/issues/9
     Link: https://arxiv.org/abs/1709.04875
     """
 
     # STGCNChebGraphConv contains 'TGTND TGTND TNFF' structure
-    # ChebGraphConv is the graph convolution from ChebyNet.
-    # Using the Chebyshev polynomials of the first kind as a graph filter.
-
-    # T: Gated Temporal Convolution Layer (GLU or GTU)
-    # G: Graph Convolution Layer (ChebGraphConv)
-    # T: Gated Temporal Convolution Layer (GLU or GTU)
-    # N: Layer Normolization
-    # D: Dropout
-
     # T: Gated Temporal Convolution Layer (GLU or GTU)
     # G: Graph Convolution Layer (ChebGraphConv)
     # T: Gated Temporal Convolution Layer (GLU or GTU)
@@ -39,6 +30,7 @@ class STGCNChebGraphConv(nn.Module):
 
     def __init__(self, Kt, Ks, blocks, T, n_vertex, act_func, graph_conv_type, gso, bias, droprate):
         super(STGCNChebGraphConv, self).__init__()
+        self.gso = gso
         modules = []
         for l in range(len(blocks) - 3):
             modules.append(STConvBlock(
@@ -61,10 +53,16 @@ class STGCNChebGraphConv(nn.Module):
         """
         x = history_data.permute(0, 3, 1, 2).contiguous()
         x = self.st_blocks(x)
-        repr = x.clone()                      # <-- representation
         x = self.output(x)
         x = x.transpose(2, 3)
-        return {
-            'prediction': x,
-            'repr': repr                       # 추가
-        }
+        return x
+
+    def train(self, mode: bool = True):
+        super().train(mode)
+        self.gso.train(mode)
+        return self
+
+    def eval(self):
+        super().eval()
+        self.gso.eval()
+        return self

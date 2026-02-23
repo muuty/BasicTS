@@ -101,6 +101,7 @@ class MTGNN(nn.Module):
                                    out_channels=skip_channels, kernel_size=(1, 1), bias=True)
 
         self.idx = torch.arange(self.num_nodes)
+        self._device_synced = False
 
     def forward(self, history_data: torch.Tensor, idx: int = None, **kwargs) -> torch.Tensor:
         """feedforward function of MTGNN.
@@ -117,6 +118,10 @@ class MTGNN(nn.Module):
         seq_len = history_data.size(3)
         assert seq_len == self.seq_length, 'input sequence length not equal to preset sequence length'
 
+        if not self._device_synced:
+            self.idx = self.idx.to(history_data.device)
+            self._device_synced = True
+
         if self.seq_length < self.receptive_field:
             history_data = nn.functional.pad(
                 history_data, (self.receptive_field-self.seq_length, 0, 0, 0))
@@ -129,6 +134,9 @@ class MTGNN(nn.Module):
                     adp = self.gc(idx)
             else:
                 adp = self.predefined_A
+                if adp is not None and adp.device != history_data.device:
+                    adp = adp.to(history_data.device)
+                    self.predefined_A = adp
 
         x = self.start_conv(history_data)
         skip = self.skip0(

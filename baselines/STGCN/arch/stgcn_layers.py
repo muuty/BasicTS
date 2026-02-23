@@ -167,7 +167,8 @@ class ChebGraphConv(nn.Module):
         #bs, c_in, ts, n_vertex = x.shape
         x = torch.permute(x, (0, 2, 3, 1))
 
-        self.gso = self.gso.to(x.device)
+        # Get GSO value (with augmentation if applicable)
+        gso = self.gso.get_value().to(x.device)
 
         if self.Ks - 1 < 0:
             raise ValueError(
@@ -177,15 +178,15 @@ class ChebGraphConv(nn.Module):
             x_list = [x_0]
         elif self.Ks - 1 == 1:
             x_0 = x
-            x_1 = torch.einsum('hi,btij->bthj', self.gso, x)
+            x_1 = torch.einsum('hi,btij->bthj', gso, x)
             x_list = [x_0, x_1]
         elif self.Ks - 1 >= 2:
             x_0 = x
-            x_1 = torch.einsum('hi,btij->bthj', self.gso, x)
+            x_1 = torch.einsum('hi,btij->bthj', gso, x)
             x_list = [x_0, x_1]
             for k in range(2, self.Ks):
                 x_list.append(torch.einsum('hi,btij->bthj', 2 *
-                              self.gso, x_list[k - 1]) - x_list[k - 2])
+                              gso, x_list[k - 1]) - x_list[k - 2])
 
         x = torch.stack(x_list, dim=2)
 
@@ -223,9 +224,10 @@ class GraphConv(nn.Module):
         #bs, c_in, ts, n_vertex = x.shape
         x = torch.permute(x, (0, 2, 3, 1))
 
-        self.gso = self.gso.to(x.device)
+        # Get GSO value (with augmentation if applicable)
+        gso = self.gso.get_value().to(x.device)
 
-        first_mul = torch.einsum('hi,btij->bthj', self.gso, x)
+        first_mul = torch.einsum('hi,btij->bthj', gso, x)
         second_mul = torch.einsum('bthi,ij->bthj', first_mul, self.weight)
 
         if self.bias is not None:
