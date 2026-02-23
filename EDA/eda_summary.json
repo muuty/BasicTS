@@ -1,0 +1,16 @@
+{
+  "key_findings": [
+    "1. Flow drop patterns vary significantly by incident type",
+    "2. Not all incidents cause flow=0 (many just reduce flow)",
+    "3. Neighboring nodes are affected but with smaller magnitude",
+    "4. Recovery time is typically 15-60 minutes for significant drops",
+    "5. Incidents cluster at peak hours (morning/evening commute)"
+  ],
+  "design_implications": [
+    "1. Anomaly injection should have varying severity levels (not just flow=0)",
+    "2. Consider speed/occupancy features in addition to flow",
+    "3. Propagation to neighbors should decay gradually",
+    "4. Recovery pattern should be gradual, not instant",
+    "5. Time-of-day context is important for severity interpretation"
+  ]
+}

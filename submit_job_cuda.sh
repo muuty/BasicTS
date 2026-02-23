@@ -9,9 +9,9 @@ submit_config_file() {
     local TOTAL_RUN=$2
     
     # Extract base job name from config file path
-# Get the last part of the path and remove .py extension
+    # Get the last part of the path and remove .py extension
     local BASE_JOB_NAME=$(basename "$CONFIG_FILE" .py)
-
+    
     echo "Submitting jobs for config: $CONFIG_FILE"
     echo "Total runs: $TOTAL_RUN"
     
@@ -21,15 +21,15 @@ submit_config_file() {
         local JOB_NAME="${BASE_JOB_NAME}_run${RUN}"
         
         echo "Submitting job: $JOB_NAME (run=$RUN)"
-
-# Create a temporary SBATCH script with the dynamic job name
+        
+        # Create a temporary SBATCH script with the dynamic job name
         local TEMP_SCRIPT=$(mktemp)
-cat > "$TEMP_SCRIPT" << EOF
+        cat > "$TEMP_SCRIPT" << EOF
 #!/bin/bash
 #SBATCH --job-name=$JOB_NAME
-#SBATCH --partition=gpu_rocm       
+#SBATCH --partition=gpu_cuda
 #SBATCH --qos=gpu                
-#SBATCH --gres=gpu:mi300x:1              
+#SBATCH --gres=gpu:1              
 #SBATCH --mem=32G                 
 #SBATCH --time=72:00:00            
 #SBATCH --output=logs/%j.log 
@@ -42,7 +42,7 @@ echo "Run: $RUN"
 echo "Job Start Time: \$(date)"
 
 eval "\$(conda shell.bash hook)"
-conda activate rocm
+conda activate cuda
 which python
 
 # 4. 파이썬 스크립트 실행 (--run 인자 포함)
@@ -53,16 +53,16 @@ echo "-----------------------------------"
 echo "Job End Time: \$(date)"
 EOF
 
-# Submit the job using the temporary script
+        # Submit the job using the temporary script
         if sbatch "$TEMP_SCRIPT" > /dev/null 2>&1; then
             TOTAL_SUBMITTED=$((TOTAL_SUBMITTED + 1))
             echo "Submitted: $JOB_NAME"
         else
             echo "Failed to submit: $JOB_NAME"
         fi
-
-# Clean up the temporary script
-rm "$TEMP_SCRIPT"
+        
+        # Clean up the temporary script
+        rm "$TEMP_SCRIPT"
     done
 }
 
