@@ -1,0 +1,16 @@
+{
+  "model": "STAEformer baseline (ContextContrastive_baseline_3mo)",
+  "overall_masked_mae": 12.089877128601074,
+  "n_test_samples": 5233,
+  "n_test_incidents": 1238,
+  "n_nodes_with_incidents": 333,
+  "incident_affected_fraction": 0.007418251260574154,
+  "recovery_buffer_slots": 12,
+  "overall_normal_masked_mae": 12.607556478720728,
+  "overall_incident_masked_mae": 13.067115102454707,
+  "overall_masked_increase": 0.3586690264329387,
+  "n_degraded_nodes": 69,
+  "n_resilient_nodes": 69,
+  "degraded_mean_increase": 7.042918170982267,
+  "resilient_mean_increase": -6.399919114136252
+}

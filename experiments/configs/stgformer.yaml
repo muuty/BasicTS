@@ -1,0 +1,45 @@
+# stgformer 실험 설정
+# 사용법: python experiments/run_experiments.py --config experiments/configs/stgformer.yaml -g 0
+
+description: "stgformer models on all dataset"
+
+runs:
+  # Baseline
+  - "baselines/STGformer/METR-LA.py"
+  - "baselines/STGformer/PEMS-BAY.py"
+  - "baselines/STGformer/PEMS03.py"
+  - "baselines/STGformer/PEMS04.py"
+  - "baselines/STGformer/PEMS07.py"
+  - "baselines/STGformer/PEMS08.py"
+  
+  # Split Learning
+  - "baselines/SplitLearning/stgformer/METR-LA.py"
+  - "baselines/SplitLearning/stgformer/PEMS-BAY.py"
+  - "baselines/SplitLearning/stgformer/PEMS03.py"
+  - "baselines/SplitLearning/stgformer/PEMS04.py"
+  - "baselines/SplitLearning/stgformer/PEMS07.py"
+  - "baselines/SplitLearning/stgformer/PEMS08.py"
+
+  # Federated Learning
+  - "baselines/FederatedLearning/stgformer/METR-LA.py"
+  - "baselines/FederatedLearning/stgformer/PEMS-BAY.py"
+  - "baselines/FederatedLearning/stgformer/PEMS03.py"
+  - "baselines/FederatedLearning/stgformer/PEMS04.py"
+  - "baselines/FederatedLearning/stgformer/PEMS07.py"
+  - "baselines/FederatedLearning/stgformer/PEMS08.py"
+
+  # Independent Learning
+  - "baselines/IndependentLearning/stgformer/METR-LA.py"
+  - "baselines/IndependentLearning/stgformer/PEMS-BAY.py"
+  - "baselines/IndependentLearning/stgformer/PEMS03.py"
+  - "baselines/IndependentLearning/stgformer/PEMS04.py"
+  - "baselines/IndependentLearning/stgformer/PEMS07.py"
+  - "baselines/IndependentLearning/stgformer/PEMS08.py"
+
+  # Hierarchical Split Learning
+  - "baselines/HierSplit/stgformer/METR-LA.py"
+  - "baselines/HierSplit/stgformer/PEMS-BAY.py"
+  - "baselines/HierSplit/stgformer/PEMS03.py"
+  - "baselines/HierSplit/stgformer/PEMS04.py"
+  - "baselines/HierSplit/stgformer/PEMS07.py"
+  - "baselines/HierSplit/stgformer/PEMS08.py"

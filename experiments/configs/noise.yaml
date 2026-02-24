@@ -1,0 +1,29 @@
+# experiments/configs/noise_experiment.yaml
+description: "Noise robustness across methods"
+
+runs:
+  # - name: "IndependentLearning"
+  #   configs:
+  #     - "baselines/IndependentLearning/staeformer/RIVERSIDE.py"
+  #     - "baselines/IndependentLearning/staeformer/ALAMEDA.py"
+  #     - "baselines/IndependentLearning/staeformer/CONTRA_COSTA.py"
+  #     - "baselines/IndependentLearning/staeformer/SAN_BERNARDINO.py"
+  #     - "baselines/IndependentLearning/staeformer/SACRAMENTO.py"
+  #     - "baselines/IndependentLearning/staeformer/SANTA_CLARA.py"
+  #   params:
+  #     NOISE.NOISY_CLIENTS: [[0]]
+  #     NOISE.NOISE_RATIO: [0.2]
+  #     NOISE.SEED: [42]
+  #     NOISE.TARGET_COLUMNS: [[0]]  # 노이즈 적용할 컬럼 인덱스 (예: 0번 컬럼만)
+
+
+  - name: "Central"
+    configs:
+      - "baselines/STAEformer/ALAMEDA.py"
+      - "baselines/STAEformer/CONTRA_COSTA.py"
+      - "baselines/STAEformer/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SACRAMENTO.py"
+      - "baselines/STAEformer/SANTA_CLARA.py"
+      - "baselines/STAEformer/RIVERSIDE.py"
+    params:
+      DATASET.PARAM.is_noise: [True]

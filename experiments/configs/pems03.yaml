@@ -1,0 +1,27 @@
+# Federated Learning + STAEformer 실험 설정
+# 사용법: python experiments/run_experiments.py --config experiments/configs/FL-STAEformer.yaml -g 0
+
+description: "Federated Learning with STAEformer on all datasets (4 clients, FedAvg)"
+
+runs:
+  # METR-LA (207 nodes)
+  - "baselines/FederatedLearning/STAEformer-METR-LA.py"
+  
+  # PEMS-BAY (325 nodes)
+  - "baselines/FederatedLearning/STAEformer-PEMS-BAY.py"
+  
+  # PEMS03 (358 nodes)
+  - "baselines/FederatedLearning/STAEformer-PEMS03.py"
+  
+  # PEMS04 (307 nodes)
+  - "baselines/FederatedLearning/STAEformer-PEMS04.py"
+  
+  # PEMS07 (883 nodes)
+  - "baselines/FederatedLearning/STAEformer-PEMS07.py"
+  
+  # PEMS08 (170 nodes)
+  - "baselines/FederatedLearning/STAEformer-PEMS08.py"
+
+
+
+

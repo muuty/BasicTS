@@ -1,0 +1,727 @@
+{
+  "original_2022_2023": {
+    "all": 14.87,
+    "existing": 13.81,
+    "new": 18.58
+  },
+  "random_noft_2022_2023": {
+    "all": 14.62,
+    "existing": 13.8,
+    "new": 17.46
+  },
+  "random_ft_new_3h_2022_2023": {
+    "all": 14.5,
+    "existing": 13.78,
+    "new": 16.97
+  },
+  "random_ft_all_3h_2022_2023": {
+    "all": 14.17,
+    "existing": 13.42,
+    "new": 16.75
+  },
+  "random_ft_new_12h_2022_2023": {
+    "all": 14.33,
+    "existing": 13.75,
+    "new": 16.32
+  },
+  "random_ft_all_12h_2022_2023": {
+    "all": 13.31,
+    "existing": 12.53,
+    "new": 16.04
+  },
+  "random_ft_new_1d_2022_2023": {
+    "all": 14.21,
+    "existing": 13.79,
+    "new": 15.66
+  },
+  "random_ft_all_1d_2022_2023": {
+    "all": 12.62,
+    "existing": 11.78,
+    "new": 15.53
+  },
+  "random_ft_new_7d_2022_2023": {
+    "all": 13.75,
+    "existing": 13.93,
+    "new": 13.14
+  },
+  "random_ft_all_7d_2022_2023": {
+    "all": 10.41,
+    "existing": 9.66,
+    "new": 13.03
+  },
+  "zero_noft_2022_2023": {
+    "all": 14.62,
+    "existing": 13.81,
+    "new": 17.41
+  },
+  "zero_ft_new_3h_2022_2023": {
+    "all": 14.49,
+    "existing": 13.79,
+    "new": 16.94
+  },
+  "zero_ft_all_3h_2022_2023": {
+    "all": 14.17,
+    "existing": 13.43,
+    "new": 16.77
+  },
+  "zero_ft_new_12h_2022_2023": {
+    "all": 14.32,
+    "existing": 13.75,
+    "new": 16.32
+  },
+  "zero_ft_all_12h_2022_2023": {
+    "all": 13.3,
+    "existing": 12.53,
+    "new": 15.99
+  },
+  "zero_ft_new_1d_2022_2023": {
+    "all": 14.21,
+    "existing": 13.79,
+    "new": 15.66
+  },
+  "zero_ft_all_1d_2022_2023": {
+    "all": 12.62,
+    "existing": 11.78,
+    "new": 15.54
+  },
+  "zero_ft_new_7d_2022_2023": {
+    "all": 13.75,
+    "existing": 13.94,
+    "new": 13.11
+  },
+  "zero_ft_all_7d_2022_2023": {
+    "all": 10.43,
+    "existing": 9.68,
+    "new": 13.05
+  },
+  "global_avg_noft_2022_2023": {
+    "all": 14.6,
+    "existing": 13.8,
+    "new": 17.39
+  },
+  "global_avg_ft_new_3h_2022_2023": {
+    "all": 14.48,
+    "existing": 13.78,
+    "new": 16.93
+  },
+  "global_avg_ft_all_3h_2022_2023": {
+    "all": 14.16,
+    "existing": 13.41,
+    "new": 16.76
+  },
+  "global_avg_ft_new_12h_2022_2023": {
+    "all": 14.32,
+    "existing": 13.73,
+    "new": 16.38
+  },
+  "global_avg_ft_all_12h_2022_2023": {
+    "all": 13.31,
+    "existing": 12.53,
+    "new": 16.03
+  },
+  "global_avg_ft_new_1d_2022_2023": {
+    "all": 14.19,
+    "existing": 13.77,
+    "new": 15.64
+  },
+  "global_avg_ft_all_1d_2022_2023": {
+    "all": 12.6,
+    "existing": 11.76,
+    "new": 15.53
+  },
+  "global_avg_ft_new_7d_2022_2023": {
+    "all": 13.75,
+    "existing": 13.94,
+    "new": 13.08
+  },
+  "global_avg_ft_all_7d_2022_2023": {
+    "all": 10.47,
+    "existing": 9.71,
+    "new": 13.11
+  },
+  "neighbor_avg_noft_2022_2023": {
+    "all": 14.66,
+    "existing": 13.81,
+    "new": 17.64
+  },
+  "neighbor_avg_ft_new_3h_2022_2023": {
+    "all": 14.55,
+    "existing": 13.78,
+    "new": 17.22
+  },
+  "neighbor_avg_ft_all_3h_2022_2023": {
+    "all": 14.24,
+    "existing": 13.43,
+    "new": 17.06
+  },
+  "neighbor_avg_ft_new_12h_2022_2023": {
+    "all": 14.36,
+    "existing": 13.74,
+    "new": 16.52
+  },
+  "neighbor_avg_ft_all_12h_2022_2023": {
+    "all": 13.34,
+    "existing": 12.52,
+    "new": 16.19
+  },
+  "neighbor_avg_ft_new_1d_2022_2023": {
+    "all": 14.22,
+    "existing": 13.77,
+    "new": 15.76
+  },
+  "neighbor_avg_ft_all_1d_2022_2023": {
+    "all": 12.6,
+    "existing": 11.74,
+    "new": 15.6
+  },
+  "neighbor_avg_ft_new_7d_2022_2023": {
+    "all": 13.75,
+    "existing": 13.93,
+    "new": 13.12
+  },
+  "neighbor_avg_ft_all_7d_2022_2023": {
+    "all": 10.43,
+    "existing": 9.68,
+    "new": 13.05
+  },
+  "similar_node_noft_2022_2023": {
+    "all": 14.97,
+    "existing": 13.75,
+    "new": 19.17
+  },
+  "similar_node_ft_new_3h_2022_2023": {
+    "all": 14.86,
+    "existing": 13.73,
+    "new": 18.76
+  },
+  "similar_node_ft_all_3h_2022_2023": {
+    "all": 14.56,
+    "existing": 13.4,
+    "new": 18.59
+  },
+  "similar_node_ft_new_12h_2022_2023": {
+    "all": 14.54,
+    "existing": 13.73,
+    "new": 17.36
+  },
+  "similar_node_ft_all_12h_2022_2023": {
+    "all": 13.52,
+    "existing": 12.5,
+    "new": 17.07
+  },
+  "similar_node_ft_new_1d_2022_2023": {
+    "all": 14.32,
+    "existing": 13.82,
+    "new": 16.06
+  },
+  "similar_node_ft_all_1d_2022_2023": {
+    "all": 12.7,
+    "existing": 11.75,
+    "new": 16.01
+  },
+  "similar_node_ft_new_7d_2022_2023": {
+    "all": 13.73,
+    "existing": 13.89,
+    "new": 13.19
+  },
+  "similar_node_ft_all_7d_2022_2023": {
+    "all": 10.46,
+    "existing": 9.69,
+    "new": 13.11
+  },
+  "pb_init_noft_2022_2023": {
+    "all": 14.89,
+    "existing": 13.74,
+    "new": 18.86
+  },
+  "pb_init_ft_new_3h_2022_2023": {
+    "all": 14.49,
+    "existing": 13.84,
+    "new": 16.72
+  },
+  "pb_init_ft_all_3h_2022_2023": {
+    "all": 14.11,
+    "existing": 13.42,
+    "new": 16.49
+  },
+  "pb_init_ft_new_12h_2022_2023": {
+    "all": 14.61,
+    "existing": 13.65,
+    "new": 17.95
+  },
+  "pb_init_ft_all_12h_2022_2023": {
+    "all": 13.41,
+    "existing": 12.63,
+    "new": 16.11
+  },
+  "pb_init_ft_new_1d_2022_2023": {
+    "all": 14.3,
+    "existing": 13.82,
+    "new": 15.96
+  },
+  "pb_init_ft_all_1d_2022_2023": {
+    "all": 12.58,
+    "existing": 11.79,
+    "new": 15.31
+  },
+  "pb_init_ft_new_7d_2022_2023": {
+    "all": 13.89,
+    "existing": 14.11,
+    "new": 13.14
+  },
+  "pb_init_ft_all_7d_2022_2023": {
+    "all": 10.43,
+    "existing": 9.67,
+    "new": 13.06
+  },
+  "original_2022_2024": {
+    "all": 11.13,
+    "existing": 11.01,
+    "new": 11.55
+  },
+  "random_noft_2022_2024": {
+    "all": 11.69,
+    "existing": 11.05,
+    "new": 13.91
+  },
+  "random_ft_new_3h_2022_2024": {
+    "all": 11.7,
+    "existing": 11.07,
+    "new": 13.9
+  },
+  "random_ft_all_3h_2022_2024": {
+    "all": 11.98,
+    "existing": 11.35,
+    "new": 14.15
+  },
+  "random_ft_new_12h_2022_2024": {
+    "all": 11.56,
+    "existing": 11.06,
+    "new": 13.28
+  },
+  "random_ft_all_12h_2022_2024": {
+    "all": 12.12,
+    "existing": 11.74,
+    "new": 13.43
+  },
+  "random_ft_new_1d_2022_2024": {
+    "all": 11.44,
+    "existing": 11.1,
+    "new": 12.61
+  },
+  "random_ft_all_1d_2022_2024": {
+    "all": 11.99,
+    "existing": 11.79,
+    "new": 12.65
+  },
+  "random_ft_new_7d_2022_2024": {
+    "all": 10.98,
+    "existing": 11.1,
+    "new": 10.56
+  },
+  "random_ft_all_7d_2022_2024": {
+    "all": 10.22,
+    "existing": 10.12,
+    "new": 10.55
+  },
+  "zero_noft_2022_2024": {
+    "all": 11.69,
+    "existing": 11.05,
+    "new": 13.91
+  },
+  "zero_ft_new_3h_2022_2024": {
+    "all": 11.69,
+    "existing": 11.06,
+    "new": 13.88
+  },
+  "zero_ft_all_3h_2022_2024": {
+    "all": 11.98,
+    "existing": 11.36,
+    "new": 14.16
+  },
+  "zero_ft_new_12h_2022_2024": {
+    "all": 11.55,
+    "existing": 11.06,
+    "new": 13.27
+  },
+  "zero_ft_all_12h_2022_2024": {
+    "all": 12.12,
+    "existing": 11.75,
+    "new": 13.4
+  },
+  "zero_ft_new_1d_2022_2024": {
+    "all": 11.42,
+    "existing": 11.09,
+    "new": 12.57
+  },
+  "zero_ft_all_1d_2022_2024": {
+    "all": 11.99,
+    "existing": 11.81,
+    "new": 12.63
+  },
+  "zero_ft_new_7d_2022_2024": {
+    "all": 10.96,
+    "existing": 11.08,
+    "new": 10.55
+  },
+  "zero_ft_all_7d_2022_2024": {
+    "all": 10.22,
+    "existing": 10.13,
+    "new": 10.55
+  },
+  "global_avg_noft_2022_2024": {
+    "all": 11.69,
+    "existing": 11.04,
+    "new": 13.92
+  },
+  "global_avg_ft_new_3h_2022_2024": {
+    "all": 11.69,
+    "existing": 11.06,
+    "new": 13.89
+  },
+  "global_avg_ft_all_3h_2022_2024": {
+    "all": 11.98,
+    "existing": 11.35,
+    "new": 14.16
+  },
+  "global_avg_ft_new_12h_2022_2024": {
+    "all": 11.56,
+    "existing": 11.05,
+    "new": 13.31
+  },
+  "global_avg_ft_all_12h_2022_2024": {
+    "all": 12.13,
+    "existing": 11.76,
+    "new": 13.42
+  },
+  "global_avg_ft_new_1d_2022_2024": {
+    "all": 11.42,
+    "existing": 11.1,
+    "new": 12.56
+  },
+  "global_avg_ft_all_1d_2022_2024": {
+    "all": 12.0,
+    "existing": 11.82,
+    "new": 12.65
+  },
+  "global_avg_ft_new_7d_2022_2024": {
+    "all": 10.97,
+    "existing": 11.09,
+    "new": 10.56
+  },
+  "global_avg_ft_all_7d_2022_2024": {
+    "all": 10.22,
+    "existing": 10.13,
+    "new": 10.55
+  },
+  "neighbor_avg_noft_2022_2024": {
+    "all": 11.78,
+    "existing": 11.04,
+    "new": 14.35
+  },
+  "neighbor_avg_ft_new_3h_2022_2024": {
+    "all": 11.78,
+    "existing": 11.06,
+    "new": 14.27
+  },
+  "neighbor_avg_ft_all_3h_2022_2024": {
+    "all": 12.06,
+    "existing": 11.36,
+    "new": 14.5
+  },
+  "neighbor_avg_ft_new_12h_2022_2024": {
+    "all": 11.59,
+    "existing": 11.06,
+    "new": 13.41
+  },
+  "neighbor_avg_ft_all_12h_2022_2024": {
+    "all": 12.14,
+    "existing": 11.75,
+    "new": 13.49
+  },
+  "neighbor_avg_ft_new_1d_2022_2024": {
+    "all": 11.46,
+    "existing": 11.12,
+    "new": 12.64
+  },
+  "neighbor_avg_ft_all_1d_2022_2024": {
+    "all": 11.96,
+    "existing": 11.78,
+    "new": 12.62
+  },
+  "neighbor_avg_ft_new_7d_2022_2024": {
+    "all": 11.0,
+    "existing": 11.12,
+    "new": 10.59
+  },
+  "neighbor_avg_ft_all_7d_2022_2024": {
+    "all": 10.24,
+    "existing": 10.14,
+    "new": 10.57
+  },
+  "similar_node_noft_2022_2024": {
+    "all": 11.72,
+    "existing": 11.05,
+    "new": 14.06
+  },
+  "similar_node_ft_new_3h_2022_2024": {
+    "all": 11.73,
+    "existing": 11.07,
+    "new": 14.03
+  },
+  "similar_node_ft_all_3h_2022_2024": {
+    "all": 12.03,
+    "existing": 11.42,
+    "new": 14.13
+  },
+  "similar_node_ft_new_12h_2022_2024": {
+    "all": 11.75,
+    "existing": 11.27,
+    "new": 13.42
+  },
+  "similar_node_ft_all_12h_2022_2024": {
+    "all": 12.24,
+    "existing": 11.86,
+    "new": 13.52
+  },
+  "similar_node_ft_new_1d_2022_2024": {
+    "all": 11.71,
+    "existing": 11.41,
+    "new": 12.77
+  },
+  "similar_node_ft_all_1d_2022_2024": {
+    "all": 12.06,
+    "existing": 11.85,
+    "new": 12.8
+  },
+  "similar_node_ft_new_7d_2022_2024": {
+    "all": 11.04,
+    "existing": 11.17,
+    "new": 10.58
+  },
+  "similar_node_ft_all_7d_2022_2024": {
+    "all": 10.21,
+    "existing": 10.11,
+    "new": 10.56
+  },
+  "pb_init_noft_2022_2024": {
+    "all": 11.61,
+    "existing": 11.04,
+    "new": 13.58
+  },
+  "pb_init_ft_new_3h_2022_2024": {
+    "all": 11.62,
+    "existing": 11.11,
+    "new": 13.41
+  },
+  "pb_init_ft_all_3h_2022_2024": {
+    "all": 11.88,
+    "existing": 11.35,
+    "new": 13.7
+  },
+  "pb_init_ft_new_12h_2022_2024": {
+    "all": 11.54,
+    "existing": 11.15,
+    "new": 12.91
+  },
+  "pb_init_ft_all_12h_2022_2024": {
+    "all": 12.18,
+    "existing": 11.84,
+    "new": 13.34
+  },
+  "pb_init_ft_new_1d_2022_2024": {
+    "all": 11.47,
+    "existing": 11.17,
+    "new": 12.52
+  },
+  "pb_init_ft_all_1d_2022_2024": {
+    "all": 11.99,
+    "existing": 11.8,
+    "new": 12.66
+  },
+  "pb_init_ft_new_7d_2022_2024": {
+    "all": 10.99,
+    "existing": 11.12,
+    "new": 10.56
+  },
+  "pb_init_ft_all_7d_2022_2024": {
+    "all": 10.23,
+    "existing": 10.14,
+    "new": 10.57
+  },
+  "original_2024_2023": {
+    "all": 15.22,
+    "existing": 14.08,
+    "new": 19.15
+  },
+  "random_noft_2024_2023": {
+    "all": 14.99,
+    "existing": 14.13,
+    "new": 17.96
+  },
+  "random_ft_new_3h_2024_2023": {
+    "all": 14.85,
+    "existing": 14.11,
+    "new": 17.41
+  },
+  "random_ft_all_3h_2024_2023": {
+    "all": 14.6,
+    "existing": 13.82,
+    "new": 17.29
+  },
+  "random_ft_new_12h_2024_2023": {
+    "all": 14.76,
+    "existing": 14.11,
+    "new": 17.01
+  },
+  "random_ft_all_12h_2024_2023": {
+    "all": 13.79,
+    "existing": 12.91,
+    "new": 16.85
+  },
+  "random_ft_new_1d_2024_2023": {
+    "all": 14.6,
+    "existing": 14.07,
+    "new": 16.44
+  },
+  "random_ft_all_1d_2024_2023": {
+    "all": 13.1,
+    "existing": 12.14,
+    "new": 16.39
+  },
+  "random_ft_new_7d_2024_2023": {
+    "all": 13.97,
+    "existing": 14.14,
+    "new": 13.38
+  },
+  "random_ft_all_7d_2024_2023": {
+    "all": 10.5,
+    "existing": 9.71,
+    "new": 13.24
+  },
+  "zero_noft_2024_2023": {
+    "all": 14.98,
+    "existing": 14.13,
+    "new": 17.9
+  },
+  "zero_ft_new_3h_2024_2023": {
+    "all": 14.84,
+    "existing": 14.11,
+    "new": 17.39
+  },
+  "zero_ft_all_3h_2024_2023": {
+    "all": 14.6,
+    "existing": 13.82,
+    "new": 17.29
+  },
+  "zero_ft_new_12h_2024_2023": {
+    "all": 14.78,
+    "existing": 14.1,
+    "new": 17.11
+  },
+  "zero_ft_all_12h_2024_2023": {
+    "all": 13.8,
+    "existing": 12.91,
+    "new": 16.89
+  },
+  "zero_ft_new_1d_2024_2023": {
+    "all": 14.6,
+    "existing": 14.07,
+    "new": 16.46
+  },
+  "zero_ft_all_1d_2024_2023": {
+    "all": 13.12,
+    "existing": 12.17,
+    "new": 16.42
+  },
+  "zero_ft_new_7d_2024_2023": {
+    "all": 13.95,
+    "existing": 14.13,
+    "new": 13.33
+  },
+  "zero_ft_all_7d_2024_2023": {
+    "all": 10.49,
+    "existing": 9.7,
+    "new": 13.25
+  },
+  "global_avg_noft_2024_2023": {
+    "all": 14.99,
+    "existing": 14.13,
+    "new": 17.99
+  },
+  "global_avg_ft_new_3h_2024_2023": {
+    "all": 14.85,
+    "existing": 14.1,
+    "new": 17.45
+  },
+  "global_avg_ft_all_3h_2024_2023": {
+    "all": 14.61,
+    "existing": 13.82,
+    "new": 17.33
+  },
+  "global_avg_ft_new_12h_2024_2023": {
+    "all": 14.78,
+    "existing": 14.09,
+    "new": 17.16
+  },
+  "global_avg_ft_all_12h_2024_2023": {
+    "all": 13.8,
+    "existing": 12.9,
+    "new": 16.91
+  },
+  "global_avg_ft_new_1d_2024_2023": {
+    "all": 14.58,
+    "existing": 14.05,
+    "new": 16.43
+  },
+  "global_avg_ft_all_1d_2024_2023": {
+    "all": 13.11,
+    "existing": 12.16,
+    "new": 16.38
+  },
+  "global_avg_ft_new_7d_2024_2023": {
+    "all": 13.94,
+    "existing": 14.12,
+    "new": 13.3
+  },
+  "global_avg_ft_all_7d_2024_2023": {
+    "all": 10.49,
+    "existing": 9.69,
+    "new": 13.26
+  },
+  "neighbor_avg_noft_2024_2023": {
+    "all": 15.01,
+    "existing": 14.14,
+    "new": 18.05
+  },
+  "neighbor_avg_ft_new_3h_2024_2023": {
+    "all": 14.9,
+    "existing": 14.12,
+    "new": 17.63
+  },
+  "neighbor_avg_ft_all_3h_2024_2023": {
+    "all": 14.68,
+    "existing": 13.84,
+    "new": 17.57
+  },
+  "neighbor_avg_ft_new_12h_2024_2023": {
+    "all": 14.8,
+    "existing": 14.11,
+    "new": 17.19
+  },
+  "neighbor_avg_ft_all_12h_2024_2023": {
+    "all": 13.84,
+    "existing": 12.93,
+    "new": 16.99
+  },
+  "neighbor_avg_ft_new_1d_2024_2023": {
+    "all": 14.61,
+    "existing": 14.07,
+    "new": 16.49
+  },
+  "neighbor_avg_ft_all_1d_2024_2023": {
+    "all": 13.12,
+    "existing": 12.18,
+    "new": 16.38
+  }
+}

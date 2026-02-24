@@ -31,14 +31,14 @@ MODEL_PARAM = {
     "Kt" : 3,
     "blocks" : [[1], [64, 16, 64], [64, 16, 64], [128, 128], [12]],
     "T" : 12,
-    "n_vertex" : 307,
+    "num_nodes" : 307,
     "act_func" : "glu",
     "graph_conv_type" : "cheb_graph_conv",
-    "gso" : adj_mx,
+    "adj_matrix" : adj_mx,
     "bias": True,
     "droprate" : 0.5
 }
-NUM_EPOCHS = 100
+NUM_EPOCHS = 30
 
 ############################## General Configuration ##############################
 CFG = EasyDict()

@@ -1,0 +1,224 @@
+{
+  "2022_2023_1d": {
+    "pb_only": {
+      "after_embedding": 1.0,
+      "after_spatial_0": 0.8405503630638123,
+      "after_temporal_0": 0.98850417137146,
+      "before_output": 0.8448920249938965,
+      "input_proj": 1.0
+    },
+    "pb+head": {
+      "after_embedding": 1.0,
+      "after_spatial_0": 0.9283347725868225,
+      "after_temporal_0": 0.9947502017021179,
+      "before_output": 0.9233949780464172,
+      "input_proj": 1.0
+    },
+    "emb_only": {
+      "after_embedding": 0.9999998211860657,
+      "after_spatial_0": 0.7795069217681885,
+      "after_temporal_0": 0.9758393168449402,
+      "before_output": 0.7971653342247009,
+      "input_proj": 1.0
+    },
+    "full_ft": {
+      "after_embedding": 0.9999804496765137,
+      "after_spatial_0": 0.7465117573738098,
+      "after_temporal_0": 0.9813665747642517,
+      "before_output": 0.7578195929527283,
+      "input_proj": 0.999982476234436
+    },
+    "cross_pb_emb": {
+      "after_embedding": 0.9999999403953552,
+      "after_spatial_0": 0.7936416864395142,
+      "after_temporal_0": 0.976356029510498,
+      "before_output": 0.7940458059310913,
+      "input_proj": 1.0
+    }
+  },
+  "2023_2024_1d": {
+    "pb_only": {
+      "after_embedding": 1.0,
+      "after_spatial_0": 0.9216232895851135,
+      "after_temporal_0": 0.975396454334259,
+      "before_output": 0.9281905889511108,
+      "input_proj": 1.0
+    },
+    "pb+head": {
+      "after_embedding": 0.9999997615814209,
+      "after_spatial_0": 0.9372047781944275,
+      "after_temporal_0": 0.9774577617645264,
+      "before_output": 0.9362567067146301,
+      "input_proj": 1.0
+    },
+    "emb_only": {
+      "after_embedding": 0.9999969601631165,
+      "after_spatial_0": 0.8715866804122925,
+      "after_temporal_0": 0.94819176197052,
+      "before_output": 0.8662556409835815,
+      "input_proj": 1.0
+    },
+    "full_ft": {
+      "after_embedding": 0.9999172687530518,
+      "after_spatial_0": 0.868497371673584,
+      "after_temporal_0": 0.962500274181366,
+      "before_output": 0.8615927696228027,
+      "input_proj": 0.9999611973762512
+    },
+    "cross_pb_emb": {
+      "after_embedding": 0.9999971985816956,
+      "after_spatial_0": 0.8782175183296204,
+      "after_temporal_0": 0.9398345351219177,
+      "before_output": 0.8865975737571716,
+      "input_proj": 1.0
+    }
+  },
+  "2022_2024_1d": {
+    "pb_only": {
+      "after_embedding": 0.9999999403953552,
+      "after_spatial_0": 0.8024585843086243,
+      "after_temporal_0": 0.9891071915626526,
+      "before_output": 0.7975237965583801,
+      "input_proj": 1.0
+    },
+    "pb+head": {
+      "after_embedding": 1.000000238418579,
+      "after_spatial_0": 0.8946650624275208,
+      "after_temporal_0": 0.9951364994049072,
+      "before_output": 0.8876034021377563,
+      "input_proj": 1.0
+    },
+    "emb_only": {
+      "after_embedding": 0.9999999403953552,
+      "after_spatial_0": 0.7836251258850098,
+      "after_temporal_0": 0.969170331954956,
+      "before_output": 0.7955780625343323,
+      "input_proj": 1.0
+    },
+    "full_ft": {
+      "after_embedding": 0.9998302459716797,
+      "after_spatial_0": 0.7497764229774475,
+      "after_temporal_0": 0.9834166169166565,
+      "before_output": 0.7438663244247437,
+      "input_proj": 0.9998377561569214
+    },
+    "cross_pb_emb": {
+      "after_embedding": 0.9999997615814209,
+      "after_spatial_0": 0.7610726952552795,
+      "after_temporal_0": 0.9702426791191101,
+      "before_output": 0.7727020382881165,
+      "input_proj": 1.0
+    }
+  },
+  "2022_2023_7d": {
+    "pb_only": {
+      "after_embedding": 0.9999995827674866,
+      "after_spatial_0": 0.6229349374771118,
+      "after_temporal_0": 0.9424844980239868,
+      "before_output": 0.619411051273346,
+      "input_proj": 1.0
+    },
+    "pb+head": {
+      "after_embedding": 0.9999998211860657,
+      "after_spatial_0": 0.8192360997200012,
+      "after_temporal_0": 0.9732294082641602,
+      "before_output": 0.8087016344070435,
+      "input_proj": 1.0
+    },
+    "emb_only": {
+      "after_embedding": 0.9999991655349731,
+      "after_spatial_0": 0.5841574668884277,
+      "after_temporal_0": 0.949978768825531,
+      "before_output": 0.585970938205719,
+      "input_proj": 1.0
+    },
+    "full_ft": {
+      "after_embedding": 0.9994426965713501,
+      "after_spatial_0": 0.6129670739173889,
+      "after_temporal_0": 0.9600520730018616,
+      "before_output": 0.6139657497406006,
+      "input_proj": 0.9996305108070374
+    },
+    "cross_pb_emb": {
+      "after_embedding": 0.9999989867210388,
+      "after_spatial_0": 0.6642718315124512,
+      "after_temporal_0": 0.9466389417648315,
+      "before_output": 0.6760218739509583,
+      "input_proj": 1.0
+    }
+  },
+  "2023_2024_7d": {
+    "pb_only": {
+      "after_embedding": 0.9999948143959045,
+      "after_spatial_0": 0.85704106092453,
+      "after_temporal_0": 0.9137954711914062,
+      "before_output": 0.8547608852386475,
+      "input_proj": 1.0
+    },
+    "pb+head": {
+      "after_embedding": 0.9999963045120239,
+      "after_spatial_0": 0.8930387496948242,
+      "after_temporal_0": 0.9568708539009094,
+      "before_output": 0.8963056206703186,
+      "input_proj": 1.0
+    },
+    "emb_only": {
+      "after_embedding": 0.9999909996986389,
+      "after_spatial_0": 0.827570915222168,
+      "after_temporal_0": 0.9247055053710938,
+      "before_output": 0.8126066327095032,
+      "input_proj": 1.0
+    },
+    "full_ft": {
+      "after_embedding": 0.999068558216095,
+      "after_spatial_0": 0.8361660242080688,
+      "after_temporal_0": 0.937886655330658,
+      "before_output": 0.8306824564933777,
+      "input_proj": 0.9994320273399353
+    },
+    "cross_pb_emb": {
+      "after_embedding": 0.9999894499778748,
+      "after_spatial_0": 0.8640471696853638,
+      "after_temporal_0": 0.9245173335075378,
+      "before_output": 0.8700675964355469,
+      "input_proj": 1.0
+    }
+  },
+  "2022_2024_7d": {
+    "pb_only": {
+      "after_embedding": 1.0,
+      "after_spatial_0": 0.8674075603485107,
+      "after_temporal_0": 0.98052579164505,
+      "before_output": 0.8616918921470642,
+      "input_proj": 1.0
+    },
+    "pb+head": {
+      "after_embedding": 1.0,
+      "after_spatial_0": 0.8764824271202087,
+      "after_temporal_0": 0.9812883734703064,
+      "before_output": 0.8809070587158203,
+      "input_proj": 1.0
+    },
+    "emb_only": {
+      "after_embedding": 0.9999992847442627,
+      "after_spatial_0": 0.782439112663269,
+      "after_temporal_0": 0.9729853272438049,
+      "before_output": 0.7871432900428772,
+      "input_proj": 1.0
+    },
+    "full_ft": {
+      "after_embedding": 0.9995477795600891,
+      "after_spatial_0": 0.7688124775886536,
+      "after_temporal_0": 0.9783616065979004,
+      "before_output": 0.7638242840766907,
+      "input_proj": 0.9996500611305237
+    },
+    "cross_pb_emb": {
+      "after_embedding": 0.9999991655349731,
+      "after_spatial_0": 0.8342733979225159,
+      "after_temporal_0": 0.9781692624092102,
+      "before_output": 0.8379567265510559,
+      "input_proj": 1.0
+    }
+  }
+}

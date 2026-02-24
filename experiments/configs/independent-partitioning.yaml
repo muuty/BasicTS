@@ -1,0 +1,47 @@
+# experiments/configs/noise_experiment.yaml
+description: "Noise robustness across methods"
+
+runs:
+  # Client scaling (HierSplit만)
+  - name: "IndependentLearning"
+    configs:
+      - "baselines/IndependentLearning/staeformer/RIVERSIDE.py"
+      - "baselines/IndependentLearning/staeformer/ALAMEDA.py"
+      - "baselines/IndependentLearning/staeformer/CONTRA_COSTA.py"
+      - "baselines/IndependentLearning/staeformer/SAN_BERNARDINO.py"
+      - "baselines/IndependentLearning/staeformer/SACRAMENTO.py"
+      - "baselines/IndependentLearning/staeformer/SANTA_CLARA.py"
+    params:
+      MODEL.PARAM.partition_method: [random, city, road_type]
+
+  # - name: "Central"
+  #   configs:
+  #     - "baselines/STAEformer/RIVERSIDE.py"
+  #     - "baselines/STAEformer/ALAMEDA.py"
+  #     - "baselines/STAEformer/CONTRA_COSTA.py"
+  #     - "baselines/STAEformer/SACRAMENTO.py"
+  #     - "baselines/STAEformer/SANTA_CLARA.py"
+  #     - "baselines/STAEformer/SAN_BERNARDINO.py"
+
+  # - name: "HierSplit"
+  #   configs:
+  #     - "baselines/HierSplit/staeformer/RIVERSIDE.py"
+  #     - "baselines/HierSplit/staeformer/ALAMEDA.py"
+  #     - "baselines/HierSplit/staeformer/CONTRA_COSTA.py"
+  #     - "baselines/HierSplit/staeformer/SACRAMENTO.py"
+  #     - "baselines/HierSplit/staeformer/SANTA_CLARA.py"
+  #     - "baselines/HierSplit/staeformer/SAN_BERNARDINO.py"
+  #   params:
+  #     MODEL.PARAM.partition_method: [city, road_type, random]
+
+  # - name: "SplitLearning"
+  #   configs:
+  #     - "baselines/SplitLearning/staeformer/RIVERSIDE.py"
+  #     - "baselines/SplitLearning/staeformer/ALAMEDA.py"
+  #     - "baselines/SplitLearning/staeformer/CONTRA_COSTA.py"
+  #     - "baselines/SplitLearning/staeformer/SACRAMENTO.py"
+  #     - "baselines/SplitLearning/staeformer/SANTA_CLARA.py"
+  #     - "baselines/SplitLearning/staeformer/SAN_BERNARDINO.py"
+  #   params:
+  #     MODEL.PARAM.partition_method: [city, road_type, random]
+

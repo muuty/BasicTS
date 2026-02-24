@@ -1,0 +1,110 @@
+{
+  "baseline_train_2022_test_2022": {
+    "MAE": 10.895208358764648,
+    "stable_MAE": 15.755559921264648
+  },
+  "baseline_train_2022_test_2023": {
+    "MAE": 22.434051513671875,
+    "stable_MAE": 31.76108741760254
+  },
+  "baseline_train_2022_test_2024": {
+    "MAE": 12.828577995300293,
+    "stable_MAE": 18.15998077392578
+  },
+  "baseline_train_2023_test_2022": {
+    "MAE": 25.124835968017578,
+    "stable_MAE": 34.29886245727539
+  },
+  "baseline_train_2023_test_2023": {
+    "MAE": 10.466936111450195,
+    "stable_MAE": 13.584674835205078
+  },
+  "baseline_train_2023_test_2024": {
+    "MAE": 24.199607849121094,
+    "stable_MAE": 32.93501663208008
+  },
+  "baseline_train_2024_test_2022": {
+    "MAE": 13.151001930236816,
+    "stable_MAE": 18.254669189453125
+  },
+  "baseline_train_2024_test_2023": {
+    "MAE": 23.325742721557617,
+    "stable_MAE": 32.17727279663086
+  },
+  "baseline_train_2024_test_2024": {
+    "MAE": 9.850194931030273,
+    "stable_MAE": 13.846983909606934
+  },
+  "pattern_only_train_2022_test_2022": {
+    "MAE": 10.42158031463623,
+    "stable_MAE": 15.14001178741455
+  },
+  "pattern_only_train_2022_test_2023": {
+    "MAE": 14.989518165588379,
+    "stable_MAE": 21.07074737548828
+  },
+  "pattern_only_train_2022_test_2024": {
+    "MAE": 11.205720901489258,
+    "stable_MAE": 15.944802284240723
+  },
+  "pattern_only_train_2023_test_2022": {
+    "MAE": 16.402103424072266,
+    "stable_MAE": 24.129981994628906
+  },
+  "pattern_only_train_2023_test_2023": {
+    "MAE": 9.65252685546875,
+    "stable_MAE": 13.14168643951416
+  },
+  "pattern_only_train_2023_test_2024": {
+    "MAE": 15.648249626159668,
+    "stable_MAE": 22.81880760192871
+  },
+  "pattern_only_train_2024_test_2022": {
+    "MAE": 11.887866973876953,
+    "stable_MAE": 17.01738739013672
+  },
+  "pattern_only_train_2024_test_2023": {
+    "MAE": 15.316554069519043,
+    "stable_MAE": 21.293188095092773
+  },
+  "pattern_only_train_2024_test_2024": {
+    "MAE": 9.600164413452148,
+    "stable_MAE": 13.65035343170166
+  },
+  "instance_norm_train_2022_test_2022": {
+    "MAE": 10.38964557647705,
+    "stable_MAE": 15.187411308288574
+  },
+  "instance_norm_train_2022_test_2023": {
+    "MAE": 14.874176979064941,
+    "stable_MAE": 21.04656982421875
+  },
+  "instance_norm_train_2022_test_2024": {
+    "MAE": 11.13225269317627,
+    "stable_MAE": 15.956866264343262
+  },
+  "instance_norm_train_2023_test_2022": {
+    "MAE": 16.127315521240234,
+    "stable_MAE": 23.858264923095703
+  },
+  "instance_norm_train_2023_test_2023": {
+    "MAE": 9.61633586883545,
+    "stable_MAE": 13.11767864227295
+  },
+  "instance_norm_train_2023_test_2024": {
+    "MAE": 15.237517356872559,
+    "stable_MAE": 22.338563919067383
+  },
+  "instance_norm_train_2024_test_2022": {
+    "MAE": 11.977235794067383,
+    "stable_MAE": 17.373817443847656
+  },
+  "instance_norm_train_2024_test_2023": {
+    "MAE": 15.218743324279785,
+    "stable_MAE": 21.184057235717773
+  },
+  "instance_norm_train_2024_test_2024": {
+    "MAE": 9.525036811828613,
+    "stable_MAE": 13.586202621459961
+  }
+}

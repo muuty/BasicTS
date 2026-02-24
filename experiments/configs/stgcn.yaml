@@ -1,0 +1,66 @@
+# stgcn 실험 설정
+# 사용법: python experiments/run_experiments.py --config experiments/configs/stgcn.yaml -g 0
+
+description: "stgcn models on all dataset"
+
+runs:
+  # - name: "Central-2block"
+  #   configs:
+  #     - "baselines/STGCN/METR-LA.py"
+  #     - "baselines/STGCN/PEMS-BAY.py"
+  #     - "baselines/STGCN/PEMS03.py"
+  #     - "baselines/STGCN/PEMS04.py"
+  #     - "baselines/STGCN/PEMS07.py"
+  #     - "baselines/STGCN/PEMS08.py"
+  # # Baseline (centralized)
+
+  # # Independent Learning
+  # - name: "IndependentLearning-2block"
+  #   configs:
+  #     - "baselines/IndependentLearning/stgcn/METR-LA.py"
+  #     - "baselines/IndependentLearning/stgcn/PEMS-BAY.py"
+  #     - "baselines/IndependentLearning/stgcn/PEMS03.py"
+  #     - "baselines/IndependentLearning/stgcn/PEMS04.py"
+  #     - "baselines/IndependentLearning/stgcn/PEMS07.py"
+  #     - "baselines/IndependentLearning/stgcn/PEMS08.py"
+
+  # - name: "HierSplit"
+  #   configs:
+  #     - "baselines/HierSplit/stgcn/METR-LA.py"
+  #     - "baselines/HierSplit/stgcn/PEMS-BAY.py"
+  #     - "baselines/HierSplit/stgcn/PEMS03.py"
+  #     - "baselines/HierSplit/stgcn/PEMS04.py"
+  #     - "baselines/HierSplit/stgcn/PEMS07.py"
+  #     - "baselines/HierSplit/stgcn/PEMS08.py"
+
+  - name: "SplitLearining"
+    configs:
+      - "baselines/SplitLearning/stgcn/METR-LA.py"
+      # - "baselines/SplitLearning/stgcn/PEMS-BAY.py"
+      # - "baselines/SplitLearning/stgcn/PEMS03.py"
+      # - "baselines/SplitLearning/stgcn/PEMS04.py"
+      # - "baselines/SplitLearning/stgcn/PEMS07.py"
+      # - "baselines/SplitLearning/stgcn/PEMS08.py"
+
+  # - name: "FederatedLearning"
+  #   configs:
+  #     - "baselines/FederatedLearning/stgcn/METR-LA.py"
+  #     - "baselines/FederatedLearning/stgcn/PEMS-BAY.py"
+  #     - "baselines/FederatedLearning/stgcn/PEMS03.py"
+  #     - "baselines/FederatedLearning/stgcn/PEMS04.py"
+  #     - "baselines/FederatedLearning/stgcn/PEMS07.py"
+  #     - "baselines/FederatedLearning/stgcn/PEMS08.py"
+
+
+
+
+
+
+
+
+
+
+
+
+
+

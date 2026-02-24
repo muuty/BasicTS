@@ -1,0 +1,443 @@
+{
+  "ALAMEDA": {
+    "county": "Alameda",
+    "folder": "ALAMEDA",
+    "n_sensors": 897,
+    "flow_yoy_pct": 1.07,
+    "flow_mean_2022": 123.08,
+    "flow_mean_2024": 124.4,
+    "occupancy_yoy_pct": 3.6,
+    "occupancy_mean_2022": 0.04,
+    "occupancy_mean_2024": 0.04,
+    "speed_yoy_pct": 0.9,
+    "speed_mean_2022": 38.03,
+    "speed_mean_2024": 38.37,
+    "health": {
+      "2022": {
+        "dead": 110,
+        "major_fail": 61,
+        "partial": 181,
+        "functional": 545
+      },
+      "2023": {
+        "dead": 119,
+        "major_fail": 42,
+        "partial": 138,
+        "functional": 598
+      },
+      "2024": {
+        "dead": 141,
+        "major_fail": 39,
+        "partial": 154,
+        "functional": 563
+      }
+    },
+    "sensors_degraded": 76,
+    "sensors_improved": 26,
+    "n_functional_both_years": 537,
+    "flow_drift_mean_abs": 18.3,
+    "flow_drift_pct_gt10": 33.3,
+    "flow_drift_pct_gt20": 18.8,
+    "flow_drift_pct_gt50": 5.2,
+    "ks_significant_pct": 66.5,
+    "ks_mean_stat": 0.1261,
+    "persistence_mae_2022": 19.44,
+    "persistence_mae_2023": 19.26,
+    "persistence_mae_2024": 19.92,
+    "wd_we_ratio_2022": 1.116,
+    "wd_we_ratio_2023": 1.082,
+    "wd_we_ratio_2024": 1.078
+  },
+  "CONTRA_COSTA": {
+    "county": "Contra Costa",
+    "folder": "CONTRA_COSTA",
+    "n_sensors": 773,
+    "flow_yoy_pct": 1.82,
+    "flow_mean_2022": 119.74,
+    "flow_mean_2024": 121.92,
+    "occupancy_yoy_pct": 5.53,
+    "occupancy_mean_2022": 0.04,
+    "occupancy_mean_2024": 0.04,
+    "speed_yoy_pct": 0.96,
+    "speed_mean_2022": 39.42,
+    "speed_mean_2024": 39.8,
+    "health": {
+      "2022": {
+        "dead": 91,
+        "major_fail": 33,
+        "partial": 161,
+        "functional": 488
+      },
+      "2023": {
+        "dead": 94,
+        "major_fail": 32,
+        "partial": 138,
+        "functional": 509
+      },
+      "2024": {
+        "dead": 97,
+        "major_fail": 33,
+        "partial": 138,
+        "functional": 505
+      }
+    },
+    "sensors_degraded": 53,
+    "sensors_improved": 26,
+    "n_functional_both_years": 479,
+    "flow_drift_mean_abs": 19.43,
+    "flow_drift_pct_gt10": 33.4,
+    "flow_drift_pct_gt20": 18.6,
+    "flow_drift_pct_gt50": 5.0,
+    "ks_significant_pct": 69.5,
+    "ks_mean_stat": 0.1288,
+    "persistence_mae_2022": 18.92,
+    "persistence_mae_2023": 19.39,
+    "persistence_mae_2024": 19.09,
+    "wd_we_ratio_2022": 1.119,
+    "wd_we_ratio_2023": 1.083,
+    "wd_we_ratio_2024": 1.081
+  },
+  "LOS_ANGELES": {
+    "county": "Los Angeles",
+    "folder": "LOS_ANGELES",
+    "n_sensors": 4575,
+    "flow_yoy_pct": 1.38,
+    "flow_mean_2022": 118.64,
+    "flow_mean_2024": 120.28,
+    "occupancy_yoy_pct": 3.71,
+    "occupancy_mean_2022": 0.04,
+    "occupancy_mean_2024": 0.04,
+    "speed_yoy_pct": 0.74,
+    "speed_mean_2022": 38.3,
+    "speed_mean_2024": 38.58,
+    "health": {
+      "2022": {
+        "dead": 563,
+        "major_fail": 277,
+        "partial": 918,
+        "functional": 2817
+      },
+      "2023": {
+        "dead": 596,
+        "major_fail": 237,
+        "partial": 795,
+        "functional": 2947
+      },
+      "2024": {
+        "dead": 649,
+        "major_fail": 172,
+        "partial": 844,
+        "functional": 2910
+      }
+    },
+    "sensors_degraded": 352,
+    "sensors_improved": 150,
+    "n_functional_both_years": 2760,
+    "flow_drift_mean_abs": 19.18,
+    "flow_drift_pct_gt10": 34.3,
+    "flow_drift_pct_gt20": 18.9,
+    "flow_drift_pct_gt50": 6.4,
+    "ks_significant_pct": 72.0,
+    "ks_mean_stat": 0.1422,
+    "persistence_mae_2022": 18.88,
+    "persistence_mae_2023": 18.86,
+    "persistence_mae_2024": 19.16,
+    "wd_we_ratio_2022": 1.12,
+    "wd_we_ratio_2023": 1.081,
+    "wd_we_ratio_2024": 1.084
+  },
+  "ORANGE": {
+    "county": "Orange",
+    "folder": "ORANGE",
+    "n_sensors": 2409,
+    "flow_yoy_pct": 1.48,
+    "flow_mean_2022": 124.25,
+    "flow_mean_2024": 126.09,
+    "occupancy_yoy_pct": 3.19,
+    "occupancy_mean_2022": 0.04,
+    "occupancy_mean_2024": 0.04,
+    "speed_yoy_pct": 1.3,
+    "speed_mean_2022": 38.51,
+    "speed_mean_2024": 39.01,
+    "health": {
+      "2022": {
+        "dead": 295,
+        "major_fail": 153,
+        "partial": 475,
+        "functional": 1486
+      },
+      "2023": {
+        "dead": 287,
+        "major_fail": 108,
+        "partial": 438,
+        "functional": 1576
+      },
+      "2024": {
+        "dead": 334,
+        "major_fail": 108,
+        "partial": 411,
+        "functional": 1556
+      }
+    },
+    "sensors_degraded": 179,
+    "sensors_improved": 91,
+    "n_functional_both_years": 1465,
+    "flow_drift_mean_abs": 19.2,
+    "flow_drift_pct_gt10": 32.5,
+    "flow_drift_pct_gt20": 18.2,
+    "flow_drift_pct_gt50": 5.5,
+    "ks_significant_pct": 73.0,
+    "ks_mean_stat": 0.141,
+    "persistence_mae_2022": 19.58,
+    "persistence_mae_2023": 18.36,
+    "persistence_mae_2024": 19.69,
+    "wd_we_ratio_2022": 1.122,
+    "wd_we_ratio_2023": 1.079,
+    "wd_we_ratio_2024": 1.08
+  },
+  "RIVERSIDE": {
+    "county": "Riverside",
+    "folder": "RIVERSIDE",
+    "n_sensors": 825,
+    "flow_yoy_pct": 2.16,
+    "flow_mean_2022": 123.18,
+    "flow_mean_2024": 125.84,
+    "occupancy_yoy_pct": 3.65,
+    "occupancy_mean_2022": 0.04,
+    "occupancy_mean_2024": 0.04,
+    "speed_yoy_pct": 1.62,
+    "speed_mean_2022": 38.6,
+    "speed_mean_2024": 39.23,
+    "health": {
+      "2022": {
+        "dead": 103,
+        "major_fail": 55,
+        "partial": 160,
+        "functional": 507
+      },
+      "2023": {
+        "dead": 87,
+        "major_fail": 53,
+        "partial": 138,
+        "functional": 547
+      },
+      "2024": {
+        "dead": 118,
+        "major_fail": 36,
+        "partial": 136,
+        "functional": 535
+      }
+    },
+    "sensors_degraded": 67,
+    "sensors_improved": 36,
+    "n_functional_both_years": 499,
+    "flow_drift_mean_abs": 17.77,
+    "flow_drift_pct_gt10": 31.5,
+    "flow_drift_pct_gt20": 18.0,
+    "flow_drift_pct_gt50": 5.8,
+    "ks_significant_pct": 66.0,
+    "ks_mean_stat": 0.1379,
+    "persistence_mae_2022": 19.89,
+    "persistence_mae_2023": 18.75,
+    "persistence_mae_2024": 20.09,
+    "wd_we_ratio_2022": 1.126,
+    "wd_we_ratio_2023": 1.084,
+    "wd_we_ratio_2024": 1.086
+  },
+  "SACRAMENTO": {
+    "county": "Sacramento",
+    "folder": "SACRAMENTO",
+    "n_sensors": 832,
+    "flow_yoy_pct": 2.63,
+    "flow_mean_2022": 111.94,
+    "flow_mean_2024": 114.89,
+    "occupancy_yoy_pct": 3.04,
+    "occupancy_mean_2022": 0.04,
+    "occupancy_mean_2024": 0.04,
+    "speed_yoy_pct": 1.13,
+    "speed_mean_2022": 37.97,
+    "speed_mean_2024": 38.39,
+    "health": {
+      "2022": {
+        "dead": 105,
+        "major_fail": 49,
+        "partial": 166,
+        "functional": 512
+      },
+      "2023": {
+        "dead": 96,
+        "major_fail": 35,
+        "partial": 147,
+        "functional": 554
+      },
+      "2024": {
+        "dead": 120,
+        "major_fail": 32,
+        "partial": 156,
+        "functional": 524
+      }
+    },
+    "sensors_degraded": 67,
+    "sensors_improved": 26,
+    "n_functional_both_years": 498,
+    "flow_drift_mean_abs": 21.43,
+    "flow_drift_pct_gt10": 39.2,
+    "flow_drift_pct_gt20": 20.1,
+    "flow_drift_pct_gt50": 6.6,
+    "ks_significant_pct": 81.0,
+    "ks_mean_stat": 0.1457,
+    "persistence_mae_2022": 18.37,
+    "persistence_mae_2023": 18.95,
+    "persistence_mae_2024": 18.8,
+    "wd_we_ratio_2022": 1.121,
+    "wd_we_ratio_2023": 1.074,
+    "wd_we_ratio_2024": 1.082
+  },
+  "SAN_BERNARDINO": {
+    "county": "San Bernardino",
+    "folder": "SAN_BERNARDINO",
+    "n_sensors": 893,
+    "flow_yoy_pct": 1.35,
+    "flow_mean_2022": 126.34,
+    "flow_mean_2024": 128.05,
+    "occupancy_yoy_pct": 6.99,
+    "occupancy_mean_2022": 0.04,
+    "occupancy_mean_2024": 0.04,
+    "speed_yoy_pct": 0.65,
+    "speed_mean_2022": 39.32,
+    "speed_mean_2024": 39.58,
+    "health": {
+      "2022": {
+        "dead": 105,
+        "major_fail": 59,
+        "partial": 157,
+        "functional": 572
+      },
+      "2023": {
+        "dead": 110,
+        "major_fail": 39,
+        "partial": 150,
+        "functional": 594
+      },
+      "2024": {
+        "dead": 120,
+        "major_fail": 47,
+        "partial": 137,
+        "functional": 589
+      }
+    },
+    "sensors_degraded": 78,
+    "sensors_improved": 32,
+    "n_functional_both_years": 557,
+    "flow_drift_mean_abs": 20.26,
+    "flow_drift_pct_gt10": 35.5,
+    "flow_drift_pct_gt20": 18.9,
+    "flow_drift_pct_gt50": 5.6,
+    "ks_significant_pct": 69.0,
+    "ks_mean_stat": 0.1404,
+    "persistence_mae_2022": 19.84,
+    "persistence_mae_2023": 19.46,
+    "persistence_mae_2024": 19.96,
+    "wd_we_ratio_2022": 1.119,
+    "wd_we_ratio_2023": 1.08,
+    "wd_we_ratio_2024": 1.08
+  },
+  "SAN_JOAQUIN": {
+    "county": "San Joaquin",
+    "folder": "SAN_JOAQUIN",
+    "n_sensors": 687,
+    "flow_yoy_pct": 1.59,
+    "flow_mean_2022": 122.5,
+    "flow_mean_2024": 124.45,
+    "occupancy_yoy_pct": 1.9,
+    "occupancy_mean_2022": 0.04,
+    "occupancy_mean_2024": 0.04,
+    "speed_yoy_pct": 1.06,
+    "speed_mean_2022": 39.61,
+    "speed_mean_2024": 40.03,
+    "health": {
+      "2022": {
+        "dead": 79,
+        "major_fail": 37,
+        "partial": 130,
+        "functional": 441
+      },
+      "2023": {
+        "dead": 87,
+        "major_fail": 40,
+        "partial": 111,
+        "functional": 449
+      },
+      "2024": {
+        "dead": 98,
+        "major_fail": 32,
+        "partial": 104,
+        "functional": 453
+      }
+    },
+    "sensors_degraded": 64,
+    "sensors_improved": 20,
+    "n_functional_both_years": 433,
+    "flow_drift_mean_abs": 18.91,
+    "flow_drift_pct_gt10": 33.9,
+    "flow_drift_pct_gt20": 17.1,
+    "flow_drift_pct_gt50": 5.8,
+    "ks_significant_pct": 71.5,
+    "ks_mean_stat": 0.1398,
+    "persistence_mae_2022": 19.42,
+    "persistence_mae_2023": 18.43,
+    "persistence_mae_2024": 19.71,
+    "wd_we_ratio_2022": 1.119,
+    "wd_we_ratio_2023": 1.085,
+    "wd_we_ratio_2024": 1.08
+  },
+  "SANTA_CLARA": {
+    "county": "Santa Clara",
+    "folder": "SANTA_CLARA",
+    "n_sensors": 992,
+    "flow_yoy_pct": 1.36,
+    "flow_mean_2022": 122.57,
+    "flow_mean_2024": 124.24,
+    "occupancy_yoy_pct": 1.76,
+    "occupancy_mean_2022": 0.04,
+    "occupancy_mean_2024": 0.04,
+    "speed_yoy_pct": 1.21,
+    "speed_mean_2022": 38.86,
+    "speed_mean_2024": 39.33,
+    "health": {
+      "2022": {
+        "dead": 116,
+        "major_fail": 68,
+        "partial": 189,
+        "functional": 619
+      },
+      "2023": {
+        "dead": 118,
+        "major_fail": 55,
+        "partial": 186,
+        "functional": 633
+      },
+      "2024": {
+        "dead": 133,
+        "major_fail": 43,
+        "partial": 173,
+        "functional": 643
+      }
+    },
+    "sensors_degraded": 72,
+    "sensors_improved": 34,
+    "n_functional_both_years": 609,
+    "flow_drift_mean_abs": 19.02,
+    "flow_drift_pct_gt10": 31.0,
+    "flow_drift_pct_gt20": 16.7,
+    "flow_drift_pct_gt50": 4.9,
+    "ks_significant_pct": 69.5,
+    "ks_mean_stat": 0.1338,
+    "persistence_mae_2022": 19.6,
+    "persistence_mae_2023": 19.87,
+    "persistence_mae_2024": 19.49,
+    "wd_we_ratio_2022": 1.12,
+    "wd_we_ratio_2023": 1.073,
+    "wd_we_ratio_2024": 1.084
+  }
+}

@@ -1,0 +1,25 @@
+# PEMS04 실험 설정
+# 사용법: python experiments/run_experiments.py --config experiments/configs/pems04.yaml -g 0
+
+description: "All models on PEMS04 dataset"
+
+runs:
+  # Hierarchical Split Learning
+  - "baselines/HierSplit/staeformer/PEMS04.py"
+  #- "baselines/HierSplit/stgformer/PEMS04.py"
+  - "baselines/HierSplit/gruseq2seq_graphnet/PEMS04.py"
+  
+  # Split Learning
+  - "baselines/SplitLearning/staeformer/PEMS04.py"
+  #- "baselines/SplitLearning/stgformer/PEMS04.py"
+  - "baselines/SplitLearning/gruseq2seq_graphnet/PEMS04.py"
+  
+  # Independent Learning
+  - "baselines/IndependentLearning/STAEformer/PEMS04.py"
+  - "baselines/IndependentLearning/GRUSeq2SeqWithGraphNet/PEMS04.py"
+  
+  # Baseline
+  - "baselines/STAEformer/PEMS04.py"
+  #- "baselines/STGformer/PEMS04.py"
+  - "baselines/GRUSeq2SeqWithGraphNet/PEMS04.py"
+

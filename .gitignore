@@ -184,5 +184,38 @@ cython_debug/
 # MacOS
 .DS_Store
 
+# Node.js (not needed)
+node_modules/
+package.json
+package-lock.json
+
+# AI/Editor tools
+.claude/
+.omc/
+.cursorignore
+
+# Data archives
+all_data.zip
+*.tar.gz
+dump.rdb
+
+# Runtime state
+experiments/ray_queue_state.json
+
+# Experiment results (large, regenerable)
+experiments_results/
+
+# Legacy / not needed
+new_baselines_jy/
+other_baselines/
+
+# Embedded git repos in references
+references/models/GPT-ST/
+references/models/ST-SSL/
+references/models/STEP/
+references/models/STMAE/
+references/models/t-rep/
+references/models/ts2vec/
+
 # not ignore requirements.txt
 !*requirements.txt

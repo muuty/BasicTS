@@ -1,0 +1,25 @@
+# METR-LA 실험 설정
+# 사용법: python experiments/run_experiments.py --config experiments/configs/metr-la.yaml -g 0
+
+description: "All models on METR-LA dataset"
+
+runs:
+  # Hierarchical Split Learning
+  - "baselines/HierSplit/staeformer/METR-LA.py"
+  #- "baselines/HierSplit/stgformer/METR-LA.py"
+  - "baselines/HierSplit/gruseq2seq_graphnet/METR-LA.py"
+  
+  # Split Learning
+  - "baselines/SplitLearning/staeformer/METR-LA.py"
+  #- "baselines/SplitLearning/stgformer/METR-LA.py"
+  - "baselines/SplitLearning/gruseq2seq_graphnet/METR-LA.py"
+  
+  # Independent Learning
+  - "baselines/IndependentLearning/STAEformer/METR-LA.py"
+  - "baselines/IndependentLearning/GRUSeq2SeqWithGraphNet/METR-LA.py"
+  
+  # Baseline
+  - "baselines/STAEformer/METR-LA.py"
+  #- "baselines/STGformer/METR-LA.py"
+  - "baselines/GRUSeq2SeqWithGraphNet/METR-LA.py"
+

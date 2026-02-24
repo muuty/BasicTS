@@ -1,0 +1,16 @@
+{
+  "models": [
+    "STAEformer",
+    "STGCN"
+  ],
+  "n_nodes_compared": 278,
+  "stae_mean_increase": 0.3586690264329388,
+  "stgcn_mean_increase": 0.5211393906455168,
+  "spearman_r": 0.8520749323669031,
+  "spearman_p": 1.907337192692641e-78,
+  "pearson_r": 0.9278902957025136,
+  "pearson_p": 1.4957003449738243e-118,
+  "top20_overlap": 16,
+  "top50_overlap": 43,
+  "both_degraded_top25pct": 59
+}

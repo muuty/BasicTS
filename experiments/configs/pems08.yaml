@@ -1,0 +1,28 @@
+# PEMS08 실험 설정
+# 사용법: python experiments/run_experiments.py --config experiments/configs/pems08.yaml -g 0
+
+description: "All models on PEMS08 dataset"
+
+runs:
+  # Baseline
+  - "baselines/STAEformer/PEMS08.py"
+  - "baselines/STGformer/PEMS08.py"
+  - "baselines/GRUSeq2SeqWithGraphNet/PEMS08.py"
+  # Independent Learning
+  - "baselines/IndependentLearning/STAEformer/PEMS08.py"
+  - "baselines/IndependentLearning/STGformer/PEMS08.py"
+  - "baselines/IndependentLearning/GRUSeq2SeqWithGraphNet/PEMS08.py"
+  # Split Learning
+  - "baselines/SplitLearning/staeformer/PEMS08.py"
+  - "baselines/SplitLearning/stgformer/PEMS08.py"
+  - "baselines/SplitLearning/gruseq2seq_graphnet/PEMS08.py"
+  # Hierarchical Split Learning
+  - "baselines/HierSplit/staeformer/PEMS08.py"
+  - "baselines/HierSplit/stgformer/PEMS08.py"
+  - "baselines/HierSplit/gruseq2seq_graphnet/PEMS08.py"
+  
+
+  
+
+  
+

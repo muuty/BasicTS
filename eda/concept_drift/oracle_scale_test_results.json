@@ -1,0 +1,101 @@
+{
+  "train_2022_test_2022": {
+    "baseline_MAE": 10.895208358764648,
+    "global_oracle_MAE": 13.978432655334473,
+    "pernode_oracle_MAE": 70.85033416748047,
+    "persample_oracle_MAE": 16.780778884887695,
+    "rescale_MAE": 14.280414581298828
+  },
+  "train_2022_test_2023": {
+    "baseline_MAE": 22.434051513671875,
+    "global_oracle_MAE": 21.710172653198242,
+    "pernode_oracle_MAE": 59.997989654541016,
+    "persample_oracle_MAE": 14.502607345581055,
+    "rescale_MAE": 21.316877365112305,
+    "degrad_baseline_pct": 105.90750332576069,
+    "degrad_global_oracle_pct": 99.26349215463601,
+    "improvement_global_pct": 3.226696970150411,
+    "improvement_pernode_pct": -167.4416148950034,
+    "improvement_sample_pct": 35.35448852498711,
+    "improvement_rescale_pct": 4.979814492619562
+  },
+  "train_2022_test_2024": {
+    "baseline_MAE": 12.828577995300293,
+    "global_oracle_MAE": 14.438173294067383,
+    "pernode_oracle_MAE": 69.17964172363281,
+    "persample_oracle_MAE": 15.637518882751465,
+    "rescale_MAE": 14.952646255493164,
+    "degrad_baseline_pct": 17.74513687918915,
+    "degrad_global_oracle_pct": 32.518560624428964,
+    "improvement_global_pct": -12.546950249332076,
+    "improvement_pernode_pct": -439.2619645682986,
+    "improvement_sample_pct": -21.895964529195815,
+    "improvement_rescale_pct": -16.557316492685445
+  },
+  "train_2023_test_2022": {
+    "baseline_MAE": 25.124835968017578,
+    "global_oracle_MAE": 22.605314254760742,
+    "pernode_oracle_MAE": 62.37797927856445,
+    "persample_oracle_MAE": 15.582451820373535,
+    "rescale_MAE": 23.029682159423828,
+    "degrad_baseline_pct": 0.0,
+    "degrad_global_oracle_pct": -10.028012586685291,
+    "improvement_global_pct": 10.028012586685291,
+    "improvement_pernode_pct": -148.27218517154864,
+    "improvement_sample_pct": 37.979886355441,
+    "improvement_rescale_pct": 8.338975073352742
+  },
+  "train_2023_test_2023": {
+    "baseline_MAE": 10.466936111450195,
+    "global_oracle_MAE": 11.08696460723877,
+    "pernode_oracle_MAE": 69.0898208618164,
+    "persample_oracle_MAE": 15.843037605285645,
+    "rescale_MAE": 11.602404594421387
+  },
+  "train_2023_test_2024": {
+    "baseline_MAE": 24.199607849121094,
+    "global_oracle_MAE": 21.859302520751953,
+    "pernode_oracle_MAE": 61.408180236816406,
+    "persample_oracle_MAE": 14.696571350097656,
+    "rescale_MAE": 22.250633239746094,
+    "degrad_baseline_pct": 131.2004925935125,
+    "degrad_global_oracle_pct": 108.8414631368505,
+    "improvement_global_pct": 9.670839886994855,
+    "improvement_pernode_pct": -153.7569229207435,
+    "improvement_sample_pct": 39.26938220764838,
+    "improvement_rescale_pct": 8.053744595889329
+  },
+  "train_2024_test_2022": {
+    "baseline_MAE": 13.151001930236816,
+    "global_oracle_MAE": 13.766887664794922,
+    "pernode_oracle_MAE": 69.32244110107422,
+    "persample_oracle_MAE": 16.587249755859375,
+    "rescale_MAE": 14.018488883972168,
+    "degrad_baseline_pct": 0.0,
+    "degrad_global_oracle_pct": 4.683184884507236,
+    "improvement_global_pct": -4.683184884507236,
+    "improvement_pernode_pct": -427.1266894249927,
+    "improvement_sample_pct": -26.129171327409885,
+    "improvement_rescale_pct": -6.596356371455041
+  },
+  "train_2024_test_2023": {
+    "baseline_MAE": 23.325742721557617,
+    "global_oracle_MAE": 23.260408401489258,
+    "pernode_oracle_MAE": 58.54505920410156,
+    "persample_oracle_MAE": 14.376850128173828,
+    "rescale_MAE": 23.181537628173828,
+    "degrad_baseline_pct": 0.0,
+    "degrad_global_oracle_pct": -0.2800953472232955,
+    "improvement_global_pct": 0.2800953472232955,
+    "improvement_pernode_pct": -150.98904632088866,
+    "improvement_sample_pct": 38.364877381217255,
+    "improvement_rescale_pct": 0.6182229440887853
+  },
+  "train_2024_test_2024": {
+    "baseline_MAE": 9.850194931030273,
+    "global_oracle_MAE": 11.265400886535645,
+    "pernode_oracle_MAE": 68.27684783935547,
+    "persample_oracle_MAE": 15.481622695922852,
+    "rescale_MAE": 11.39752197265625
+  }
+}

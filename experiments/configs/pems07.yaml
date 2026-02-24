@@ -1,0 +1,36 @@
+# PEMS07 실험 설정
+# 사용법: python experiments/run_experiments.py --config experiments/configs/pems07.yaml -g 0
+
+description: "All models on PEMS07 dataset"
+
+runs:
+  # Baseline
+  - "baselines/STAEformer/PEMS07.py"
+  - "baselines/STGformer/PEMS07.py"
+  - "baselines/GRUSeq2SeqWithGraphNet/PEMS07.py"
+  # STGCN Baseline (NOTE: baselines/STGCN/PEMS07.py 파일이 필요합니다 - other_baselines/STGCN/PEMS07.py 참고)
+  # - "baselines/STGCN/PEMS07.py"
+  # Independent Learning
+  - "baselines/IndependentLearning/STAEformer/PEMS07.py"
+  - "baselines/IndependentLearning/STGformer/PEMS07.py"
+  - "baselines/IndependentLearning/GRUSeq2SeqWithGraphNet/PEMS07.py"
+  - "baselines/IndependentLearning/PEMS07_STGCN.py"
+  # - "baselines/IndependentLearning/PEMS07_STGCN.py"
+  # Split Learning
+  - "baselines/SplitLearning/staeformer/PEMS07.py"
+  - "baselines/SplitLearning/stgformer/PEMS07.py"
+  - "baselines/SplitLearning/gruseq2seq_graphnet/PEMS07.py"
+
+  # Hierarchical Split Learning
+  - "baselines/HierSplit/staeformer/PEMS07.py"
+  - "baselines/HierSplit/stgformer/PEMS07.py"
+  - "baselines/HierSplit/gruseq2seq_graphnet/PEMS07.py"
+  - "baselines/HierSplit/stgcn/PEMS07.py"
+
+  # Federated Learning
+  - "baselines/FederatedLearning/STAEformer/PEMS07.py"
+  - "baselines/FederatedLearning/STGformer/PEMS07.py"
+  - "baselines/FederatedLearning/STGCN/PEMS07.py"
+
+
+

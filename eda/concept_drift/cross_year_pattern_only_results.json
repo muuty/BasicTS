@@ -1,0 +1,74 @@
+{
+  "pattern_only_train_2022_test_2022": {
+    "MAE": 10.42158031463623,
+    "oracle_MAE": 8.152726173400879
+  },
+  "pattern_only_train_2022_test_2023": {
+    "MAE": 14.989518165588379,
+    "oracle_MAE": 8.927367210388184
+  },
+  "pattern_only_train_2022_test_2024": {
+    "MAE": 11.205720901489258,
+    "oracle_MAE": 8.010213851928711
+  },
+  "pattern_only_train_2023_test_2022": {
+    "MAE": 16.402103424072266,
+    "oracle_MAE": 9.653971672058105
+  },
+  "pattern_only_train_2023_test_2023": {
+    "MAE": 9.65252685546875,
+    "oracle_MAE": 7.522187232971191
+  },
+  "pattern_only_train_2023_test_2024": {
+    "MAE": 15.648249626159668,
+    "oracle_MAE": 9.155006408691406
+  },
+  "pattern_only_train_2024_test_2022": {
+    "MAE": 11.887866973876953,
+    "oracle_MAE": 8.488934516906738
+  },
+  "pattern_only_train_2024_test_2023": {
+    "MAE": 15.316554069519043,
+    "oracle_MAE": 8.990530967712402
+  },
+  "pattern_only_train_2024_test_2024": {
+    "MAE": 9.600164413452148,
+    "oracle_MAE": 7.61865234375
+  },
+  "baseline_train_2022_test_2022": {
+    "MAE": 10.895208358764648,
+    "oracle_MAE": 8.229410171508789
+  },
+  "baseline_train_2022_test_2023": {
+    "MAE": 22.434051513671875,
+    "oracle_MAE": 9.824384689331055
+  },
+  "baseline_train_2022_test_2024": {
+    "MAE": 12.828577995300293,
+    "oracle_MAE": 8.096929550170898
+  },
+  "baseline_train_2023_test_2022": {
+    "MAE": 25.124835968017578,
+    "oracle_MAE": 10.449320793151855
+  },
+  "baseline_train_2023_test_2023": {
+    "MAE": 10.466936111450195,
+    "oracle_MAE": 7.609662055969238
+  },
+  "baseline_train_2023_test_2024": {
+    "MAE": 24.199607849121094,
+    "oracle_MAE": 9.88521957397461
+  },
+  "baseline_train_2024_test_2022": {
+    "MAE": 13.151001930236816,
+    "oracle_MAE": 8.599482536315918
+  },
+  "baseline_train_2024_test_2023": {
+    "MAE": 23.325742721557617,
+    "oracle_MAE": 10.003969192504883
+  },
+  "baseline_train_2024_test_2024": {
+    "MAE": 9.850194931030273,
+    "oracle_MAE": 7.648590087890625
+  }
+}

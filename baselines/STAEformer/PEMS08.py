@@ -22,6 +22,8 @@ TRAIN_VAL_TEST_RATIO = regular_settings['TRAIN_VAL_TEST_RATIO']  # Train/Validat
 NORM_EACH_CHANNEL = regular_settings['NORM_EACH_CHANNEL'] # Whether to normalize each channel of the data
 RESCALE = regular_settings['RESCALE'] # Whether to rescale the data
 NULL_VAL = regular_settings['NULL_VAL'] # Null value in the data
+ADJ_MATRIX, _ = load_adj("datasets/" + DATA_NAME + "/adj_mx.pkl", "normlap")
+ADJ_MATRIX = torch.Tensor(ADJ_MATRIX[0])
 # Model architecture and parameters
 MODEL_ARCH = STAEformer
 
@@ -36,14 +38,15 @@ MODEL_PARAM = {
     "tod_embedding_dim": 24,
     "dow_embedding_dim": 24,
     "spatial_embedding_dim": 0,
-    "adaptive_embedding_dim": 80,
+    "adaptive_embedding_dim": 24,
     "feed_forward_dim": 256,
     "num_heads": 4,
-    "num_layers": 3,
+    "num_layers": 1,
     "dropout": 0.1,
     "use_mixed_proj": True,
+    "adj_matrix": ADJ_MATRIX,
 }
-NUM_EPOCHS = 100
+NUM_EPOCHS = 30
 
 ############################## General Configuration ##############################
 CFG = EasyDict()
@@ -121,9 +124,11 @@ CFG.TRAIN.LR_SCHEDULER.PARAM = {
     "milestones": [20, 25],
     "gamma": 0.1
 }
+# Early stopping
+# CFG.TRAIN.EARLY_STOPPING_PATIENCE = 20
 # Train data loader settings
 CFG.TRAIN.DATA = EasyDict()
-CFG.TRAIN.DATA.BATCH_SIZE = 16
+CFG.TRAIN.DATA.BATCH_SIZE = 64
 CFG.TRAIN.DATA.SHUFFLE = True
 
 ############################## Validation Configuration ##############################

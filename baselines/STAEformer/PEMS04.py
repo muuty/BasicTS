@@ -36,14 +36,14 @@ MODEL_PARAM = {
     "tod_embedding_dim": 24,
     "dow_embedding_dim": 24,
     "spatial_embedding_dim": 0,
-    "adaptive_embedding_dim": 80,
+    "adaptive_embedding_dim": 24,
     "feed_forward_dim": 256,
     "num_heads": 4,
-    "num_layers": 3,
+    "num_layers": 1,
     "dropout": 0.1,
     "use_mixed_proj": True,
 }
-NUM_EPOCHS = 100
+NUM_EPOCHS = 30
 
 ############################## General Configuration ##############################
 CFG = EasyDict()
@@ -121,6 +121,8 @@ CFG.TRAIN.LR_SCHEDULER.PARAM = {
     "milestones": [20, 25],
     "gamma": 0.1
 }
+# Early stopping
+# CFG.TRAIN.EARLY_STOPPING_PATIENCE = 20
 # Train data loader settings
 CFG.TRAIN.DATA = EasyDict()
 CFG.TRAIN.DATA.BATCH_SIZE = 16

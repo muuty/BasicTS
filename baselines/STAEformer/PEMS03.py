@@ -36,14 +36,14 @@ MODEL_PARAM = {
     "tod_embedding_dim": 24,
     "dow_embedding_dim": 24,
     "spatial_embedding_dim": 0,
-    "adaptive_embedding_dim": 80,
+    "adaptive_embedding_dim": 24,
     "feed_forward_dim": 256,
     "num_heads": 4,
-    "num_layers": 3,
+    "num_layers": 1,
     "dropout": 0.1,
     "use_mixed_proj": True,
 }
-NUM_EPOCHS = 100
+NUM_EPOCHS = 30
 
 ############################## General Configuration ##############################
 CFG = EasyDict()

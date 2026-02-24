@@ -409,12 +409,18 @@ class BaseTimeSeriesForecastingRunner(BaseEpochRunner):
     @master_only
     def test(self, train_epoch: Optional[int] = None, save_metrics: bool = False, save_results: bool = False) -> Dict:
         """Test process.
-        
+
         Args:
             train_epoch (Optional[int]): Current epoch if in training process.
             save_metrics (bool): Save the test metrics. Defaults to False.
             save_results (bool): Save the test results. Defaults to False.
         """
+
+        # Collect per-sample and per-node MAE for robustness metrics
+        all_sample_mae = []
+        all_node_mae = []  # Will be aggregated per node
+        all_masked_ae_sum = []  # For masked per-node MAE (skip zero targets)
+        all_nonzero_count = []  # Count of non-zero targets per node
 
         for batch_idx, data in enumerate(tqdm(self.test_data_loader)):
             forward_return = self.forward(data, epoch=None, iter_num=None, train=False)
@@ -437,6 +443,22 @@ class BaseTimeSeriesForecastingRunner(BaseEpochRunner):
                 }
                 self._save_test_results(batch_idx, batch_data)
 
+            # Compute per-sample MAE for robustness metrics
+            # Shape: (batch_size,) - mean over time, nodes, and features
+            batch_sample_mae = torch.mean(torch.abs(pred - target), dim=(1, 2, 3))
+            all_sample_mae.append(batch_sample_mae.cpu())
+
+            # Compute per-node MAE for robustness metrics
+            # Shape: (batch_size, num_nodes) - mean over time and features
+            batch_node_mae = torch.mean(torch.abs(pred - target), dim=(1, 3))
+            all_node_mae.append(batch_node_mae.cpu())
+
+            # Accumulate masked per-node MAE (skip zero targets)
+            batch_ae = torch.abs(pred - target)  # (B, T, N, C)
+            batch_nonzero = (target != 0)  # (B, T, N, C)
+            all_masked_ae_sum.append((batch_ae * batch_nonzero).sum(dim=(1, 3)).cpu())  # (B, N)
+            all_nonzero_count.append(batch_nonzero.sum(dim=(1, 3)).cpu())  # (B, N)
+
             # evaluation on specific timesteps
             for i in self.evaluation_horizons:
                 pred_h = pred[:, i, :, :]
@@ -453,15 +475,133 @@ class BaseTimeSeriesForecastingRunner(BaseEpochRunner):
                 metric_item = self.metric_forward(metric_func, {'prediction': pred, 'target': target})
                 self.update_epoch_meter(f'test/{metric_name}', metric_item.item(), weight)
 
-        if save_metrics:
-            metrics_results = {}
-            metrics_results['overall'] = {k: self.meter_pool.get_value(f'test/{k}') for k in self.metrics.keys()}
-            for i in self.evaluation_horizons:
-                metrics_results[f'horizon_{i+1}'] = {k: self.meter_pool.get_value(f'test/{k}@h{i+1}') for k in self.metrics.keys()}
+        # Compute robustness metrics
+        all_sample_mae = torch.cat(all_sample_mae, dim=0).numpy()
+        all_node_mae = torch.cat(all_node_mae, dim=0).numpy()  # Shape: (num_samples, num_nodes)
+        masked_ae_sum = torch.cat(all_masked_ae_sum, dim=0).numpy().sum(axis=0)  # (num_nodes,)
+        nonzero_count = torch.cat(all_nonzero_count, dim=0).numpy().sum(axis=0)  # (num_nodes,)
+        self._robustness_metrics = self._compute_robustness_metrics(
+            all_sample_mae, all_node_mae, masked_ae_sum, nonzero_count
+        )
 
-            # save metrics_results to self.ckpt_save_dir/test_metrics.json
-            with open(os.path.join(self.ckpt_save_dir, 'test_metrics.json'), 'w') as f:
-                json.dump(metrics_results, f, indent=4)
+        if save_metrics:
+            self._save_test_metrics()
+
+    def _compute_robustness_metrics(self, sample_mae: np.ndarray, node_mae: np.ndarray,
+                                     masked_ae_sum: np.ndarray = None,
+                                     nonzero_count: np.ndarray = None) -> Dict:
+        """Compute robustness metrics (worst K% MAE) for both samples and nodes.
+
+        Args:
+            sample_mae (np.ndarray): Per-sample MAE values with shape (num_samples,).
+            node_mae (np.ndarray): Per-node MAE values with shape (num_samples, num_nodes).
+            masked_ae_sum (np.ndarray): Sum of |pred-target| where target!=0, per node. Shape: (num_nodes,).
+            nonzero_count (np.ndarray): Count of non-zero targets per node. Shape: (num_nodes,).
+
+        Returns:
+            Dict: Robustness metrics including worst 1%, 5%, 10% MAE for samples and nodes.
+        """
+        robustness = {}
+
+        # ===== Per-Sample Robustness =====
+        num_samples = len(sample_mae)
+        sorted_sample_mae = np.sort(sample_mae)[::-1]  # Sort descending (worst first)
+
+        sample_metrics = {}
+        # Worst K% metrics
+        for pct in [1, 5, 10]:
+            k = max(1, int(num_samples * pct / 100))
+            worst_k_mae = np.mean(sorted_sample_mae[:k])
+            sample_metrics[f'worst_{pct}pct_MAE'] = float(worst_k_mae)
+
+        # Additional statistics
+        sample_metrics['max_MAE'] = float(sorted_sample_mae[0])
+        sample_metrics['median_MAE'] = float(np.median(sample_mae))
+        sample_metrics['std_MAE'] = float(np.std(sample_mae))
+        sample_metrics['num_samples'] = num_samples
+        robustness['per_sample'] = sample_metrics
+
+        # ===== Per-Node Robustness =====
+        # Compute mean MAE per node across all samples
+        # node_mae shape: (num_samples, num_nodes)
+        mean_node_mae = np.mean(node_mae, axis=0)  # Shape: (num_nodes,)
+        num_nodes = len(mean_node_mae)
+        sorted_node_mae = np.sort(mean_node_mae)[::-1]  # Sort descending (worst first)
+
+        node_metrics = {}
+        # Worst K% node metrics
+        for pct in [1, 5, 10]:
+            k = max(1, int(num_nodes * pct / 100))
+            worst_k_mae = np.mean(sorted_node_mae[:k])
+            node_metrics[f'worst_{pct}pct_MAE'] = float(worst_k_mae)
+
+        # Additional statistics
+        node_metrics['max_MAE'] = float(sorted_node_mae[0])
+        node_metrics['min_MAE'] = float(sorted_node_mae[-1])
+        node_metrics['median_MAE'] = float(np.median(mean_node_mae))
+        node_metrics['std_MAE'] = float(np.std(mean_node_mae))  # Node-wise error variance
+        node_metrics['num_nodes'] = num_nodes
+
+        # Worst and best node indices
+        node_metrics['worst_node_idx'] = int(np.argmax(mean_node_mae))
+        node_metrics['best_node_idx'] = int(np.argmin(mean_node_mae))
+
+        # Worst 1% node indices (sorted by MAE descending)
+        sorted_node_indices = np.argsort(mean_node_mae)[::-1]
+        k1 = max(1, int(num_nodes * 1 / 100))
+        node_metrics['worst_1pct_node_indices'] = [int(i) for i in sorted_node_indices[:k1]]
+        node_metrics['worst_1pct_node_maes'] = [float(mean_node_mae[i]) for i in sorted_node_indices[:k1]]
+
+        robustness['per_node'] = node_metrics
+
+        # ===== Per-Category Robustness (by target zero rate) =====
+        if masked_ae_sum is not None and nonzero_count is not None:
+            safe_count = np.maximum(nonzero_count, 1)
+            masked_node_mae = masked_ae_sum / safe_count  # (num_nodes,)
+
+            # Compute per-node zero rate from target counts
+            # Use nonzero_count relative to max across nodes as proxy for zero rate
+            max_nonzero = nonzero_count.max()
+            zero_rate = 1.0 - nonzero_count / max_nonzero if max_nonzero > 0 else np.zeros(num_nodes)
+
+            categories = {
+                'dead_gt90pct': zero_rate > 0.9,
+                'major_fail_50_90pct': (zero_rate > 0.5) & (zero_rate <= 0.9),
+                'partial_fail_5_50pct': (zero_rate > 0.05) & (zero_rate <= 0.5),
+                'functional_lt5pct': zero_rate <= 0.05,
+            }
+
+            cat_metrics = {}
+            for cat_name, mask in categories.items():
+                n = int(mask.sum())
+                if n == 0:
+                    cat_metrics[cat_name] = {'num_nodes': 0, 'raw_mae': None, 'masked_mae': None}
+                else:
+                    cat_metrics[cat_name] = {
+                        'num_nodes': n,
+                        'raw_mae': float(mean_node_mae[mask].mean()),
+                        'masked_mae': float(masked_node_mae[mask].mean()),
+                    }
+            cat_metrics['overall_masked_mae'] = float(
+                masked_ae_sum.sum() / max(nonzero_count.sum(), 1)
+            )
+            robustness['per_category'] = cat_metrics
+
+        return robustness
+
+    def _save_test_metrics(self):
+        """Save test metrics to JSON file. Override this to add custom metrics."""
+        metrics_results = {}
+        metrics_results['overall'] = {k: self.meter_pool.get_value(f'test/{k}') for k in self.metrics.keys()}
+        for i in self.evaluation_horizons:
+            metrics_results[f'horizon_{i+1}'] = {k: self.meter_pool.get_value(f'test/{k}@h{i+1}') for k in self.metrics.keys()}
+
+        # Add robustness metrics
+        if hasattr(self, '_robustness_metrics') and self._robustness_metrics:
+            metrics_results['robustness'] = self._robustness_metrics
+
+        with open(os.path.join(self.ckpt_save_dir, 'test_metrics.json'), 'w') as f:
+            json.dump(metrics_results, f, indent=4)
 
     @torch.no_grad()
     @master_only

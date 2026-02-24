@@ -1,0 +1,7 @@
+# RIVERSIDE 실험 설정
+# 사용법: python run_experiments.py --config experiments/configs/riverside.yaml -g 0
+
+description: "Various models on RIVERSIDE dataset"
+
+runs:
+  - "baselines/HierSplit/staeformer/RIVERSIDE.py"

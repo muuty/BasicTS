@@ -1,0 +1,45 @@
+# staeformer 실험 설정
+# 사용법: python experiments/run_experiments.py --config experiments/configs/staeformer.yaml -g 0
+
+description: "staeformer models on all dataset"
+
+runs:
+  # Baseline
+  # - "baselines/STAEformer/METR-LA.py"
+  # - "baselines/STAEformer/PEMS-BAY.py"
+  # - "baselines/STAEformer/PEMS03.py"
+  # - "baselines/STAEformer/PEMS04.py"
+  # - "baselines/STAEformer/PEMS07.py"
+  # - "baselines/STAEformer/PEMS08.py"
+  
+  # # Split Learning
+  # - "baselines/SplitLearning/staeformer/METR-LA.py"
+  # - "baselines/SplitLearning/staeformer/PEMS-BAY.py"
+  # - "baselines/SplitLearning/staeformer/PEMS03.py"
+  # - "baselines/SplitLearning/staeformer/PEMS04.py"
+  # - "baselines/SplitLearning/staeformer/PEMS07.py"
+  # - "baselines/SplitLearning/staeformer/PEMS08.py"
+
+  # # Federated Learning
+  # - "baselines/FederatedLearning/staeformer/METR-LA.py"
+  # - "baselines/FederatedLearning/staeformer/PEMS-BAY.py"
+  # - "baselines/FederatedLearning/staeformer/PEMS03.py"
+  # - "baselines/FederatedLearning/staeformer/PEMS04.py"
+  # - "baselines/FederatedLearning/staeformer/PEMS07.py"
+  # - "baselines/FederatedLearning/staeformer/PEMS08.py"
+
+  # # Independent Learning
+  # - "baselines/IndependentLearning/staeformer/METR-LA.py"
+  # - "baselines/IndependentLearning/staeformer/PEMS-BAY.py"
+  # - "baselines/IndependentLearning/staeformer/PEMS03.py"
+  # - "baselines/IndependentLearning/staeformer/PEMS04.py"
+  # - "baselines/IndependentLearning/staeformer/PEMS07.py"
+  # - "baselines/IndependentLearning/staeformer/PEMS08.py"
+
+  # Hierarchical Split Learning
+  - "baselines/HierSplit/staeformer/METR-LA.py"
+  - "baselines/HierSplit/staeformer/PEMS-BAY.py"
+  - "baselines/HierSplit/staeformer/PEMS03.py"
+  - "baselines/HierSplit/staeformer/PEMS04.py"
+  - "baselines/HierSplit/staeformer/PEMS07.py"
+  - "baselines/HierSplit/staeformer/PEMS08.py"

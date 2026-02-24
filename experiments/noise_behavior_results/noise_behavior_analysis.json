@@ -1,0 +1,60 @@
+{
+  "attention": {
+    "gauss_s03_r30": {
+      "baseline_attn_noisy": 0.0011996622779406607,
+      "baseline_attn_clean": 0.0008502293843775987,
+      "baseline_ratio": 1.41098661135884,
+      "denoised_attn_noisy": 0.0012320291716605425,
+      "denoised_attn_clean": 0.0010637751780450343,
+      "denoised_ratio": 1.1581668731213666
+    },
+    "gauss_s10_r30": {
+      "baseline_attn_noisy": 0.0015470454003661872,
+      "baseline_attn_clean": 0.0008050390402786434,
+      "baseline_ratio": 1.921702331144981,
+      "denoised_attn_noisy": 0.0012908696429803968,
+      "denoised_attn_clean": 0.0010858769062906503,
+      "denoised_ratio": 1.188780823592612
+    },
+    "bias_s03_r30": {
+      "baseline_attn_noisy": 0.0008832150953821838,
+      "baseline_attn_clean": 0.0008930173004046083,
+      "baseline_ratio": 0.9890234993006483,
+      "denoised_attn_noisy": 0.001073879166506231,
+      "denoised_attn_clean": 0.001084128231741488,
+      "denoised_ratio": 0.9905462611016103
+    },
+    "bias_s05_r30": {
+      "baseline_attn_noisy": 0.000910859415307641,
+      "baseline_attn_clean": 0.0008855858119204641,
+      "baseline_ratio": 1.0285388530924735,
+      "denoised_attn_noisy": 0.001063543721102178,
+      "denoised_attn_clean": 0.0010895925806835294,
+      "denoised_ratio": 0.9760930277581276
+    },
+    "stuck_r30": {
+      "baseline_attn_noisy": 0.0009139944449998438,
+      "baseline_attn_clean": 0.0008882123744115234,
+      "baseline_ratio": 1.029026921185828,
+      "denoised_attn_noisy": 0.0010790607891976833,
+      "denoised_attn_clean": 0.0010855743428692221,
+      "denoised_ratio": 0.9939999008687667
+    },
+    "drift_s03_r30": {
+      "baseline_attn_noisy": 0.0009068131563253701,
+      "baseline_attn_clean": 0.0008823021547868848,
+      "baseline_ratio": 1.0277807340778917,
+      "denoised_attn_noisy": 0.0010773608693853021,
+      "denoised_attn_clean": 0.0010828438214957714,
+      "denoised_ratio": 0.9949365254696698
+    },
+    "drift_s05_r30": {
+      "baseline_attn_noisy": 0.0008767649298533798,
+      "baseline_attn_clean": 0.0008984239539131522,
+      "baseline_ratio": 0.9758922010422418,
+      "denoised_attn_noisy": 0.0010710174450650812,
+      "denoised_attn_clean": 0.0010865110438317061,
+      "denoised_ratio": 0.9857400448393189
+    }
+  }
+}

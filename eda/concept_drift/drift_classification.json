@@ -1,0 +1,4457 @@
+[
+  {
+    "node": 0,
+    "type": "stable",
+    "trend_per_year": 11.104179916931983,
+    "rel_trend": 0.047619277629635,
+    "seasonality_r": -0.07651313671004059,
+    "volatility": 51.76404634552311,
+    "mean_flow": 233.18665091219736
+  },
+  {
+    "node": 1,
+    "type": "moderate_trend",
+    "trend_per_year": 11.285108111036633,
+    "rel_trend": 0.05280328893143326,
+    "seasonality_r": 0.6529218917676896,
+    "volatility": 107.83834809925149,
+    "mean_flow": 213.71979447885175
+  },
+  {
+    "node": 3,
+    "type": "volatile",
+    "trend_per_year": 2.786785505739102,
+    "rel_trend": 0.028928115544183668,
+    "seasonality_r": -0.22036094150574945,
+    "volatility": 65.73634383430097,
+    "mean_flow": 96.33484326189723
+  },
+  {
+    "node": 4,
+    "type": "moderate_trend",
+    "trend_per_year": 7.14644732872188,
+    "rel_trend": 0.056521512497253686,
+    "seasonality_r": 0.16684151780864875,
+    "volatility": 31.785113743547175,
+    "mean_flow": 126.43765101911605
+  },
+  {
+    "node": 6,
+    "type": "volatile",
+    "trend_per_year": 4.464800022136844,
+    "rel_trend": 0.023997023835429666,
+    "seasonality_r": 0.2355161042136105,
+    "volatility": 82.7467654155153,
+    "mean_flow": 186.0564055259179
+  },
+  {
+    "node": 7,
+    "type": "stable",
+    "trend_per_year": 3.2405364571797515,
+    "rel_trend": 0.035913891104510494,
+    "seasonality_r": 0.45236476395351305,
+    "volatility": 17.33300663112632,
+    "mean_flow": 90.2307247030349
+  },
+  {
+    "node": 8,
+    "type": "moderate_trend",
+    "trend_per_year": 18.339818197078944,
+    "rel_trend": 0.06204352198333525,
+    "seasonality_r": 0.531346527997189,
+    "volatility": 43.7317998560935,
+    "mean_flow": 295.59601951613024
+  },
+  {
+    "node": 9,
+    "type": "volatile",
+    "trend_per_year": 1.6134536608780718,
+    "rel_trend": 0.005534259732124321,
+    "seasonality_r": 0.111521910519975,
+    "volatility": 136.91126131382796,
+    "mean_flow": 291.53920008096355
+  },
+  {
+    "node": 10,
+    "type": "stable",
+    "trend_per_year": -1.5385455936174983,
+    "rel_trend": 0.005391512338983187,
+    "seasonality_r": -0.007401011289435109,
+    "volatility": 55.39829916112284,
+    "mean_flow": 285.3643822905816
+  },
+  {
+    "node": 12,
+    "type": "moderate_trend",
+    "trend_per_year": 18.94543432730079,
+    "rel_trend": 0.073687869094463,
+    "seasonality_r": -0.1910181627849345,
+    "volatility": 100.23917546784314,
+    "mean_flow": 257.1038420085961
+  },
+  {
+    "node": 13,
+    "type": "stable",
+    "trend_per_year": 0.8919487725819168,
+    "rel_trend": 0.012045161136730464,
+    "seasonality_r": -0.22258518595369242,
+    "volatility": 13.61989450098638,
+    "mean_flow": 74.05038009967761
+  },
+  {
+    "node": 14,
+    "type": "volatile",
+    "trend_per_year": -3.964164557482726,
+    "rel_trend": 0.02776065639117025,
+    "seasonality_r": -0.4388365592548128,
+    "volatility": 120.85141459682907,
+    "mean_flow": 142.79793942418954
+  },
+  {
+    "node": 15,
+    "type": "stable",
+    "trend_per_year": 3.949713415715321,
+    "rel_trend": 0.01177756316175791,
+    "seasonality_r": 0.4347099674804904,
+    "volatility": 13.922653634903241,
+    "mean_flow": 335.3591358153435
+  },
+  {
+    "node": 16,
+    "type": "volatile",
+    "trend_per_year": 1.9483212563912216,
+    "rel_trend": 0.006773624681356515,
+    "seasonality_r": 0.11240466907569009,
+    "volatility": 196.11467074648888,
+    "mean_flow": 287.63348152136143
+  },
+  {
+    "node": 18,
+    "type": "stable",
+    "trend_per_year": -0.06765885040962202,
+    "rel_trend": 0.0001879021110509438,
+    "seasonality_r": 0.39158083517019177,
+    "volatility": 19.220820128321716,
+    "mean_flow": 360.0749871478364
+  },
+  {
+    "node": 21,
+    "type": "strong_trend",
+    "trend_per_year": -47.73564515383411,
+    "rel_trend": 0.6969073835044088,
+    "seasonality_r": NaN,
+    "volatility": 51.36346561491732,
+    "mean_flow": 68.4963964894264
+  },
+  {
+    "node": 22,
+    "type": "strong_trend",
+    "trend_per_year": -32.63171132357699,
+    "rel_trend": 0.14202995313726557,
+    "seasonality_r": -0.14067372940171274,
+    "volatility": 54.195315671722476,
+    "mean_flow": 229.75231956888663
+  },
+  {
+    "node": 23,
+    "type": "seasonal_dominant",
+    "trend_per_year": 1.9043225325618396,
+    "rel_trend": 0.00998034013266817,
+    "seasonality_r": 0.7566172721446899,
+    "volatility": 108.55545877657411,
+    "mean_flow": 190.80737702998434
+  },
+  {
+    "node": 24,
+    "type": "volatile",
+    "trend_per_year": 2.3957793819108004,
+    "rel_trend": 0.018049874756678696,
+    "seasonality_r": 0.20016069976394166,
+    "volatility": 75.27728775209607,
+    "mean_flow": 132.73107964222606
+  },
+  {
+    "node": 25,
+    "type": "volatile",
+    "trend_per_year": 5.75242329752569,
+    "rel_trend": 0.035825257718625936,
+    "seasonality_r": 0.5824888566936621,
+    "volatility": 94.70722987664404,
+    "mean_flow": 160.5689289629223
+  },
+  {
+    "node": 27,
+    "type": "volatile",
+    "trend_per_year": -0.4251068504686633,
+    "rel_trend": 0.0195172246108996,
+    "seasonality_r": 0.41310021962232685,
+    "volatility": 12.215597059893717,
+    "mean_flow": 21.781110758649223
+  },
+  {
+    "node": 29,
+    "type": "stable",
+    "trend_per_year": 0.6463905452324151,
+    "rel_trend": 0.001794956963013981,
+    "seasonality_r": 0.6740214293363693,
+    "volatility": 27.36107875587034,
+    "mean_flow": 360.1147864582107
+  },
+  {
+    "node": 30,
+    "type": "volatile",
+    "trend_per_year": 1.4380623394273522,
+    "rel_trend": 0.02003131776794601,
+    "seasonality_r": -0.2231663180435135,
+    "volatility": 39.1216742329164,
+    "mean_flow": 71.79069974603533
+  },
+  {
+    "node": 32,
+    "type": "strong_trend",
+    "trend_per_year": 31.70952261090629,
+    "rel_trend": 0.13153427942403076,
+    "seasonality_r": 0.010978105016131725,
+    "volatility": 133.90051985642143,
+    "mean_flow": 241.07420984266108
+  },
+  {
+    "node": 33,
+    "type": "moderate_trend",
+    "trend_per_year": 12.206637739715266,
+    "rel_trend": 0.05221582822914858,
+    "seasonality_r": -0.2692649825077351,
+    "volatility": 35.405111447565424,
+    "mean_flow": 233.77274863726655
+  },
+  {
+    "node": 34,
+    "type": "volatile",
+    "trend_per_year": 1.411181889450003,
+    "rel_trend": 0.009394417602860753,
+    "seasonality_r": -0.17962326981267063,
+    "volatility": 125.51498599537346,
+    "mean_flow": 150.2149403732976
+  },
+  {
+    "node": 37,
+    "type": "strong_trend",
+    "trend_per_year": 91.82635986628499,
+    "rel_trend": 0.6078053482218608,
+    "seasonality_r": NaN,
+    "volatility": 112.35713776368719,
+    "mean_flow": 151.07856409476875
+  },
+  {
+    "node": 41,
+    "type": "volatile",
+    "trend_per_year": -1.439488053324259,
+    "rel_trend": 0.03873123081457959,
+    "seasonality_r": NaN,
+    "volatility": 26.38733374292457,
+    "mean_flow": 37.16607978415089
+  },
+  {
+    "node": 42,
+    "type": "volatile",
+    "trend_per_year": 6.02539036380368,
+    "rel_trend": 0.043029540938993825,
+    "seasonality_r": 0.5059402376126173,
+    "volatility": 52.30379394198661,
+    "mean_flow": 140.0291564652475
+  },
+  {
+    "node": 43,
+    "type": "stable",
+    "trend_per_year": 0.3030464231484225,
+    "rel_trend": 0.0014363392723519104,
+    "seasonality_r": 0.10104956468527942,
+    "volatility": 9.284500026043283,
+    "mean_flow": 210.9852647946225
+  },
+  {
+    "node": 44,
+    "type": "strong_trend",
+    "trend_per_year": -27.33710584942221,
+    "rel_trend": 0.22738694596976833,
+    "seasonality_r": 0.07974626695279491,
+    "volatility": 29.719948237513364,
+    "mean_flow": 120.22284527129275
+  },
+  {
+    "node": 45,
+    "type": "stable",
+    "trend_per_year": -0.5892677946868115,
+    "rel_trend": 0.0019400004114832113,
+    "seasonality_r": 0.2597164602131511,
+    "volatility": 47.584076698524726,
+    "mean_flow": 303.746220495021
+  },
+  {
+    "node": 47,
+    "type": "moderate_trend",
+    "trend_per_year": 13.979875387222949,
+    "rel_trend": 0.06797495315559554,
+    "seasonality_r": NaN,
+    "volatility": 146.02081726699063,
+    "mean_flow": 205.66215451811905
+  },
+  {
+    "node": 49,
+    "type": "volatile",
+    "trend_per_year": 0.4142969976173573,
+    "rel_trend": 0.006428618919808175,
+    "seasonality_r": -0.235926777484194,
+    "volatility": 25.962814624795243,
+    "mean_flow": 64.44572253492679
+  },
+  {
+    "node": 50,
+    "type": "moderate_trend",
+    "trend_per_year": 27.133015269986103,
+    "rel_trend": 0.08167197829002495,
+    "seasonality_r": -0.2672106222230309,
+    "volatility": 14.890189542235628,
+    "mean_flow": 332.21939466143715
+  },
+  {
+    "node": 51,
+    "type": "volatile",
+    "trend_per_year": -1.1312428738243157,
+    "rel_trend": 0.006062674219539465,
+    "seasonality_r": -0.3658405231035046,
+    "volatility": 75.43267010983301,
+    "mean_flow": 186.59139957013446
+  },
+  {
+    "node": 52,
+    "type": "volatile",
+    "trend_per_year": 2.6374696528041524,
+    "rel_trend": 0.029181186667977536,
+    "seasonality_r": NaN,
+    "volatility": 64.12916414218559,
+    "mean_flow": 90.38253494047373
+  },
+  {
+    "node": 53,
+    "type": "volatile",
+    "trend_per_year": -0.3059716248733809,
+    "rel_trend": 0.008457001705621227,
+    "seasonality_r": NaN,
+    "volatility": 25.87656400005817,
+    "mean_flow": 36.179680112043144
+  },
+  {
+    "node": 54,
+    "type": "stable",
+    "trend_per_year": 6.1452156050684135,
+    "rel_trend": 0.018110275023721152,
+    "seasonality_r": -0.42240442720498333,
+    "volatility": 54.511333096619744,
+    "mean_flow": 339.32204667842035
+  },
+  {
+    "node": 55,
+    "type": "stable",
+    "trend_per_year": 3.2854886011439888,
+    "rel_trend": 0.011495231669778302,
+    "seasonality_r": 0.5731035143640395,
+    "volatility": 65.94137661074858,
+    "mean_flow": 285.8131688016794
+  },
+  {
+    "node": 56,
+    "type": "volatile",
+    "trend_per_year": 1.7399929685536715,
+    "rel_trend": 0.006567690961499264,
+    "seasonality_r": 0.11803098838541794,
+    "volatility": 141.95505708282585,
+    "mean_flow": 264.9322223268522
+  },
+  {
+    "node": 57,
+    "type": "volatile",
+    "trend_per_year": 11.131609727377942,
+    "rel_trend": 0.04355531244945857,
+    "seasonality_r": -0.008247166928478275,
+    "volatility": 82.43309325987333,
+    "mean_flow": 255.57409780356207
+  },
+  {
+    "node": 58,
+    "type": "moderate_trend",
+    "trend_per_year": 20.759390609281965,
+    "rel_trend": 0.07700189761180132,
+    "seasonality_r": 0.4814024517756642,
+    "volatility": 111.86775438662195,
+    "mean_flow": 269.595830442216
+  },
+  {
+    "node": 61,
+    "type": "volatile",
+    "trend_per_year": -5.633505415318054,
+    "rel_trend": 0.024704315002388923,
+    "seasonality_r": 0.683476274603826,
+    "volatility": 138.89258355560773,
+    "mean_flow": 228.0373040122333
+  },
+  {
+    "node": 63,
+    "type": "strong_trend",
+    "trend_per_year": -19.680324576381103,
+    "rel_trend": 0.24181999413499775,
+    "seasonality_r": 0.020585978896487764,
+    "volatility": 38.6870257075805,
+    "mean_flow": 81.38418994243473
+  },
+  {
+    "node": 65,
+    "type": "stable",
+    "trend_per_year": 1.793581557554126,
+    "rel_trend": 0.006043646529786673,
+    "seasonality_r": 0.23224374159032948,
+    "volatility": 47.846288016542964,
+    "mean_flow": 296.7714181613115
+  },
+  {
+    "node": 66,
+    "type": "moderate_trend",
+    "trend_per_year": -5.688688510108942,
+    "rel_trend": 0.06248653341274272,
+    "seasonality_r": 0.8613992718557435,
+    "volatility": 42.220684549450056,
+    "mean_flow": 91.03863083661365
+  },
+  {
+    "node": 67,
+    "type": "moderate_trend",
+    "trend_per_year": 18.51651215591258,
+    "rel_trend": 0.09324306156917045,
+    "seasonality_r": 0.258038544378505,
+    "volatility": 77.27944334057867,
+    "mean_flow": 198.58326990832904
+  },
+  {
+    "node": 71,
+    "type": "volatile",
+    "trend_per_year": -10.422535453562682,
+    "rel_trend": 0.03775588886188419,
+    "seasonality_r": 0.467674342805421,
+    "volatility": 126.61081154319577,
+    "mean_flow": 276.0505905167203
+  },
+  {
+    "node": 72,
+    "type": "stable",
+    "trend_per_year": -9.3764935764605,
+    "rel_trend": 0.03039609936053477,
+    "seasonality_r": -0.08043055603676003,
+    "volatility": 47.008896794338334,
+    "mean_flow": 308.4768685234169
+  },
+  {
+    "node": 75,
+    "type": "moderate_trend",
+    "trend_per_year": 7.420825154894856,
+    "rel_trend": 0.07417451025094324,
+    "seasonality_r": 0.6418614125364787,
+    "volatility": 19.751462812536655,
+    "mean_flow": 100.04548807419971
+  },
+  {
+    "node": 78,
+    "type": "strong_trend",
+    "trend_per_year": -30.738238692072823,
+    "rel_trend": 0.2437728976615572,
+    "seasonality_r": 0.7715428139565653,
+    "volatility": 95.23921747094248,
+    "mean_flow": 126.0937484977327
+  },
+  {
+    "node": 80,
+    "type": "stable",
+    "trend_per_year": 0.2510415432628606,
+    "rel_trend": 0.00958152573600693,
+    "seasonality_r": 0.28997262014848896,
+    "volatility": 5.286707173216868,
+    "mean_flow": 26.200580220531307
+  },
+  {
+    "node": 81,
+    "type": "stable",
+    "trend_per_year": -0.11831262643315593,
+    "rel_trend": 0.0015334508840427867,
+    "seasonality_r": 0.017417148907893698,
+    "volatility": 9.44562958739191,
+    "mean_flow": 77.15449260936607
+  },
+  {
+    "node": 83,
+    "type": "moderate_trend",
+    "trend_per_year": 13.856458640259294,
+    "rel_trend": 0.05491522282951482,
+    "seasonality_r": NaN,
+    "volatility": 179.30803129076594,
+    "mean_flow": 252.3245444776154
+  },
+  {
+    "node": 84,
+    "type": "volatile",
+    "trend_per_year": 2.7714110762512663,
+    "rel_trend": 0.011754125171976302,
+    "seasonality_r": -0.23051803661115802,
+    "volatility": 127.45855162197819,
+    "mean_flow": 235.78199346597265
+  },
+  {
+    "node": 88,
+    "type": "volatile",
+    "trend_per_year": 0.722055105007382,
+    "rel_trend": 0.004899905177224781,
+    "seasonality_r": -0.00749156883218368,
+    "volatility": 150.79470610255683,
+    "mean_flow": 147.3610353652672
+  },
+  {
+    "node": 93,
+    "type": "volatile",
+    "trend_per_year": 2.076102577089586,
+    "rel_trend": 0.010849587636809153,
+    "seasonality_r": 0.5018329085637623,
+    "volatility": 182.94822617163285,
+    "mean_flow": 191.3531311730643
+  },
+  {
+    "node": 94,
+    "type": "strong_trend",
+    "trend_per_year": 10.318219050174894,
+    "rel_trend": 0.24935050304430176,
+    "seasonality_r": 0.3528430102730024,
+    "volatility": 9.96245329525745,
+    "mean_flow": 41.380380929053786
+  },
+  {
+    "node": 95,
+    "type": "volatile",
+    "trend_per_year": -0.34405617874690353,
+    "rel_trend": 0.00680965358550258,
+    "seasonality_r": 0.352561609385067,
+    "volatility": 29.030592025702187,
+    "mean_flow": 50.524768641642616
+  },
+  {
+    "node": 96,
+    "type": "seasonal_dominant",
+    "trend_per_year": 14.35508241224018,
+    "rel_trend": 0.040716318441729175,
+    "seasonality_r": 0.9448770042191231,
+    "volatility": 108.50480280528853,
+    "mean_flow": 352.5633682246596
+  },
+  {
+    "node": 99,
+    "type": "volatile",
+    "trend_per_year": 2.9190208699056877,
+    "rel_trend": 0.019397223649272242,
+    "seasonality_r": NaN,
+    "volatility": 106.57535095841989,
+    "mean_flow": 150.48652855110953
+  },
+  {
+    "node": 101,
+    "type": "strong_trend",
+    "trend_per_year": 36.82732446309218,
+    "rel_trend": 0.41013381575953894,
+    "seasonality_r": NaN,
+    "volatility": 66.23265725201682,
+    "mean_flow": 89.79343482018608
+  },
+  {
+    "node": 102,
+    "type": "moderate_trend",
+    "trend_per_year": -11.831634792467664,
+    "rel_trend": 0.09242240382857642,
+    "seasonality_r": 0.31191152385335363,
+    "volatility": 81.75471092793516,
+    "mean_flow": 128.01695487157406
+  },
+  {
+    "node": 103,
+    "type": "volatile",
+    "trend_per_year": 5.018427848321177,
+    "rel_trend": 0.01980942767495913,
+    "seasonality_r": -0.0031654811547265575,
+    "volatility": 80.96116422455347,
+    "mean_flow": 253.33532653522778
+  },
+  {
+    "node": 104,
+    "type": "volatile",
+    "trend_per_year": 3.846498560389298,
+    "rel_trend": 0.019880410046428924,
+    "seasonality_r": -0.45934319816686947,
+    "volatility": 136.38271494534405,
+    "mean_flow": 193.48185130617196
+  },
+  {
+    "node": 105,
+    "type": "moderate_trend",
+    "trend_per_year": 25.038400426913263,
+    "rel_trend": 0.07908088175921457,
+    "seasonality_r": -0.474111399386244,
+    "volatility": 33.940452163610125,
+    "mean_flow": 316.6176171893137
+  },
+  {
+    "node": 107,
+    "type": "volatile",
+    "trend_per_year": -0.12967927529752404,
+    "rel_trend": 0.0003984518501295305,
+    "seasonality_r": NaN,
+    "volatility": 230.45279324830986,
+    "mean_flow": 325.4578309949257
+  },
+  {
+    "node": 108,
+    "type": "moderate_trend",
+    "trend_per_year": -20.436689801194806,
+    "rel_trend": 0.0750999525989615,
+    "seasonality_r": 0.06786158381557522,
+    "volatility": 88.18797014528833,
+    "mean_flow": 272.1265329583904
+  },
+  {
+    "node": 110,
+    "type": "volatile",
+    "trend_per_year": -7.82138846503536,
+    "rel_trend": 0.037219424495204115,
+    "seasonality_r": -0.44065961365656464,
+    "volatility": 118.96626827744694,
+    "mean_flow": 210.14264819768388
+  },
+  {
+    "node": 112,
+    "type": "volatile",
+    "trend_per_year": 8.225530223121696,
+    "rel_trend": 0.04735258935170776,
+    "seasonality_r": NaN,
+    "volatility": 124.42328243483337,
+    "mean_flow": 173.7081390560209
+  },
+  {
+    "node": 114,
+    "type": "volatile",
+    "trend_per_year": 5.478628224317487,
+    "rel_trend": 0.02340406141769381,
+    "seasonality_r": NaN,
+    "volatility": 165.7521772427584,
+    "mean_flow": 234.08878070929617
+  },
+  {
+    "node": 117,
+    "type": "volatile",
+    "trend_per_year": 1.797039429926172,
+    "rel_trend": 0.0063436263329052275,
+    "seasonality_r": 0.16320502703089237,
+    "volatility": 116.15355205263643,
+    "mean_flow": 283.282672918653
+  },
+  {
+    "node": 120,
+    "type": "stable",
+    "trend_per_year": 9.568411937922006,
+    "rel_trend": 0.031351382493626914,
+    "seasonality_r": -0.012813010685256539,
+    "volatility": 65.6080943271412,
+    "mean_flow": 305.19904213205535
+  },
+  {
+    "node": 121,
+    "type": "stable",
+    "trend_per_year": 1.5930152324494187,
+    "rel_trend": 0.005586593569886167,
+    "seasonality_r": 0.5392687478563527,
+    "volatility": 31.00466559148496,
+    "mean_flow": 285.14965460343745
+  },
+  {
+    "node": 125,
+    "type": "strong_trend",
+    "trend_per_year": -21.756689078624262,
+    "rel_trend": 0.163492500230398,
+    "seasonality_r": -0.28800399100340973,
+    "volatility": 35.43042227127695,
+    "mean_flow": 133.07453788076918
+  },
+  {
+    "node": 127,
+    "type": "volatile",
+    "trend_per_year": -0.006766259517332068,
+    "rel_trend": 0.0005685648940510703,
+    "seasonality_r": NaN,
+    "volatility": 8.481429643244036,
+    "mean_flow": 11.90059220954892
+  },
+  {
+    "node": 134,
+    "type": "strong_trend",
+    "trend_per_year": 9.363018871363362,
+    "rel_trend": 0.176951044907662,
+    "seasonality_r": NaN,
+    "volatility": 37.69516431003538,
+    "mean_flow": 52.91304552226975
+  },
+  {
+    "node": 137,
+    "type": "stable",
+    "trend_per_year": 13.893669816299925,
+    "rel_trend": 0.0492113816806952,
+    "seasonality_r": 0.6183646862850212,
+    "volatility": 73.44527332355804,
+    "mean_flow": 282.3263499740101
+  },
+  {
+    "node": 138,
+    "type": "strong_trend",
+    "trend_per_year": 20.321099524049032,
+    "rel_trend": 0.16340115646001496,
+    "seasonality_r": -0.33963658584647294,
+    "volatility": 56.74216540729336,
+    "mean_flow": 124.36325299582899
+  },
+  {
+    "node": 140,
+    "type": "volatile",
+    "trend_per_year": 2.7858151783170615,
+    "rel_trend": 0.014037928962008145,
+    "seasonality_r": 0.5927405848097591,
+    "volatility": 68.44251553642985,
+    "mean_flow": 198.449156696731
+  },
+  {
+    "node": 141,
+    "type": "moderate_trend",
+    "trend_per_year": -20.153307728769157,
+    "rel_trend": 0.06405871209334812,
+    "seasonality_r": -0.09846993442515571,
+    "volatility": 64.00546432866264,
+    "mean_flow": 314.6068193713056
+  },
+  {
+    "node": 145,
+    "type": "volatile",
+    "trend_per_year": 1.1025679504332269,
+    "rel_trend": 0.0056282772421192406,
+    "seasonality_r": 0.01958999188712801,
+    "volatility": 132.6255480855874,
+    "mean_flow": 195.89794485493306
+  },
+  {
+    "node": 146,
+    "type": "volatile",
+    "trend_per_year": 0.3353447277156142,
+    "rel_trend": 0.0060751901223427395,
+    "seasonality_r": NaN,
+    "volatility": 39.037785024390416,
+    "mean_flow": 55.199049723090326
+  },
+  {
+    "node": 147,
+    "type": "moderate_trend",
+    "trend_per_year": -9.707409434757679,
+    "rel_trend": 0.050809788225648835,
+    "seasonality_r": 0.3362427301986538,
+    "volatility": 20.66992472606225,
+    "mean_flow": 191.05392332746587
+  },
+  {
+    "node": 148,
+    "type": "volatile",
+    "trend_per_year": -1.0101046392411823,
+    "rel_trend": 0.0037887970792745296,
+    "seasonality_r": -0.11246019009178959,
+    "volatility": 122.6522718370429,
+    "mean_flow": 266.6029914818763
+  },
+  {
+    "node": 149,
+    "type": "stable",
+    "trend_per_year": 0.4785293986751936,
+    "rel_trend": 0.0015213618694994247,
+    "seasonality_r": 0.3833657155462252,
+    "volatility": 43.770317869869494,
+    "mean_flow": 314.54015428379495
+  },
+  {
+    "node": 150,
+    "type": "strong_trend",
+    "trend_per_year": 16.246450278966172,
+    "rel_trend": 0.11695740083295977,
+    "seasonality_r": -0.451447645899459,
+    "volatility": 42.24196915290165,
+    "mean_flow": 138.90912457273382
+  },
+  {
+    "node": 153,
+    "type": "moderate_trend",
+    "trend_per_year": -10.776327789049878,
+    "rel_trend": 0.05178701087401698,
+    "seasonality_r": NaN,
+    "volatility": 148.3217276710029,
+    "mean_flow": 208.08939452942357
+  },
+  {
+    "node": 156,
+    "type": "strong_trend",
+    "trend_per_year": -42.555779025986894,
+    "rel_trend": 0.16319923267098407,
+    "seasonality_r": -0.3872438430633539,
+    "volatility": 110.10458765187106,
+    "mean_flow": 260.7596749463997
+  },
+  {
+    "node": 159,
+    "type": "stable",
+    "trend_per_year": -4.739941445810069,
+    "rel_trend": 0.018316511569964687,
+    "seasonality_r": -0.17455262001652755,
+    "volatility": 18.987018696195022,
+    "mean_flow": 258.7797031868277
+  },
+  {
+    "node": 162,
+    "type": "volatile",
+    "trend_per_year": 4.457019917524848,
+    "rel_trend": 0.027396507770132937,
+    "seasonality_r": 0.3210600376545818,
+    "volatility": 61.38511311125733,
+    "mean_flow": 162.6856943784377
+  },
+  {
+    "node": 164,
+    "type": "moderate_trend",
+    "trend_per_year": 4.5569654700726945,
+    "rel_trend": 0.08456379953657156,
+    "seasonality_r": 0.362630522434648,
+    "volatility": 34.55513605875885,
+    "mean_flow": 53.887897782290764
+  },
+  {
+    "node": 165,
+    "type": "stable",
+    "trend_per_year": 0.013814287275968269,
+    "rel_trend": 5.8086052336676225e-05,
+    "seasonality_r": 0.016917125356265515,
+    "volatility": 42.79176155753459,
+    "mean_flow": 237.8245148734219
+  },
+  {
+    "node": 166,
+    "type": "strong_trend",
+    "trend_per_year": 43.9048181179011,
+    "rel_trend": 0.11861000137201401,
+    "seasonality_r": 0.6086250748995462,
+    "volatility": 108.35210441228854,
+    "mean_flow": 370.161179423529
+  },
+  {
+    "node": 167,
+    "type": "volatile",
+    "trend_per_year": 0.8333105502979774,
+    "rel_trend": 0.003073588118505124,
+    "seasonality_r": 0.4085329004246084,
+    "volatility": 146.00746729847063,
+    "mean_flow": 271.1197841400037
+  },
+  {
+    "node": 168,
+    "type": "stable",
+    "trend_per_year": -9.533031051982269,
+    "rel_trend": 0.029804141795237372,
+    "seasonality_r": -0.08251971851731196,
+    "volatility": 60.574103151952606,
+    "mean_flow": 319.85591424415657
+  },
+  {
+    "node": 171,
+    "type": "volatile",
+    "trend_per_year": 7.794697828177091,
+    "rel_trend": 0.03826057396404943,
+    "seasonality_r": 0.6074126362702791,
+    "volatility": 64.91248599113943,
+    "mean_flow": 203.7266298524587
+  },
+  {
+    "node": 172,
+    "type": "volatile",
+    "trend_per_year": 4.157161557186688,
+    "rel_trend": 0.0353189342025038,
+    "seasonality_r": NaN,
+    "volatility": 83.93421440123372,
+    "mean_flow": 117.7034815952359
+  },
+  {
+    "node": 177,
+    "type": "volatile",
+    "trend_per_year": 2.0882688134378515,
+    "rel_trend": 0.010945151631159817,
+    "seasonality_r": -0.2906198646286805,
+    "volatility": 120.75509832390175,
+    "mean_flow": 190.79395817117737
+  },
+  {
+    "node": 179,
+    "type": "volatile",
+    "trend_per_year": 2.6592255418002275,
+    "rel_trend": 0.04830669277562321,
+    "seasonality_r": -0.02181963989962238,
+    "volatility": 37.863701005573034,
+    "mean_flow": 55.04880050152073
+  },
+  {
+    "node": 180,
+    "type": "stable",
+    "trend_per_year": -0.03408043020092587,
+    "rel_trend": 9.195125952036283e-05,
+    "seasonality_r": 0.24517524710620212,
+    "volatility": 32.22474280488663,
+    "mean_flow": 370.63581604803807
+  },
+  {
+    "node": 181,
+    "type": "volatile",
+    "trend_per_year": 6.910944409384644,
+    "rel_trend": 0.04901219861959315,
+    "seasonality_r": NaN,
+    "volatility": 101.09112063488719,
+    "mean_flow": 141.00457753408602
+  },
+  {
+    "node": 190,
+    "type": "moderate_trend",
+    "trend_per_year": 26.437026192769572,
+    "rel_trend": 0.09046522650826444,
+    "seasonality_r": 0.2144423087161743,
+    "volatility": 84.02429838202944,
+    "mean_flow": 292.2341226867894
+  },
+  {
+    "node": 192,
+    "type": "volatile",
+    "trend_per_year": 4.191496935148814,
+    "rel_trend": 0.014119842387495583,
+    "seasonality_r": 0.18049041840830626,
+    "volatility": 97.73126927270675,
+    "mean_flow": 296.85153743223987
+  },
+  {
+    "node": 193,
+    "type": "stable",
+    "trend_per_year": -1.6091445872417776,
+    "rel_trend": 0.006995530983892461,
+    "seasonality_r": 0.39697515462230076,
+    "volatility": 10.412786619067967,
+    "mean_flow": 230.02465201732042
+  },
+  {
+    "node": 196,
+    "type": "moderate_trend",
+    "trend_per_year": -24.949274205066427,
+    "rel_trend": 0.087303684025549,
+    "seasonality_r": 0.728596303501022,
+    "volatility": 162.34682291672408,
+    "mean_flow": 285.7757309584033
+  },
+  {
+    "node": 198,
+    "type": "strong_trend",
+    "trend_per_year": 16.547863320645682,
+    "rel_trend": 0.12494313592965535,
+    "seasonality_r": 0.07865761410712198,
+    "volatility": 85.66842978749284,
+    "mean_flow": 132.44315562096355
+  },
+  {
+    "node": 199,
+    "type": "moderate_trend",
+    "trend_per_year": 8.50523008089302,
+    "rel_trend": 0.07400978706714954,
+    "seasonality_r": 0.39103579030823576,
+    "volatility": 29.673338330539536,
+    "mean_flow": 114.92034153761831
+  },
+  {
+    "node": 200,
+    "type": "volatile",
+    "trend_per_year": 0.8065001049180887,
+    "rel_trend": 0.01660725018327011,
+    "seasonality_r": 0.1921872064772009,
+    "volatility": 25.808903905250197,
+    "mean_flow": 48.56313233140152
+  },
+  {
+    "node": 202,
+    "type": "moderate_trend",
+    "trend_per_year": -24.679326231707748,
+    "rel_trend": 0.08313748601476845,
+    "seasonality_r": 0.661462944669911,
+    "volatility": 30.794435725356088,
+    "mean_flow": 296.8495600671189
+  },
+  {
+    "node": 204,
+    "type": "volatile",
+    "trend_per_year": 10.128167478788399,
+    "rel_trend": 0.04075853919871221,
+    "seasonality_r": 0.14907002823280605,
+    "volatility": 117.97347157766046,
+    "mean_flow": 248.49191450781595
+  },
+  {
+    "node": 205,
+    "type": "moderate_trend",
+    "trend_per_year": -24.526078066202093,
+    "rel_trend": 0.09333245281841102,
+    "seasonality_r": NaN,
+    "volatility": 187.61813711008898,
+    "mean_flow": 262.7818859597308
+  },
+  {
+    "node": 211,
+    "type": "strong_trend",
+    "trend_per_year": 48.41290842032697,
+    "rel_trend": 0.20636867287450394,
+    "seasonality_r": -0.20291426161018536,
+    "volatility": 150.7966270601174,
+    "mean_flow": 234.59427024274635
+  },
+  {
+    "node": 212,
+    "type": "stable",
+    "trend_per_year": 14.40274350769295,
+    "rel_trend": 0.035625033434766994,
+    "seasonality_r": 0.21879745488954225,
+    "volatility": 88.13715119040545,
+    "mean_flow": 404.2871566265554
+  },
+  {
+    "node": 215,
+    "type": "volatile",
+    "trend_per_year": 2.061683289055669,
+    "rel_trend": 0.024509527694543648,
+    "seasonality_r": -0.45610308464637256,
+    "volatility": 29.614344070857424,
+    "mean_flow": 84.117625204386
+  },
+  {
+    "node": 216,
+    "type": "volatile",
+    "trend_per_year": -12.678678935797166,
+    "rel_trend": 0.049940935025390175,
+    "seasonality_r": 0.3010256298576416,
+    "volatility": 150.85131023169262,
+    "mean_flow": 253.8734783281558
+  },
+  {
+    "node": 218,
+    "type": "seasonal_dominant",
+    "trend_per_year": 0.8372661780784892,
+    "rel_trend": 0.012031511174443812,
+    "seasonality_r": 0.8363394921914634,
+    "volatility": 10.540729467710964,
+    "mean_flow": 69.5894434130119
+  },
+  {
+    "node": 219,
+    "type": "moderate_trend",
+    "trend_per_year": 17.66433760371858,
+    "rel_trend": 0.05414443364511239,
+    "seasonality_r": 0.43979233217850033,
+    "volatility": 64.21919652032325,
+    "mean_flow": 326.24475611573234
+  },
+  {
+    "node": 220,
+    "type": "stable",
+    "trend_per_year": 13.56252777229001,
+    "rel_trend": 0.03534962466943643,
+    "seasonality_r": -0.07507064397267618,
+    "volatility": 26.12484458312051,
+    "mean_flow": 383.66822459268303
+  },
+  {
+    "node": 225,
+    "type": "volatile",
+    "trend_per_year": -5.983651065440258,
+    "rel_trend": 0.03895213806038639,
+    "seasonality_r": -0.8165892379522406,
+    "volatility": 102.86558149597641,
+    "mean_flow": 153.61547079166326
+  },
+  {
+    "node": 226,
+    "type": "seasonal_dominant",
+    "trend_per_year": 2.4126262368813594,
+    "rel_trend": 0.02384647552439719,
+    "seasonality_r": 0.7094723753361797,
+    "volatility": 34.17447019451837,
+    "mean_flow": 101.17328284284778
+  },
+  {
+    "node": 228,
+    "type": "moderate_trend",
+    "trend_per_year": 21.206851576085747,
+    "rel_trend": 0.07314605056554417,
+    "seasonality_r": -0.753261310724446,
+    "volatility": 48.24177744531122,
+    "mean_flow": 289.9247647545484
+  },
+  {
+    "node": 230,
+    "type": "seasonal_dominant",
+    "trend_per_year": -14.256439766407686,
+    "rel_trend": 0.04476563038508654,
+    "seasonality_r": 0.8410708415468519,
+    "volatility": 225.66542866625056,
+    "mean_flow": 318.4684231854696
+  },
+  {
+    "node": 234,
+    "type": "moderate_trend",
+    "trend_per_year": 18.028757266309803,
+    "rel_trend": 0.05878876508192724,
+    "seasonality_r": 0.6832735019109044,
+    "volatility": 13.559606466976334,
+    "mean_flow": 306.6701126039372
+  },
+  {
+    "node": 235,
+    "type": "stable",
+    "trend_per_year": 11.794449041985388,
+    "rel_trend": 0.039801863015186026,
+    "seasonality_r": 0.1993067801349355,
+    "volatility": 39.267256756308605,
+    "mean_flow": 296.32906875950664
+  },
+  {
+    "node": 237,
+    "type": "volatile",
+    "trend_per_year": 3.3497615343090477,
+    "rel_trend": 0.017914382710530835,
+    "seasonality_r": 0.43849551003367876,
+    "volatility": 104.82780135551882,
+    "mean_flow": 186.9872699786375
+  },
+  {
+    "node": 239,
+    "type": "volatile",
+    "trend_per_year": 0.5511328938356991,
+    "rel_trend": 0.005865977819548791,
+    "seasonality_r": 0.10482165395406076,
+    "volatility": 45.81771927068245,
+    "mean_flow": 93.95413772841613
+  },
+  {
+    "node": 245,
+    "type": "strong_trend",
+    "trend_per_year": 31.785647143960155,
+    "rel_trend": 0.15542704140969166,
+    "seasonality_r": -0.48125372953011925,
+    "volatility": 60.54893095761098,
+    "mean_flow": 204.50525661586144
+  },
+  {
+    "node": 247,
+    "type": "volatile",
+    "trend_per_year": 0.8492218341045378,
+    "rel_trend": 0.018262208314081044,
+    "seasonality_r": NaN,
+    "volatility": 33.261222052219686,
+    "mean_flow": 46.501595055595686
+  },
+  {
+    "node": 249,
+    "type": "moderate_trend",
+    "trend_per_year": 3.433981920545662,
+    "rel_trend": 0.07995975621862993,
+    "seasonality_r": -0.12269715687750476,
+    "volatility": 16.141145336056518,
+    "mean_flow": 42.946377064939306
+  },
+  {
+    "node": 250,
+    "type": "stable",
+    "trend_per_year": -0.3436815576274103,
+    "rel_trend": 0.010698016408914806,
+    "seasonality_r": 0.3972840759024246,
+    "volatility": 4.57489029787566,
+    "mean_flow": 32.125726283519185
+  },
+  {
+    "node": 252,
+    "type": "seasonal_dominant",
+    "trend_per_year": 5.3250735135603176,
+    "rel_trend": 0.02052362995410441,
+    "seasonality_r": 0.7391437580623501,
+    "volatility": 58.58691041971888,
+    "mean_flow": 259.4606073557546
+  },
+  {
+    "node": 254,
+    "type": "seasonal_dominant",
+    "trend_per_year": 5.20457052927595,
+    "rel_trend": 0.017542359321620873,
+    "seasonality_r": 0.8094653693769258,
+    "volatility": 81.89202562267815,
+    "mean_flow": 296.68589135094174
+  },
+  {
+    "node": 256,
+    "type": "strong_trend",
+    "trend_per_year": 48.161102971089875,
+    "rel_trend": 0.12044167249142618,
+    "seasonality_r": 0.0254234763584541,
+    "volatility": 265.7005915990886,
+    "mean_flow": 399.8707578066605
+  },
+  {
+    "node": 259,
+    "type": "volatile",
+    "trend_per_year": -4.2693625984926875,
+    "rel_trend": 0.034825615842630636,
+    "seasonality_r": -0.3561025680110093,
+    "volatility": 67.3886176985539,
+    "mean_flow": 122.59259342201987
+  },
+  {
+    "node": 262,
+    "type": "strong_trend",
+    "trend_per_year": 22.98718002782072,
+    "rel_trend": 0.34562255903601935,
+    "seasonality_r": -0.14052932006724922,
+    "volatility": 23.39320124491805,
+    "mean_flow": 66.50948869284466
+  },
+  {
+    "node": 263,
+    "type": "stable",
+    "trend_per_year": 11.088822413208543,
+    "rel_trend": 0.03705503142324039,
+    "seasonality_r": 0.5133987369989895,
+    "volatility": 21.608564661595107,
+    "mean_flow": 299.25281264769785
+  },
+  {
+    "node": 265,
+    "type": "moderate_trend",
+    "trend_per_year": 20.302801574119005,
+    "rel_trend": 0.05866028187557838,
+    "seasonality_r": 0.11560096715756822,
+    "volatility": 116.76848018802707,
+    "mean_flow": 346.1081479035859
+  },
+  {
+    "node": 268,
+    "type": "strong_trend",
+    "trend_per_year": -14.224640152939262,
+    "rel_trend": 0.13248888197785044,
+    "seasonality_r": -0.07465401802651513,
+    "volatility": 42.46020896773395,
+    "mean_flow": 107.36478267533771
+  },
+  {
+    "node": 269,
+    "type": "volatile",
+    "trend_per_year": 0.49500892011112607,
+    "rel_trend": 0.002590693680037927,
+    "seasonality_r": -0.0705626523607843,
+    "volatility": 87.21236542887803,
+    "mean_flow": 191.07195934997057
+  },
+  {
+    "node": 270,
+    "type": "strong_trend",
+    "trend_per_year": 28.287223867956637,
+    "rel_trend": 0.10330062744638957,
+    "seasonality_r": 0.2505608454843744,
+    "volatility": 190.93359502825936,
+    "mean_flow": 273.8339975653717
+  },
+  {
+    "node": 276,
+    "type": "volatile",
+    "trend_per_year": 4.603742999159621,
+    "rel_trend": 0.02654073518154246,
+    "seasonality_r": -0.5684144621177191,
+    "volatility": 115.80411012437717,
+    "mean_flow": 173.45951199650725
+  },
+  {
+    "node": 278,
+    "type": "volatile",
+    "trend_per_year": -1.3815139713218945,
+    "rel_trend": 0.014207385913750974,
+    "seasonality_r": 0.14539702524056453,
+    "volatility": 43.12403904510424,
+    "mean_flow": 97.2391378330461
+  },
+  {
+    "node": 279,
+    "type": "volatile",
+    "trend_per_year": 2.153249310608877,
+    "rel_trend": 0.010531309475014626,
+    "seasonality_r": NaN,
+    "volatility": 144.6206778612693,
+    "mean_flow": 204.46168685728202
+  },
+  {
+    "node": 280,
+    "type": "moderate_trend",
+    "trend_per_year": -5.317855419322526,
+    "rel_trend": 0.07572949357608964,
+    "seasonality_r": 0.014248512779038998,
+    "volatility": 45.05271720113641,
+    "mean_flow": 70.22172065959859
+  },
+  {
+    "node": 281,
+    "type": "strong_trend",
+    "trend_per_year": 19.38377648442522,
+    "rel_trend": 0.3218501799243705,
+    "seasonality_r": NaN,
+    "volatility": 48.80233205809444,
+    "mean_flow": 60.22608459355192
+  },
+  {
+    "node": 282,
+    "type": "seasonal_dominant",
+    "trend_per_year": 4.557942877285703,
+    "rel_trend": 0.024319458262962813,
+    "seasonality_r": 0.7474515461152771,
+    "volatility": 49.767619861339796,
+    "mean_flow": 187.41958820307028
+  },
+  {
+    "node": 283,
+    "type": "volatile",
+    "trend_per_year": 0.3020843686385766,
+    "rel_trend": 0.0014432366503436354,
+    "seasonality_r": -0.16272658413921381,
+    "volatility": 66.46293187533674,
+    "mean_flow": 209.31034915404447
+  },
+  {
+    "node": 284,
+    "type": "volatile",
+    "trend_per_year": -1.5906897499869825,
+    "rel_trend": 0.015244208137500085,
+    "seasonality_r": NaN,
+    "volatility": 74.66120257236298,
+    "mean_flow": 104.3471540400808
+  },
+  {
+    "node": 286,
+    "type": "moderate_trend",
+    "trend_per_year": 8.997175355419433,
+    "rel_trend": 0.05271290036295469,
+    "seasonality_r": 0.39158604606691355,
+    "volatility": 104.70992308663881,
+    "mean_flow": 170.68260787694246
+  },
+  {
+    "node": 287,
+    "type": "strong_trend",
+    "trend_per_year": -34.25232590577626,
+    "rel_trend": 0.42434797789190987,
+    "seasonality_r": -0.3849635976683704,
+    "volatility": 56.708035546330876,
+    "mean_flow": 80.71754141869165
+  },
+  {
+    "node": 289,
+    "type": "strong_trend",
+    "trend_per_year": 41.16547881802997,
+    "rel_trend": 0.3605044623500591,
+    "seasonality_r": -0.049993841452586125,
+    "volatility": 31.815952555969634,
+    "mean_flow": 114.18854066098291
+  },
+  {
+    "node": 290,
+    "type": "stable",
+    "trend_per_year": 1.133556408074325,
+    "rel_trend": 0.004678000451326927,
+    "seasonality_r": 0.03810360976400845,
+    "volatility": 15.198900873599275,
+    "mean_flow": 242.31643737332013
+  },
+  {
+    "node": 291,
+    "type": "volatile",
+    "trend_per_year": 5.8028043456699345,
+    "rel_trend": 0.035054045315665715,
+    "seasonality_r": 0.35089216617128427,
+    "volatility": 107.0737712029304,
+    "mean_flow": 165.5387918387441
+  },
+  {
+    "node": 294,
+    "type": "volatile",
+    "trend_per_year": -0.34534464490199945,
+    "rel_trend": 0.003237828422709282,
+    "seasonality_r": 0.537210687184281,
+    "volatility": 59.98936020269922,
+    "mean_flow": 106.65933971115147
+  },
+  {
+    "node": 297,
+    "type": "stable",
+    "trend_per_year": 0.8699360741016162,
+    "rel_trend": 0.01677956761478208,
+    "seasonality_r": 0.6841370478863008,
+    "volatility": 10.318062432153459,
+    "mean_flow": 51.84496271260721
+  },
+  {
+    "node": 299,
+    "type": "volatile",
+    "trend_per_year": -0.9141837406320743,
+    "rel_trend": 0.021727060092094633,
+    "seasonality_r": -0.2139334029612144,
+    "volatility": 32.68278761689887,
+    "mean_flow": 42.07581306582932
+  },
+  {
+    "node": 300,
+    "type": "stable",
+    "trend_per_year": -1.5027973033304314,
+    "rel_trend": 0.0040048995931661014,
+    "seasonality_r": 0.23717514750701635,
+    "volatility": 78.68197354228091,
+    "mean_flow": 375.23969437083565
+  },
+  {
+    "node": 310,
+    "type": "volatile",
+    "trend_per_year": 3.6807377555871823,
+    "rel_trend": 0.03878697899268659,
+    "seasonality_r": 0.3330551698589477,
+    "volatility": 64.44528325764821,
+    "mean_flow": 94.89622064905386
+  },
+  {
+    "node": 311,
+    "type": "seasonal_dominant",
+    "trend_per_year": 4.257782038809363,
+    "rel_trend": 0.01978644627886172,
+    "seasonality_r": 0.7238459313824747,
+    "volatility": 44.8002374351838,
+    "mean_flow": 215.18679802403906
+  },
+  {
+    "node": 312,
+    "type": "stable",
+    "trend_per_year": 0.6275874548386655,
+    "rel_trend": 0.005452579105243507,
+    "seasonality_r": -0.32618071153493416,
+    "volatility": 23.854406707642088,
+    "mean_flow": 115.09919201035763
+  },
+  {
+    "node": 314,
+    "type": "stable",
+    "trend_per_year": 1.770420106166073,
+    "rel_trend": 0.01694784910641752,
+    "seasonality_r": 0.2023001112811348,
+    "volatility": 25.042332438246,
+    "mean_flow": 104.46281873891782
+  },
+  {
+    "node": 317,
+    "type": "volatile",
+    "trend_per_year": -0.2583634327842149,
+    "rel_trend": 0.004568623614990309,
+    "seasonality_r": NaN,
+    "volatility": 40.12284703402974,
+    "mean_flow": 56.551699152423915
+  },
+  {
+    "node": 318,
+    "type": "strong_trend",
+    "trend_per_year": -19.170461849360425,
+    "rel_trend": 0.1346519416423515,
+    "seasonality_r": 0.025468662194553696,
+    "volatility": 77.46262173520888,
+    "mean_flow": 142.37048111513366
+  },
+  {
+    "node": 320,
+    "type": "stable",
+    "trend_per_year": 1.597836375696598,
+    "rel_trend": 0.028377656067852457,
+    "seasonality_r": -0.09041241444040378,
+    "volatility": 13.142455818235266,
+    "mean_flow": 56.306142533352016
+  },
+  {
+    "node": 322,
+    "type": "moderate_trend",
+    "trend_per_year": -13.669603798865381,
+    "rel_trend": 0.056715647844790135,
+    "seasonality_r": -0.15537940784914878,
+    "volatility": 73.65851258266635,
+    "mean_flow": 241.01997000119633
+  },
+  {
+    "node": 323,
+    "type": "volatile",
+    "trend_per_year": 1.5312453668396806,
+    "rel_trend": 0.008124609343016748,
+    "seasonality_r": 0.6362219288872474,
+    "volatility": 99.06484401978064,
+    "mean_flow": 188.47002902745163
+  },
+  {
+    "node": 324,
+    "type": "stable",
+    "trend_per_year": -0.6163130979325481,
+    "rel_trend": 0.002055291599706174,
+    "seasonality_r": 0.02742777363612775,
+    "volatility": 54.65751614008543,
+    "mean_flow": 299.8664987320364
+  },
+  {
+    "node": 326,
+    "type": "volatile",
+    "trend_per_year": -2.293483923101568,
+    "rel_trend": 0.008311215615462242,
+    "seasonality_r": 0.10182149855431974,
+    "volatility": 97.57964687046322,
+    "mean_flow": 275.9504771508441
+  },
+  {
+    "node": 327,
+    "type": "stable",
+    "trend_per_year": -2.2862799826937503,
+    "rel_trend": 0.0048990383599397365,
+    "seasonality_r": 0.3366169842399298,
+    "volatility": 18.412906252695873,
+    "mean_flow": 466.6793378247473
+  },
+  {
+    "node": 328,
+    "type": "volatile",
+    "trend_per_year": 1.5655936998154307,
+    "rel_trend": 0.0046494719076096225,
+    "seasonality_r": -0.26009184730448226,
+    "volatility": 180.27337562224932,
+    "mean_flow": 336.7250574422459
+  },
+  {
+    "node": 329,
+    "type": "volatile",
+    "trend_per_year": -3.246141212805962,
+    "rel_trend": 0.027672860119617535,
+    "seasonality_r": -0.20195917144132838,
+    "volatility": 50.61923721401193,
+    "mean_flow": 117.30414460599552
+  },
+  {
+    "node": 330,
+    "type": "moderate_trend",
+    "trend_per_year": -13.75436672694578,
+    "rel_trend": 0.06378197783867065,
+    "seasonality_r": 0.5714316026600282,
+    "volatility": 121.66119643389239,
+    "mean_flow": 215.64660001535117
+  },
+  {
+    "node": 332,
+    "type": "moderate_trend",
+    "trend_per_year": 2.5708343484997123,
+    "rel_trend": 0.050243011246365196,
+    "seasonality_r": -0.021384646358853756,
+    "volatility": 13.546260378884423,
+    "mean_flow": 51.167997985842995
+  },
+  {
+    "node": 333,
+    "type": "volatile",
+    "trend_per_year": 9.84577642716439,
+    "rel_trend": 0.049089179630776504,
+    "seasonality_r": 0.6156952136226379,
+    "volatility": 148.34643672742982,
+    "mean_flow": 200.56917740589807
+  },
+  {
+    "node": 334,
+    "type": "volatile",
+    "trend_per_year": 6.243292889351405,
+    "rel_trend": 0.022554465913689727,
+    "seasonality_r": -0.09250251701566145,
+    "volatility": 109.54221087456999,
+    "mean_flow": 276.80960793700245
+  },
+  {
+    "node": 335,
+    "type": "volatile",
+    "trend_per_year": 5.625087483910778,
+    "rel_trend": 0.026476156838271602,
+    "seasonality_r": 0.10472508713048714,
+    "volatility": 140.32394336255996,
+    "mean_flow": 212.45860914766487
+  },
+  {
+    "node": 336,
+    "type": "volatile",
+    "trend_per_year": 4.583910591100613,
+    "rel_trend": 0.025427486712617475,
+    "seasonality_r": 0.19376504577415896,
+    "volatility": 114.589817909052,
+    "mean_flow": 180.27383584861047
+  },
+  {
+    "node": 337,
+    "type": "volatile",
+    "trend_per_year": -9.078073987005437,
+    "rel_trend": 0.03238618743745214,
+    "seasonality_r": 0.3647962975229951,
+    "volatility": 91.3022669260115,
+    "mean_flow": 280.3069664236289
+  },
+  {
+    "node": 338,
+    "type": "moderate_trend",
+    "trend_per_year": -12.522657193597428,
+    "rel_trend": 0.07673451224593018,
+    "seasonality_r": -0.15402096851627892,
+    "volatility": 92.42322727656894,
+    "mean_flow": 163.19458807177196
+  },
+  {
+    "node": 339,
+    "type": "volatile",
+    "trend_per_year": -0.9282752477057539,
+    "rel_trend": 0.00455957720434112,
+    "seasonality_r": 0.4825624934810719,
+    "volatility": 138.79699524209826,
+    "mean_flow": 203.5880086123724
+  },
+  {
+    "node": 340,
+    "type": "volatile",
+    "trend_per_year": 0.024443924895822693,
+    "rel_trend": 0.00014642276777942877,
+    "seasonality_r": NaN,
+    "volatility": 118.23698148573537,
+    "mean_flow": 166.9407368820008
+  },
+  {
+    "node": 342,
+    "type": "volatile",
+    "trend_per_year": -7.669171841857859,
+    "rel_trend": 0.04163469039818532,
+    "seasonality_r": 0.3479890745320566,
+    "volatility": 57.68417927210506,
+    "mean_flow": 184.2014850327177
+  },
+  {
+    "node": 343,
+    "type": "stable",
+    "trend_per_year": 1.1119391792390554,
+    "rel_trend": 0.03217818265847531,
+    "seasonality_r": 0.6129493179919325,
+    "volatility": 2.5916977504929855,
+    "mean_flow": 34.55568510075577
+  },
+  {
+    "node": 344,
+    "type": "volatile",
+    "trend_per_year": -0.5085790951589244,
+    "rel_trend": 0.004544815527662704,
+    "seasonality_r": -0.6585944676791544,
+    "volatility": 103.38105920244787,
+    "mean_flow": 111.90313171537231
+  },
+  {
+    "node": 345,
+    "type": "strong_trend",
+    "trend_per_year": 25.142029354770195,
+    "rel_trend": 0.15596171506070627,
+    "seasonality_r": 0.15790311969898646,
+    "volatility": 155.81446050067362,
+    "mean_flow": 161.2064165171705
+  },
+  {
+    "node": 346,
+    "type": "strong_trend",
+    "trend_per_year": 21.36828620999436,
+    "rel_trend": 0.1686217729778874,
+    "seasonality_r": -0.33802282757942803,
+    "volatility": 27.38951757499878,
+    "mean_flow": 126.7231726010541
+  },
+  {
+    "node": 348,
+    "type": "volatile",
+    "trend_per_year": -1.348656762267815,
+    "rel_trend": 0.012980241525216334,
+    "seasonality_r": -0.26997224877117093,
+    "volatility": 73.4895465565712,
+    "mean_flow": 103.90074380877871
+  },
+  {
+    "node": 349,
+    "type": "strong_trend",
+    "trend_per_year": -25.175621226703875,
+    "rel_trend": 0.12364308134774814,
+    "seasonality_r": -0.3757190808166596,
+    "volatility": 20.946984134369924,
+    "mean_flow": 203.6152838366585
+  },
+  {
+    "node": 353,
+    "type": "stable",
+    "trend_per_year": 0.5612070979687784,
+    "rel_trend": 0.0036850891973216828,
+    "seasonality_r": 0.6314157889204695,
+    "volatility": 36.062243044503646,
+    "mean_flow": 152.29131894326295
+  },
+  {
+    "node": 358,
+    "type": "volatile",
+    "trend_per_year": 2.3781183066110767,
+    "rel_trend": 0.048009814128304525,
+    "seasonality_r": NaN,
+    "volatility": 35.31438756100623,
+    "mean_flow": 49.53400261550328
+  },
+  {
+    "node": 360,
+    "type": "volatile",
+    "trend_per_year": -4.687427781561844,
+    "rel_trend": 0.03476933489663606,
+    "seasonality_r": 0.1856462988206087,
+    "volatility": 69.23050976032616,
+    "mean_flow": 134.81499605119046
+  },
+  {
+    "node": 361,
+    "type": "stable",
+    "trend_per_year": -0.6385018466486784,
+    "rel_trend": 0.0020622240340395386,
+    "seasonality_r": 0.4211570763304602,
+    "volatility": 90.93153932079935,
+    "mean_flow": 309.6180793391978
+  },
+  {
+    "node": 362,
+    "type": "volatile",
+    "trend_per_year": -10.349819166371892,
+    "rel_trend": 0.04039623079174715,
+    "seasonality_r": -0.6358535866134366,
+    "volatility": 167.11219485043668,
+    "mean_flow": 256.207545187362
+  },
+  {
+    "node": 363,
+    "type": "volatile",
+    "trend_per_year": -5.944060455415244,
+    "rel_trend": 0.03411069188511665,
+    "seasonality_r": 0.4667544645230828,
+    "volatility": 117.14813775666187,
+    "mean_flow": 174.2579846027132
+  },
+  {
+    "node": 364,
+    "type": "stable",
+    "trend_per_year": -1.7178906822761117,
+    "rel_trend": 0.005444394784614274,
+    "seasonality_r": 0.643180400478555,
+    "volatility": 60.60281103330401,
+    "mean_flow": 315.53381868751217
+  },
+  {
+    "node": 365,
+    "type": "volatile",
+    "trend_per_year": 0.9096299239723451,
+    "rel_trend": 0.008924761622040854,
+    "seasonality_r": 0.498325366791199,
+    "volatility": 57.953690479693066,
+    "mean_flow": 101.9220404499247
+  },
+  {
+    "node": 367,
+    "type": "seasonal_dominant",
+    "trend_per_year": 4.575372107510793,
+    "rel_trend": 0.017654421500240193,
+    "seasonality_r": 0.7085491065124703,
+    "volatility": 43.626162349153475,
+    "mean_flow": 259.16295755112236
+  },
+  {
+    "node": 368,
+    "type": "stable",
+    "trend_per_year": 1.9090217227681494,
+    "rel_trend": 0.020950320805117297,
+    "seasonality_r": 0.15017761527615242,
+    "volatility": 20.76528984182954,
+    "mean_flow": 91.1213589317226
+  },
+  {
+    "node": 369,
+    "type": "volatile",
+    "trend_per_year": 2.273341122841762,
+    "rel_trend": 0.014654230252964282,
+    "seasonality_r": 0.5513412781332524,
+    "volatility": 104.11288774584773,
+    "mean_flow": 155.13207237396017
+  },
+  {
+    "node": 370,
+    "type": "volatile",
+    "trend_per_year": 2.038133867931858,
+    "rel_trend": 0.032527445043528586,
+    "seasonality_r": NaN,
+    "volatility": 44.625138562716444,
+    "mean_flow": 62.65889720748002
+  },
+  {
+    "node": 371,
+    "type": "strong_trend",
+    "trend_per_year": 42.24589441953815,
+    "rel_trend": 0.23117806723405324,
+    "seasonality_r": -0.11057491210129146,
+    "volatility": 134.50385393047713,
+    "mean_flow": 182.7417916146378
+  },
+  {
+    "node": 372,
+    "type": "volatile",
+    "trend_per_year": -1.10338135685684,
+    "rel_trend": 0.0067628205571838,
+    "seasonality_r": -0.21324222393222023,
+    "volatility": 115.63596905604146,
+    "mean_flow": 163.15401846969806
+  },
+  {
+    "node": 373,
+    "type": "stable",
+    "trend_per_year": 4.121191747850436,
+    "rel_trend": 0.012862012134757959,
+    "seasonality_r": 0.5559478321810936,
+    "volatility": 63.78654408307915,
+    "mean_flow": 320.4157865666621
+  },
+  {
+    "node": 377,
+    "type": "volatile",
+    "trend_per_year": 0.1184441767367265,
+    "rel_trend": 0.0017730809402043352,
+    "seasonality_r": 0.21141956950114515,
+    "volatility": 41.85247563720725,
+    "mean_flow": 66.80133561753571
+  },
+  {
+    "node": 378,
+    "type": "strong_trend",
+    "trend_per_year": 57.990954437303756,
+    "rel_trend": 0.3030547130498416,
+    "seasonality_r": -0.45603913678896185,
+    "volatility": 154.07895394429232,
+    "mean_flow": 191.35473443276103
+  },
+  {
+    "node": 379,
+    "type": "volatile",
+    "trend_per_year": 8.85853640502605,
+    "rel_trend": 0.04159361434975857,
+    "seasonality_r": -0.20063049640073224,
+    "volatility": 150.36891558320033,
+    "mean_flow": 212.97827808233876
+  },
+  {
+    "node": 383,
+    "type": "strong_trend",
+    "trend_per_year": 8.781977573388465,
+    "rel_trend": 0.14137260497112794,
+    "seasonality_r": NaN,
+    "volatility": 45.147817189206435,
+    "mean_flow": 62.11937195193775
+  },
+  {
+    "node": 385,
+    "type": "moderate_trend",
+    "trend_per_year": 17.870260336711254,
+    "rel_trend": 0.05829818240135877,
+    "seasonality_r": 0.09716017335245425,
+    "volatility": 59.96293537733698,
+    "mean_flow": 306.53203139994577
+  },
+  {
+    "node": 386,
+    "type": "strong_trend",
+    "trend_per_year": 19.633197012945047,
+    "rel_trend": 0.10784071990740256,
+    "seasonality_r": NaN,
+    "volatility": 129.15044220405804,
+    "mean_flow": 182.05736128210543
+  },
+  {
+    "node": 387,
+    "type": "volatile",
+    "trend_per_year": 1.2122595270550323,
+    "rel_trend": 0.04322197176945897,
+    "seasonality_r": NaN,
+    "volatility": 19.911427853555967,
+    "mean_flow": 28.047297108496423
+  },
+  {
+    "node": 389,
+    "type": "moderate_trend",
+    "trend_per_year": -38.745579765822896,
+    "rel_trend": 0.0983947365110504,
+    "seasonality_r": 0.6276480836189343,
+    "volatility": 84.49528328501812,
+    "mean_flow": 393.7769543503657
+  },
+  {
+    "node": 392,
+    "type": "volatile",
+    "trend_per_year": -0.9526013381858234,
+    "rel_trend": 0.013827183814534925,
+    "seasonality_r": NaN,
+    "volatility": 50.1724325967442,
+    "mean_flow": 68.8933724419921
+  },
+  {
+    "node": 393,
+    "type": "volatile",
+    "trend_per_year": 5.499360298855868,
+    "rel_trend": 0.03865713594482425,
+    "seasonality_r": -0.06637884123218693,
+    "volatility": 45.13295380226652,
+    "mean_flow": 142.25989913086238
+  },
+  {
+    "node": 395,
+    "type": "volatile",
+    "trend_per_year": 3.400863215361164,
+    "rel_trend": 0.017891128793830598,
+    "seasonality_r": -0.19905157696397444,
+    "volatility": 185.5278262547526,
+    "mean_flow": 190.08656394239117
+  },
+  {
+    "node": 396,
+    "type": "volatile",
+    "trend_per_year": 3.816939478069701,
+    "rel_trend": 0.04728068003351268,
+    "seasonality_r": NaN,
+    "volatility": 59.0638429171061,
+    "mean_flow": 80.72936827650456
+  },
+  {
+    "node": 398,
+    "type": "moderate_trend",
+    "trend_per_year": -20.380132625815527,
+    "rel_trend": 0.07105744718941624,
+    "seasonality_r": 0.6683367184080429,
+    "volatility": 60.34356795815874,
+    "mean_flow": 286.81205645386075
+  },
+  {
+    "node": 401,
+    "type": "strong_trend",
+    "trend_per_year": -44.65495772600881,
+    "rel_trend": 0.4984674926314299,
+    "seasonality_r": -0.5187790796860399,
+    "volatility": 66.60451677710118,
+    "mean_flow": 89.5844922440298
+  },
+  {
+    "node": 403,
+    "type": "volatile",
+    "trend_per_year": 11.031143564068138,
+    "rel_trend": 0.04929301114304388,
+    "seasonality_r": 0.1277308655705905,
+    "volatility": 154.13186210786486,
+    "mean_flow": 223.7871710203246
+  },
+  {
+    "node": 405,
+    "type": "moderate_trend",
+    "trend_per_year": -8.66443716881793,
+    "rel_trend": 0.08924155367759842,
+    "seasonality_r": -0.30808713256073816,
+    "volatility": 19.99475246134439,
+    "mean_flow": 97.08971574921537
+  },
+  {
+    "node": 407,
+    "type": "volatile",
+    "trend_per_year": 0.11493189192120602,
+    "rel_trend": 0.002508239315297197,
+    "seasonality_r": -0.09641069642529435,
+    "volatility": 22.468213356536182,
+    "mean_flow": 45.82173986031657
+  },
+  {
+    "node": 408,
+    "type": "volatile",
+    "trend_per_year": 6.197365845604859,
+    "rel_trend": 0.026752169008472604,
+    "seasonality_r": 0.10212708765044617,
+    "volatility": 145.4320250489572,
+    "mean_flow": 231.6584429804529
+  },
+  {
+    "node": 409,
+    "type": "stable",
+    "trend_per_year": 6.355371722727817,
+    "rel_trend": 0.03584321759868757,
+    "seasonality_r": 0.6780594411175199,
+    "volatility": 26.01277374281802,
+    "mean_flow": 177.3103005997237
+  },
+  {
+    "node": 413,
+    "type": "strong_trend",
+    "trend_per_year": -9.96784628566559,
+    "rel_trend": 0.10218047619054645,
+    "seasonality_r": -0.12503419638159488,
+    "volatility": 36.066725026081,
+    "mean_flow": 97.55137727971679
+  },
+  {
+    "node": 414,
+    "type": "strong_trend",
+    "trend_per_year": -8.51351890970674,
+    "rel_trend": 0.16212692980240545,
+    "seasonality_r": -0.6845997664853274,
+    "volatility": 34.16030429589667,
+    "mean_flow": 52.511441239008136
+  },
+  {
+    "node": 416,
+    "type": "volatile",
+    "trend_per_year": 0.3104244507640137,
+    "rel_trend": 0.007957500255472226,
+    "seasonality_r": 0.2694580573708183,
+    "volatility": 21.683009457775256,
+    "mean_flow": 39.010296304174204
+  },
+  {
+    "node": 420,
+    "type": "volatile",
+    "trend_per_year": -0.9614126730445541,
+    "rel_trend": 0.0062531569887628305,
+    "seasonality_r": 0.6549910288644905,
+    "volatility": 112.89153184112455,
+    "mean_flow": 153.74836558862884
+  },
+  {
+    "node": 421,
+    "type": "volatile",
+    "trend_per_year": 3.4075318319471513,
+    "rel_trend": 0.024303396199723958,
+    "seasonality_r": 0.24760624047551075,
+    "volatility": 52.083347662556456,
+    "mean_flow": 140.2080507448773
+  },
+  {
+    "node": 422,
+    "type": "volatile",
+    "trend_per_year": 1.1261128257976993,
+    "rel_trend": 0.019613701583718515,
+    "seasonality_r": -0.1960020628529196,
+    "volatility": 39.59713814781879,
+    "mean_flow": 57.41459873738432
+  },
+  {
+    "node": 423,
+    "type": "volatile",
+    "trend_per_year": -1.8792297493317478,
+    "rel_trend": 0.013004804588088444,
+    "seasonality_r": 0.43728135978821103,
+    "volatility": 66.601120562227,
+    "mean_flow": 144.50272771097195
+  },
+  {
+    "node": 424,
+    "type": "seasonal_dominant",
+    "trend_per_year": 1.6727539652459096,
+    "rel_trend": 0.015038799579355677,
+    "seasonality_r": 0.8527963416266222,
+    "volatility": 62.998884449427656,
+    "mean_flow": 111.22922021670945
+  },
+  {
+    "node": 426,
+    "type": "volatile",
+    "trend_per_year": -2.8775650705045432,
+    "rel_trend": 0.022962537889297814,
+    "seasonality_r": -0.1083397255983293,
+    "volatility": 86.07416773053878,
+    "mean_flow": 125.31563633840129
+  },
+  {
+    "node": 427,
+    "type": "moderate_trend",
+    "trend_per_year": -13.964577738464104,
+    "rel_trend": 0.08326161144536176,
+    "seasonality_r": 0.8176754980722879,
+    "volatility": 16.546511248377648,
+    "mean_flow": 167.71928158472383
+  },
+  {
+    "node": 428,
+    "type": "moderate_trend",
+    "trend_per_year": -12.465032666048392,
+    "rel_trend": 0.06187570789213227,
+    "seasonality_r": NaN,
+    "volatility": 143.61163688176572,
+    "mean_flow": 201.45276763383356
+  },
+  {
+    "node": 429,
+    "type": "volatile",
+    "trend_per_year": 2.90768773224031,
+    "rel_trend": 0.020387798233571786,
+    "seasonality_r": -0.43305161013326937,
+    "volatility": 52.441382216085096,
+    "mean_flow": 142.61901547880422
+  },
+  {
+    "node": 430,
+    "type": "seasonal_dominant",
+    "trend_per_year": 5.210145572052153,
+    "rel_trend": 0.04809045855285633,
+    "seasonality_r": 0.7733530879619086,
+    "volatility": 69.02983743958659,
+    "mean_flow": 108.340524934592
+  },
+  {
+    "node": 432,
+    "type": "volatile",
+    "trend_per_year": 11.69951221033295,
+    "rel_trend": 0.045179956832700964,
+    "seasonality_r": -0.42101355706300153,
+    "volatility": 164.22160954716833,
+    "mean_flow": 258.9535932598537
+  },
+  {
+    "node": 433,
+    "type": "volatile",
+    "trend_per_year": 2.752176500181837,
+    "rel_trend": 0.005396636805919957,
+    "seasonality_r": -0.3710949056714843,
+    "volatility": 173.0419109656701,
+    "mean_flow": 509.9799363496429
+  },
+  {
+    "node": 439,
+    "type": "moderate_trend",
+    "trend_per_year": 13.490888679492983,
+    "rel_trend": 0.09413344085800618,
+    "seasonality_r": -0.49895709605692284,
+    "volatility": 27.112164230173136,
+    "mean_flow": 143.31664138050175
+  },
+  {
+    "node": 441,
+    "type": "volatile",
+    "trend_per_year": -0.27858771484874545,
+    "rel_trend": 0.0015881636652407612,
+    "seasonality_r": 0.28736083315140926,
+    "volatility": 99.72061519800164,
+    "mean_flow": 175.41498987659352
+  },
+  {
+    "node": 442,
+    "type": "volatile",
+    "trend_per_year": 2.7777277882863296,
+    "rel_trend": 0.020397739246444165,
+    "seasonality_r": 0.25553047468528006,
+    "volatility": 96.39682514400297,
+    "mean_flow": 136.1782173175303
+  },
+  {
+    "node": 444,
+    "type": "volatile",
+    "trend_per_year": 5.6844889091976185,
+    "rel_trend": 0.02271022385222999,
+    "seasonality_r": 0.02000327568368461,
+    "volatility": 166.3292394049122,
+    "mean_flow": 250.30527763508664
+  },
+  {
+    "node": 447,
+    "type": "stable",
+    "trend_per_year": -2.6155712341447543,
+    "rel_trend": 0.00828324802584694,
+    "seasonality_r": -0.2665202269979589,
+    "volatility": 78.40134764612596,
+    "mean_flow": 315.7663778387309
+  },
+  {
+    "node": 448,
+    "type": "moderate_trend",
+    "trend_per_year": -3.945799825897944,
+    "rel_trend": 0.052632726687698556,
+    "seasonality_r": -0.4418713029957557,
+    "volatility": 59.58788568299502,
+    "mean_flow": 74.96856084766436
+  },
+  {
+    "node": 449,
+    "type": "volatile",
+    "trend_per_year": -0.10096001511601958,
+    "rel_trend": 0.0011088216392082194,
+    "seasonality_r": 0.2683980916161433,
+    "volatility": 62.20923790802801,
+    "mean_flow": 91.05162673348515
+  },
+  {
+    "node": 451,
+    "type": "moderate_trend",
+    "trend_per_year": 12.444268871675808,
+    "rel_trend": 0.08085046963434038,
+    "seasonality_r": -0.5158586096153928,
+    "volatility": 99.76448134272015,
+    "mean_flow": 153.91708727366213
+  },
+  {
+    "node": 452,
+    "type": "moderate_trend",
+    "trend_per_year": 7.6891479164603,
+    "rel_trend": 0.06162552919030048,
+    "seasonality_r": NaN,
+    "volatility": 99.30276325488411,
+    "mean_flow": 124.7721188907048
+  },
+  {
+    "node": 453,
+    "type": "volatile",
+    "trend_per_year": -2.978415723162252,
+    "rel_trend": 0.009412326490715694,
+    "seasonality_r": 0.16041440613456778,
+    "volatility": 198.64490609297144,
+    "mean_flow": 316.4377815291289
+  },
+  {
+    "node": 455,
+    "type": "strong_trend",
+    "trend_per_year": 20.13182191197804,
+    "rel_trend": 0.15323778021929876,
+    "seasonality_r": NaN,
+    "volatility": 93.23765728663709,
+    "mean_flow": 131.37635986327646
+  },
+  {
+    "node": 456,
+    "type": "strong_trend",
+    "trend_per_year": 42.58224931473322,
+    "rel_trend": 0.26082216575365724,
+    "seasonality_r": 0.5192545366438681,
+    "volatility": 115.95198388286735,
+    "mean_flow": 163.261619007218
+  },
+  {
+    "node": 458,
+    "type": "volatile",
+    "trend_per_year": 2.2331075659494237,
+    "rel_trend": 0.012885217296343846,
+    "seasonality_r": NaN,
+    "volatility": 122.67210294167508,
+    "mean_flow": 173.3077139256197
+  },
+  {
+    "node": 461,
+    "type": "volatile",
+    "trend_per_year": 0.3353447277156142,
+    "rel_trend": 0.0060751901223427395,
+    "seasonality_r": NaN,
+    "volatility": 39.037785024390416,
+    "mean_flow": 55.199049723090326
+  },
+  {
+    "node": 462,
+    "type": "stable",
+    "trend_per_year": 1.9401666523024579,
+    "rel_trend": 0.02453892249071269,
+    "seasonality_r": 0.12492406198003854,
+    "volatility": 11.114973641370392,
+    "mean_flow": 79.06486637699089
+  },
+  {
+    "node": 464,
+    "type": "volatile",
+    "trend_per_year": 2.047395364479821,
+    "rel_trend": 0.010970834281074144,
+    "seasonality_r": 0.6240769065097316,
+    "volatility": 120.52846045171175,
+    "mean_flow": 186.62166441078793
+  },
+  {
+    "node": 465,
+    "type": "strong_trend",
+    "trend_per_year": -91.12086721029846,
+    "rel_trend": 0.38119243509340406,
+    "seasonality_r": 0.5084813893518256,
+    "volatility": 147.2961246546569,
+    "mean_flow": 239.0416452172734
+  },
+  {
+    "node": 468,
+    "type": "stable",
+    "trend_per_year": 18.368887563018742,
+    "rel_trend": 0.04936586306389154,
+    "seasonality_r": 0.32358581705400113,
+    "volatility": 67.42818745732409,
+    "mean_flow": 372.0969587805855
+  },
+  {
+    "node": 470,
+    "type": "stable",
+    "trend_per_year": 2.4654633965592607,
+    "rel_trend": 0.023205269949213524,
+    "seasonality_r": 0.5301432230381425,
+    "volatility": 17.50769129143447,
+    "mean_flow": 106.24583893011555
+  },
+  {
+    "node": 472,
+    "type": "strong_trend",
+    "trend_per_year": 45.708289721925496,
+    "rel_trend": 0.1796275398630361,
+    "seasonality_r": 0.48963376796183933,
+    "volatility": 67.17473328619418,
+    "mean_flow": 254.46147944324125
+  },
+  {
+    "node": 474,
+    "type": "volatile",
+    "trend_per_year": 1.1627849538461419,
+    "rel_trend": 0.004538940270368442,
+    "seasonality_r": 0.2329630678207865,
+    "volatility": 177.1077914381812,
+    "mean_flow": 256.17983054287123
+  },
+  {
+    "node": 475,
+    "type": "strong_trend",
+    "trend_per_year": 20.429711586373553,
+    "rel_trend": 0.19414016032295509,
+    "seasonality_r": -0.26279342952241225,
+    "volatility": 30.895059741326797,
+    "mean_flow": 105.23176326963087
+  },
+  {
+    "node": 477,
+    "type": "volatile",
+    "trend_per_year": 0.13175843478719673,
+    "rel_trend": 0.009609710005526474,
+    "seasonality_r": NaN,
+    "volatility": 9.734345438746239,
+    "mean_flow": 13.71096787537953
+  },
+  {
+    "node": 478,
+    "type": "stable",
+    "trend_per_year": 1.1690756827830764,
+    "rel_trend": 0.03190838148372117,
+    "seasonality_r": 0.37148177602438437,
+    "volatility": 4.54916941099248,
+    "mean_flow": 36.63851303367196
+  },
+  {
+    "node": 482,
+    "type": "moderate_trend",
+    "trend_per_year": 15.8786511082602,
+    "rel_trend": 0.06963606884881297,
+    "seasonality_r": -0.008469524220299736,
+    "volatility": 128.2621295878809,
+    "mean_flow": 228.0233692269204
+  },
+  {
+    "node": 483,
+    "type": "volatile",
+    "trend_per_year": 1.240621022673602,
+    "rel_trend": 0.007059647429789316,
+    "seasonality_r": 0.22902033303323574,
+    "volatility": 72.93739191865252,
+    "mean_flow": 175.734132327764
+  },
+  {
+    "node": 484,
+    "type": "moderate_trend",
+    "trend_per_year": -8.163695138280886,
+    "rel_trend": 0.07840966632732226,
+    "seasonality_r": -0.17509132565710506,
+    "volatility": 54.67071612446069,
+    "mean_flow": 104.11592654650205
+  },
+  {
+    "node": 485,
+    "type": "volatile",
+    "trend_per_year": -10.106219843768312,
+    "rel_trend": 0.04418179158821029,
+    "seasonality_r": -0.42603706170899835,
+    "volatility": 146.68790813988443,
+    "mean_flow": 228.74173808477514
+  },
+  {
+    "node": 486,
+    "type": "volatile",
+    "trend_per_year": 2.4421479316965358,
+    "rel_trend": 0.013909467190951916,
+    "seasonality_r": 0.6682031196362281,
+    "volatility": 103.26760535340631,
+    "mean_flow": 175.57451225562986
+  },
+  {
+    "node": 487,
+    "type": "strong_trend",
+    "trend_per_year": 61.588115659202494,
+    "rel_trend": 0.18394028972937856,
+    "seasonality_r": 0.7626597799570645,
+    "volatility": 33.61966480808757,
+    "mean_flow": 334.8266742749698
+  },
+  {
+    "node": 489,
+    "type": "moderate_trend",
+    "trend_per_year": -26.899255732373085,
+    "rel_trend": 0.08915920649072062,
+    "seasonality_r": 0.7154984460234081,
+    "volatility": 49.589263526577476,
+    "mean_flow": 301.699136880648
+  },
+  {
+    "node": 491,
+    "type": "stable",
+    "trend_per_year": 1.1774500024558632,
+    "rel_trend": 0.008465566215652195,
+    "seasonality_r": -0.0771554528939996,
+    "volatility": 19.153588621369252,
+    "mean_flow": 139.0869746920508
+  },
+  {
+    "node": 492,
+    "type": "seasonal_dominant",
+    "trend_per_year": -0.12100594607228596,
+    "rel_trend": 0.0008265529066539078,
+    "seasonality_r": 0.7630014533332282,
+    "volatility": 58.60433461658422,
+    "mean_flow": 146.39830586960886
+  },
+  {
+    "node": 493,
+    "type": "volatile",
+    "trend_per_year": 1.0226342009644858,
+    "rel_trend": 0.013936747336727662,
+    "seasonality_r": -0.1794164822374944,
+    "volatility": 49.78611371049147,
+    "mean_flow": 73.37681901807744
+  },
+  {
+    "node": 494,
+    "type": "strong_trend",
+    "trend_per_year": 34.92756754392073,
+    "rel_trend": 0.19339149070952788,
+    "seasonality_r": 0.606275056441174,
+    "volatility": 84.93642257515705,
+    "mean_flow": 180.6055024571381
+  },
+  {
+    "node": 495,
+    "type": "volatile",
+    "trend_per_year": 3.3825502613235057,
+    "rel_trend": 0.016197640252969665,
+    "seasonality_r": 0.4412617379920711,
+    "volatility": 66.09274587951586,
+    "mean_flow": 208.82981670775845
+  },
+  {
+    "node": 496,
+    "type": "volatile",
+    "trend_per_year": -1.069516262619116,
+    "rel_trend": 0.007464226379726035,
+    "seasonality_r": 0.5573981091089821,
+    "volatility": 46.488343596455394,
+    "mean_flow": 143.28561337044346
+  },
+  {
+    "node": 503,
+    "type": "volatile",
+    "trend_per_year": -3.504696741928192,
+    "rel_trend": 0.019338581779172134,
+    "seasonality_r": 0.03329601867017138,
+    "volatility": 111.13355170920354,
+    "mean_flow": 181.22821841900563
+  },
+  {
+    "node": 506,
+    "type": "seasonal_dominant",
+    "trend_per_year": 2.8449658106552658,
+    "rel_trend": 0.01624036703279682,
+    "seasonality_r": 0.7095134057314619,
+    "volatility": 67.530811029027,
+    "mean_flow": 175.17866367611
+  },
+  {
+    "node": 507,
+    "type": "volatile",
+    "trend_per_year": 3.1609045680632137,
+    "rel_trend": 0.014128654849358145,
+    "seasonality_r": 0.2490338321509774,
+    "volatility": 122.1733881339062,
+    "mean_flow": 223.72296496988577
+  },
+  {
+    "node": 509,
+    "type": "moderate_trend",
+    "trend_per_year": 18.769540055438178,
+    "rel_trend": 0.07480969385716656,
+    "seasonality_r": 0.6538636210382791,
+    "volatility": 103.37521416669831,
+    "mean_flow": 250.89716336047292
+  },
+  {
+    "node": 510,
+    "type": "volatile",
+    "trend_per_year": 1.7240775557969286,
+    "rel_trend": 0.016693818887478548,
+    "seasonality_r": 0.6306428232706718,
+    "volatility": 59.9903518723021,
+    "mean_flow": 103.27640132697739
+  },
+  {
+    "node": 512,
+    "type": "volatile",
+    "trend_per_year": -3.428376489443745,
+    "rel_trend": 0.020516240113182847,
+    "seasonality_r": -0.37578718485006213,
+    "volatility": 160.59373577729528,
+    "mean_flow": 167.10549545209207
+  },
+  {
+    "node": 513,
+    "type": "stable",
+    "trend_per_year": 14.169787034599931,
+    "rel_trend": 0.0471407385366886,
+    "seasonality_r": 0.41874422587463356,
+    "volatility": 74.31127068253917,
+    "mean_flow": 300.5847474458034
+  },
+  {
+    "node": 514,
+    "type": "volatile",
+    "trend_per_year": -1.1768103697526298,
+    "rel_trend": 0.003968150818977302,
+    "seasonality_r": -0.20390318361366463,
+    "volatility": 148.23346767206067,
+    "mean_flow": 296.5639209468793
+  },
+  {
+    "node": 515,
+    "type": "strong_trend",
+    "trend_per_year": -26.7244128247365,
+    "rel_trend": 0.2368509335018385,
+    "seasonality_r": 0.6184645420997926,
+    "volatility": 53.09447243763251,
+    "mean_flow": 112.83220290824028
+  },
+  {
+    "node": 518,
+    "type": "volatile",
+    "trend_per_year": -3.4179214960743964,
+    "rel_trend": 0.03486826138630663,
+    "seasonality_r": -0.23741771620764632,
+    "volatility": 55.99520129582072,
+    "mean_flow": 98.02385680601822
+  },
+  {
+    "node": 519,
+    "type": "strong_trend",
+    "trend_per_year": -19.44580232827263,
+    "rel_trend": 0.5545754983087996,
+    "seasonality_r": NaN,
+    "volatility": 38.168329230752185,
+    "mean_flow": 35.06430023143448
+  },
+  {
+    "node": 520,
+    "type": "stable",
+    "trend_per_year": 4.92485975856904,
+    "rel_trend": 0.021797510512895607,
+    "seasonality_r": -0.16641659679912774,
+    "volatility": 33.680987700964785,
+    "mean_flow": 225.93679832648493
+  },
+  {
+    "node": 523,
+    "type": "stable",
+    "trend_per_year": 10.146689942862775,
+    "rel_trend": 0.03311308481118755,
+    "seasonality_r": -0.05321225969406238,
+    "volatility": 34.10564878636764,
+    "mean_flow": 306.4253894678378
+  },
+  {
+    "node": 524,
+    "type": "moderate_trend",
+    "trend_per_year": 13.816100811672381,
+    "rel_trend": 0.08899407774025543,
+    "seasonality_r": 0.2594032686682762,
+    "volatility": 108.71938590581807,
+    "mean_flow": 155.2474172832374
+  },
+  {
+    "node": 525,
+    "type": "volatile",
+    "trend_per_year": 1.716805805800123,
+    "rel_trend": 0.0075339456326661,
+    "seasonality_r": -0.23954808014766493,
+    "volatility": 165.0604264654024,
+    "mean_flow": 227.8760535279622
+  },
+  {
+    "node": 527,
+    "type": "moderate_trend",
+    "trend_per_year": -13.996549190589192,
+    "rel_trend": 0.06303132954067917,
+    "seasonality_r": -0.3960683957588733,
+    "volatility": 136.83257907259372,
+    "mean_flow": 222.0570187802364
+  },
+  {
+    "node": 529,
+    "type": "volatile",
+    "trend_per_year": 5.35294787175259,
+    "rel_trend": 0.039711065352968644,
+    "seasonality_r": -0.1343117964300828,
+    "volatility": 76.91156937622263,
+    "mean_flow": 134.7973866845997
+  },
+  {
+    "node": 531,
+    "type": "strong_trend",
+    "trend_per_year": -51.476812889581936,
+    "rel_trend": 0.7854154265458574,
+    "seasonality_r": -0.995865173636992,
+    "volatility": 49.61918835553751,
+    "mean_flow": 65.54087221147925
+  },
+  {
+    "node": 533,
+    "type": "volatile",
+    "trend_per_year": -2.4105268565653066,
+    "rel_trend": 0.008338437512129048,
+    "seasonality_r": NaN,
+    "volatility": 204.88767159772286,
+    "mean_flow": 289.0861560958548
+  },
+  {
+    "node": 535,
+    "type": "strong_trend",
+    "trend_per_year": -53.847219266027196,
+    "rel_trend": 0.329941736726295,
+    "seasonality_r": 0.37357874163868643,
+    "volatility": 101.3473596410142,
+    "mean_flow": 163.20220494188257
+  },
+  {
+    "node": 537,
+    "type": "volatile",
+    "trend_per_year": 3.9531418699635408,
+    "rel_trend": 0.047187355330857335,
+    "seasonality_r": -0.4177770393930828,
+    "volatility": 48.550158660818,
+    "mean_flow": 83.77544778804543
+  },
+  {
+    "node": 538,
+    "type": "volatile",
+    "trend_per_year": -7.223577288157376,
+    "rel_trend": 0.019827001566213996,
+    "seasonality_r": 0.4912058813848604,
+    "volatility": 157.4449586285471,
+    "mean_flow": 364.3302919105852
+  },
+  {
+    "node": 540,
+    "type": "strong_trend",
+    "trend_per_year": 26.513853571455268,
+    "rel_trend": 0.2864396412746195,
+    "seasonality_r": -0.36727966527440276,
+    "volatility": 33.09567193590661,
+    "mean_flow": 92.5634914463389
+  },
+  {
+    "node": 542,
+    "type": "stable",
+    "trend_per_year": 0.32415322167358157,
+    "rel_trend": 0.02213030599364226,
+    "seasonality_r": -0.08609093924770589,
+    "volatility": 3.9332812537107196,
+    "mean_flow": 14.647479327054965
+  },
+  {
+    "node": 543,
+    "type": "stable",
+    "trend_per_year": -5.841622024626154,
+    "rel_trend": 0.019497279782251704,
+    "seasonality_r": 0.45393534030194926,
+    "volatility": 14.655499530830348,
+    "mean_flow": 299.6121546374115
+  },
+  {
+    "node": 544,
+    "type": "stable",
+    "trend_per_year": -1.6396816529901996,
+    "rel_trend": 0.006184912792665877,
+    "seasonality_r": 0.5132974115067829,
+    "volatility": 62.10289524446666,
+    "mean_flow": 265.109905631917
+  },
+  {
+    "node": 545,
+    "type": "strong_trend",
+    "trend_per_year": -17.008845611362986,
+    "rel_trend": 0.23060681318464915,
+    "seasonality_r": -0.2967565076106736,
+    "volatility": 62.27805746128806,
+    "mean_flow": 73.75690746455537
+  },
+  {
+    "node": 546,
+    "type": "volatile",
+    "trend_per_year": 0.09017140062924105,
+    "rel_trend": 0.0004646607071660601,
+    "seasonality_r": 0.2265462967883176,
+    "volatility": 114.9158003745103,
+    "mean_flow": 194.05858677943894
+  },
+  {
+    "node": 548,
+    "type": "strong_trend",
+    "trend_per_year": -29.69332033923496,
+    "rel_trend": 0.16537497202471618,
+    "seasonality_r": -0.4009209223975099,
+    "volatility": 45.73118387563224,
+    "mean_flow": 179.55147511330892
+  },
+  {
+    "node": 551,
+    "type": "stable",
+    "trend_per_year": 4.135951588250869,
+    "rel_trend": 0.011187023858659275,
+    "seasonality_r": -0.035904359123999474,
+    "volatility": 38.521369009115865,
+    "mean_flow": 369.7097306056451
+  },
+  {
+    "node": 552,
+    "type": "moderate_trend",
+    "trend_per_year": -13.608139337636201,
+    "rel_trend": 0.09808691420607347,
+    "seasonality_r": 0.7038343056812266,
+    "volatility": 50.975969782291365,
+    "mean_flow": 138.7355219571856
+  },
+  {
+    "node": 555,
+    "type": "strong_trend",
+    "trend_per_year": 9.43320744216442,
+    "rel_trend": 0.12397853400533555,
+    "seasonality_r": NaN,
+    "volatility": 55.24283134221924,
+    "mean_flow": 76.08742427765695
+  },
+  {
+    "node": 556,
+    "type": "stable",
+    "trend_per_year": 0.14138542065822604,
+    "rel_trend": 0.0010821020347059,
+    "seasonality_r": 0.538741676390892,
+    "volatility": 8.95317712342842,
+    "mean_flow": 130.65812191597124
+  },
+  {
+    "node": 557,
+    "type": "strong_trend",
+    "trend_per_year": -52.38053312449587,
+    "rel_trend": 0.17879265077499615,
+    "seasonality_r": 0.6884784194130347,
+    "volatility": 22.713002453900884,
+    "mean_flow": 292.96804269445147
+  },
+  {
+    "node": 560,
+    "type": "volatile",
+    "trend_per_year": 2.811237382773915,
+    "rel_trend": 0.04040258788415086,
+    "seasonality_r": 0.6154572754085831,
+    "volatility": 47.075634427217544,
+    "mean_flow": 69.58062563794633
+  },
+  {
+    "node": 562,
+    "type": "strong_trend",
+    "trend_per_year": -18.220197558500928,
+    "rel_trend": 0.19424545830700776,
+    "seasonality_r": 0.23550976294256337,
+    "volatility": 67.76143171641263,
+    "mean_flow": 93.7998629314575
+  },
+  {
+    "node": 564,
+    "type": "strong_trend",
+    "trend_per_year": 46.3040622063177,
+    "rel_trend": 0.22074140583482177,
+    "seasonality_r": 0.602407044337754,
+    "volatility": 152.55526720664696,
+    "mean_flow": 209.76609173280835
+  },
+  {
+    "node": 565,
+    "type": "moderate_trend",
+    "trend_per_year": -4.753009100775769,
+    "rel_trend": 0.054057556247644876,
+    "seasonality_r": 0.06820320737426777,
+    "volatility": 49.25372362816243,
+    "mean_flow": 87.924970654316
+  },
+  {
+    "node": 566,
+    "type": "strong_trend",
+    "trend_per_year": -74.50810625678116,
+    "rel_trend": 0.5951135902598338,
+    "seasonality_r": -0.1939154829311755,
+    "volatility": 87.56069181808148,
+    "mean_flow": 125.1998053499945
+  },
+  {
+    "node": 568,
+    "type": "volatile",
+    "trend_per_year": 6.141526971072793,
+    "rel_trend": 0.04905420506480825,
+    "seasonality_r": NaN,
+    "volatility": 88.96178592142024,
+    "mean_flow": 125.19878599407886
+  },
+  {
+    "node": 569,
+    "type": "stable",
+    "trend_per_year": 5.2613293366747635,
+    "rel_trend": 0.0161149825678572,
+    "seasonality_r": 0.21139421495653024,
+    "volatility": 13.662529223695227,
+    "mean_flow": 326.48681426773504
+  },
+  {
+    "node": 572,
+    "type": "stable",
+    "trend_per_year": 7.512182516575397,
+    "rel_trend": 0.044373195664757885,
+    "seasonality_r": 0.48852355216366283,
+    "volatility": 46.744270086707296,
+    "mean_flow": 169.29550282916705
+  },
+  {
+    "node": 573,
+    "type": "moderate_trend",
+    "trend_per_year": -7.78859304436215,
+    "rel_trend": 0.05182225313187173,
+    "seasonality_r": -0.23706650684380226,
+    "volatility": 87.62522510858363,
+    "mean_flow": 150.29437204747387
+  },
+  {
+    "node": 574,
+    "type": "seasonal_dominant",
+    "trend_per_year": 1.763061128368613,
+    "rel_trend": 0.027140077010898683,
+    "seasonality_r": 0.8473643363565774,
+    "volatility": 9.928812417953484,
+    "mean_flow": 64.96153642160046
+  },
+  {
+    "node": 575,
+    "type": "moderate_trend",
+    "trend_per_year": 13.397149428605028,
+    "rel_trend": 0.05469998574443922,
+    "seasonality_r": -0.7313124104756403,
+    "volatility": 127.84320948949207,
+    "mean_flow": 244.92052770355596
+  },
+  {
+    "node": 578,
+    "type": "strong_trend",
+    "trend_per_year": -36.73210282238608,
+    "rel_trend": 0.15662371215408824,
+    "seasonality_r": -0.2758211280814311,
+    "volatility": 44.307694095988374,
+    "mean_flow": 234.52453118736514
+  },
+  {
+    "node": 580,
+    "type": "stable",
+    "trend_per_year": 1.4871183554300722,
+    "rel_trend": 0.018142070503424805,
+    "seasonality_r": -0.09783924172159526,
+    "volatility": 4.093693756335506,
+    "mean_flow": 81.9707065413106
+  },
+  {
+    "node": 581,
+    "type": "volatile",
+    "trend_per_year": 0.37020665483421755,
+    "rel_trend": 0.00764503445728444,
+    "seasonality_r": 0.2799250834348024,
+    "volatility": 19.054414978927117,
+    "mean_flow": 48.4244576342541
+  },
+  {
+    "node": 583,
+    "type": "volatile",
+    "trend_per_year": 0.15348174272148718,
+    "rel_trend": 0.0009007885943456584,
+    "seasonality_r": 0.6749428719965569,
+    "volatility": 107.98942063692964,
+    "mean_flow": 170.3859737835482
+  },
+  {
+    "node": 585,
+    "type": "volatile",
+    "trend_per_year": 0.823799039882886,
+    "rel_trend": 0.00822929972121125,
+    "seasonality_r": 0.22982354049569123,
+    "volatility": 46.14533175210348,
+    "mean_flow": 100.10560552682524
+  },
+  {
+    "node": 586,
+    "type": "volatile",
+    "trend_per_year": -4.646159792073408,
+    "rel_trend": 0.033074441689798936,
+    "seasonality_r": -0.4940513229215485,
+    "volatility": 152.72758530381495,
+    "mean_flow": 140.47583335116337
+  },
+  {
+    "node": 587,
+    "type": "moderate_trend",
+    "trend_per_year": -2.6579633377759246,
+    "rel_trend": 0.06960172036022398,
+    "seasonality_r": NaN,
+    "volatility": 27.07949739495039,
+    "mean_flow": 38.18818348767681
+  },
+  {
+    "node": 593,
+    "type": "volatile",
+    "trend_per_year": 4.157230895014451,
+    "rel_trend": 0.02545402351528849,
+    "seasonality_r": 0.1310054501761082,
+    "volatility": 85.0741258233041,
+    "mean_flow": 163.32313306238063
+  },
+  {
+    "node": 595,
+    "type": "volatile",
+    "trend_per_year": 5.163959340631634,
+    "rel_trend": 0.04601084637249752,
+    "seasonality_r": -0.18678505721022307,
+    "volatility": 65.82449913967108,
+    "mean_flow": 112.23352104445286
+  },
+  {
+    "node": 596,
+    "type": "moderate_trend",
+    "trend_per_year": -14.00167939636079,
+    "rel_trend": 0.07365396793145103,
+    "seasonality_r": 0.1103746259289952,
+    "volatility": 113.19266853014085,
+    "mean_flow": 190.10081487718406
+  },
+  {
+    "node": 598,
+    "type": "seasonal_dominant",
+    "trend_per_year": -0.906380948012325,
+    "rel_trend": 0.006847787266396447,
+    "seasonality_r": 0.7856072095407487,
+    "volatility": 159.82899133206678,
+    "mean_flow": 132.36114176799015
+  },
+  {
+    "node": 602,
+    "type": "stable",
+    "trend_per_year": 7.052210638668111,
+    "rel_trend": 0.022787289980805165,
+    "seasonality_r": 0.38169443108654966,
+    "volatility": 21.511342088027668,
+    "mean_flow": 309.48000494228313
+  },
+  {
+    "node": 603,
+    "type": "stable",
+    "trend_per_year": 2.3534770569274173,
+    "rel_trend": 0.010469297638961301,
+    "seasonality_r": 0.46706877522017687,
+    "volatility": 27.616889288055887,
+    "mean_flow": 224.7979881381629
+  },
+  {
+    "node": 604,
+    "type": "volatile",
+    "trend_per_year": -7.566331938948439,
+    "rel_trend": 0.04834098741921385,
+    "seasonality_r": 0.459988114816319,
+    "volatility": 106.37207570132456,
+    "mean_flow": 156.52001116551665
+  },
+  {
+    "node": 606,
+    "type": "volatile",
+    "trend_per_year": 1.527700576476001,
+    "rel_trend": 0.022163621450571585,
+    "seasonality_r": 0.40223822777324175,
+    "volatility": 21.92726759847122,
+    "mean_flow": 68.92829124154623
+  },
+  {
+    "node": 608,
+    "type": "volatile",
+    "trend_per_year": 1.9271095378737864,
+    "rel_trend": 0.015290686625067398,
+    "seasonality_r": 0.2688716919967634,
+    "volatility": 70.20281008596133,
+    "mean_flow": 126.03158836724937
+  },
+  {
+    "node": 610,
+    "type": "moderate_trend",
+    "trend_per_year": -20.98838706143887,
+    "rel_trend": 0.0793120122404667,
+    "seasonality_r": 0.24854217667176196,
+    "volatility": 150.86518131487213,
+    "mean_flow": 264.6306201195855
+  },
+  {
+    "node": 612,
+    "type": "strong_trend",
+    "trend_per_year": 28.023423368744552,
+    "rel_trend": 0.3393514041165115,
+    "seasonality_r": -0.5414733920061615,
+    "volatility": 66.58134386993375,
+    "mean_flow": 82.57936371989109
+  },
+  {
+    "node": 616,
+    "type": "volatile",
+    "trend_per_year": 0.17071055904431826,
+    "rel_trend": 0.003384645112835686,
+    "seasonality_r": -0.3256178130966143,
+    "volatility": 35.85755523391396,
+    "mean_flow": 50.436766623561994
+  },
+  {
+    "node": 617,
+    "type": "volatile",
+    "trend_per_year": 4.705381099442948,
+    "rel_trend": 0.015574423294886227,
+    "seasonality_r": 0.48506107464385995,
+    "volatility": 90.92021284027221,
+    "mean_flow": 302.1223319012724
+  },
+  {
+    "node": 619,
+    "type": "stable",
+    "trend_per_year": 2.7351896170988805,
+    "rel_trend": 0.006999233487827659,
+    "seasonality_r": 0.08071438766522485,
+    "volatility": 22.199782026422366,
+    "mean_flow": 390.78416441691866
+  },
+  {
+    "node": 622,
+    "type": "volatile",
+    "trend_per_year": 1.8210657955832081,
+    "rel_trend": 0.007246479178682844,
+    "seasonality_r": 0.07501092675255391,
+    "volatility": 166.80733962762727,
+    "mean_flow": 251.30352871140587
+  },
+  {
+    "node": 623,
+    "type": "seasonal_dominant",
+    "trend_per_year": 5.040696120671192,
+    "rel_trend": 0.028314626405821663,
+    "seasonality_r": 0.7199715964084674,
+    "volatility": 35.89564413589046,
+    "mean_flow": 178.02446057773756
+  },
+  {
+    "node": 625,
+    "type": "stable",
+    "trend_per_year": 2.3016286725819133,
+    "rel_trend": 0.009356576714762947,
+    "seasonality_r": 0.3173876350851841,
+    "volatility": 45.8585285573109,
+    "mean_flow": 245.99046567894777
+  },
+  {
+    "node": 628,
+    "type": "strong_trend",
+    "trend_per_year": -37.34385908363869,
+    "rel_trend": 0.20379755602054364,
+    "seasonality_r": NaN,
+    "volatility": 133.92051448299327,
+    "mean_flow": 183.2399740656199
+  },
+  {
+    "node": 629,
+    "type": "moderate_trend",
+    "trend_per_year": 3.085608956013971,
+    "rel_trend": 0.08212578492016441,
+    "seasonality_r": 0.05227359427309597,
+    "volatility": 17.351382254780304,
+    "mean_flow": 37.57174286842736
+  },
+  {
+    "node": 631,
+    "type": "seasonal_dominant",
+    "trend_per_year": 3.020085542044167,
+    "rel_trend": 0.018331106559313564,
+    "seasonality_r": 0.822452500378958,
+    "volatility": 59.49620967469438,
+    "mean_flow": 164.75194849481863
+  },
+  {
+    "node": 633,
+    "type": "moderate_trend",
+    "trend_per_year": 3.086157400263648,
+    "rel_trend": 0.07657111822512955,
+    "seasonality_r": 0.5625384982280719,
+    "volatility": 27.730083683190625,
+    "mean_flow": 40.30445676160567
+  },
+  {
+    "node": 635,
+    "type": "stable",
+    "trend_per_year": 0.3359564893092196,
+    "rel_trend": 0.0014619702565652328,
+    "seasonality_r": 0.3179128869418323,
+    "volatility": 13.123642838060167,
+    "mean_flow": 229.79707441965942
+  },
+  {
+    "node": 636,
+    "type": "moderate_trend",
+    "trend_per_year": 16.393389345339525,
+    "rel_trend": 0.08149486058211226,
+    "seasonality_r": -0.5097836507503639,
+    "volatility": 88.27266264772258,
+    "mean_flow": 201.15856566595482
+  },
+  {
+    "node": 638,
+    "type": "moderate_trend",
+    "trend_per_year": 7.735958360775023,
+    "rel_trend": 0.06840674528034836,
+    "seasonality_r": 0.3333119337481827,
+    "volatility": 37.06998887545845,
+    "mean_flow": 113.08765328132979
+  },
+  {
+    "node": 639,
+    "type": "strong_trend",
+    "trend_per_year": 17.0858012424498,
+    "rel_trend": 0.15006198225034625,
+    "seasonality_r": -0.12418569253637875,
+    "volatility": 38.739089387614825,
+    "mean_flow": 113.85829266125396
+  },
+  {
+    "node": 640,
+    "type": "volatile",
+    "trend_per_year": 1.2447689146207392,
+    "rel_trend": 0.024169799176920595,
+    "seasonality_r": 0.18997257944967783,
+    "volatility": 40.45464158883106,
+    "mean_flow": 51.501002608228234
+  },
+  {
+    "node": 641,
+    "type": "volatile",
+    "trend_per_year": 0.019892058340034692,
+    "rel_trend": 8.255469146785067e-05,
+    "seasonality_r": 0.38992218705492365,
+    "volatility": 84.50580888554492,
+    "mean_flow": 240.9561213759315
+  },
+  {
+    "node": 642,
+    "type": "volatile",
+    "trend_per_year": 4.146335852307672,
+    "rel_trend": 0.034618054782956285,
+    "seasonality_r": NaN,
+    "volatility": 84.91462275052481,
+    "mean_flow": 119.77379560133483
+  },
+  {
+    "node": 644,
+    "type": "volatile",
+    "trend_per_year": 0.21024952914254197,
+    "rel_trend": 0.002371532256964393,
+    "seasonality_r": -0.7197728785312723,
+    "volatility": 50.13694722766949,
+    "mean_flow": 88.6555627289393
+  },
+  {
+    "node": 645,
+    "type": "moderate_trend",
+    "trend_per_year": 12.046381974568952,
+    "rel_trend": 0.08747904159479514,
+    "seasonality_r": 0.03272364250293687,
+    "volatility": 90.11873730612895,
+    "mean_flow": 137.7059198120736
+  },
+  {
+    "node": 646,
+    "type": "seasonal_dominant",
+    "trend_per_year": 7.267630113584451,
+    "rel_trend": 0.03875652441854602,
+    "seasonality_r": 0.7638430348530746,
+    "volatility": 43.00477443483976,
+    "mean_flow": 187.5201707031855
+  },
+  {
+    "node": 647,
+    "type": "volatile",
+    "trend_per_year": 3.6535146513593775,
+    "rel_trend": 0.028547235844628715,
+    "seasonality_r": 0.45240618018397094,
+    "volatility": 52.11998401941497,
+    "mean_flow": 127.98137944762054
+  },
+  {
+    "node": 649,
+    "type": "strong_trend",
+    "trend_per_year": -40.8974492921277,
+    "rel_trend": 0.1545791529943617,
+    "seasonality_r": -0.1247428927333702,
+    "volatility": 103.38606392823068,
+    "mean_flow": 264.57286345100033
+  },
+  {
+    "node": 650,
+    "type": "moderate_trend",
+    "trend_per_year": 2.0413837631927167,
+    "rel_trend": 0.08120726317154658,
+    "seasonality_r": 0.49394509725892216,
+    "volatility": 3.3093737357055177,
+    "mean_flow": 25.137944590905928
+  },
+  {
+    "node": 652,
+    "type": "volatile",
+    "trend_per_year": 12.034955068417133,
+    "rel_trend": 0.04710934578330515,
+    "seasonality_r": 0.21679865724468428,
+    "volatility": 176.21215648504725,
+    "mean_flow": 255.46852373341167
+  },
+  {
+    "node": 653,
+    "type": "strong_trend",
+    "trend_per_year": 34.029675914336856,
+    "rel_trend": 0.10320212267158778,
+    "seasonality_r": 0.2914881678566493,
+    "volatility": 22.27479316568998,
+    "mean_flow": 329.7381384240009
+  },
+  {
+    "node": 657,
+    "type": "seasonal_dominant",
+    "trend_per_year": -1.8528458198300666,
+    "rel_trend": 0.016817297411850556,
+    "seasonality_r": 0.7850635759672904,
+    "volatility": 65.0402898212367,
+    "mean_flow": 110.17500360712741
+  },
+  {
+    "node": 660,
+    "type": "strong_trend",
+    "trend_per_year": 9.655519336190519,
+    "rel_trend": 0.12846935857936972,
+    "seasonality_r": 0.4251775197168897,
+    "volatility": 50.39644436305334,
+    "mean_flow": 75.15814910647256
+  },
+  {
+    "node": 662,
+    "type": "volatile",
+    "trend_per_year": 2.6846218423793586,
+    "rel_trend": 0.01714485885023572,
+    "seasonality_r": -0.16880236347355307,
+    "volatility": 135.01174367147584,
+    "mean_flow": 156.58465600010405
+  },
+  {
+    "node": 664,
+    "type": "volatile",
+    "trend_per_year": 0.48850386206903373,
+    "rel_trend": 0.008218560998925331,
+    "seasonality_r": -0.13757736757641528,
+    "volatility": 33.05946192108133,
+    "mean_flow": 59.439098148003055
+  },
+  {
+    "node": 665,
+    "type": "stable",
+    "trend_per_year": 3.0670483250838414,
+    "rel_trend": 0.011094589239944311,
+    "seasonality_r": -0.9061858965287266,
+    "volatility": 37.60803798856965,
+    "mean_flow": 276.4454138551458
+  },
+  {
+    "node": 667,
+    "type": "volatile",
+    "trend_per_year": 1.5306289505124484,
+    "rel_trend": 0.01905711687759101,
+    "seasonality_r": NaN,
+    "volatility": 56.89231381873653,
+    "mean_flow": 80.3179694644774
+  },
+  {
+    "node": 668,
+    "type": "stable",
+    "trend_per_year": 11.082171111245971,
+    "rel_trend": 0.04113844579002112,
+    "seasonality_r": 0.5740679922054627,
+    "volatility": 33.37713740484688,
+    "mean_flow": 269.38720841990846
+  },
+  {
+    "node": 671,
+    "type": "stable",
+    "trend_per_year": 0.8250236562213172,
+    "rel_trend": 0.00958355539966484,
+    "seasonality_r": -0.14061398159290406,
+    "volatility": 6.05654818105275,
+    "mean_flow": 86.08742916711421
+  },
+  {
+    "node": 672,
+    "type": "volatile",
+    "trend_per_year": 5.549357579100743,
+    "rel_trend": 0.03941453208840206,
+    "seasonality_r": -0.4281344484656869,
+    "volatility": 75.42499014766314,
+    "mean_flow": 140.79470808481676
+  },
+  {
+    "node": 674,
+    "type": "stable",
+    "trend_per_year": 0.45950773995943306,
+    "rel_trend": 0.0054843128793340265,
+    "seasonality_r": -0.20270910325975158,
+    "volatility": 2.511931532738886,
+    "mean_flow": 83.78583508731532
+  },
+  {
+    "node": 675,
+    "type": "seasonal_dominant",
+    "trend_per_year": 1.5269063882956302,
+    "rel_trend": 0.011850292729122842,
+    "seasonality_r": 0.9198772817917305,
+    "volatility": 12.599130018499084,
+    "mean_flow": 128.84967581373485
+  },
+  {
+    "node": 678,
+    "type": "volatile",
+    "trend_per_year": -1.3651344961025424,
+    "rel_trend": 0.006434990478742531,
+    "seasonality_r": NaN,
+    "volatility": 150.72340873761877,
+    "mean_flow": 212.14242572341996
+  },
+  {
+    "node": 680,
+    "type": "moderate_trend",
+    "trend_per_year": -2.9898688698005405,
+    "rel_trend": 0.08183601255888812,
+    "seasonality_r": 0.12293196127376799,
+    "volatility": 24.307908864099574,
+    "mean_flow": 36.53487864909178
+  },
+  {
+    "node": 684,
+    "type": "moderate_trend",
+    "trend_per_year": 12.99888262933769,
+    "rel_trend": 0.05538982586037614,
+    "seasonality_r": -0.0063950036033021615,
+    "volatility": 71.84316922431711,
+    "mean_flow": 234.6799682438935
+  },
+  {
+    "node": 686,
+    "type": "strong_trend",
+    "trend_per_year": -5.801758919199329,
+    "rel_trend": 0.1283173667889464,
+    "seasonality_r": NaN,
+    "volatility": 32.21860293906291,
+    "mean_flow": 45.21413535881365
+  },
+  {
+    "node": 688,
+    "type": "seasonal_dominant",
+    "trend_per_year": 6.77556994176361,
+    "rel_trend": 0.03310836594345246,
+    "seasonality_r": 0.7807407076280829,
+    "volatility": 112.94955875204424,
+    "mean_flow": 204.64827289355205
+  },
+  {
+    "node": 689,
+    "type": "seasonal_dominant",
+    "trend_per_year": 4.36491124263977,
+    "rel_trend": 0.02535348935008507,
+    "seasonality_r": 0.8522379014726797,
+    "volatility": 16.275402127265863,
+    "mean_flow": 172.16214924166385
+  },
+  {
+    "node": 691,
+    "type": "volatile",
+    "trend_per_year": 2.0406794419700605,
+    "rel_trend": 0.008330238725663243,
+    "seasonality_r": 0.3936499310992726,
+    "volatility": 115.55117497607361,
+    "mean_flow": 244.97250329129616
+  },
+  {
+    "node": 692,
+    "type": "moderate_trend",
+    "trend_per_year": 13.963582839056278,
+    "rel_trend": 0.07806093559087718,
+    "seasonality_r": 0.8230855174467149,
+    "volatility": 36.24309232891497,
+    "mean_flow": 178.8805457595263
+  },
+  {
+    "node": 695,
+    "type": "moderate_trend",
+    "trend_per_year": 6.410827864836196,
+    "rel_trend": 0.05975255873219581,
+    "seasonality_r": -0.2567640044697826,
+    "volatility": 56.88784936197223,
+    "mean_flow": 107.28959464005952
+  },
+  {
+    "node": 696,
+    "type": "strong_trend",
+    "trend_per_year": 20.03675057875519,
+    "rel_trend": 0.14596639070447756,
+    "seasonality_r": NaN,
+    "volatility": 97.56644333372188,
+    "mean_flow": 137.26961621840093
+  },
+  {
+    "node": 697,
+    "type": "volatile",
+    "trend_per_year": -3.8301136701728833,
+    "rel_trend": 0.01835573432255116,
+    "seasonality_r": 0.1683578878002931,
+    "volatility": 110.37886505827119,
+    "mean_flow": 208.6603338506385
+  },
+  {
+    "node": 698,
+    "type": "volatile",
+    "trend_per_year": 1.8174884772317506,
+    "rel_trend": 0.015042263158493501,
+    "seasonality_r": 0.33952601098420093,
+    "volatility": 85.70419629733685,
+    "mean_flow": 120.82546642346541
+  },
+  {
+    "node": 699,
+    "type": "volatile",
+    "trend_per_year": -1.1342673645274697,
+    "rel_trend": 0.013801319604480439,
+    "seasonality_r": 0.0041771034497590925,
+    "volatility": 92.80421693685622,
+    "mean_flow": 82.18542742520964
+  },
+  {
+    "node": 701,
+    "type": "strong_trend",
+    "trend_per_year": -38.153837496295196,
+    "rel_trend": 0.22137661891620988,
+    "seasonality_r": -0.0938029887450274,
+    "volatility": 105.08834626841765,
+    "mean_flow": 172.34808925038124
+  },
+  {
+    "node": 704,
+    "type": "stable",
+    "trend_per_year": 4.8491076481324535,
+    "rel_trend": 0.018814090427769645,
+    "seasonality_r": -0.25777633561608576,
+    "volatility": 57.115561660417036,
+    "mean_flow": 257.73808454545684
+  },
+  {
+    "node": 705,
+    "type": "seasonal_dominant",
+    "trend_per_year": 4.115996156283178,
+    "rel_trend": 0.027951735999587647,
+    "seasonality_r": 0.7540630573162427,
+    "volatility": 61.832944607951326,
+    "mean_flow": 147.25368500876522
+  },
+  {
+    "node": 706,
+    "type": "volatile",
+    "trend_per_year": 0.41856125835944635,
+    "rel_trend": 0.0027111214467928006,
+    "seasonality_r": NaN,
+    "volatility": 110.60225125022754,
+    "mean_flow": 154.38675981980595
+  },
+  {
+    "node": 708,
+    "type": "volatile",
+    "trend_per_year": 4.296251307890045,
+    "rel_trend": 0.026905535568728833,
+    "seasonality_r": 0.01937361421498543,
+    "volatility": 74.14796984223533,
+    "mean_flow": 159.67908425424025
+  },
+  {
+    "node": 710,
+    "type": "volatile",
+    "trend_per_year": 1.5612671909497577,
+    "rel_trend": 0.0076707576198525385,
+    "seasonality_r": -0.41873636348741783,
+    "volatility": 94.44975658792444,
+    "mean_flow": 203.53493887465757
+  },
+  {
+    "node": 711,
+    "type": "volatile",
+    "trend_per_year": 5.425246894956292,
+    "rel_trend": 0.04189595232185209,
+    "seasonality_r": NaN,
+    "volatility": 91.76202437943508,
+    "mean_flow": 129.49334129900276
+  },
+  {
+    "node": 712,
+    "type": "volatile",
+    "trend_per_year": -14.487129148966888,
+    "rel_trend": 0.0498124018184103,
+    "seasonality_r": -0.4377996786411874,
+    "volatility": 127.18037008042293,
+    "mean_flow": 290.8337797475999
+  },
+  {
+    "node": 713,
+    "type": "strong_trend",
+    "trend_per_year": -21.36226432006227,
+    "rel_trend": 0.25742062196616294,
+    "seasonality_r": 0.1448757191333189,
+    "volatility": 46.55265535110619,
+    "mean_flow": 82.98583034831469
+  },
+  {
+    "node": 714,
+    "type": "stable",
+    "trend_per_year": 1.0202312408660719,
+    "rel_trend": 0.00868535445649444,
+    "seasonality_r": -0.1638964193593944,
+    "volatility": 23.01035705420534,
+    "mean_flow": 117.46569898685522
+  },
+  {
+    "node": 715,
+    "type": "strong_trend",
+    "trend_per_year": -18.33799300671241,
+    "rel_trend": 0.17297362339964964,
+    "seasonality_r": 0.12317054486070712,
+    "volatility": 53.74582732253648,
+    "mean_flow": 106.01612241982976
+  },
+  {
+    "node": 716,
+    "type": "stable",
+    "trend_per_year": 2.480274604429531,
+    "rel_trend": 0.00802265065813084,
+    "seasonality_r": 0.4014632274322114,
+    "volatility": 55.49319052363079,
+    "mean_flow": 309.15899271933995
+  },
+  {
+    "node": 717,
+    "type": "stable",
+    "trend_per_year": -0.21947209357208425,
+    "rel_trend": 0.0012518794441049794,
+    "seasonality_r": 0.44753035440700456,
+    "volatility": 9.532100623160638,
+    "mean_flow": 175.31407944565663
+  },
+  {
+    "node": 720,
+    "type": "volatile",
+    "trend_per_year": 4.478819966208632,
+    "rel_trend": 0.0402295716491294,
+    "seasonality_r": -0.33205398846022194,
+    "volatility": 39.044969617726856,
+    "mean_flow": 111.33153405266211
+  },
+  {
+    "node": 722,
+    "type": "volatile",
+    "trend_per_year": -0.4936329692499316,
+    "rel_trend": 0.00791838375394349,
+    "seasonality_r": -0.13416582166278612,
+    "volatility": 42.09755260030354,
+    "mean_flow": 62.34011594673095
+  },
+  {
+    "node": 723,
+    "type": "strong_trend",
+    "trend_per_year": 21.243011783150425,
+    "rel_trend": 0.13122350931617333,
+    "seasonality_r": -0.49340768533779905,
+    "volatility": 83.19699344920039,
+    "mean_flow": 161.8841910464645
+  },
+  {
+    "node": 724,
+    "type": "stable",
+    "trend_per_year": 5.379915170826203,
+    "rel_trend": 0.0320677991818158,
+    "seasonality_r": 0.46458633772446073,
+    "volatility": 20.73420816583399,
+    "mean_flow": 167.76689626424726
+  },
+  {
+    "node": 726,
+    "type": "volatile",
+    "trend_per_year": 11.047804020266767,
+    "rel_trend": 0.042530752888692964,
+    "seasonality_r": -0.1905251030706267,
+    "volatility": 136.5388831376343,
+    "mean_flow": 259.7603669666787
+  },
+  {
+    "node": 728,
+    "type": "strong_trend",
+    "trend_per_year": -46.71946278738558,
+    "rel_trend": 0.15079353376264654,
+    "seasonality_r": 0.5014252590508488,
+    "volatility": 109.11296925853809,
+    "mean_flow": 309.8240453077375
+  },
+  {
+    "node": 731,
+    "type": "strong_trend",
+    "trend_per_year": -91.93985941804044,
+    "rel_trend": 0.4789551879625455,
+    "seasonality_r": -0.5004315055876427,
+    "volatility": 65.02466565647056,
+    "mean_flow": 191.9592088149069
+  },
+  {
+    "node": 732,
+    "type": "volatile",
+    "trend_per_year": -0.887878979720895,
+    "rel_trend": 0.003833985348062745,
+    "seasonality_r": -0.0691365781825775,
+    "volatility": 114.77938794810342,
+    "mean_flow": 231.5812125718064
+  },
+  {
+    "node": 736,
+    "type": "volatile",
+    "trend_per_year": 1.2324397659617454,
+    "rel_trend": 0.008145810590942904,
+    "seasonality_r": -0.14103129918408158,
+    "volatility": 99.74470886933776,
+    "mean_flow": 151.29737477400343
+  },
+  {
+    "node": 738,
+    "type": "moderate_trend",
+    "trend_per_year": 11.930436905444752,
+    "rel_trend": 0.054929039280988565,
+    "seasonality_r": -0.2161005746558574,
+    "volatility": 135.19517364814578,
+    "mean_flow": 217.1972604415265
+  },
+  {
+    "node": 739,
+    "type": "volatile",
+    "trend_per_year": -2.2707065137457016,
+    "rel_trend": 0.017539279156012208,
+    "seasonality_r": 0.42756337940314304,
+    "volatility": 111.29645909789298,
+    "mean_flow": 129.46407181323968
+  },
+  {
+    "node": 741,
+    "type": "strong_trend",
+    "trend_per_year": 50.408861448208455,
+    "rel_trend": 0.15690724506641016,
+    "seasonality_r": 0.24564321552551655,
+    "volatility": 52.89531446408901,
+    "mean_flow": 321.2653518323257
+  },
+  {
+    "node": 742,
+    "type": "strong_trend",
+    "trend_per_year": 12.208435701867788,
+    "rel_trend": 0.12050057626746996,
+    "seasonality_r": NaN,
+    "volatility": 72.19835729949054,
+    "mean_flow": 101.31433358682594
+  },
+  {
+    "node": 745,
+    "type": "moderate_trend",
+    "trend_per_year": 8.994710777935886,
+    "rel_trend": 0.052053909896022245,
+    "seasonality_r": -0.48928785411369813,
+    "volatility": 93.13764469596858,
+    "mean_flow": 172.79606361652608
+  },
+  {
+    "node": 748,
+    "type": "moderate_trend",
+    "trend_per_year": 13.409755185837247,
+    "rel_trend": 0.08780262612439245,
+    "seasonality_r": 0.28958259056223307,
+    "volatility": 60.786510416888135,
+    "mean_flow": 152.72612779299612
+  },
+  {
+    "node": 751,
+    "type": "volatile",
+    "trend_per_year": 1.4847118175870313,
+    "rel_trend": 0.0059645483410224265,
+    "seasonality_r": 0.13450732493735368,
+    "volatility": 164.5448976731545,
+    "mean_flow": 248.92275604693612
+  },
+  {
+    "node": 752,
+    "type": "strong_trend",
+    "trend_per_year": -19.40628163243321,
+    "rel_trend": 0.15141947756548985,
+    "seasonality_r": -0.5299768585998615,
+    "volatility": 89.35458721087569,
+    "mean_flow": 128.16238566547952
+  },
+  {
+    "node": 753,
+    "type": "strong_trend",
+    "trend_per_year": 10.234526260031682,
+    "rel_trend": 0.19710578241274826,
+    "seasonality_r": 0.7621501175337965,
+    "volatility": 21.17662697681722,
+    "mean_flow": 51.92402748233103
+  },
+  {
+    "node": 755,
+    "type": "stable",
+    "trend_per_year": -8.127410895904752,
+    "rel_trend": 0.025219753979784376,
+    "seasonality_r": 0.19655196601526997,
+    "volatility": 80.16100586964075,
+    "mean_flow": 322.26368572824936
+  },
+  {
+    "node": 756,
+    "type": "moderate_trend",
+    "trend_per_year": -2.4598389241321854,
+    "rel_trend": 0.053321484012171176,
+    "seasonality_r": -0.027552039997007297,
+    "volatility": 20.511528539359304,
+    "mean_flow": 46.13222824498317
+  },
+  {
+    "node": 758,
+    "type": "seasonal_dominant",
+    "trend_per_year": 0.7135271826899401,
+    "rel_trend": 0.00785566600838271,
+    "seasonality_r": 0.8216452940384021,
+    "volatility": 92.85608730289546,
+    "mean_flow": 90.82962209351514
+  },
+  {
+    "node": 761,
+    "type": "seasonal_dominant",
+    "trend_per_year": -0.1070152523525318,
+    "rel_trend": 0.0004343812073216275,
+    "seasonality_r": 0.8584130216581628,
+    "volatility": 28.387258061968662,
+    "mean_flow": 246.36252700249446
+  },
+  {
+    "node": 763,
+    "type": "volatile",
+    "trend_per_year": 2.8271542329456874,
+    "rel_trend": 0.021717179664368407,
+    "seasonality_r": -0.16614467608300595,
+    "volatility": 66.46782361024528,
+    "mean_flow": 130.1805416228631
+  },
+  {
+    "node": 764,
+    "type": "volatile",
+    "trend_per_year": -0.3676859962928758,
+    "rel_trend": 0.001705936049355071,
+    "seasonality_r": 0.5608716217617407,
+    "volatility": 140.8969202671957,
+    "mean_flow": 215.53328140638297
+  },
+  {
+    "node": 767,
+    "type": "volatile",
+    "trend_per_year": 4.100295942210172,
+    "rel_trend": 0.03210416148817479,
+    "seasonality_r": -0.07533297090839094,
+    "volatility": 38.907314233147524,
+    "mean_flow": 127.71851747681711
+  },
+  {
+    "node": 768,
+    "type": "volatile",
+    "trend_per_year": 3.951253081033295,
+    "rel_trend": 0.01986546221721226,
+    "seasonality_r": -0.011829471090900302,
+    "volatility": 137.96559513401579,
+    "mean_flow": 198.90063558371693
+  },
+  {
+    "node": 772,
+    "type": "volatile",
+    "trend_per_year": -2.4476560015129687,
+    "rel_trend": 0.034855719936792706,
+    "seasonality_r": 0.033105750564596456,
+    "volatility": 44.25181953506949,
+    "mean_flow": 70.22250497467341
+  },
+  {
+    "node": 773,
+    "type": "volatile",
+    "trend_per_year": 3.379965356891704,
+    "rel_trend": 0.014545768826745896,
+    "seasonality_r": NaN,
+    "volatility": 164.91740610077548,
+    "mean_flow": 232.36759655708647
+  },
+  {
+    "node": 776,
+    "type": "volatile",
+    "trend_per_year": 4.3561544986196346,
+    "rel_trend": 0.03664942092489805,
+    "seasonality_r": 0.2634318296011912,
+    "volatility": 73.31716548638342,
+    "mean_flow": 118.8601170778889
+  },
+  {
+    "node": 777,
+    "type": "moderate_trend",
+    "trend_per_year": 13.648973142372373,
+    "rel_trend": 0.07901613432022236,
+    "seasonality_r": 0.3800697093073393,
+    "volatility": 116.28426496532502,
+    "mean_flow": 172.73653261803645
+  },
+  {
+    "node": 778,
+    "type": "stable",
+    "trend_per_year": 0.3742162702531357,
+    "rel_trend": 0.0022074989382285483,
+    "seasonality_r": -0.21404763276583422,
+    "volatility": 12.259458938012449,
+    "mean_flow": 169.52047476223663
+  },
+  {
+    "node": 779,
+    "type": "strong_trend",
+    "trend_per_year": 13.148754052982062,
+    "rel_trend": 0.12325604701295695,
+    "seasonality_r": NaN,
+    "volatility": 76.3285911747115,
+    "mean_flow": 106.67836790469022
+  },
+  {
+    "node": 780,
+    "type": "strong_trend",
+    "trend_per_year": 28.912996150832335,
+    "rel_trend": 0.11576270218377784,
+    "seasonality_r": -0.2617722306741197,
+    "volatility": 61.642378351139044,
+    "mean_flow": 249.76089439558103
+  },
+  {
+    "node": 781,
+    "type": "volatile",
+    "trend_per_year": 2.220106319615011,
+    "rel_trend": 0.006506309908466021,
+    "seasonality_r": NaN,
+    "volatility": 241.4679912997678,
+    "mean_flow": 341.22357286115357
+  },
+  {
+    "node": 782,
+    "type": "strong_trend",
+    "trend_per_year": 14.860304323173487,
+    "rel_trend": 0.13231416595400505,
+    "seasonality_r": 0.15146001662098665,
+    "volatility": 33.18905679350404,
+    "mean_flow": 112.31075738349172
+  },
+  {
+    "node": 784,
+    "type": "stable",
+    "trend_per_year": 3.484677438428532,
+    "rel_trend": 0.04572406403160841,
+    "seasonality_r": -0.34559584268735416,
+    "volatility": 8.637268968152439,
+    "mean_flow": 76.21101637631246
+  },
+  {
+    "node": 785,
+    "type": "stable",
+    "trend_per_year": 5.048697127980853,
+    "rel_trend": 0.017691387517535476,
+    "seasonality_r": 0.49115938333738074,
+    "volatility": 13.872496668683148,
+    "mean_flow": 285.3759833865638
+  },
+  {
+    "node": 786,
+    "type": "volatile",
+    "trend_per_year": -0.6022525072545925,
+    "rel_trend": 0.01891779228359081,
+    "seasonality_r": 0.03618047950874315,
+    "volatility": 10.856967572019341,
+    "mean_flow": 31.835241623790882
+  },
+  {
+    "node": 787,
+    "type": "stable",
+    "trend_per_year": 2.1619886192007955,
+    "rel_trend": 0.011099517369823802,
+    "seasonality_r": 0.5926388629228018,
+    "volatility": 56.08142751190225,
+    "mean_flow": 194.78221764660373
+  },
+  {
+    "node": 788,
+    "type": "moderate_trend",
+    "trend_per_year": -24.386313647916715,
+    "rel_trend": 0.09002710854693396,
+    "seasonality_r": 0.14429874127702558,
+    "volatility": 191.89000509975784,
+    "mean_flow": 270.8774495981536
+  },
+  {
+    "node": 791,
+    "type": "moderate_trend",
+    "trend_per_year": 12.903231296053383,
+    "rel_trend": 0.07023935767536217,
+    "seasonality_r": -0.42031262639878453,
+    "volatility": 95.01200370629694,
+    "mean_flow": 183.7037190096641
+  },
+  {
+    "node": 795,
+    "type": "volatile",
+    "trend_per_year": 0.2701738805216869,
+    "rel_trend": 0.0043313220943796,
+    "seasonality_r": -0.051972317669350086,
+    "volatility": 33.541680309027626,
+    "mean_flow": 62.37676864090694
+  },
+  {
+    "node": 796,
+    "type": "moderate_trend",
+    "trend_per_year": 15.008579265472935,
+    "rel_trend": 0.09832513481183534,
+    "seasonality_r": 0.15658683539499477,
+    "volatility": 108.18502431490347,
+    "mean_flow": 152.64234517318175
+  },
+  {
+    "node": 801,
+    "type": "volatile",
+    "trend_per_year": -0.34528314781035874,
+    "rel_trend": 0.002251666129273,
+    "seasonality_r": 0.5295582726432368,
+    "volatility": 68.02475815070781,
+    "mean_flow": 153.3456230787532
+  },
+  {
+    "node": 802,
+    "type": "moderate_trend",
+    "trend_per_year": 24.159563601080364,
+    "rel_trend": 0.07064789284503768,
+    "seasonality_r": -0.37005004865137187,
+    "volatility": 19.83689306869843,
+    "mean_flow": 341.97146662852583
+  },
+  {
+    "node": 804,
+    "type": "seasonal_dominant",
+    "trend_per_year": -0.15252710926971855,
+    "rel_trend": 0.0006956034471893259,
+    "seasonality_r": 0.9219067882218477,
+    "volatility": 20.698675686090464,
+    "mean_flow": 219.27307748462184
+  },
+  {
+    "node": 805,
+    "type": "volatile",
+    "trend_per_year": 3.268779342496586,
+    "rel_trend": 0.008854727713651483,
+    "seasonality_r": 0.14383151580915593,
+    "volatility": 246.11747430968055,
+    "mean_flow": 369.15639185633296
+  },
+  {
+    "node": 806,
+    "type": "volatile",
+    "trend_per_year": 3.3067741917446964,
+    "rel_trend": 0.023414926023988383,
+    "seasonality_r": 0.4312500709507368,
+    "volatility": 51.021469277204254,
+    "mean_flow": 141.22505298295667
+  },
+  {
+    "node": 810,
+    "type": "volatile",
+    "trend_per_year": 1.1102454795406265,
+    "rel_trend": 0.00461384555007748,
+    "seasonality_r": -0.2750469247210653,
+    "volatility": 111.97033799893543,
+    "mean_flow": 240.63342885592186
+  },
+  {
+    "node": 812,
+    "type": "volatile",
+    "trend_per_year": 2.8467674336074706,
+    "rel_trend": 0.029631915639025203,
+    "seasonality_r": 0.5803102217931944,
+    "volatility": 34.063090496442484,
+    "mean_flow": 96.07098773682945
+  },
+  {
+    "node": 814,
+    "type": "stable",
+    "trend_per_year": 1.0852714734183233,
+    "rel_trend": 0.003840666708391248,
+    "seasonality_r": 0.32728506967866267,
+    "volatility": 53.978590419401684,
+    "mean_flow": 282.57371752839435
+  },
+  {
+    "node": 815,
+    "type": "volatile",
+    "trend_per_year": 2.9905930401043075,
+    "rel_trend": 0.033823372331257685,
+    "seasonality_r": -0.4749493212763212,
+    "volatility": 95.18007349618648,
+    "mean_flow": 88.41794298308909
+  },
+  {
+    "node": 816,
+    "type": "volatile",
+    "trend_per_year": 3.0523291951573452,
+    "rel_trend": 0.012657595067058831,
+    "seasonality_r": NaN,
+    "volatility": 170.73344524851797,
+    "mean_flow": 241.14606023725497
+  },
+  {
+    "node": 818,
+    "type": "volatile",
+    "trend_per_year": -5.124421134617279,
+    "rel_trend": 0.023681257979042882,
+    "seasonality_r": 0.15268316812920746,
+    "volatility": 146.02919306930661,
+    "mean_flow": 216.3914229333155
+  },
+  {
+    "node": 821,
+    "type": "stable",
+    "trend_per_year": -1.518005047807909,
+    "rel_trend": 0.005998897984993913,
+    "seasonality_r": 0.3515406034697478,
+    "volatility": 70.76144478128528,
+    "mean_flow": 253.04731729165275
+  },
+  {
+    "node": 822,
+    "type": "strong_trend",
+    "trend_per_year": 8.88930312136613,
+    "rel_trend": 0.10354833696896609,
+    "seasonality_r": -0.25825443260228825,
+    "volatility": 23.07546540633936,
+    "mean_flow": 85.84689313245038
+  },
+  {
+    "node": 823,
+    "type": "strong_trend",
+    "trend_per_year": 23.990996287540863,
+    "rel_trend": 0.10211464614569823,
+    "seasonality_r": -0.25728496964026937,
+    "volatility": 149.59309811010104,
+    "mean_flow": 234.9417746715355
+  },
+  {
+    "node": 824,
+    "type": "volatile",
+    "trend_per_year": -5.71770203435655,
+    "rel_trend": 0.03213656655773871,
+    "seasonality_r": -0.6243071763490962,
+    "volatility": 111.86581021712965,
+    "mean_flow": 177.91888227845303
+  },
+  {
+    "node": 827,
+    "type": "volatile",
+    "trend_per_year": 4.940740606827233,
+    "rel_trend": 0.04385145343663397,
+    "seasonality_r": 0.5295432529291906,
+    "volatility": 58.100666385541466,
+    "mean_flow": 112.66993852587409
+  },
+  {
+    "node": 829,
+    "type": "stable",
+    "trend_per_year": 7.917612720507497,
+    "rel_trend": 0.02613232508440859,
+    "seasonality_r": -0.2733468616672299,
+    "volatility": 86.25414787896243,
+    "mean_flow": 302.98156282691747
+  },
+  {
+    "node": 832,
+    "type": "stable",
+    "trend_per_year": -9.475557213518144,
+    "rel_trend": 0.029251613191166186,
+    "seasonality_r": -0.12923435632427818,
+    "volatility": 14.584113934610603,
+    "mean_flow": 323.9328074777118
+  },
+  {
+    "node": 833,
+    "type": "stable",
+    "trend_per_year": 5.079926617782574,
+    "rel_trend": 0.0183404157593563,
+    "seasonality_r": 0.29404627400546895,
+    "volatility": 79.11107855085426,
+    "mean_flow": 276.9799041687837
+  },
+  {
+    "node": 834,
+    "type": "volatile",
+    "trend_per_year": 10.891815304058575,
+    "rel_trend": 0.049980287806991264,
+    "seasonality_r": 0.3333864122428259,
+    "volatility": 122.72181065352923,
+    "mean_flow": 217.92221957863026
+  },
+  {
+    "node": 835,
+    "type": "volatile",
+    "trend_per_year": 2.572274578087074,
+    "rel_trend": 0.01411892524060519,
+    "seasonality_r": 0.2066402026158718,
+    "volatility": 110.03897850101534,
+    "mean_flow": 182.18628685492575
+  },
+  {
+    "node": 836,
+    "type": "strong_trend",
+    "trend_per_year": 13.151935994202299,
+    "rel_trend": 0.18415562723612477,
+    "seasonality_r": -0.09147450302599236,
+    "volatility": 35.605612571947226,
+    "mean_flow": 71.41750706962232
+  },
+  {
+    "node": 837,
+    "type": "strong_trend",
+    "trend_per_year": 48.00031006956708,
+    "rel_trend": 0.19546222131451582,
+    "seasonality_r": 0.4045403738291874,
+    "volatility": 60.79085584675994,
+    "mean_flow": 245.57333663402994
+  },
+  {
+    "node": 838,
+    "type": "volatile",
+    "trend_per_year": 12.068996527414907,
+    "rel_trend": 0.04878701283406527,
+    "seasonality_r": 0.6715811481003361,
+    "volatility": 136.24823191179635,
+    "mean_flow": 247.38133731772118
+  },
+  {
+    "node": 839,
+    "type": "volatile",
+    "trend_per_year": 2.3884470478883992,
+    "rel_trend": 0.012547433133305717,
+    "seasonality_r": -0.2530004313559817,
+    "volatility": 116.90446152953659,
+    "mean_flow": 190.3534380271857
+  },
+  {
+    "node": 840,
+    "type": "volatile",
+    "trend_per_year": -0.7569225678994427,
+    "rel_trend": 0.01260219828946478,
+    "seasonality_r": -0.05302184664084207,
+    "volatility": 32.11083002856453,
+    "mean_flow": 60.06273968328355
+  },
+  {
+    "node": 843,
+    "type": "stable",
+    "trend_per_year": 9.731910745064939,
+    "rel_trend": 0.03174371116335797,
+    "seasonality_r": -0.4508679193244402,
+    "volatility": 47.43771981522404,
+    "mean_flow": 306.5775977874589
+  },
+  {
+    "node": 844,
+    "type": "stable",
+    "trend_per_year": 2.2358251356649386,
+    "rel_trend": 0.013332055589389675,
+    "seasonality_r": 0.5859920540711587,
+    "volatility": 43.99775754173122,
+    "mean_flow": 167.70295528262469
+  },
+  {
+    "node": 848,
+    "type": "strong_trend",
+    "trend_per_year": -35.40210127889405,
+    "rel_trend": 0.3160681534570186,
+    "seasonality_r": 0.42960046020817405,
+    "volatility": 87.12070202672733,
+    "mean_flow": 112.00780773264508
+  },
+  {
+    "node": 849,
+    "type": "volatile",
+    "trend_per_year": 1.2584173267300298,
+    "rel_trend": 0.009512470103080714,
+    "seasonality_r": -0.3302879449938235,
+    "volatility": 48.641614624152375,
+    "mean_flow": 132.29132954751762
+  },
+  {
+    "node": 853,
+    "type": "stable",
+    "trend_per_year": -4.988427597820971,
+    "rel_trend": 0.036641671829280596,
+    "seasonality_r": 0.6952204994527209,
+    "volatility": 27.6546489197964,
+    "mean_flow": 136.14082851953864
+  },
+  {
+    "node": 854,
+    "type": "volatile",
+    "trend_per_year": 5.0530160015325185,
+    "rel_trend": 0.022111676216010064,
+    "seasonality_r": -0.7691389791019876,
+    "volatility": 161.55734474632632,
+    "mean_flow": 228.5225204121876
+  },
+  {
+    "node": 856,
+    "type": "stable",
+    "trend_per_year": 4.7891695146969875,
+    "rel_trend": 0.014906959529502073,
+    "seasonality_r": 0.6596360971583914,
+    "volatility": 11.643288037115578,
+    "mean_flow": 321.2707118652785
+  },
+  {
+    "node": 859,
+    "type": "volatile",
+    "trend_per_year": 1.9107273082882879,
+    "rel_trend": 0.02053066672441306,
+    "seasonality_r": 0.4727052631859246,
+    "volatility": 41.179644586573204,
+    "mean_flow": 93.06698673772593
+  },
+  {
+    "node": 860,
+    "type": "volatile",
+    "trend_per_year": -1.3207117511429787,
+    "rel_trend": 0.005339527353441971,
+    "seasonality_r": -0.14360324864742757,
+    "volatility": 163.5713907005302,
+    "mean_flow": 247.3461897244693
+  },
+  {
+    "node": 861,
+    "type": "volatile",
+    "trend_per_year": 3.55346540209195,
+    "rel_trend": 0.02937707756901874,
+    "seasonality_r": 0.580933441575829,
+    "volatility": 83.81891799946094,
+    "mean_flow": 120.96047894370476
+  },
+  {
+    "node": 862,
+    "type": "moderate_trend",
+    "trend_per_year": 10.11952689718958,
+    "rel_trend": 0.05125584922322898,
+    "seasonality_r": 0.2288034334012849,
+    "volatility": 44.529187047295764,
+    "mean_flow": 197.4316492516057
+  },
+  {
+    "node": 863,
+    "type": "volatile",
+    "trend_per_year": 6.9464463017391775,
+    "rel_trend": 0.04153482709713972,
+    "seasonality_r": 0.4039634206991425,
+    "volatility": 98.34017646710501,
+    "mean_flow": 167.2438949597244
+  },
+  {
+    "node": 864,
+    "type": "strong_trend",
+    "trend_per_year": 29.90914088698809,
+    "rel_trend": 0.3222445330477965,
+    "seasonality_r": -0.835572577291496,
+    "volatility": 90.94593622814338,
+    "mean_flow": 92.81504415873931
+  },
+  {
+    "node": 865,
+    "type": "strong_trend",
+    "trend_per_year": -33.44808688846219,
+    "rel_trend": 0.1272407092085744,
+    "seasonality_r": 0.15726144427983674,
+    "volatility": 160.9651810708481,
+    "mean_flow": 262.87252695513513
+  },
+  {
+    "node": 869,
+    "type": "moderate_trend",
+    "trend_per_year": 4.644453379056117,
+    "rel_trend": 0.05722832818443144,
+    "seasonality_r": 0.6664290184033778,
+    "volatility": 50.0383654308381,
+    "mean_flow": 81.15654378125411
+  },
+  {
+    "node": 872,
+    "type": "stable",
+    "trend_per_year": -1.0775096440024703,
+    "rel_trend": 0.0032388481839083012,
+    "seasonality_r": 0.688746821945182,
+    "volatility": 36.411923093354474,
+    "mean_flow": 332.68297233475045
+  },
+  {
+    "node": 875,
+    "type": "volatile",
+    "trend_per_year": 5.032747977867648,
+    "rel_trend": 0.021907656724932147,
+    "seasonality_r": -0.5273851568069334,
+    "volatility": 116.9778802352623,
+    "mean_flow": 229.7255256073298
+  },
+  {
+    "node": 878,
+    "type": "strong_trend",
+    "trend_per_year": 13.9757387783518,
+    "rel_trend": 0.13909658774112216,
+    "seasonality_r": 0.210404866942086,
+    "volatility": 28.57169583178225,
+    "mean_flow": 100.47506460234655
+  },
+  {
+    "node": 879,
+    "type": "volatile",
+    "trend_per_year": 8.613425727789572,
+    "rel_trend": 0.023228981271333906,
+    "seasonality_r": 0.26466544661995084,
+    "volatility": 149.6447758114782,
+    "mean_flow": 370.8051422466006
+  },
+  {
+    "node": 881,
+    "type": "volatile",
+    "trend_per_year": 0.27910212589379974,
+    "rel_trend": 0.0029810597094795904,
+    "seasonality_r": -0.27438075887714186,
+    "volatility": 55.9059474790005,
+    "mean_flow": 93.62513673416608
+  },
+  {
+    "node": 883,
+    "type": "strong_trend",
+    "trend_per_year": -21.84320245914458,
+    "rel_trend": 0.34569680236062533,
+    "seasonality_r": 0.07012425209718091,
+    "volatility": 35.66197726596264,
+    "mean_flow": 63.186011453647474
+  },
+  {
+    "node": 884,
+    "type": "volatile",
+    "trend_per_year": 4.42271465763282,
+    "rel_trend": 0.031092664533263627,
+    "seasonality_r": -0.00042122809555329016,
+    "volatility": 94.67907481974846,
+    "mean_flow": 142.24302397141412
+  },
+  {
+    "node": 888,
+    "type": "volatile",
+    "trend_per_year": -3.2456553079122887,
+    "rel_trend": 0.013288017725757745,
+    "seasonality_r": -0.33559281719261114,
+    "volatility": 154.02911889320268,
+    "mean_flow": 244.25428695303677
+  },
+  {
+    "node": 890,
+    "type": "stable",
+    "trend_per_year": -14.74989901356261,
+    "rel_trend": 0.04228903593036143,
+    "seasonality_r": 0.24819420256546548,
+    "volatility": 52.11051319135755,
+    "mean_flow": 348.7877802549733
+  },
+  {
+    "node": 891,
+    "type": "stable",
+    "trend_per_year": -8.974213546436157,
+    "rel_trend": 0.048817656972675975,
+    "seasonality_r": 0.589065284818858,
+    "volatility": 25.296101372088007,
+    "mean_flow": 183.83130314184297
+  }
+]

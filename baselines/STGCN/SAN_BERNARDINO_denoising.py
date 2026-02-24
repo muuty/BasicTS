@@ -1,0 +1,161 @@
+"""
+STGCN with Denoising Encoder for SAN_BERNARDINO.
+
+The denoising encoder denoises physical channels before STGCN processes them.
+STGCN only uses flow (channel 0), but the encoder sees all 5 channels for
+cross-channel consistency checking.
+
+Usage:
+    python -c "from basicts import launch_training; launch_training('baselines/STGCN/SAN_BERNARDINO_denoising.py', gpus='1')"
+"""
+import os
+import sys
+import torch
+from easydict import EasyDict
+sys.path.append(os.path.abspath(__file__ + '/../../..'))
+
+from basicts.metrics import masked_mae, masked_mape, masked_rmse
+from basicts.data import TimeSeriesForecastingDataset
+from basicts.scaler import ZScoreScaler
+from basicts.utils import get_regular_settings, load_adj
+
+from .arch import STGCN
+from baselines.ContextContrastive.runner.representation_learning_runner import RepresentationLearningRunner
+
+############################## Hot Parameters ##############################
+DATA_NAME = 'SAN_BERNARDINO'
+regular_settings = get_regular_settings(DATA_NAME)
+INPUT_LEN = regular_settings['INPUT_LEN']
+OUTPUT_LEN = regular_settings['OUTPUT_LEN']
+TRAIN_VAL_TEST_RATIO = regular_settings['TRAIN_VAL_TEST_RATIO']
+NORM_EACH_CHANNEL = regular_settings['NORM_EACH_CHANNEL']
+RESCALE = regular_settings['RESCALE']
+NULL_VAL = regular_settings['NULL_VAL']
+
+MODEL_ARCH = STGCN
+NUM_NODES = 893
+adj_mx, _ = load_adj("datasets/" + DATA_NAME + "/adj_mx.pkl", "normlap")
+adj_mx = torch.Tensor(adj_mx[0])
+
+# STGCN: identical to baseline (flow only)
+MODEL_PARAM = {
+    "Ks": 3,
+    "Kt": 3,
+    "blocks": [[1], [64, 16, 64], [64, 16, 64], [128, 128], [OUTPUT_LEN]],
+    "T": INPUT_LEN,
+    "num_nodes": NUM_NODES,
+    "act_func": "glu",
+    "graph_conv_type": "cheb_graph_conv",
+    "adj_matrix": adj_mx,
+    "bias": True,
+    "droprate": 0.5,
+}
+NUM_EPOCHS = 30
+
+############################## General Configuration ##############################
+CFG = EasyDict()
+CFG.DESCRIPTION = 'STGCN + Denoising Encoder (frozen, pretrained)'
+CFG.GPU_NUM = 1
+CFG.RUNNER = RepresentationLearningRunner
+
+############################## Encoder Configuration ##############################
+# Encoder sees all 5 channels, denoises physical [0,1,2], passes tod/dow through.
+# RepresentationLearningRunner feeds encoder output to downstream.
+# STGCN only uses forward_features=[0] (flow), but encoder benefits from
+# seeing all channels for cross-channel consistency.
+CFG.ENCODER = {
+    'type': 'DenoisingEncoder',
+    'source': 'pretrained',
+    'freeze': True,
+    'ckpt_path': 'checkpoints/DenoisingPretrain/SAN_BERNARDINO_30_12_12/*/DenoisingPretrain_best_val_MAE.pt',
+    'input_dim': 5,
+    'd_model': 5,
+    'hidden_dim': 32,
+    'temporal_layers': 4,
+    'spatial_layers': 1,
+    'k_neighbors': 10,
+    'dropout': 0.1,
+    'adj_path': 'datasets/SAN_BERNARDINO/adj_mx.pkl',
+    'physical_channels': [0, 1, 2],
+    'include_tod_dow': False,
+    'downstream_features': [0],  # STGCN uses flow only; encoder outputs 5ch → select ch0
+}
+
+############################## Dataset Configuration ##############################
+CFG.DATASET = EasyDict()
+CFG.DATASET.NAME = DATA_NAME
+CFG.DATASET.TYPE = TimeSeriesForecastingDataset
+CFG.DATASET.PARAM = EasyDict({
+    'dataset_name': DATA_NAME,
+    'train_val_test_ratio': TRAIN_VAL_TEST_RATIO,
+    'input_len': INPUT_LEN,
+    'output_len': OUTPUT_LEN,
+    'data_range': (0, 26280),
+})
+
+############################## Scaler Configuration ##############################
+CFG.SCALER = EasyDict()
+CFG.SCALER.TYPE = ZScoreScaler
+CFG.SCALER.PARAM = EasyDict({
+    'dataset_name': DATA_NAME,
+    'train_ratio': TRAIN_VAL_TEST_RATIO[0],
+    'norm_each_channel': NORM_EACH_CHANNEL,
+    'rescale': RESCALE,
+})
+
+############################## Model Configuration ##############################
+CFG.MODEL = EasyDict()
+CFG.MODEL.NAME = 'STGCN_denoising'
+CFG.MODEL.ARCH = MODEL_ARCH
+CFG.MODEL.PARAM = MODEL_PARAM
+CFG.MODEL.FORWARD_FEATURES = [0, 1, 2, 3, 4]  # Encoder needs all 5ch; downstream_features selects flow for STGCN
+CFG.MODEL.TARGET_FEATURES = [0]
+
+############################## Metrics Configuration ##############################
+CFG.METRICS = EasyDict()
+CFG.METRICS.FUNCS = EasyDict({
+    'MAE': masked_mae,
+    'MAPE': masked_mape,
+    'RMSE': masked_rmse,
+})
+CFG.METRICS.TARGET = 'MAE'
+CFG.METRICS.NULL_VAL = NULL_VAL
+
+############################## Training Configuration ##############################
+CFG.TRAIN = EasyDict()
+CFG.TRAIN.NUM_EPOCHS = NUM_EPOCHS
+CFG.TRAIN.CKPT_SAVE_DIR = os.path.join(
+    'checkpoints',
+    CFG.MODEL.NAME,
+    '_'.join([DATA_NAME, str(NUM_EPOCHS), str(INPUT_LEN), str(OUTPUT_LEN)])
+)
+CFG.TRAIN.LOSS = masked_mae
+
+CFG.TRAIN.OPTIM = EasyDict()
+CFG.TRAIN.OPTIM.TYPE = "Adam"
+CFG.TRAIN.OPTIM.PARAM = {"lr": 0.0004, "weight_decay": 0.0003}
+
+CFG.TRAIN.LR_SCHEDULER = EasyDict()
+CFG.TRAIN.LR_SCHEDULER.TYPE = "MultiStepLR"
+CFG.TRAIN.LR_SCHEDULER.PARAM = {"milestones": [20, 25], "gamma": 0.5}
+
+CFG.TRAIN.DATA = EasyDict()
+CFG.TRAIN.DATA.BATCH_SIZE = 16
+CFG.TRAIN.DATA.SHUFFLE = True
+
+############################## Validation Configuration ##############################
+CFG.VAL = EasyDict()
+CFG.VAL.INTERVAL = 1
+CFG.VAL.DATA = EasyDict()
+CFG.VAL.DATA.BATCH_SIZE = 64
+
+############################## Test Configuration ##############################
+CFG.TEST = EasyDict()
+CFG.TEST.INTERVAL = 1
+CFG.TEST.DATA = EasyDict()
+CFG.TEST.DATA.BATCH_SIZE = 64
+
+############################## Evaluation Configuration ##############################
+CFG.EVAL = EasyDict()
+CFG.EVAL.HORIZONS = [3, 6, 12]
+CFG.EVAL.USE_GPU = True

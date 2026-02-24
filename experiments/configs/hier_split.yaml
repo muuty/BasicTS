@@ -1,0 +1,10 @@
+description: "HierSplit parameter sweep"
+
+runs:
+  - name: "HierSplit_staeformer"
+    configs:
+      # - "baselines/HierSplit/staeformer/METR-LA.py"
+      # - "baselines/HierSplit/staeformer/PEMS-BAY.py"
+      # - "baselines/HierSplit/staeformer/PEMS04.py"
+      # - "baselines/HierSplit/staeformer/PEMS07.py"
+      - "baselines/HierSplit/stgcn/PEMS04.py"

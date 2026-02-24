@@ -1,0 +1,110 @@
+{
+  "train_2022_test_2022": {
+    "baseline_MAE": 10.895208358764648,
+    "baseline_func_MAE": 11.254169464111328,
+    "additive_shift_MAE": 10.895208358764648,
+    "multiplicative_scale_MAE": 10.895208358764648,
+    "pernode_scale_MAE": 10.973520278930664,
+    "pernode_func_MAE": 11.21683120727539,
+    "revin_MAE": 94.38836669921875,
+    "revin_func_MAE": 78.23265838623047,
+    "target_oracle_MAE": 8.229410171508789,
+    "target_oracle_func_MAE": 8.447896957397461
+  },
+  "train_2022_test_2023": {
+    "baseline_MAE": 22.434051513671875,
+    "baseline_func_MAE": 26.545856475830078,
+    "additive_shift_MAE": 22.39455795288086,
+    "multiplicative_scale_MAE": 22.405256271362305,
+    "pernode_scale_MAE": 6126.466796875,
+    "pernode_func_MAE": 7342.85546875,
+    "revin_MAE": 8294.609375,
+    "revin_func_MAE": 9939.8955078125,
+    "target_oracle_MAE": 9.824384689331055,
+    "target_oracle_func_MAE": 11.646299362182617
+  },
+  "train_2022_test_2024": {
+    "baseline_MAE": 12.828577995300293,
+    "baseline_func_MAE": 13.130812644958496,
+    "additive_shift_MAE": 12.93690013885498,
+    "multiplicative_scale_MAE": 13.085662841796875,
+    "pernode_scale_MAE": 103.4148178100586,
+    "pernode_func_MAE": 101.54733276367188,
+    "revin_MAE": 197.77090454101562,
+    "revin_func_MAE": 197.61952209472656,
+    "target_oracle_MAE": 8.096929550170898,
+    "target_oracle_func_MAE": 8.317654609680176
+  },
+  "train_2023_test_2022": {
+    "baseline_MAE": 25.124835968017578,
+    "baseline_func_MAE": 25.410842895507812,
+    "additive_shift_MAE": 25.179031372070312,
+    "multiplicative_scale_MAE": 25.159244537353516,
+    "pernode_scale_MAE": 19754.94921875,
+    "pernode_func_MAE": 19392.302734375,
+    "revin_MAE": 30533.0234375,
+    "revin_func_MAE": 30722.841796875,
+    "target_oracle_MAE": 10.449320793151855,
+    "target_oracle_func_MAE": 10.748343467712402
+  },
+  "train_2023_test_2023": {
+    "baseline_MAE": 10.466936111450195,
+    "baseline_func_MAE": 12.167219161987305,
+    "additive_shift_MAE": 10.466936111450195,
+    "multiplicative_scale_MAE": 10.466936111450195,
+    "pernode_scale_MAE": 10.365839958190918,
+    "pernode_func_MAE": 12.167219161987305,
+    "revin_MAE": 68.76107788085938,
+    "revin_func_MAE": 72.87395477294922,
+    "target_oracle_MAE": 7.609662055969238,
+    "target_oracle_func_MAE": 9.042743682861328
+  },
+  "train_2023_test_2024": {
+    "baseline_MAE": 24.199607849121094,
+    "baseline_func_MAE": 24.52290153503418,
+    "additive_shift_MAE": 22.949722290039062,
+    "multiplicative_scale_MAE": 23.042186737060547,
+    "pernode_scale_MAE": 26335.357421875,
+    "pernode_func_MAE": 27192.212890625,
+    "revin_MAE": 35953.19921875,
+    "revin_func_MAE": 37164.890625,
+    "target_oracle_MAE": 9.88521957397461,
+    "target_oracle_func_MAE": 10.205924034118652
+  },
+  "train_2024_test_2022": {
+    "baseline_MAE": 13.151001930236816,
+    "baseline_func_MAE": 13.308526039123535,
+    "additive_shift_MAE": 14.828693389892578,
+    "multiplicative_scale_MAE": 13.977490425109863,
+    "pernode_scale_MAE": 46.514434814453125,
+    "pernode_func_MAE": 43.25010299682617,
+    "revin_MAE": 113.3512191772461,
+    "revin_func_MAE": 110.38275146484375,
+    "target_oracle_MAE": 8.599482536315918,
+    "target_oracle_func_MAE": 8.782439231872559
+  },
+  "train_2024_test_2023": {
+    "baseline_MAE": 23.325742721557617,
+    "baseline_func_MAE": 27.503074645996094,
+    "additive_shift_MAE": 25.18455696105957,
+    "multiplicative_scale_MAE": 24.305192947387695,
+    "pernode_scale_MAE": 4653.12255859375,
+    "pernode_func_MAE": 5576.7216796875,
+    "revin_MAE": 6298.51953125,
+    "revin_func_MAE": 7542.4580078125,
+    "target_oracle_MAE": 10.003969192504883,
+    "target_oracle_func_MAE": 11.866183280944824
+  },
+  "train_2024_test_2024": {
+    "baseline_MAE": 9.850194931030273,
+    "baseline_func_MAE": 10.100055694580078,
+    "additive_shift_MAE": 9.850194931030273,
+    "multiplicative_scale_MAE": 9.850194931030273,
+    "pernode_scale_MAE": 9.81291389465332,
+    "pernode_func_MAE": 10.053808212280273,
+    "revin_MAE": 64.85772705078125,
+    "revin_func_MAE": 66.37559509277344,
+    "target_oracle_MAE": 7.648590087890625,
+    "target_oracle_func_MAE": 7.8636860847473145
+  }
+}

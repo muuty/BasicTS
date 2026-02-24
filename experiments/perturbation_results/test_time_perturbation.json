@@ -1,0 +1,5280 @@
+{
+  "flow_zero_i1.0_n1": {
+    "corruption_type": "flow_zero",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 1,
+    "corrupt_nodes": [
+      796
+    ],
+    "overall_mean_delta": 0.0004744686302728951,
+    "healthy_mean_delta": 0.00047042110236361623,
+    "healthy_functional_mean_delta": 0.000528315722476691,
+    "corrupt_mean_delta": 0.0040848529897630215,
+    "healthy_functional_max_delta": 0.001132748555392027,
+    "healthy_functional_median_delta": 0.0006076735444366932,
+    "n_healthy": 892,
+    "n_healthy_functional": 744,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 0.0,
+        "max_delta_healthy_functional": 0.0,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 0.0011282182531431317,
+        "max_delta_healthy_functional": 0.0029972419142723083,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 0.0015075290575623512,
+        "max_delta_healthy_functional": 0.0032789078541100025,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.0,
+        "max_delta_healthy_functional": 0.0,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 0.0005298449541442096,
+        "max_delta": 0.001132748555392027,
+        "n_nodes": 721
+      },
+      "hop_le_2": {
+        "mean_delta": 0.0005291151464916766,
+        "max_delta": 0.001132748555392027,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 0.000528315722476691,
+        "max_delta": 0.001132748555392027,
+        "n_nodes": 744
+      },
+      "hop_le_5": {
+        "mean_delta": 0.000528315722476691,
+        "max_delta": 0.001132748555392027,
+        "n_nodes": 744
+      },
+      "hop_le_10": {
+        "mean_delta": 0.000528315722476691,
+        "max_delta": 0.001132748555392027,
+        "n_nodes": 744
+      }
+    }
+  },
+  "flow_zero_i1.0_n5": {
+    "corruption_type": "flow_zero",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 5,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280
+    ],
+    "overall_mean_delta": 0.017828749492764473,
+    "healthy_mean_delta": 0.005619111470878124,
+    "healthy_functional_mean_delta": 0.00658925948664546,
+    "corrupt_mean_delta": 2.18626070022583,
+    "healthy_functional_max_delta": 0.04774326831102371,
+    "healthy_functional_median_delta": 0.0062627410516142845,
+    "n_healthy": 888,
+    "n_healthy_functional": 740,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 0.006696415599435568,
+        "max_delta_healthy_functional": 0.03991653770208359,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 0.009946314617991447,
+        "max_delta_healthy_functional": 0.040025494992733,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 0.014446408487856388,
+        "max_delta_healthy_functional": 0.17630495131015778,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.001967091578990221,
+        "max_delta_healthy_functional": 0.020385682582855225,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 0.006579005625098944,
+        "max_delta": 0.04774326831102371,
+        "n_nodes": 720
+      },
+      "hop_le_2": {
+        "mean_delta": 0.00658838264644146,
+        "max_delta": 0.04774326831102371,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 0.00658925948664546,
+        "max_delta": 0.04774326831102371,
+        "n_nodes": 740
+      },
+      "hop_le_5": {
+        "mean_delta": 0.00658925948664546,
+        "max_delta": 0.04774326831102371,
+        "n_nodes": 740
+      },
+      "hop_le_10": {
+        "mean_delta": 0.00658925948664546,
+        "max_delta": 0.04774326831102371,
+        "n_nodes": 740
+      }
+    }
+  },
+  "flow_zero_i1.0_n10": {
+    "corruption_type": "flow_zero",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 10,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529
+    ],
+    "overall_mean_delta": 0.3297973871231079,
+    "healthy_mean_delta": 0.27667245268821716,
+    "healthy_functional_mean_delta": 0.3132452666759491,
+    "corrupt_mean_delta": 5.020729064941406,
+    "healthy_functional_max_delta": 0.6014973521232605,
+    "healthy_functional_median_delta": 0.36124348640441895,
+    "n_healthy": 883,
+    "n_healthy_functional": 735,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 0.6584597826004028,
+        "max_delta_healthy_functional": 1.2617768049240112,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 0.502248227596283,
+        "max_delta_healthy_functional": 1.0647011995315552,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 0.4367864727973938,
+        "max_delta_healthy_functional": 0.8430221080780029,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.07597250491380692,
+        "max_delta_healthy_functional": 0.15522629022598267,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 0.31281778216362,
+        "max_delta": 0.6014973521232605,
+        "n_nodes": 723
+      },
+      "hop_le_2": {
+        "mean_delta": 0.3132452666759491,
+        "max_delta": 0.6014973521232605,
+        "n_nodes": 735
+      },
+      "hop_le_3": {
+        "mean_delta": 0.3132452666759491,
+        "max_delta": 0.6014973521232605,
+        "n_nodes": 735
+      },
+      "hop_le_5": {
+        "mean_delta": 0.3132452666759491,
+        "max_delta": 0.6014973521232605,
+        "n_nodes": 735
+      },
+      "hop_le_10": {
+        "mean_delta": 0.3132452666759491,
+        "max_delta": 0.6014973521232605,
+        "n_nodes": 735
+      }
+    }
+  },
+  "flow_zero_i1.0_n20": {
+    "corruption_type": "flow_zero",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 20,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806
+    ],
+    "overall_mean_delta": 1.180400013923645,
+    "healthy_mean_delta": 0.7447271943092346,
+    "healthy_functional_mean_delta": 0.832284152507782,
+    "corrupt_mean_delta": 20.197521209716797,
+    "healthy_functional_max_delta": 1.7689584493637085,
+    "healthy_functional_median_delta": 0.9775558710098267,
+    "n_healthy": 873,
+    "n_healthy_functional": 725,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.422966718673706,
+        "max_delta_healthy_functional": 3.2118582725524902,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 0.9282754063606262,
+        "max_delta_healthy_functional": 2.4337165355682373,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.1308472156524658,
+        "max_delta_healthy_functional": 2.970147132873535,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.5167686343193054,
+        "max_delta_healthy_functional": 0.9945010542869568,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 0.8314567804336548,
+        "max_delta": 1.7689584493637085,
+        "n_nodes": 713
+      },
+      "hop_le_2": {
+        "mean_delta": 0.832284152507782,
+        "max_delta": 1.7689584493637085,
+        "n_nodes": 725
+      },
+      "hop_le_3": {
+        "mean_delta": 0.832284152507782,
+        "max_delta": 1.7689584493637085,
+        "n_nodes": 725
+      },
+      "hop_le_5": {
+        "mean_delta": 0.832284152507782,
+        "max_delta": 1.7689584493637085,
+        "n_nodes": 725
+      },
+      "hop_le_10": {
+        "mean_delta": 0.832284152507782,
+        "max_delta": 1.7689584493637085,
+        "n_nodes": 725
+      }
+    }
+  },
+  "flow_zero_i1.0_n50": {
+    "corruption_type": "flow_zero",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 50,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806,
+      111,
+      446,
+      258,
+      750,
+      309,
+      567,
+      548,
+      623,
+      714,
+      584,
+      501,
+      578,
+      510,
+      43,
+      699,
+      758,
+      844,
+      8,
+      613,
+      300,
+      212,
+      558,
+      14,
+      372,
+      648,
+      814,
+      190,
+      512,
+      817,
+      126
+    ],
+    "overall_mean_delta": 6.8564043045043945,
+    "healthy_mean_delta": 0.9598131775856018,
+    "healthy_functional_mean_delta": 0.9689368605613708,
+    "corrupt_mean_delta": 106.2729263305664,
+    "healthy_functional_max_delta": 3.085130453109741,
+    "healthy_functional_median_delta": 0.9345086216926575,
+    "n_healthy": 843,
+    "n_healthy_functional": 695,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.2823258638381958,
+        "max_delta_healthy_functional": 4.76291561126709,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.3052014112472534,
+        "max_delta_healthy_functional": 4.980086326599121,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.0649511814117432,
+        "max_delta_healthy_functional": 3.9766573905944824,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.6712744235992432,
+        "max_delta_healthy_functional": 2.3842315673828125,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 0.9680787920951843,
+        "max_delta": 3.085130453109741,
+        "n_nodes": 683
+      },
+      "hop_le_2": {
+        "mean_delta": 0.9689368605613708,
+        "max_delta": 3.085130453109741,
+        "n_nodes": 695
+      },
+      "hop_le_3": {
+        "mean_delta": 0.9689368605613708,
+        "max_delta": 3.085130453109741,
+        "n_nodes": 695
+      },
+      "hop_le_5": {
+        "mean_delta": 0.9689368605613708,
+        "max_delta": 3.085130453109741,
+        "n_nodes": 695
+      },
+      "hop_le_10": {
+        "mean_delta": 0.9689368605613708,
+        "max_delta": 3.085130453109741,
+        "n_nodes": 695
+      }
+    }
+  },
+  "all_zero_i1.0_n1": {
+    "corruption_type": "all_zero",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 1,
+    "corrupt_nodes": [
+      796
+    ],
+    "overall_mean_delta": 1.1265987157821655,
+    "healthy_mean_delta": 1.1093090772628784,
+    "healthy_functional_mean_delta": 1.280137062072754,
+    "corrupt_mean_delta": 16.548938751220703,
+    "healthy_functional_max_delta": 3.0383615493774414,
+    "healthy_functional_median_delta": 1.3120930194854736,
+    "n_healthy": 892,
+    "n_healthy_functional": 744,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 2.2688822746276855,
+        "max_delta_healthy_functional": 5.166902542114258,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.2970508337020874,
+        "max_delta_healthy_functional": 3.2543952465057373,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 2.211639642715454,
+        "max_delta_healthy_functional": 5.729638576507568,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.6750051379203796,
+        "max_delta_healthy_functional": 1.9190796613693237,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 1.2788512706756592,
+        "max_delta": 3.0383615493774414,
+        "n_nodes": 721
+      },
+      "hop_le_2": {
+        "mean_delta": 1.2817567586898804,
+        "max_delta": 3.0383615493774414,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 1.280137062072754,
+        "max_delta": 3.0383615493774414,
+        "n_nodes": 744
+      },
+      "hop_le_5": {
+        "mean_delta": 1.280137062072754,
+        "max_delta": 3.0383615493774414,
+        "n_nodes": 744
+      },
+      "hop_le_10": {
+        "mean_delta": 1.280137062072754,
+        "max_delta": 3.0383615493774414,
+        "n_nodes": 744
+      }
+    }
+  },
+  "all_zero_i1.0_n5": {
+    "corruption_type": "all_zero",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 5,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280
+    ],
+    "overall_mean_delta": 1.1352578401565552,
+    "healthy_mean_delta": 1.110470175743103,
+    "healthy_functional_mean_delta": 1.2825349569320679,
+    "corrupt_mean_delta": 5.537534236907959,
+    "healthy_functional_max_delta": 3.032785654067993,
+    "healthy_functional_median_delta": 1.3165967464447021,
+    "n_healthy": 888,
+    "n_healthy_functional": 740,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 2.2745461463928223,
+        "max_delta_healthy_functional": 5.148726940155029,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.295709252357483,
+        "max_delta_healthy_functional": 3.2407960891723633,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 2.2156448364257812,
+        "max_delta_healthy_functional": 5.714016914367676,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.6779557466506958,
+        "max_delta_healthy_functional": 1.9068776369094849,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 1.2825181484222412,
+        "max_delta": 3.032785654067993,
+        "n_nodes": 720
+      },
+      "hop_le_2": {
+        "mean_delta": 1.2818975448608398,
+        "max_delta": 3.032785654067993,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 1.2825349569320679,
+        "max_delta": 3.032785654067993,
+        "n_nodes": 740
+      },
+      "hop_le_5": {
+        "mean_delta": 1.2825349569320679,
+        "max_delta": 3.032785654067993,
+        "n_nodes": 740
+      },
+      "hop_le_10": {
+        "mean_delta": 1.2825349569320679,
+        "max_delta": 3.032785654067993,
+        "n_nodes": 740
+      }
+    }
+  },
+  "all_zero_i1.0_n10": {
+    "corruption_type": "all_zero",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 10,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529
+    ],
+    "overall_mean_delta": 1.1908496618270874,
+    "healthy_mean_delta": 1.1261017322540283,
+    "healthy_functional_mean_delta": 1.297289490699768,
+    "corrupt_mean_delta": 6.908095359802246,
+    "healthy_functional_max_delta": 2.958977699279785,
+    "healthy_functional_median_delta": 1.3627898693084717,
+    "n_healthy": 883,
+    "n_healthy_functional": 735,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 2.264862298965454,
+        "max_delta_healthy_functional": 5.128439903259277,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.313332200050354,
+        "max_delta_healthy_functional": 3.286344528198242,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 2.1944286823272705,
+        "max_delta_healthy_functional": 5.682491779327393,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.7105241417884827,
+        "max_delta_healthy_functional": 1.6131832599639893,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 1.2947986125946045,
+        "max_delta": 2.958977699279785,
+        "n_nodes": 723
+      },
+      "hop_le_2": {
+        "mean_delta": 1.297289490699768,
+        "max_delta": 2.958977699279785,
+        "n_nodes": 735
+      },
+      "hop_le_3": {
+        "mean_delta": 1.297289490699768,
+        "max_delta": 2.958977699279785,
+        "n_nodes": 735
+      },
+      "hop_le_5": {
+        "mean_delta": 1.297289490699768,
+        "max_delta": 2.958977699279785,
+        "n_nodes": 735
+      },
+      "hop_le_10": {
+        "mean_delta": 1.297289490699768,
+        "max_delta": 2.958977699279785,
+        "n_nodes": 735
+      }
+    }
+  },
+  "all_zero_i1.0_n20": {
+    "corruption_type": "all_zero",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 20,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806
+    ],
+    "overall_mean_delta": 1.7136155366897583,
+    "healthy_mean_delta": 1.2512983083724976,
+    "healthy_functional_mean_delta": 1.4121017456054688,
+    "corrupt_mean_delta": 21.89375877380371,
+    "healthy_functional_max_delta": 3.1186490058898926,
+    "healthy_functional_median_delta": 1.4901478290557861,
+    "n_healthy": 873,
+    "n_healthy_functional": 725,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 2.4259097576141357,
+        "max_delta_healthy_functional": 5.448825836181641,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.3982630968093872,
+        "max_delta_healthy_functional": 3.601200819015503,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 2.241096258163452,
+        "max_delta_healthy_functional": 6.083192348480225,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.8532298803329468,
+        "max_delta_healthy_functional": 1.529522180557251,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 1.4096029996871948,
+        "max_delta": 3.1186490058898926,
+        "n_nodes": 713
+      },
+      "hop_le_2": {
+        "mean_delta": 1.4121017456054688,
+        "max_delta": 3.1186490058898926,
+        "n_nodes": 725
+      },
+      "hop_le_3": {
+        "mean_delta": 1.4121017456054688,
+        "max_delta": 3.1186490058898926,
+        "n_nodes": 725
+      },
+      "hop_le_5": {
+        "mean_delta": 1.4121017456054688,
+        "max_delta": 3.1186490058898926,
+        "n_nodes": 725
+      },
+      "hop_le_10": {
+        "mean_delta": 1.4121017456054688,
+        "max_delta": 3.1186490058898926,
+        "n_nodes": 725
+      }
+    }
+  },
+  "all_zero_i1.0_n50": {
+    "corruption_type": "all_zero",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 50,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806,
+      111,
+      446,
+      258,
+      750,
+      309,
+      567,
+      548,
+      623,
+      714,
+      584,
+      501,
+      578,
+      510,
+      43,
+      699,
+      758,
+      844,
+      8,
+      613,
+      300,
+      212,
+      558,
+      14,
+      372,
+      648,
+      814,
+      190,
+      512,
+      817,
+      126
+    ],
+    "overall_mean_delta": 7.7509284019470215,
+    "healthy_mean_delta": 1.352247714996338,
+    "healthy_functional_mean_delta": 1.5766680240631104,
+    "corrupt_mean_delta": 115.63269805908203,
+    "healthy_functional_max_delta": 3.8139894008636475,
+    "healthy_functional_median_delta": 1.6639946699142456,
+    "n_healthy": 843,
+    "n_healthy_functional": 695,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 2.6593894958496094,
+        "max_delta_healthy_functional": 5.888960361480713,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.661963939666748,
+        "max_delta_healthy_functional": 4.2893571853637695,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 2.042750120162964,
+        "max_delta_healthy_functional": 6.092194080352783,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 1.075702428817749,
+        "max_delta_healthy_functional": 3.060481071472168,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 1.5731606483459473,
+        "max_delta": 3.8139894008636475,
+        "n_nodes": 683
+      },
+      "hop_le_2": {
+        "mean_delta": 1.5766680240631104,
+        "max_delta": 3.8139894008636475,
+        "n_nodes": 695
+      },
+      "hop_le_3": {
+        "mean_delta": 1.5766680240631104,
+        "max_delta": 3.8139894008636475,
+        "n_nodes": 695
+      },
+      "hop_le_5": {
+        "mean_delta": 1.5766680240631104,
+        "max_delta": 3.8139894008636475,
+        "n_nodes": 695
+      },
+      "hop_le_10": {
+        "mean_delta": 1.5766680240631104,
+        "max_delta": 3.8139894008636475,
+        "n_nodes": 695
+      }
+    }
+  },
+  "noisy_i0.1_n1": {
+    "corruption_type": "noisy",
+    "intensity": 0.1,
+    "n_corrupt_nodes": 1,
+    "corrupt_nodes": [
+      796
+    ],
+    "overall_mean_delta": 0.7474133372306824,
+    "healthy_mean_delta": 0.7407835721969604,
+    "healthy_functional_mean_delta": 0.8644845485687256,
+    "corrupt_mean_delta": 6.66117000579834,
+    "healthy_functional_max_delta": 1.389986276626587,
+    "healthy_functional_median_delta": 1.0551671981811523,
+    "n_healthy": 892,
+    "n_healthy_functional": 744,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.0196788311004639,
+        "max_delta_healthy_functional": 1.8239068984985352,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.029099464416504,
+        "max_delta_healthy_functional": 1.8707486391067505,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.0407614707946777,
+        "max_delta_healthy_functional": 1.7225756645202637,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.6722331047058105,
+        "max_delta_healthy_functional": 1.0892459154129028,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 0.8648180365562439,
+        "max_delta": 1.389986276626587,
+        "n_nodes": 721
+      },
+      "hop_le_2": {
+        "mean_delta": 0.8652553558349609,
+        "max_delta": 1.389986276626587,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 0.8644845485687256,
+        "max_delta": 1.389986276626587,
+        "n_nodes": 744
+      },
+      "hop_le_5": {
+        "mean_delta": 0.8644845485687256,
+        "max_delta": 1.389986276626587,
+        "n_nodes": 744
+      },
+      "hop_le_10": {
+        "mean_delta": 0.8644845485687256,
+        "max_delta": 1.389986276626587,
+        "n_nodes": 744
+      }
+    }
+  },
+  "noisy_i0.1_n5": {
+    "corruption_type": "noisy",
+    "intensity": 0.1,
+    "n_corrupt_nodes": 5,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280
+    ],
+    "overall_mean_delta": 0.7405396103858948,
+    "healthy_mean_delta": 0.729261577129364,
+    "healthy_functional_mean_delta": 0.851611852645874,
+    "corrupt_mean_delta": 2.7435131072998047,
+    "healthy_functional_max_delta": 1.3586360216140747,
+    "healthy_functional_median_delta": 1.033928394317627,
+    "n_healthy": 888,
+    "n_healthy_functional": 740,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.060732126235962,
+        "max_delta_healthy_functional": 1.878826379776001,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.0027166604995728,
+        "max_delta_healthy_functional": 1.8104040622711182,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.0267130136489868,
+        "max_delta_healthy_functional": 1.673351526260376,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.6525894999504089,
+        "max_delta_healthy_functional": 1.060831904411316,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 0.8516120910644531,
+        "max_delta": 1.3586360216140747,
+        "n_nodes": 720
+      },
+      "hop_le_2": {
+        "mean_delta": 0.8510136604309082,
+        "max_delta": 1.3586360216140747,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 0.851611852645874,
+        "max_delta": 1.3586360216140747,
+        "n_nodes": 740
+      },
+      "hop_le_5": {
+        "mean_delta": 0.851611852645874,
+        "max_delta": 1.3586360216140747,
+        "n_nodes": 740
+      },
+      "hop_le_10": {
+        "mean_delta": 0.851611852645874,
+        "max_delta": 1.3586360216140747,
+        "n_nodes": 740
+      }
+    }
+  },
+  "noisy_i0.1_n10": {
+    "corruption_type": "noisy",
+    "intensity": 0.1,
+    "n_corrupt_nodes": 10,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529
+    ],
+    "overall_mean_delta": 0.8493059873580933,
+    "healthy_mean_delta": 0.8286578059196472,
+    "healthy_functional_mean_delta": 0.9702088832855225,
+    "corrupt_mean_delta": 2.672545909881592,
+    "healthy_functional_max_delta": 1.5185438394546509,
+    "healthy_functional_median_delta": 1.1724210977554321,
+    "n_healthy": 883,
+    "n_healthy_functional": 735,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.1165462732315063,
+        "max_delta_healthy_functional": 1.9264308214187622,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.1216012239456177,
+        "max_delta_healthy_functional": 2.009913682937622,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.1241000890731812,
+        "max_delta_healthy_functional": 1.826767921447754,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.7953665852546692,
+        "max_delta_healthy_functional": 1.3015238046646118,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 0.9689324498176575,
+        "max_delta": 1.5185438394546509,
+        "n_nodes": 723
+      },
+      "hop_le_2": {
+        "mean_delta": 0.9702088832855225,
+        "max_delta": 1.5185438394546509,
+        "n_nodes": 735
+      },
+      "hop_le_3": {
+        "mean_delta": 0.9702088832855225,
+        "max_delta": 1.5185438394546509,
+        "n_nodes": 735
+      },
+      "hop_le_5": {
+        "mean_delta": 0.9702088832855225,
+        "max_delta": 1.5185438394546509,
+        "n_nodes": 735
+      },
+      "hop_le_10": {
+        "mean_delta": 0.9702088832855225,
+        "max_delta": 1.5185438394546509,
+        "n_nodes": 735
+      }
+    }
+  },
+  "noisy_i0.1_n20": {
+    "corruption_type": "noisy",
+    "intensity": 0.1,
+    "n_corrupt_nodes": 20,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806
+    ],
+    "overall_mean_delta": 0.9858949780464172,
+    "healthy_mean_delta": 0.9352826476097107,
+    "healthy_functional_mean_delta": 1.0992010831832886,
+    "corrupt_mean_delta": 3.1951212882995605,
+    "healthy_functional_max_delta": 1.7186883687973022,
+    "healthy_functional_median_delta": 1.3331509828567505,
+    "n_healthy": 873,
+    "n_healthy_functional": 725,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.2666367292404175,
+        "max_delta_healthy_functional": 2.188674211502075,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.1108208894729614,
+        "max_delta_healthy_functional": 2.0039963722229004,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.1246538162231445,
+        "max_delta_healthy_functional": 1.823729157447815,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 1.039181113243103,
+        "max_delta_healthy_functional": 1.684718370437622,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 1.097617506980896,
+        "max_delta": 1.7186883687973022,
+        "n_nodes": 713
+      },
+      "hop_le_2": {
+        "mean_delta": 1.0992010831832886,
+        "max_delta": 1.7186883687973022,
+        "n_nodes": 725
+      },
+      "hop_le_3": {
+        "mean_delta": 1.0992010831832886,
+        "max_delta": 1.7186883687973022,
+        "n_nodes": 725
+      },
+      "hop_le_5": {
+        "mean_delta": 1.0992010831832886,
+        "max_delta": 1.7186883687973022,
+        "n_nodes": 725
+      },
+      "hop_le_10": {
+        "mean_delta": 1.0992010831832886,
+        "max_delta": 1.7186883687973022,
+        "n_nodes": 725
+      }
+    }
+  },
+  "noisy_i0.1_n50": {
+    "corruption_type": "noisy",
+    "intensity": 0.1,
+    "n_corrupt_nodes": 50,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806,
+      111,
+      446,
+      258,
+      750,
+      309,
+      567,
+      548,
+      623,
+      714,
+      584,
+      501,
+      578,
+      510,
+      43,
+      699,
+      758,
+      844,
+      8,
+      613,
+      300,
+      212,
+      558,
+      14,
+      372,
+      648,
+      814,
+      190,
+      512,
+      817,
+      126
+    ],
+    "overall_mean_delta": 1.091257929801941,
+    "healthy_mean_delta": 0.9376707077026367,
+    "healthy_functional_mean_delta": 1.1091769933700562,
+    "corrupt_mean_delta": 3.680738925933838,
+    "healthy_functional_max_delta": 1.743003249168396,
+    "healthy_functional_median_delta": 1.3574564456939697,
+    "n_healthy": 843,
+    "n_healthy_functional": 695,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.1896172761917114,
+        "max_delta_healthy_functional": 2.0688531398773193,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.1321359872817993,
+        "max_delta_healthy_functional": 2.049077272415161,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.1142929792404175,
+        "max_delta_healthy_functional": 1.8204752206802368,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 1.07358980178833,
+        "max_delta_healthy_functional": 1.7307559251785278,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 1.1073027849197388,
+        "max_delta": 1.743003249168396,
+        "n_nodes": 683
+      },
+      "hop_le_2": {
+        "mean_delta": 1.1091769933700562,
+        "max_delta": 1.743003249168396,
+        "n_nodes": 695
+      },
+      "hop_le_3": {
+        "mean_delta": 1.1091769933700562,
+        "max_delta": 1.743003249168396,
+        "n_nodes": 695
+      },
+      "hop_le_5": {
+        "mean_delta": 1.1091769933700562,
+        "max_delta": 1.743003249168396,
+        "n_nodes": 695
+      },
+      "hop_le_10": {
+        "mean_delta": 1.1091769933700562,
+        "max_delta": 1.743003249168396,
+        "n_nodes": 695
+      }
+    }
+  },
+  "noisy_i0.3_n1": {
+    "corruption_type": "noisy",
+    "intensity": 0.3,
+    "n_corrupt_nodes": 1,
+    "corrupt_nodes": [
+      796
+    ],
+    "overall_mean_delta": 3.45723819732666,
+    "healthy_mean_delta": 3.426117181777954,
+    "healthy_functional_mean_delta": 4.004721164703369,
+    "corrupt_mean_delta": 31.217281341552734,
+    "healthy_functional_max_delta": 6.255950450897217,
+    "healthy_functional_median_delta": 4.992459297180176,
+    "n_healthy": 892,
+    "n_healthy_functional": 744,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 4.19289493560791,
+        "max_delta_healthy_functional": 7.41234827041626,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 3.9478578567504883,
+        "max_delta_healthy_functional": 7.11786413192749,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 4.354122638702393,
+        "max_delta_healthy_functional": 7.244374752044678,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 3.860339641571045,
+        "max_delta_healthy_functional": 5.754940986633301,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 4.007445812225342,
+        "max_delta": 6.255950450897217,
+        "n_nodes": 721
+      },
+      "hop_le_2": {
+        "mean_delta": 4.008534908294678,
+        "max_delta": 6.255950450897217,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 4.004721164703369,
+        "max_delta": 6.255950450897217,
+        "n_nodes": 744
+      },
+      "hop_le_5": {
+        "mean_delta": 4.004721164703369,
+        "max_delta": 6.255950450897217,
+        "n_nodes": 744
+      },
+      "hop_le_10": {
+        "mean_delta": 4.004721164703369,
+        "max_delta": 6.255950450897217,
+        "n_nodes": 744
+      }
+    }
+  },
+  "noisy_i0.3_n5": {
+    "corruption_type": "noisy",
+    "intensity": 0.3,
+    "n_corrupt_nodes": 5,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280
+    ],
+    "overall_mean_delta": 3.470329761505127,
+    "healthy_mean_delta": 3.4168899059295654,
+    "healthy_functional_mean_delta": 4.000129699707031,
+    "corrupt_mean_delta": 12.961221694946289,
+    "healthy_functional_max_delta": 6.141997814178467,
+    "healthy_functional_median_delta": 4.96368408203125,
+    "n_healthy": 888,
+    "n_healthy_functional": 740,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 4.152172088623047,
+        "max_delta_healthy_functional": 7.218034744262695,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 3.8992090225219727,
+        "max_delta_healthy_functional": 7.1034345626831055,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 4.2570319175720215,
+        "max_delta_healthy_functional": 6.907931327819824,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 3.921905040740967,
+        "max_delta_healthy_functional": 5.807897567749023,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 4.000856876373291,
+        "max_delta": 6.141997814178467,
+        "n_nodes": 720
+      },
+      "hop_le_2": {
+        "mean_delta": 3.996950626373291,
+        "max_delta": 6.141997814178467,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 4.000129699707031,
+        "max_delta": 6.141997814178467,
+        "n_nodes": 740
+      },
+      "hop_le_5": {
+        "mean_delta": 4.000129699707031,
+        "max_delta": 6.141997814178467,
+        "n_nodes": 740
+      },
+      "hop_le_10": {
+        "mean_delta": 4.000129699707031,
+        "max_delta": 6.141997814178467,
+        "n_nodes": 740
+      }
+    }
+  },
+  "noisy_i0.3_n10": {
+    "corruption_type": "noisy",
+    "intensity": 0.3,
+    "n_corrupt_nodes": 10,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529
+    ],
+    "overall_mean_delta": 4.805657386779785,
+    "healthy_mean_delta": 4.710675239562988,
+    "healthy_functional_mean_delta": 5.532323360443115,
+    "corrupt_mean_delta": 13.192599296569824,
+    "healthy_functional_max_delta": 8.352859497070312,
+    "healthy_functional_median_delta": 6.86427640914917,
+    "n_healthy": 883,
+    "n_healthy_functional": 735,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 5.775017261505127,
+        "max_delta_healthy_functional": 9.960517883300781,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 4.99790096282959,
+        "max_delta_healthy_functional": 8.762434005737305,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 5.480916500091553,
+        "max_delta_healthy_functional": 8.837906837463379,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 5.771399974822998,
+        "max_delta_healthy_functional": 8.698003768920898,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 5.525589942932129,
+        "max_delta": 8.352859497070312,
+        "n_nodes": 723
+      },
+      "hop_le_2": {
+        "mean_delta": 5.532323360443115,
+        "max_delta": 8.352859497070312,
+        "n_nodes": 735
+      },
+      "hop_le_3": {
+        "mean_delta": 5.532323360443115,
+        "max_delta": 8.352859497070312,
+        "n_nodes": 735
+      },
+      "hop_le_5": {
+        "mean_delta": 5.532323360443115,
+        "max_delta": 8.352859497070312,
+        "n_nodes": 735
+      },
+      "hop_le_10": {
+        "mean_delta": 5.532323360443115,
+        "max_delta": 8.352859497070312,
+        "n_nodes": 735
+      }
+    }
+  },
+  "noisy_i0.3_n20": {
+    "corruption_type": "noisy",
+    "intensity": 0.3,
+    "n_corrupt_nodes": 20,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806
+    ],
+    "overall_mean_delta": 7.057908535003662,
+    "healthy_mean_delta": 6.868735313415527,
+    "healthy_functional_mean_delta": 8.11157512664795,
+    "corrupt_mean_delta": 15.315327644348145,
+    "healthy_functional_max_delta": 11.9735689163208,
+    "healthy_functional_median_delta": 10.070242881774902,
+    "n_healthy": 873,
+    "n_healthy_functional": 725,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 7.396617889404297,
+        "max_delta_healthy_functional": 12.68144702911377,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 5.482562065124512,
+        "max_delta_healthy_functional": 9.666473388671875,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 6.245495796203613,
+        "max_delta_healthy_functional": 10.01004695892334,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 10.372517585754395,
+        "max_delta_healthy_functional": 15.847648620605469,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 8.100422859191895,
+        "max_delta": 11.9735689163208,
+        "n_nodes": 713
+      },
+      "hop_le_2": {
+        "mean_delta": 8.11157512664795,
+        "max_delta": 11.9735689163208,
+        "n_nodes": 725
+      },
+      "hop_le_3": {
+        "mean_delta": 8.11157512664795,
+        "max_delta": 11.9735689163208,
+        "n_nodes": 725
+      },
+      "hop_le_5": {
+        "mean_delta": 8.11157512664795,
+        "max_delta": 11.9735689163208,
+        "n_nodes": 725
+      },
+      "hop_le_10": {
+        "mean_delta": 8.11157512664795,
+        "max_delta": 11.9735689163208,
+        "n_nodes": 725
+      }
+    }
+  },
+  "noisy_i0.3_n50": {
+    "corruption_type": "noisy",
+    "intensity": 0.3,
+    "n_corrupt_nodes": 50,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806,
+      111,
+      446,
+      258,
+      750,
+      309,
+      567,
+      548,
+      623,
+      714,
+      584,
+      501,
+      578,
+      510,
+      43,
+      699,
+      758,
+      844,
+      8,
+      613,
+      300,
+      212,
+      558,
+      14,
+      372,
+      648,
+      814,
+      190,
+      512,
+      817,
+      126
+    ],
+    "overall_mean_delta": 7.785179615020752,
+    "healthy_mean_delta": 7.2782206535339355,
+    "healthy_functional_mean_delta": 8.662859916687012,
+    "corrupt_mean_delta": 16.3325138092041,
+    "healthy_functional_max_delta": 12.867175102233887,
+    "healthy_functional_median_delta": 10.891216278076172,
+    "n_healthy": 843,
+    "n_healthy_functional": 695,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 7.574343681335449,
+        "max_delta_healthy_functional": 12.874680519104004,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 5.410181522369385,
+        "max_delta_healthy_functional": 9.603697776794434,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 6.176412105560303,
+        "max_delta_healthy_functional": 9.903668403625488,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 11.577961921691895,
+        "max_delta_healthy_functional": 17.556100845336914,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 8.648575782775879,
+        "max_delta": 12.867175102233887,
+        "n_nodes": 683
+      },
+      "hop_le_2": {
+        "mean_delta": 8.662859916687012,
+        "max_delta": 12.867175102233887,
+        "n_nodes": 695
+      },
+      "hop_le_3": {
+        "mean_delta": 8.662859916687012,
+        "max_delta": 12.867175102233887,
+        "n_nodes": 695
+      },
+      "hop_le_5": {
+        "mean_delta": 8.662859916687012,
+        "max_delta": 12.867175102233887,
+        "n_nodes": 695
+      },
+      "hop_le_10": {
+        "mean_delta": 8.662859916687012,
+        "max_delta": 12.867175102233887,
+        "n_nodes": 695
+      }
+    }
+  },
+  "noisy_i0.5_n1": {
+    "corruption_type": "noisy",
+    "intensity": 0.5,
+    "n_corrupt_nodes": 1,
+    "corrupt_nodes": [
+      796
+    ],
+    "overall_mean_delta": 5.68898868560791,
+    "healthy_mean_delta": 5.6341471672058105,
+    "healthy_functional_mean_delta": 6.574722766876221,
+    "corrupt_mean_delta": 54.60780715942383,
+    "healthy_functional_max_delta": 10.193459510803223,
+    "healthy_functional_median_delta": 8.090057373046875,
+    "n_healthy": 892,
+    "n_healthy_functional": 744,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 6.361337661743164,
+        "max_delta_healthy_functional": 11.329370498657227,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 5.821445465087891,
+        "max_delta_healthy_functional": 11.67058277130127,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 6.703033924102783,
+        "max_delta_healthy_functional": 11.186884880065918,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 6.988603591918945,
+        "max_delta_healthy_functional": 10.221414566040039,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 6.580625534057617,
+        "max_delta": 10.193459510803223,
+        "n_nodes": 721
+      },
+      "hop_le_2": {
+        "mean_delta": 6.581226825714111,
+        "max_delta": 10.193459510803223,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 6.574722766876221,
+        "max_delta": 10.193459510803223,
+        "n_nodes": 744
+      },
+      "hop_le_5": {
+        "mean_delta": 6.574722766876221,
+        "max_delta": 10.193459510803223,
+        "n_nodes": 744
+      },
+      "hop_le_10": {
+        "mean_delta": 6.574722766876221,
+        "max_delta": 10.193459510803223,
+        "n_nodes": 744
+      }
+    }
+  },
+  "noisy_i0.5_n5": {
+    "corruption_type": "noisy",
+    "intensity": 0.5,
+    "n_corrupt_nodes": 5,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280
+    ],
+    "overall_mean_delta": 7.515416145324707,
+    "healthy_mean_delta": 7.420689582824707,
+    "healthy_functional_mean_delta": 8.710145950317383,
+    "corrupt_mean_delta": 24.33882713317871,
+    "healthy_functional_max_delta": 13.859675407409668,
+    "healthy_functional_median_delta": 10.658012390136719,
+    "n_healthy": 888,
+    "n_healthy_functional": 740,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 7.938549518585205,
+        "max_delta_healthy_functional": 15.289029121398926,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 7.134702682495117,
+        "max_delta_healthy_functional": 15.157818794250488,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 10.505426406860352,
+        "max_delta_healthy_functional": 18.00103759765625,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 9.118658065795898,
+        "max_delta_healthy_functional": 13.478155136108398,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 8.712661743164062,
+        "max_delta": 13.859675407409668,
+        "n_nodes": 720
+      },
+      "hop_le_2": {
+        "mean_delta": 8.702519416809082,
+        "max_delta": 13.859675407409668,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 8.710145950317383,
+        "max_delta": 13.859675407409668,
+        "n_nodes": 740
+      },
+      "hop_le_5": {
+        "mean_delta": 8.710145950317383,
+        "max_delta": 13.859675407409668,
+        "n_nodes": 740
+      },
+      "hop_le_10": {
+        "mean_delta": 8.710145950317383,
+        "max_delta": 13.859675407409668,
+        "n_nodes": 740
+      }
+    }
+  },
+  "noisy_i0.5_n10": {
+    "corruption_type": "noisy",
+    "intensity": 0.5,
+    "n_corrupt_nodes": 10,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529
+    ],
+    "overall_mean_delta": 10.586620330810547,
+    "healthy_mean_delta": 10.417844772338867,
+    "healthy_functional_mean_delta": 12.251668930053711,
+    "corrupt_mean_delta": 25.489431381225586,
+    "healthy_functional_max_delta": 18.785350799560547,
+    "healthy_functional_median_delta": 15.129903793334961,
+    "n_healthy": 883,
+    "n_healthy_functional": 735,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 11.32980728149414,
+        "max_delta_healthy_functional": 20.926578521728516,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 9.356879234313965,
+        "max_delta_healthy_functional": 19.15275001525879,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 12.81598949432373,
+        "max_delta_healthy_functional": 21.510000228881836,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 13.844019889831543,
+        "max_delta_healthy_functional": 20.26026153564453,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 12.238913536071777,
+        "max_delta": 18.785350799560547,
+        "n_nodes": 723
+      },
+      "hop_le_2": {
+        "mean_delta": 12.251668930053711,
+        "max_delta": 18.785350799560547,
+        "n_nodes": 735
+      },
+      "hop_le_3": {
+        "mean_delta": 12.251668930053711,
+        "max_delta": 18.785350799560547,
+        "n_nodes": 735
+      },
+      "hop_le_5": {
+        "mean_delta": 12.251668930053711,
+        "max_delta": 18.785350799560547,
+        "n_nodes": 735
+      },
+      "hop_le_10": {
+        "mean_delta": 12.251668930053711,
+        "max_delta": 18.785350799560547,
+        "n_nodes": 735
+      }
+    }
+  },
+  "noisy_i0.5_n20": {
+    "corruption_type": "noisy",
+    "intensity": 0.5,
+    "n_corrupt_nodes": 20,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806
+    ],
+    "overall_mean_delta": 16.852617263793945,
+    "healthy_mean_delta": 16.456073760986328,
+    "healthy_functional_mean_delta": 19.41983413696289,
+    "corrupt_mean_delta": 34.161766052246094,
+    "healthy_functional_max_delta": 28.825443267822266,
+    "healthy_functional_median_delta": 24.13603973388672,
+    "n_healthy": 873,
+    "n_healthy_functional": 725,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 15.820964813232422,
+        "max_delta_healthy_functional": 29.027467727661133,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 11.253097534179688,
+        "max_delta_healthy_functional": 22.975797653198242,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 15.303247451782227,
+        "max_delta_healthy_functional": 25.452497482299805,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 26.2127742767334,
+        "max_delta_healthy_functional": 37.918785095214844,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 19.39616584777832,
+        "max_delta": 28.825443267822266,
+        "n_nodes": 713
+      },
+      "hop_le_2": {
+        "mean_delta": 19.41983413696289,
+        "max_delta": 28.825443267822266,
+        "n_nodes": 725
+      },
+      "hop_le_3": {
+        "mean_delta": 19.41983413696289,
+        "max_delta": 28.825443267822266,
+        "n_nodes": 725
+      },
+      "hop_le_5": {
+        "mean_delta": 19.41983413696289,
+        "max_delta": 28.825443267822266,
+        "n_nodes": 725
+      },
+      "hop_le_10": {
+        "mean_delta": 19.41983413696289,
+        "max_delta": 28.825443267822266,
+        "n_nodes": 725
+      }
+    }
+  },
+  "noisy_i0.5_n50": {
+    "corruption_type": "noisy",
+    "intensity": 0.5,
+    "n_corrupt_nodes": 50,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806,
+      111,
+      446,
+      258,
+      750,
+      309,
+      567,
+      548,
+      623,
+      714,
+      584,
+      501,
+      578,
+      510,
+      43,
+      699,
+      758,
+      844,
+      8,
+      613,
+      300,
+      212,
+      558,
+      14,
+      372,
+      648,
+      814,
+      190,
+      512,
+      817,
+      126
+    ],
+    "overall_mean_delta": 18.69061851501465,
+    "healthy_mean_delta": 17.609676361083984,
+    "healthy_functional_mean_delta": 20.9326171875,
+    "corrupt_mean_delta": 36.915313720703125,
+    "healthy_functional_max_delta": 31.394601821899414,
+    "healthy_functional_median_delta": 26.20600128173828,
+    "n_healthy": 843,
+    "n_healthy_functional": 695,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 16.229976654052734,
+        "max_delta_healthy_functional": 29.856884002685547,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 11.246411323547363,
+        "max_delta_healthy_functional": 23.169754028320312,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 15.61674690246582,
+        "max_delta_healthy_functional": 26.136463165283203,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 29.259849548339844,
+        "max_delta_healthy_functional": 42.51277542114258,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 20.902299880981445,
+        "max_delta": 31.394601821899414,
+        "n_nodes": 683
+      },
+      "hop_le_2": {
+        "mean_delta": 20.9326171875,
+        "max_delta": 31.394601821899414,
+        "n_nodes": 695
+      },
+      "hop_le_3": {
+        "mean_delta": 20.9326171875,
+        "max_delta": 31.394601821899414,
+        "n_nodes": 695
+      },
+      "hop_le_5": {
+        "mean_delta": 20.9326171875,
+        "max_delta": 31.394601821899414,
+        "n_nodes": 695
+      },
+      "hop_le_10": {
+        "mean_delta": 20.9326171875,
+        "max_delta": 31.394601821899414,
+        "n_nodes": 695
+      }
+    }
+  },
+  "noisy_i1.0_n1": {
+    "corruption_type": "noisy",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 1,
+    "corrupt_nodes": [
+      796
+    ],
+    "overall_mean_delta": 9.179222106933594,
+    "healthy_mean_delta": 9.073342323303223,
+    "healthy_functional_mean_delta": 10.504737854003906,
+    "corrupt_mean_delta": 103.62371063232422,
+    "healthy_functional_max_delta": 17.632606506347656,
+    "healthy_functional_median_delta": 12.453046798706055,
+    "n_healthy": 892,
+    "n_healthy_functional": 744,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 9.838297843933105,
+        "max_delta_healthy_functional": 20.024677276611328,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 8.351423263549805,
+        "max_delta_healthy_functional": 19.260265350341797,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 10.072332382202148,
+        "max_delta_healthy_functional": 17.28893280029297,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 11.987685203552246,
+        "max_delta_healthy_functional": 17.909860610961914,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 10.517022132873535,
+        "max_delta": 17.632606506347656,
+        "n_nodes": 721
+      },
+      "hop_le_2": {
+        "mean_delta": 10.515371322631836,
+        "max_delta": 17.632606506347656,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 10.504737854003906,
+        "max_delta": 17.632606506347656,
+        "n_nodes": 744
+      },
+      "hop_le_5": {
+        "mean_delta": 10.504737854003906,
+        "max_delta": 17.632606506347656,
+        "n_nodes": 744
+      },
+      "hop_le_10": {
+        "mean_delta": 10.504737854003906,
+        "max_delta": 17.632606506347656,
+        "n_nodes": 744
+      }
+    }
+  },
+  "noisy_i1.0_n5": {
+    "corruption_type": "noisy",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 5,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280
+    ],
+    "overall_mean_delta": 21.19565200805664,
+    "healthy_mean_delta": 20.974533081054688,
+    "healthy_functional_mean_delta": 24.649728775024414,
+    "corrupt_mean_delta": 60.46663284301758,
+    "healthy_functional_max_delta": 44.381587982177734,
+    "healthy_functional_median_delta": 29.34776496887207,
+    "n_healthy": 888,
+    "n_healthy_functional": 740,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 20.932205200195312,
+        "max_delta_healthy_functional": 47.442138671875,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 18.679332733154297,
+        "max_delta_healthy_functional": 47.24688720703125,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 28.286537170410156,
+        "max_delta_healthy_functional": 54.820953369140625,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 27.538129806518555,
+        "max_delta_healthy_functional": 41.586116790771484,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 24.65365219116211,
+        "max_delta": 44.381587982177734,
+        "n_nodes": 720
+      },
+      "hop_le_2": {
+        "mean_delta": 24.626005172729492,
+        "max_delta": 44.381587982177734,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 24.649728775024414,
+        "max_delta": 44.381587982177734,
+        "n_nodes": 740
+      },
+      "hop_le_5": {
+        "mean_delta": 24.649728775024414,
+        "max_delta": 44.381587982177734,
+        "n_nodes": 740
+      },
+      "hop_le_10": {
+        "mean_delta": 24.649728775024414,
+        "max_delta": 44.381587982177734,
+        "n_nodes": 740
+      }
+    }
+  },
+  "noisy_i1.0_n10": {
+    "corruption_type": "noisy",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 10,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529
+    ],
+    "overall_mean_delta": 28.47264289855957,
+    "healthy_mean_delta": 28.073904037475586,
+    "healthy_functional_mean_delta": 32.98029708862305,
+    "corrupt_mean_delta": 63.68134689331055,
+    "healthy_functional_max_delta": 58.84644317626953,
+    "healthy_functional_median_delta": 39.238525390625,
+    "n_healthy": 883,
+    "n_healthy_functional": 735,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 27.619625091552734,
+        "max_delta_healthy_functional": 62.86054992675781,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 23.828012466430664,
+        "max_delta_healthy_functional": 60.19972229003906,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 34.6693115234375,
+        "max_delta_healthy_functional": 68.47706604003906,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 38.7022705078125,
+        "max_delta_healthy_functional": 57.260746002197266,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 32.956329345703125,
+        "max_delta": 58.84644317626953,
+        "n_nodes": 723
+      },
+      "hop_le_2": {
+        "mean_delta": 32.98029708862305,
+        "max_delta": 58.84644317626953,
+        "n_nodes": 735
+      },
+      "hop_le_3": {
+        "mean_delta": 32.98029708862305,
+        "max_delta": 58.84644317626953,
+        "n_nodes": 735
+      },
+      "hop_le_5": {
+        "mean_delta": 32.98029708862305,
+        "max_delta": 58.84644317626953,
+        "n_nodes": 735
+      },
+      "hop_le_10": {
+        "mean_delta": 32.98029708862305,
+        "max_delta": 58.84644317626953,
+        "n_nodes": 735
+      }
+    }
+  },
+  "noisy_i1.0_n20": {
+    "corruption_type": "noisy",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 20,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806
+    ],
+    "overall_mean_delta": 38.3348388671875,
+    "healthy_mean_delta": 37.22975540161133,
+    "healthy_functional_mean_delta": 43.542110443115234,
+    "corrupt_mean_delta": 86.57176208496094,
+    "healthy_functional_max_delta": 75.56172180175781,
+    "healthy_functional_median_delta": 51.55488586425781,
+    "n_healthy": 873,
+    "n_healthy_functional": 725,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 34.35085678100586,
+        "max_delta_healthy_functional": 76.6941146850586,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 27.810630798339844,
+        "max_delta_healthy_functional": 69.093994140625,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 38.60942459106445,
+        "max_delta_healthy_functional": 75.21198272705078,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 56.16304397583008,
+        "max_delta_healthy_functional": 82.44319915771484,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 43.50290298461914,
+        "max_delta": 75.56172180175781,
+        "n_nodes": 713
+      },
+      "hop_le_2": {
+        "mean_delta": 43.542110443115234,
+        "max_delta": 75.56172180175781,
+        "n_nodes": 725
+      },
+      "hop_le_3": {
+        "mean_delta": 43.542110443115234,
+        "max_delta": 75.56172180175781,
+        "n_nodes": 725
+      },
+      "hop_le_5": {
+        "mean_delta": 43.542110443115234,
+        "max_delta": 75.56172180175781,
+        "n_nodes": 725
+      },
+      "hop_le_10": {
+        "mean_delta": 43.542110443115234,
+        "max_delta": 75.56172180175781,
+        "n_nodes": 725
+      }
+    }
+  },
+  "noisy_i1.0_n50": {
+    "corruption_type": "noisy",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 50,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806,
+      111,
+      446,
+      258,
+      750,
+      309,
+      567,
+      548,
+      623,
+      714,
+      584,
+      501,
+      578,
+      510,
+      43,
+      699,
+      758,
+      844,
+      8,
+      613,
+      300,
+      212,
+      558,
+      14,
+      372,
+      648,
+      814,
+      190,
+      512,
+      817,
+      126
+    ],
+    "overall_mean_delta": 41.568233489990234,
+    "healthy_mean_delta": 38.879398345947266,
+    "healthy_functional_mean_delta": 45.64146423339844,
+    "corrupt_mean_delta": 86.90200805664062,
+    "healthy_functional_max_delta": 79.87960815429688,
+    "healthy_functional_median_delta": 54.22968292236328,
+    "n_healthy": 843,
+    "n_healthy_functional": 695,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 35.46614456176758,
+        "max_delta_healthy_functional": 79.4887924194336,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 29.02737045288086,
+        "max_delta_healthy_functional": 72.74752807617188,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 38.350074768066406,
+        "max_delta_healthy_functional": 74.70006561279297,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 59.837432861328125,
+        "max_delta_healthy_functional": 89.22163391113281,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 45.593345642089844,
+        "max_delta": 79.87960815429688,
+        "n_nodes": 683
+      },
+      "hop_le_2": {
+        "mean_delta": 45.64146423339844,
+        "max_delta": 79.87960815429688,
+        "n_nodes": 695
+      },
+      "hop_le_3": {
+        "mean_delta": 45.64146423339844,
+        "max_delta": 79.87960815429688,
+        "n_nodes": 695
+      },
+      "hop_le_5": {
+        "mean_delta": 45.64146423339844,
+        "max_delta": 79.87960815429688,
+        "n_nodes": 695
+      },
+      "hop_le_10": {
+        "mean_delta": 45.64146423339844,
+        "max_delta": 79.87960815429688,
+        "n_nodes": 695
+      }
+    }
+  },
+  "bias_i0.1_n1": {
+    "corruption_type": "bias",
+    "intensity": 0.1,
+    "n_corrupt_nodes": 1,
+    "corrupt_nodes": [
+      796
+    ],
+    "overall_mean_delta": 0.8587036728858948,
+    "healthy_mean_delta": 0.8478138446807861,
+    "healthy_functional_mean_delta": 0.9784635901451111,
+    "corrupt_mean_delta": 10.572488784790039,
+    "healthy_functional_max_delta": 1.6414908170700073,
+    "healthy_functional_median_delta": 1.140031099319458,
+    "n_healthy": 892,
+    "n_healthy_functional": 744,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.1143819093704224,
+        "max_delta_healthy_functional": 2.405866861343384,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.4406108856201172,
+        "max_delta_healthy_functional": 2.857825756072998,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.2120941877365112,
+        "max_delta_healthy_functional": 2.3096230030059814,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.6119173765182495,
+        "max_delta_healthy_functional": 1.1196247339248657,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 0.9798572063446045,
+        "max_delta": 1.6414908170700073,
+        "n_nodes": 721
+      },
+      "hop_le_2": {
+        "mean_delta": 0.979329526424408,
+        "max_delta": 1.6414908170700073,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 0.9784635901451111,
+        "max_delta": 1.6414908170700073,
+        "n_nodes": 744
+      },
+      "hop_le_5": {
+        "mean_delta": 0.9784635901451111,
+        "max_delta": 1.6414908170700073,
+        "n_nodes": 744
+      },
+      "hop_le_10": {
+        "mean_delta": 0.9784635901451111,
+        "max_delta": 1.6414908170700073,
+        "n_nodes": 744
+      }
+    }
+  },
+  "bias_i0.1_n5": {
+    "corruption_type": "bias",
+    "intensity": 0.1,
+    "n_corrupt_nodes": 5,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280
+    ],
+    "overall_mean_delta": 0.8793773055076599,
+    "healthy_mean_delta": 0.8437532782554626,
+    "healthy_functional_mean_delta": 0.974496066570282,
+    "corrupt_mean_delta": 7.206212520599365,
+    "healthy_functional_max_delta": 1.6458133459091187,
+    "healthy_functional_median_delta": 1.129396915435791,
+    "n_healthy": 888,
+    "n_healthy_functional": 740,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.1054177284240723,
+        "max_delta_healthy_functional": 2.412485122680664,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.4304143190383911,
+        "max_delta_healthy_functional": 2.8301279544830322,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.2050057649612427,
+        "max_delta_healthy_functional": 2.3086893558502197,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.6137257218360901,
+        "max_delta_healthy_functional": 1.1052852869033813,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 0.9751237630844116,
+        "max_delta": 1.6458133459091187,
+        "n_nodes": 720
+      },
+      "hop_le_2": {
+        "mean_delta": 0.9739802479743958,
+        "max_delta": 1.6458133459091187,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 0.974496066570282,
+        "max_delta": 1.6458133459091187,
+        "n_nodes": 740
+      },
+      "hop_le_5": {
+        "mean_delta": 0.974496066570282,
+        "max_delta": 1.6458133459091187,
+        "n_nodes": 740
+      },
+      "hop_le_10": {
+        "mean_delta": 0.974496066570282,
+        "max_delta": 1.6458133459091187,
+        "n_nodes": 740
+      }
+    }
+  },
+  "bias_i0.1_n10": {
+    "corruption_type": "bias",
+    "intensity": 0.1,
+    "n_corrupt_nodes": 10,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529
+    ],
+    "overall_mean_delta": 1.0128114223480225,
+    "healthy_mean_delta": 0.9326008558273315,
+    "healthy_functional_mean_delta": 1.0787198543548584,
+    "corrupt_mean_delta": 8.095394134521484,
+    "healthy_functional_max_delta": 1.7842460870742798,
+    "healthy_functional_median_delta": 1.2638534307479858,
+    "n_healthy": 883,
+    "n_healthy_functional": 735,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.2315077781677246,
+        "max_delta_healthy_functional": 2.654343843460083,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.4809653759002686,
+        "max_delta_healthy_functional": 2.9362471103668213,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.2674437761306763,
+        "max_delta_healthy_functional": 2.379084348678589,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.7556790113449097,
+        "max_delta_healthy_functional": 1.3502439260482788,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 1.077945351600647,
+        "max_delta": 1.7842460870742798,
+        "n_nodes": 723
+      },
+      "hop_le_2": {
+        "mean_delta": 1.0787198543548584,
+        "max_delta": 1.7842460870742798,
+        "n_nodes": 735
+      },
+      "hop_le_3": {
+        "mean_delta": 1.0787198543548584,
+        "max_delta": 1.7842460870742798,
+        "n_nodes": 735
+      },
+      "hop_le_5": {
+        "mean_delta": 1.0787198543548584,
+        "max_delta": 1.7842460870742798,
+        "n_nodes": 735
+      },
+      "hop_le_10": {
+        "mean_delta": 1.0787198543548584,
+        "max_delta": 1.7842460870742798,
+        "n_nodes": 735
+      }
+    }
+  },
+  "bias_i0.1_n20": {
+    "corruption_type": "bias",
+    "intensity": 0.1,
+    "n_corrupt_nodes": 20,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806
+    ],
+    "overall_mean_delta": 1.2007975578308105,
+    "healthy_mean_delta": 1.0075838565826416,
+    "healthy_functional_mean_delta": 1.1714524030685425,
+    "corrupt_mean_delta": 9.634577751159668,
+    "healthy_functional_max_delta": 1.955429196357727,
+    "healthy_functional_median_delta": 1.3846766948699951,
+    "n_healthy": 873,
+    "n_healthy_functional": 725,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.2756139039993286,
+        "max_delta_healthy_functional": 2.7913243770599365,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.4112343788146973,
+        "max_delta_healthy_functional": 2.767164945602417,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.2156256437301636,
+        "max_delta_healthy_functional": 2.3432083129882812,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.9997328519821167,
+        "max_delta_healthy_functional": 1.872514009475708,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 1.170413613319397,
+        "max_delta": 1.955429196357727,
+        "n_nodes": 713
+      },
+      "hop_le_2": {
+        "mean_delta": 1.1714524030685425,
+        "max_delta": 1.955429196357727,
+        "n_nodes": 725
+      },
+      "hop_le_3": {
+        "mean_delta": 1.1714524030685425,
+        "max_delta": 1.955429196357727,
+        "n_nodes": 725
+      },
+      "hop_le_5": {
+        "mean_delta": 1.1714524030685425,
+        "max_delta": 1.955429196357727,
+        "n_nodes": 725
+      },
+      "hop_le_10": {
+        "mean_delta": 1.1714524030685425,
+        "max_delta": 1.955429196357727,
+        "n_nodes": 725
+      }
+    }
+  },
+  "bias_i0.1_n50": {
+    "corruption_type": "bias",
+    "intensity": 0.1,
+    "n_corrupt_nodes": 50,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806,
+      111,
+      446,
+      258,
+      750,
+      309,
+      567,
+      548,
+      623,
+      714,
+      584,
+      501,
+      578,
+      510,
+      43,
+      699,
+      758,
+      844,
+      8,
+      613,
+      300,
+      212,
+      558,
+      14,
+      372,
+      648,
+      814,
+      190,
+      512,
+      817,
+      126
+    ],
+    "overall_mean_delta": 1.4906291961669922,
+    "healthy_mean_delta": 0.9532707929611206,
+    "healthy_functional_mean_delta": 1.1300991773605347,
+    "corrupt_mean_delta": 10.550492286682129,
+    "healthy_functional_max_delta": 1.9208086729049683,
+    "healthy_functional_median_delta": 1.3480429649353027,
+    "n_healthy": 843,
+    "n_healthy_functional": 695,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.2311489582061768,
+        "max_delta_healthy_functional": 2.80094838142395,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.3869966268539429,
+        "max_delta_healthy_functional": 2.7077138423919678,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.1591715812683105,
+        "max_delta_healthy_functional": 2.333848476409912,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.9554442167282104,
+        "max_delta_healthy_functional": 1.801383137702942,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 1.1290322542190552,
+        "max_delta": 1.9208086729049683,
+        "n_nodes": 683
+      },
+      "hop_le_2": {
+        "mean_delta": 1.1300991773605347,
+        "max_delta": 1.9208086729049683,
+        "n_nodes": 695
+      },
+      "hop_le_3": {
+        "mean_delta": 1.1300991773605347,
+        "max_delta": 1.9208086729049683,
+        "n_nodes": 695
+      },
+      "hop_le_5": {
+        "mean_delta": 1.1300991773605347,
+        "max_delta": 1.9208086729049683,
+        "n_nodes": 695
+      },
+      "hop_le_10": {
+        "mean_delta": 1.1300991773605347,
+        "max_delta": 1.9208086729049683,
+        "n_nodes": 695
+      }
+    }
+  },
+  "bias_i0.3_n1": {
+    "corruption_type": "bias",
+    "intensity": 0.3,
+    "n_corrupt_nodes": 1,
+    "corrupt_nodes": [
+      796
+    ],
+    "overall_mean_delta": 0.7353833913803101,
+    "healthy_mean_delta": 0.6890462636947632,
+    "healthy_functional_mean_delta": 0.8010404706001282,
+    "corrupt_mean_delta": 42.06806182861328,
+    "healthy_functional_max_delta": 1.6857396364212036,
+    "healthy_functional_median_delta": 0.8884361982345581,
+    "n_healthy": 892,
+    "n_healthy_functional": 744,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.1138334274291992,
+        "max_delta_healthy_functional": 2.6225976943969727,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 0.7694945931434631,
+        "max_delta_healthy_functional": 2.162184238433838,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.1917171478271484,
+        "max_delta_healthy_functional": 3.045149326324463,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.5951226949691772,
+        "max_delta_healthy_functional": 1.375620722770691,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 0.8022604584693909,
+        "max_delta": 1.6857396364212036,
+        "n_nodes": 721
+      },
+      "hop_le_2": {
+        "mean_delta": 0.8020446300506592,
+        "max_delta": 1.6857396364212036,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 0.8010404706001282,
+        "max_delta": 1.6857396364212036,
+        "n_nodes": 744
+      },
+      "hop_le_5": {
+        "mean_delta": 0.8010404706001282,
+        "max_delta": 1.6857396364212036,
+        "n_nodes": 744
+      },
+      "hop_le_10": {
+        "mean_delta": 0.8010404706001282,
+        "max_delta": 1.6857396364212036,
+        "n_nodes": 744
+      }
+    }
+  },
+  "bias_i0.3_n5": {
+    "corruption_type": "bias",
+    "intensity": 0.3,
+    "n_corrupt_nodes": 5,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280
+    ],
+    "overall_mean_delta": 0.8472169041633606,
+    "healthy_mean_delta": 0.7022323608398438,
+    "healthy_functional_mean_delta": 0.8177196383476257,
+    "corrupt_mean_delta": 26.59646987915039,
+    "healthy_functional_max_delta": 1.6634714603424072,
+    "healthy_functional_median_delta": 0.8998802900314331,
+    "n_healthy": 888,
+    "n_healthy_functional": 740,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.1554455757141113,
+        "max_delta_healthy_functional": 2.761861801147461,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 0.7856398224830627,
+        "max_delta_healthy_functional": 2.1849148273468018,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.204702615737915,
+        "max_delta_healthy_functional": 3.132448434829712,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.6067404747009277,
+        "max_delta_healthy_functional": 1.8009673357009888,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 0.8193084597587585,
+        "max_delta": 1.6634714603424072,
+        "n_nodes": 720
+      },
+      "hop_le_2": {
+        "mean_delta": 0.8176969289779663,
+        "max_delta": 1.6634714603424072,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 0.8177196383476257,
+        "max_delta": 1.6634714603424072,
+        "n_nodes": 740
+      },
+      "hop_le_5": {
+        "mean_delta": 0.8177196383476257,
+        "max_delta": 1.6634714603424072,
+        "n_nodes": 740
+      },
+      "hop_le_10": {
+        "mean_delta": 0.8177196383476257,
+        "max_delta": 1.6634714603424072,
+        "n_nodes": 740
+      }
+    }
+  },
+  "bias_i0.3_n10": {
+    "corruption_type": "bias",
+    "intensity": 0.3,
+    "n_corrupt_nodes": 10,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529
+    ],
+    "overall_mean_delta": 1.0388110876083374,
+    "healthy_mean_delta": 0.7448800802230835,
+    "healthy_functional_mean_delta": 0.8686896562576294,
+    "corrupt_mean_delta": 26.992919921875,
+    "healthy_functional_max_delta": 1.6369730234146118,
+    "healthy_functional_median_delta": 0.9762330651283264,
+    "n_healthy": 883,
+    "n_healthy_functional": 735,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.1620914936065674,
+        "max_delta_healthy_functional": 2.7622900009155273,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 0.8315513134002686,
+        "max_delta_healthy_functional": 2.2167255878448486,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.1956684589385986,
+        "max_delta_healthy_functional": 3.1582322120666504,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.6936370134353638,
+        "max_delta_healthy_functional": 1.9648388624191284,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 0.8681262135505676,
+        "max_delta": 1.6369730234146118,
+        "n_nodes": 723
+      },
+      "hop_le_2": {
+        "mean_delta": 0.8686896562576294,
+        "max_delta": 1.6369730234146118,
+        "n_nodes": 735
+      },
+      "hop_le_3": {
+        "mean_delta": 0.8686896562576294,
+        "max_delta": 1.6369730234146118,
+        "n_nodes": 735
+      },
+      "hop_le_5": {
+        "mean_delta": 0.8686896562576294,
+        "max_delta": 1.6369730234146118,
+        "n_nodes": 735
+      },
+      "hop_le_10": {
+        "mean_delta": 0.8686896562576294,
+        "max_delta": 1.6369730234146118,
+        "n_nodes": 735
+      }
+    }
+  },
+  "bias_i0.3_n20": {
+    "corruption_type": "bias",
+    "intensity": 0.3,
+    "n_corrupt_nodes": 20,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806
+    ],
+    "overall_mean_delta": 1.5256561040878296,
+    "healthy_mean_delta": 0.8338568806648254,
+    "healthy_functional_mean_delta": 0.9781269431114197,
+    "corrupt_mean_delta": 31.72269058227539,
+    "healthy_functional_max_delta": 1.8094661235809326,
+    "healthy_functional_median_delta": 1.0984402894973755,
+    "n_healthy": 873,
+    "n_healthy_functional": 725,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.2315208911895752,
+        "max_delta_healthy_functional": 2.9922542572021484,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 0.9259922504425049,
+        "max_delta_healthy_functional": 2.1433839797973633,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.2594248056411743,
+        "max_delta_healthy_functional": 3.576092004776001,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.8380551934242249,
+        "max_delta_healthy_functional": 2.228341579437256,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 0.9773657917976379,
+        "max_delta": 1.8094661235809326,
+        "n_nodes": 713
+      },
+      "hop_le_2": {
+        "mean_delta": 0.9781269431114197,
+        "max_delta": 1.8094661235809326,
+        "n_nodes": 725
+      },
+      "hop_le_3": {
+        "mean_delta": 0.9781269431114197,
+        "max_delta": 1.8094661235809326,
+        "n_nodes": 725
+      },
+      "hop_le_5": {
+        "mean_delta": 0.9781269431114197,
+        "max_delta": 1.8094661235809326,
+        "n_nodes": 725
+      },
+      "hop_le_10": {
+        "mean_delta": 0.9781269431114197,
+        "max_delta": 1.8094661235809326,
+        "n_nodes": 725
+      }
+    }
+  },
+  "bias_i0.3_n50": {
+    "corruption_type": "bias",
+    "intensity": 0.3,
+    "n_corrupt_nodes": 50,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806,
+      111,
+      446,
+      258,
+      750,
+      309,
+      567,
+      548,
+      623,
+      714,
+      584,
+      501,
+      578,
+      510,
+      43,
+      699,
+      758,
+      844,
+      8,
+      613,
+      300,
+      212,
+      558,
+      14,
+      372,
+      648,
+      814,
+      190,
+      512,
+      817,
+      126
+    ],
+    "overall_mean_delta": 2.7736916542053223,
+    "healthy_mean_delta": 0.8509983420372009,
+    "healthy_functional_mean_delta": 0.9672670364379883,
+    "corrupt_mean_delta": 35.190303802490234,
+    "healthy_functional_max_delta": 1.9522169828414917,
+    "healthy_functional_median_delta": 1.0662827491760254,
+    "n_healthy": 843,
+    "n_healthy_functional": 695,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.2840166091918945,
+        "max_delta_healthy_functional": 3.3421523571014404,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 0.9147599339485168,
+        "max_delta_healthy_functional": 2.323148727416992,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.3333637714385986,
+        "max_delta_healthy_functional": 4.095619201660156,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.7802518606185913,
+        "max_delta_healthy_functional": 1.904001235961914,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 0.9659740924835205,
+        "max_delta": 1.9522169828414917,
+        "n_nodes": 683
+      },
+      "hop_le_2": {
+        "mean_delta": 0.9672670364379883,
+        "max_delta": 1.9522169828414917,
+        "n_nodes": 695
+      },
+      "hop_le_3": {
+        "mean_delta": 0.9672670364379883,
+        "max_delta": 1.9522169828414917,
+        "n_nodes": 695
+      },
+      "hop_le_5": {
+        "mean_delta": 0.9672670364379883,
+        "max_delta": 1.9522169828414917,
+        "n_nodes": 695
+      },
+      "hop_le_10": {
+        "mean_delta": 0.9672670364379883,
+        "max_delta": 1.9522169828414917,
+        "n_nodes": 695
+      }
+    }
+  },
+  "bias_i0.5_n1": {
+    "corruption_type": "bias",
+    "intensity": 0.5,
+    "n_corrupt_nodes": 1,
+    "corrupt_nodes": [
+      796
+    ],
+    "overall_mean_delta": 1.0449951887130737,
+    "healthy_mean_delta": 0.959168553352356,
+    "healthy_functional_mean_delta": 1.118546724319458,
+    "corrupt_mean_delta": 77.60226440429688,
+    "healthy_functional_max_delta": 2.6698639392852783,
+    "healthy_functional_median_delta": 1.1169368028640747,
+    "n_healthy": 892,
+    "n_healthy_functional": 744,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.9241912364959717,
+        "max_delta_healthy_functional": 4.523022651672363,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.0874640941619873,
+        "max_delta_healthy_functional": 2.7485830783843994,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.9038972854614258,
+        "max_delta_healthy_functional": 5.010440826416016,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.6400650143623352,
+        "max_delta_healthy_functional": 1.7923877239227295,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 1.1179313659667969,
+        "max_delta": 2.6698639392852783,
+        "n_nodes": 721
+      },
+      "hop_le_2": {
+        "mean_delta": 1.1200493574142456,
+        "max_delta": 2.6698639392852783,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 1.118546724319458,
+        "max_delta": 2.6698639392852783,
+        "n_nodes": 744
+      },
+      "hop_le_5": {
+        "mean_delta": 1.118546724319458,
+        "max_delta": 2.6698639392852783,
+        "n_nodes": 744
+      },
+      "hop_le_10": {
+        "mean_delta": 1.118546724319458,
+        "max_delta": 2.6698639392852783,
+        "n_nodes": 744
+      }
+    }
+  },
+  "bias_i0.5_n5": {
+    "corruption_type": "bias",
+    "intensity": 0.5,
+    "n_corrupt_nodes": 5,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280
+    ],
+    "overall_mean_delta": 1.257524847984314,
+    "healthy_mean_delta": 1.004921793937683,
+    "healthy_functional_mean_delta": 1.1741814613342285,
+    "corrupt_mean_delta": 46.119834899902344,
+    "healthy_functional_max_delta": 2.6445047855377197,
+    "healthy_functional_median_delta": 1.1563594341278076,
+    "n_healthy": 888,
+    "n_healthy_functional": 740,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.9517208337783813,
+        "max_delta_healthy_functional": 4.609611988067627,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.2363801002502441,
+        "max_delta_healthy_functional": 2.980321168899536,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.8543016910552979,
+        "max_delta_healthy_functional": 5.0739874839782715,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.6908499002456665,
+        "max_delta_healthy_functional": 3.242067337036133,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 1.174745798110962,
+        "max_delta": 2.6445047855377197,
+        "n_nodes": 720
+      },
+      "hop_le_2": {
+        "mean_delta": 1.173801302909851,
+        "max_delta": 2.6445047855377197,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 1.1741814613342285,
+        "max_delta": 2.6445047855377197,
+        "n_nodes": 740
+      },
+      "hop_le_5": {
+        "mean_delta": 1.1741814613342285,
+        "max_delta": 2.6445047855377197,
+        "n_nodes": 740
+      },
+      "hop_le_10": {
+        "mean_delta": 1.1741814613342285,
+        "max_delta": 2.6445047855377197,
+        "n_nodes": 740
+      }
+    }
+  },
+  "bias_i0.5_n10": {
+    "corruption_type": "bias",
+    "intensity": 0.5,
+    "n_corrupt_nodes": 10,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529
+    ],
+    "overall_mean_delta": 1.6293199062347412,
+    "healthy_mean_delta": 1.1332728862762451,
+    "healthy_functional_mean_delta": 1.328620195388794,
+    "corrupt_mean_delta": 45.43025207519531,
+    "healthy_functional_max_delta": 3.5582621097564697,
+    "healthy_functional_median_delta": 1.2752578258514404,
+    "n_healthy": 883,
+    "n_healthy_functional": 735,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 2.049734592437744,
+        "max_delta_healthy_functional": 4.978397846221924,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.5610913038253784,
+        "max_delta_healthy_functional": 3.7400147914886475,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.8376047611236572,
+        "max_delta_healthy_functional": 5.21386194229126,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.8303411602973938,
+        "max_delta_healthy_functional": 4.598905563354492,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 1.325851559638977,
+        "max_delta": 3.5582621097564697,
+        "n_nodes": 723
+      },
+      "hop_le_2": {
+        "mean_delta": 1.328620195388794,
+        "max_delta": 3.5582621097564697,
+        "n_nodes": 735
+      },
+      "hop_le_3": {
+        "mean_delta": 1.328620195388794,
+        "max_delta": 3.5582621097564697,
+        "n_nodes": 735
+      },
+      "hop_le_5": {
+        "mean_delta": 1.328620195388794,
+        "max_delta": 3.5582621097564697,
+        "n_nodes": 735
+      },
+      "hop_le_10": {
+        "mean_delta": 1.328620195388794,
+        "max_delta": 3.5582621097564697,
+        "n_nodes": 735
+      }
+    }
+  },
+  "bias_i0.5_n20": {
+    "corruption_type": "bias",
+    "intensity": 0.5,
+    "n_corrupt_nodes": 20,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806
+    ],
+    "overall_mean_delta": 2.470045328140259,
+    "healthy_mean_delta": 1.3176424503326416,
+    "healthy_functional_mean_delta": 1.538571834564209,
+    "corrupt_mean_delta": 52.772438049316406,
+    "healthy_functional_max_delta": 4.6609883308410645,
+    "healthy_functional_median_delta": 1.5382397174835205,
+    "n_healthy": 873,
+    "n_healthy_functional": 725,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 2.2911648750305176,
+        "max_delta_healthy_functional": 5.584056854248047,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.9527151584625244,
+        "max_delta_healthy_functional": 5.581026554107666,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.9869557619094849,
+        "max_delta_healthy_functional": 5.852451801300049,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.9563804268836975,
+        "max_delta_healthy_functional": 5.468943119049072,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 1.5350664854049683,
+        "max_delta": 4.6609883308410645,
+        "n_nodes": 713
+      },
+      "hop_le_2": {
+        "mean_delta": 1.538571834564209,
+        "max_delta": 4.6609883308410645,
+        "n_nodes": 725
+      },
+      "hop_le_3": {
+        "mean_delta": 1.538571834564209,
+        "max_delta": 4.6609883308410645,
+        "n_nodes": 725
+      },
+      "hop_le_5": {
+        "mean_delta": 1.538571834564209,
+        "max_delta": 4.6609883308410645,
+        "n_nodes": 725
+      },
+      "hop_le_10": {
+        "mean_delta": 1.538571834564209,
+        "max_delta": 4.6609883308410645,
+        "n_nodes": 725
+      }
+    }
+  },
+  "bias_i0.5_n50": {
+    "corruption_type": "bias",
+    "intensity": 0.5,
+    "n_corrupt_nodes": 50,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806,
+      111,
+      446,
+      258,
+      750,
+      309,
+      567,
+      548,
+      623,
+      714,
+      584,
+      501,
+      578,
+      510,
+      43,
+      699,
+      758,
+      844,
+      8,
+      613,
+      300,
+      212,
+      558,
+      14,
+      372,
+      648,
+      814,
+      190,
+      512,
+      817,
+      126
+    ],
+    "overall_mean_delta": 4.655548572540283,
+    "healthy_mean_delta": 1.4482955932617188,
+    "healthy_functional_mean_delta": 1.6071542501449585,
+    "corrupt_mean_delta": 58.729835510253906,
+    "healthy_functional_max_delta": 4.49255895614624,
+    "healthy_functional_median_delta": 1.4266436100006104,
+    "n_healthy": 843,
+    "n_healthy_functional": 695,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 2.4497928619384766,
+        "max_delta_healthy_functional": 6.18032169342041,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.9795863628387451,
+        "max_delta_healthy_functional": 5.826732635498047,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 2.180148124694824,
+        "max_delta_healthy_functional": 6.752128601074219,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.9787960052490234,
+        "max_delta_healthy_functional": 4.035835266113281,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 1.6025007963180542,
+        "max_delta": 4.49255895614624,
+        "n_nodes": 683
+      },
+      "hop_le_2": {
+        "mean_delta": 1.6071542501449585,
+        "max_delta": 4.49255895614624,
+        "n_nodes": 695
+      },
+      "hop_le_3": {
+        "mean_delta": 1.6071542501449585,
+        "max_delta": 4.49255895614624,
+        "n_nodes": 695
+      },
+      "hop_le_5": {
+        "mean_delta": 1.6071542501449585,
+        "max_delta": 4.49255895614624,
+        "n_nodes": 695
+      },
+      "hop_le_10": {
+        "mean_delta": 1.6071542501449585,
+        "max_delta": 4.49255895614624,
+        "n_nodes": 695
+      }
+    }
+  },
+  "bias_i1.0_n1": {
+    "corruption_type": "bias",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 1,
+    "corrupt_nodes": [
+      796
+    ],
+    "overall_mean_delta": 1.2799423933029175,
+    "healthy_mean_delta": 1.1017011404037476,
+    "healthy_functional_mean_delta": 1.2748570442199707,
+    "corrupt_mean_delta": 160.27113342285156,
+    "healthy_functional_max_delta": 3.0367801189422607,
+    "healthy_functional_median_delta": 1.3017674684524536,
+    "n_healthy": 892,
+    "n_healthy_functional": 744,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 2.2635042667388916,
+        "max_delta_healthy_functional": 5.160275459289551,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.2906500101089478,
+        "max_delta_healthy_functional": 3.228624105453491,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 2.2193737030029297,
+        "max_delta_healthy_functional": 5.720512390136719,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 0.665713369846344,
+        "max_delta_healthy_functional": 2.0704269409179688,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 1.273605227470398,
+        "max_delta": 3.0367801189422607,
+        "n_nodes": 721
+      },
+      "hop_le_2": {
+        "mean_delta": 1.276424765586853,
+        "max_delta": 3.0367801189422607,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 1.2748570442199707,
+        "max_delta": 3.0367801189422607,
+        "n_nodes": 744
+      },
+      "hop_le_5": {
+        "mean_delta": 1.2748570442199707,
+        "max_delta": 3.0367801189422607,
+        "n_nodes": 744
+      },
+      "hop_le_10": {
+        "mean_delta": 1.2748570442199707,
+        "max_delta": 3.0367801189422607,
+        "n_nodes": 744
+      }
+    }
+  },
+  "bias_i1.0_n5": {
+    "corruption_type": "bias",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 5,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280
+    ],
+    "overall_mean_delta": 1.72372305393219,
+    "healthy_mean_delta": 1.193203330039978,
+    "healthy_functional_mean_delta": 1.384566068649292,
+    "corrupt_mean_delta": 95.9439926147461,
+    "healthy_functional_max_delta": 7.288126468658447,
+    "healthy_functional_median_delta": 1.2648308277130127,
+    "n_healthy": 888,
+    "n_healthy_functional": 740,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 1.795502781867981,
+        "max_delta_healthy_functional": 7.662944793701172,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 1.6134815216064453,
+        "max_delta_healthy_functional": 6.0786590576171875,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.6910431385040283,
+        "max_delta_healthy_functional": 6.329543113708496,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 1.043222427368164,
+        "max_delta_healthy_functional": 9.806400299072266,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 1.3848867416381836,
+        "max_delta": 7.288126468658447,
+        "n_nodes": 720
+      },
+      "hop_le_2": {
+        "mean_delta": 1.3843729496002197,
+        "max_delta": 7.288126468658447,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 1.384566068649292,
+        "max_delta": 7.288126468658447,
+        "n_nodes": 740
+      },
+      "hop_le_5": {
+        "mean_delta": 1.384566068649292,
+        "max_delta": 7.288126468658447,
+        "n_nodes": 740
+      },
+      "hop_le_10": {
+        "mean_delta": 1.384566068649292,
+        "max_delta": 7.288126468658447,
+        "n_nodes": 740
+      }
+    }
+  },
+  "bias_i1.0_n10": {
+    "corruption_type": "bias",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 10,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529
+    ],
+    "overall_mean_delta": 2.5650322437286377,
+    "healthy_mean_delta": 1.5801594257354736,
+    "healthy_functional_mean_delta": 1.8448853492736816,
+    "corrupt_mean_delta": 89.52928161621094,
+    "healthy_functional_max_delta": 10.849800109863281,
+    "healthy_functional_median_delta": 1.5591628551483154,
+    "n_healthy": 883,
+    "n_healthy_functional": 735,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 2.071770191192627,
+        "max_delta_healthy_functional": 7.835014343261719,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 2.2718167304992676,
+        "max_delta_healthy_functional": 10.57167911529541,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 1.8390662670135498,
+        "max_delta_healthy_functional": 10.47119426727295,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 1.5581650733947754,
+        "max_delta_healthy_functional": 15.066035270690918,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 1.8380881547927856,
+        "max_delta": 10.849800109863281,
+        "n_nodes": 723
+      },
+      "hop_le_2": {
+        "mean_delta": 1.8448853492736816,
+        "max_delta": 10.849800109863281,
+        "n_nodes": 735
+      },
+      "hop_le_3": {
+        "mean_delta": 1.8448853492736816,
+        "max_delta": 10.849800109863281,
+        "n_nodes": 735
+      },
+      "hop_le_5": {
+        "mean_delta": 1.8448853492736816,
+        "max_delta": 10.849800109863281,
+        "n_nodes": 735
+      },
+      "hop_le_10": {
+        "mean_delta": 1.8448853492736816,
+        "max_delta": 10.849800109863281,
+        "n_nodes": 735
+      }
+    }
+  },
+  "bias_i1.0_n20": {
+    "corruption_type": "bias",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 20,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806
+    ],
+    "overall_mean_delta": 4.126182556152344,
+    "healthy_mean_delta": 1.900900959968567,
+    "healthy_functional_mean_delta": 2.18989896774292,
+    "corrupt_mean_delta": 101.25971984863281,
+    "healthy_functional_max_delta": 12.787498474121094,
+    "healthy_functional_median_delta": 1.8375037908554077,
+    "n_healthy": 873,
+    "n_healthy_functional": 725,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 2.5515336990356445,
+        "max_delta_healthy_functional": 8.56668472290039,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 2.687016010284424,
+        "max_delta_healthy_functional": 12.326714515686035,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 2.149137020111084,
+        "max_delta_healthy_functional": 12.56008243560791,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 1.842111349105835,
+        "max_delta_healthy_functional": 18.087190628051758,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 2.1821353435516357,
+        "max_delta": 12.787498474121094,
+        "n_nodes": 713
+      },
+      "hop_le_2": {
+        "mean_delta": 2.18989896774292,
+        "max_delta": 12.787498474121094,
+        "n_nodes": 725
+      },
+      "hop_le_3": {
+        "mean_delta": 2.18989896774292,
+        "max_delta": 12.787498474121094,
+        "n_nodes": 725
+      },
+      "hop_le_5": {
+        "mean_delta": 2.18989896774292,
+        "max_delta": 12.787498474121094,
+        "n_nodes": 725
+      },
+      "hop_le_10": {
+        "mean_delta": 2.18989896774292,
+        "max_delta": 12.787498474121094,
+        "n_nodes": 725
+      }
+    }
+  },
+  "bias_i1.0_n50": {
+    "corruption_type": "bias",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 50,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806,
+      111,
+      446,
+      258,
+      750,
+      309,
+      567,
+      548,
+      623,
+      714,
+      584,
+      501,
+      578,
+      510,
+      43,
+      699,
+      758,
+      844,
+      8,
+      613,
+      300,
+      212,
+      558,
+      14,
+      372,
+      648,
+      814,
+      190,
+      512,
+      817,
+      126
+    ],
+    "overall_mean_delta": 8.386190414428711,
+    "healthy_mean_delta": 2.2286314964294434,
+    "healthy_functional_mean_delta": 2.375911235809326,
+    "corrupt_mean_delta": 112.20262908935547,
+    "healthy_functional_max_delta": 9.6114501953125,
+    "healthy_functional_median_delta": 1.7018873691558838,
+    "n_healthy": 843,
+    "n_healthy_functional": 695,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 2.8772053718566895,
+        "max_delta_healthy_functional": 9.349359512329102,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 2.8103153705596924,
+        "max_delta_healthy_functional": 12.810140609741211,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 2.4428341388702393,
+        "max_delta_healthy_functional": 10.433430671691895,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 1.985953688621521,
+        "max_delta_healthy_functional": 12.333597183227539,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 2.367271900177002,
+        "max_delta": 9.6114501953125,
+        "n_nodes": 683
+      },
+      "hop_le_2": {
+        "mean_delta": 2.375911235809326,
+        "max_delta": 9.6114501953125,
+        "n_nodes": 695
+      },
+      "hop_le_3": {
+        "mean_delta": 2.375911235809326,
+        "max_delta": 9.6114501953125,
+        "n_nodes": 695
+      },
+      "hop_le_5": {
+        "mean_delta": 2.375911235809326,
+        "max_delta": 9.6114501953125,
+        "n_nodes": 695
+      },
+      "hop_le_10": {
+        "mean_delta": 2.375911235809326,
+        "max_delta": 9.6114501953125,
+        "n_nodes": 695
+      }
+    }
+  },
+  "spike_i0.5_n1": {
+    "corruption_type": "spike",
+    "intensity": 0.5,
+    "n_corrupt_nodes": 1,
+    "corrupt_nodes": [
+      796
+    ],
+    "overall_mean_delta": 3.0568935871124268,
+    "healthy_mean_delta": 3.026883363723755,
+    "healthy_functional_mean_delta": 3.5254526138305664,
+    "corrupt_mean_delta": 29.825977325439453,
+    "healthy_functional_max_delta": 5.484976768493652,
+    "healthy_functional_median_delta": 4.338740348815918,
+    "n_healthy": 892,
+    "n_healthy_functional": 744,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 3.5452499389648438,
+        "max_delta_healthy_functional": 6.283486366271973,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 3.2456953525543213,
+        "max_delta_healthy_functional": 6.3881425857543945,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 3.699968099594116,
+        "max_delta_healthy_functional": 6.184948444366455,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 3.607496500015259,
+        "max_delta_healthy_functional": 5.303234577178955,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 3.528529644012451,
+        "max_delta": 5.484976768493652,
+        "n_nodes": 721
+      },
+      "hop_le_2": {
+        "mean_delta": 3.5287516117095947,
+        "max_delta": 5.484976768493652,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 3.5254526138305664,
+        "max_delta": 5.484976768493652,
+        "n_nodes": 744
+      },
+      "hop_le_5": {
+        "mean_delta": 3.5254526138305664,
+        "max_delta": 5.484976768493652,
+        "n_nodes": 744
+      },
+      "hop_le_10": {
+        "mean_delta": 3.5254526138305664,
+        "max_delta": 5.484976768493652,
+        "n_nodes": 744
+      }
+    }
+  },
+  "spike_i0.5_n5": {
+    "corruption_type": "spike",
+    "intensity": 0.5,
+    "n_corrupt_nodes": 5,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280
+    ],
+    "overall_mean_delta": 4.076662063598633,
+    "healthy_mean_delta": 4.02785062789917,
+    "healthy_functional_mean_delta": 4.726439952850342,
+    "corrupt_mean_delta": 12.745538711547852,
+    "healthy_functional_max_delta": 7.495535373687744,
+    "healthy_functional_median_delta": 5.7955451011657715,
+    "n_healthy": 888,
+    "n_healthy_functional": 740,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 4.271745204925537,
+        "max_delta_healthy_functional": 8.304716110229492,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 3.943237066268921,
+        "max_delta_healthy_functional": 8.268231391906738,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 5.710472106933594,
+        "max_delta_healthy_functional": 9.879884719848633,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 4.915911674499512,
+        "max_delta_healthy_functional": 7.2430853843688965,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 4.727843284606934,
+        "max_delta": 7.495535373687744,
+        "n_nodes": 720
+      },
+      "hop_le_2": {
+        "mean_delta": 4.722369194030762,
+        "max_delta": 7.495535373687744,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 4.726439952850342,
+        "max_delta": 7.495535373687744,
+        "n_nodes": 740
+      },
+      "hop_le_5": {
+        "mean_delta": 4.726439952850342,
+        "max_delta": 7.495535373687744,
+        "n_nodes": 740
+      },
+      "hop_le_10": {
+        "mean_delta": 4.726439952850342,
+        "max_delta": 7.495535373687744,
+        "n_nodes": 740
+      }
+    }
+  },
+  "spike_i0.5_n10": {
+    "corruption_type": "spike",
+    "intensity": 0.5,
+    "n_corrupt_nodes": 10,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529
+    ],
+    "overall_mean_delta": 6.002061367034912,
+    "healthy_mean_delta": 5.9223952293396,
+    "healthy_functional_mean_delta": 6.9675726890563965,
+    "corrupt_mean_delta": 13.03657341003418,
+    "healthy_functional_max_delta": 10.67717456817627,
+    "healthy_functional_median_delta": 8.628046989440918,
+    "n_healthy": 883,
+    "n_healthy_functional": 735,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 6.245213508605957,
+        "max_delta_healthy_functional": 11.624096870422363,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 5.243600368499756,
+        "max_delta_healthy_functional": 10.698101997375488,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 7.190087795257568,
+        "max_delta_healthy_functional": 12.248946189880371,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 8.002667427062988,
+        "max_delta_healthy_functional": 11.776470184326172,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 6.960053443908691,
+        "max_delta": 10.67717456817627,
+        "n_nodes": 723
+      },
+      "hop_le_2": {
+        "mean_delta": 6.9675726890563965,
+        "max_delta": 10.67717456817627,
+        "n_nodes": 735
+      },
+      "hop_le_3": {
+        "mean_delta": 6.9675726890563965,
+        "max_delta": 10.67717456817627,
+        "n_nodes": 735
+      },
+      "hop_le_5": {
+        "mean_delta": 6.9675726890563965,
+        "max_delta": 10.67717456817627,
+        "n_nodes": 735
+      },
+      "hop_le_10": {
+        "mean_delta": 6.9675726890563965,
+        "max_delta": 10.67717456817627,
+        "n_nodes": 735
+      }
+    }
+  },
+  "spike_i0.5_n20": {
+    "corruption_type": "spike",
+    "intensity": 0.5,
+    "n_corrupt_nodes": 20,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806
+    ],
+    "overall_mean_delta": 10.423974990844727,
+    "healthy_mean_delta": 10.241448402404785,
+    "healthy_functional_mean_delta": 12.105412483215332,
+    "corrupt_mean_delta": 18.39124298095703,
+    "healthy_functional_max_delta": 17.705074310302734,
+    "healthy_functional_median_delta": 15.068699836730957,
+    "n_healthy": 873,
+    "n_healthy_functional": 725,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 9.599922180175781,
+        "max_delta_healthy_functional": 17.62788963317871,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 6.390185832977295,
+        "max_delta_healthy_functional": 12.884883880615234,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 9.577524185180664,
+        "max_delta_healthy_functional": 15.819341659545898,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 16.729984283447266,
+        "max_delta_healthy_functional": 24.091228485107422,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 12.089884757995605,
+        "max_delta": 17.705074310302734,
+        "n_nodes": 713
+      },
+      "hop_le_2": {
+        "mean_delta": 12.105412483215332,
+        "max_delta": 17.705074310302734,
+        "n_nodes": 725
+      },
+      "hop_le_3": {
+        "mean_delta": 12.105412483215332,
+        "max_delta": 17.705074310302734,
+        "n_nodes": 725
+      },
+      "hop_le_5": {
+        "mean_delta": 12.105412483215332,
+        "max_delta": 17.705074310302734,
+        "n_nodes": 725
+      },
+      "hop_le_10": {
+        "mean_delta": 12.105412483215332,
+        "max_delta": 17.705074310302734,
+        "n_nodes": 725
+      }
+    }
+  },
+  "spike_i0.5_n50": {
+    "corruption_type": "spike",
+    "intensity": 0.5,
+    "n_corrupt_nodes": 50,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806,
+      111,
+      446,
+      258,
+      750,
+      309,
+      567,
+      548,
+      623,
+      714,
+      584,
+      501,
+      578,
+      510,
+      43,
+      699,
+      758,
+      844,
+      8,
+      613,
+      300,
+      212,
+      558,
+      14,
+      372,
+      648,
+      814,
+      190,
+      512,
+      817,
+      126
+    ],
+    "overall_mean_delta": 12.02108097076416,
+    "healthy_mean_delta": 11.436991691589355,
+    "healthy_functional_mean_delta": 13.620850563049316,
+    "corrupt_mean_delta": 21.86883544921875,
+    "healthy_functional_max_delta": 19.995737075805664,
+    "healthy_functional_median_delta": 17.164779663085938,
+    "n_healthy": 843,
+    "n_healthy_functional": 695,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 9.816314697265625,
+        "max_delta_healthy_functional": 18.103378295898438,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 6.576263427734375,
+        "max_delta_healthy_functional": 13.408955574035645,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 9.375850677490234,
+        "max_delta_healthy_functional": 15.767755508422852,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 19.9147891998291,
+        "max_delta_healthy_functional": 28.738569259643555,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 13.599958419799805,
+        "max_delta": 19.995737075805664,
+        "n_nodes": 683
+      },
+      "hop_le_2": {
+        "mean_delta": 13.620850563049316,
+        "max_delta": 19.995737075805664,
+        "n_nodes": 695
+      },
+      "hop_le_3": {
+        "mean_delta": 13.620850563049316,
+        "max_delta": 19.995737075805664,
+        "n_nodes": 695
+      },
+      "hop_le_5": {
+        "mean_delta": 13.620850563049316,
+        "max_delta": 19.995737075805664,
+        "n_nodes": 695
+      },
+      "hop_le_10": {
+        "mean_delta": 13.620850563049316,
+        "max_delta": 19.995737075805664,
+        "n_nodes": 695
+      }
+    }
+  },
+  "spike_i1.0_n1": {
+    "corruption_type": "spike",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 1,
+    "corrupt_nodes": [
+      796
+    ],
+    "overall_mean_delta": 5.311325550079346,
+    "healthy_mean_delta": 5.251164436340332,
+    "healthy_functional_mean_delta": 6.07341194152832,
+    "corrupt_mean_delta": 58.97554397583008,
+    "healthy_functional_max_delta": 9.9916353225708,
+    "healthy_functional_median_delta": 7.24918270111084,
+    "n_healthy": 892,
+    "n_healthy_functional": 744,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 5.736720085144043,
+        "max_delta_healthy_functional": 11.219499588012695,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 5.036874771118164,
+        "max_delta_healthy_functional": 11.223001480102539,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 6.058110237121582,
+        "max_delta_healthy_functional": 10.234533309936523,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 6.7227935791015625,
+        "max_delta_healthy_functional": 9.814326286315918,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 6.080150127410889,
+        "max_delta": 9.9916353225708,
+        "n_nodes": 721
+      },
+      "hop_le_2": {
+        "mean_delta": 6.0792059898376465,
+        "max_delta": 9.9916353225708,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 6.07341194152832,
+        "max_delta": 9.9916353225708,
+        "n_nodes": 744
+      },
+      "hop_le_5": {
+        "mean_delta": 6.07341194152832,
+        "max_delta": 9.9916353225708,
+        "n_nodes": 744
+      },
+      "hop_le_10": {
+        "mean_delta": 6.07341194152832,
+        "max_delta": 9.9916353225708,
+        "n_nodes": 744
+      }
+    }
+  },
+  "spike_i1.0_n5": {
+    "corruption_type": "spike",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 5,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280
+    ],
+    "overall_mean_delta": 14.595256805419922,
+    "healthy_mean_delta": 14.491241455078125,
+    "healthy_functional_mean_delta": 17.059207916259766,
+    "corrupt_mean_delta": 33.0685920715332,
+    "healthy_functional_max_delta": 30.518369674682617,
+    "healthy_functional_median_delta": 20.436059951782227,
+    "n_healthy": 888,
+    "n_healthy_functional": 740,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 15.024858474731445,
+        "max_delta_healthy_functional": 33.81373596191406,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 12.515463829040527,
+        "max_delta_healthy_functional": 31.33003044128418,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 19.82472038269043,
+        "max_delta_healthy_functional": 38.86791229248047,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 19.045825958251953,
+        "max_delta_healthy_functional": 28.78469467163086,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 17.06125259399414,
+        "max_delta": 30.518369674682617,
+        "n_nodes": 720
+      },
+      "hop_le_2": {
+        "mean_delta": 17.0425968170166,
+        "max_delta": 30.518369674682617,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 17.059207916259766,
+        "max_delta": 30.518369674682617,
+        "n_nodes": 740
+      },
+      "hop_le_5": {
+        "mean_delta": 17.059207916259766,
+        "max_delta": 30.518369674682617,
+        "n_nodes": 740
+      },
+      "hop_le_10": {
+        "mean_delta": 17.059207916259766,
+        "max_delta": 30.518369674682617,
+        "n_nodes": 740
+      }
+    }
+  },
+  "spike_i1.0_n10": {
+    "corruption_type": "spike",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 10,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529
+    ],
+    "overall_mean_delta": 20.829809188842773,
+    "healthy_mean_delta": 20.66834831237793,
+    "healthy_functional_mean_delta": 24.35028648376465,
+    "corrupt_mean_delta": 35.0865592956543,
+    "healthy_functional_max_delta": 42.79651641845703,
+    "healthy_functional_median_delta": 29.241100311279297,
+    "n_healthy": 883,
+    "n_healthy_functional": 735,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 19.114986419677734,
+        "max_delta_healthy_functional": 42.95833969116211,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 17.179443359375,
+        "max_delta_healthy_functional": 43.19017791748047,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 26.36833381652832,
+        "max_delta_healthy_functional": 51.645870208740234,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 28.862571716308594,
+        "max_delta_healthy_functional": 42.85018539428711,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 24.331090927124023,
+        "max_delta": 42.79651641845703,
+        "n_nodes": 723
+      },
+      "hop_le_2": {
+        "mean_delta": 24.35028648376465,
+        "max_delta": 42.79651641845703,
+        "n_nodes": 735
+      },
+      "hop_le_3": {
+        "mean_delta": 24.35028648376465,
+        "max_delta": 42.79651641845703,
+        "n_nodes": 735
+      },
+      "hop_le_5": {
+        "mean_delta": 24.35028648376465,
+        "max_delta": 42.79651641845703,
+        "n_nodes": 735
+      },
+      "hop_le_10": {
+        "mean_delta": 24.35028648376465,
+        "max_delta": 42.79651641845703,
+        "n_nodes": 735
+      }
+    }
+  },
+  "spike_i1.0_n20": {
+    "corruption_type": "spike",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 20,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806
+    ],
+    "overall_mean_delta": 30.752031326293945,
+    "healthy_mean_delta": 30.22481346130371,
+    "healthy_functional_mean_delta": 35.491092681884766,
+    "corrupt_mean_delta": 53.76508331298828,
+    "healthy_functional_max_delta": 60.055213928222656,
+    "healthy_functional_median_delta": 42.52857971191406,
+    "n_healthy": 873,
+    "n_healthy_functional": 725,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 27.00678253173828,
+        "max_delta_healthy_functional": 59.33024597167969,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 21.9920654296875,
+        "max_delta_healthy_functional": 54.285186767578125,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 31.642858505249023,
+        "max_delta_healthy_functional": 60.67539596557617,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 46.34364318847656,
+        "max_delta_healthy_functional": 66.97927856445312,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 35.45679473876953,
+        "max_delta": 60.055213928222656,
+        "n_nodes": 713
+      },
+      "hop_le_2": {
+        "mean_delta": 35.491092681884766,
+        "max_delta": 60.055213928222656,
+        "n_nodes": 725
+      },
+      "hop_le_3": {
+        "mean_delta": 35.491092681884766,
+        "max_delta": 60.055213928222656,
+        "n_nodes": 725
+      },
+      "hop_le_5": {
+        "mean_delta": 35.491092681884766,
+        "max_delta": 60.055213928222656,
+        "n_nodes": 725
+      },
+      "hop_le_10": {
+        "mean_delta": 35.491092681884766,
+        "max_delta": 60.055213928222656,
+        "n_nodes": 725
+      }
+    }
+  },
+  "spike_i1.0_n50": {
+    "corruption_type": "spike",
+    "intensity": 1.0,
+    "n_corrupt_nodes": 50,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806,
+      111,
+      446,
+      258,
+      750,
+      309,
+      567,
+      548,
+      623,
+      714,
+      584,
+      501,
+      578,
+      510,
+      43,
+      699,
+      758,
+      844,
+      8,
+      613,
+      300,
+      212,
+      558,
+      14,
+      372,
+      648,
+      814,
+      190,
+      512,
+      817,
+      126
+    ],
+    "overall_mean_delta": 34.1413688659668,
+    "healthy_mean_delta": 32.6221809387207,
+    "healthy_functional_mean_delta": 38.47932052612305,
+    "corrupt_mean_delta": 59.754825592041016,
+    "healthy_functional_max_delta": 65.31038665771484,
+    "healthy_functional_median_delta": 46.27566146850586,
+    "n_healthy": 843,
+    "n_healthy_functional": 695,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 28.704654693603516,
+        "max_delta_healthy_functional": 63.16494369506836,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 22.40913200378418,
+        "max_delta_healthy_functional": 55.52398681640625,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 32.472293853759766,
+        "max_delta_healthy_functional": 62.502689361572266,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 51.819942474365234,
+        "max_delta_healthy_functional": 76.3471450805664,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 38.435150146484375,
+        "max_delta": 65.31038665771484,
+        "n_nodes": 683
+      },
+      "hop_le_2": {
+        "mean_delta": 38.47932052612305,
+        "max_delta": 65.31038665771484,
+        "n_nodes": 695
+      },
+      "hop_le_3": {
+        "mean_delta": 38.47932052612305,
+        "max_delta": 65.31038665771484,
+        "n_nodes": 695
+      },
+      "hop_le_5": {
+        "mean_delta": 38.47932052612305,
+        "max_delta": 65.31038665771484,
+        "n_nodes": 695
+      },
+      "hop_le_10": {
+        "mean_delta": 38.47932052612305,
+        "max_delta": 65.31038665771484,
+        "n_nodes": 695
+      }
+    }
+  },
+  "spike_i2.0_n1": {
+    "corruption_type": "spike",
+    "intensity": 2.0,
+    "n_corrupt_nodes": 1,
+    "corrupt_nodes": [
+      796
+    ],
+    "overall_mean_delta": 7.310263633728027,
+    "healthy_mean_delta": 7.187239646911621,
+    "healthy_functional_mean_delta": 8.225115776062012,
+    "corrupt_mean_delta": 117.04749298095703,
+    "healthy_functional_max_delta": 14.665276527404785,
+    "healthy_functional_median_delta": 9.339502334594727,
+    "n_healthy": 892,
+    "n_healthy_functional": 744,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 7.364253044128418,
+        "max_delta_healthy_functional": 15.536261558532715,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 6.361223220825195,
+        "max_delta_healthy_functional": 15.709413528442383,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 8.021535873413086,
+        "max_delta_healthy_functional": 15.08230972290039,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 9.523813247680664,
+        "max_delta_healthy_functional": 14.574953079223633,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 8.235490798950195,
+        "max_delta": 14.665276527404785,
+        "n_nodes": 721
+      },
+      "hop_le_2": {
+        "mean_delta": 8.232712745666504,
+        "max_delta": 14.665276527404785,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 8.225115776062012,
+        "max_delta": 14.665276527404785,
+        "n_nodes": 744
+      },
+      "hop_le_5": {
+        "mean_delta": 8.225115776062012,
+        "max_delta": 14.665276527404785,
+        "n_nodes": 744
+      },
+      "hop_le_10": {
+        "mean_delta": 8.225115776062012,
+        "max_delta": 14.665276527404785,
+        "n_nodes": 744
+      }
+    }
+  },
+  "spike_i2.0_n5": {
+    "corruption_type": "spike",
+    "intensity": 2.0,
+    "n_corrupt_nodes": 5,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280
+    ],
+    "overall_mean_delta": 25.386037826538086,
+    "healthy_mean_delta": 24.975200653076172,
+    "healthy_functional_mean_delta": 29.056766510009766,
+    "corrupt_mean_delta": 98.3509292602539,
+    "healthy_functional_max_delta": 55.73820495605469,
+    "healthy_functional_median_delta": 32.66340637207031,
+    "n_healthy": 888,
+    "n_healthy_functional": 740,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 25.10508918762207,
+        "max_delta_healthy_functional": 60.342376708984375,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 22.187416076660156,
+        "max_delta_healthy_functional": 59.28361129760742,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 29.623594284057617,
+        "max_delta_healthy_functional": 63.02408981323242,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 33.58197021484375,
+        "max_delta_healthy_functional": 51.37320327758789,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 29.058658599853516,
+        "max_delta": 55.73820495605469,
+        "n_nodes": 720
+      },
+      "hop_le_2": {
+        "mean_delta": 29.030258178710938,
+        "max_delta": 55.73820495605469,
+        "n_nodes": 738
+      },
+      "hop_le_3": {
+        "mean_delta": 29.056766510009766,
+        "max_delta": 55.73820495605469,
+        "n_nodes": 740
+      },
+      "hop_le_5": {
+        "mean_delta": 29.056766510009766,
+        "max_delta": 55.73820495605469,
+        "n_nodes": 740
+      },
+      "hop_le_10": {
+        "mean_delta": 29.056766510009766,
+        "max_delta": 55.73820495605469,
+        "n_nodes": 740
+      }
+    }
+  },
+  "spike_i2.0_n10": {
+    "corruption_type": "spike",
+    "intensity": 2.0,
+    "n_corrupt_nodes": 10,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529
+    ],
+    "overall_mean_delta": 36.545127868652344,
+    "healthy_mean_delta": 35.779903411865234,
+    "healthy_functional_mean_delta": 41.62870407104492,
+    "corrupt_mean_delta": 104.1142578125,
+    "healthy_functional_max_delta": 79.92033386230469,
+    "healthy_functional_median_delta": 46.56071090698242,
+    "n_healthy": 883,
+    "n_healthy_functional": 735,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 34.677734375,
+        "max_delta_healthy_functional": 85.37329864501953,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 30.63291358947754,
+        "max_delta_healthy_functional": 83.375,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 39.31731033325195,
+        "max_delta_healthy_functional": 85.11589813232422,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 50.1861572265625,
+        "max_delta_healthy_functional": 76.38095092773438,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 41.6069450378418,
+        "max_delta": 79.92033386230469,
+        "n_nodes": 723
+      },
+      "hop_le_2": {
+        "mean_delta": 41.62870407104492,
+        "max_delta": 79.92033386230469,
+        "n_nodes": 735
+      },
+      "hop_le_3": {
+        "mean_delta": 41.62870407104492,
+        "max_delta": 79.92033386230469,
+        "n_nodes": 735
+      },
+      "hop_le_5": {
+        "mean_delta": 41.62870407104492,
+        "max_delta": 79.92033386230469,
+        "n_nodes": 735
+      },
+      "hop_le_10": {
+        "mean_delta": 41.62870407104492,
+        "max_delta": 79.92033386230469,
+        "n_nodes": 735
+      }
+    }
+  },
+  "spike_i2.0_n20": {
+    "corruption_type": "spike",
+    "intensity": 2.0,
+    "n_corrupt_nodes": 20,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806
+    ],
+    "overall_mean_delta": 48.09805679321289,
+    "healthy_mean_delta": 46.33742904663086,
+    "healthy_functional_mean_delta": 53.51673889160156,
+    "corrupt_mean_delta": 124.9496841430664,
+    "healthy_functional_max_delta": 101.87726593017578,
+    "healthy_functional_median_delta": 59.24726104736328,
+    "n_healthy": 873,
+    "n_healthy_functional": 725,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 42.67696762084961,
+        "max_delta_healthy_functional": 105.89863586425781,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 36.91904830932617,
+        "max_delta_healthy_functional": 101.27015686035156,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 46.065879821777344,
+        "max_delta_healthy_functional": 99.6924057006836,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 67.93831634521484,
+        "max_delta_healthy_functional": 103.58808898925781,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 53.48234939575195,
+        "max_delta": 101.87726593017578,
+        "n_nodes": 713
+      },
+      "hop_le_2": {
+        "mean_delta": 53.51673889160156,
+        "max_delta": 101.87726593017578,
+        "n_nodes": 725
+      },
+      "hop_le_3": {
+        "mean_delta": 53.51673889160156,
+        "max_delta": 101.87726593017578,
+        "n_nodes": 725
+      },
+      "hop_le_5": {
+        "mean_delta": 53.51673889160156,
+        "max_delta": 101.87726593017578,
+        "n_nodes": 725
+      },
+      "hop_le_10": {
+        "mean_delta": 53.51673889160156,
+        "max_delta": 101.87726593017578,
+        "n_nodes": 725
+      }
+    }
+  },
+  "spike_i2.0_n50": {
+    "corruption_type": "spike",
+    "intensity": 2.0,
+    "n_corrupt_nodes": 50,
+    "corrupt_nodes": [
+      796,
+      560,
+      474,
+      201,
+      280,
+      883,
+      306,
+      824,
+      286,
+      529,
+      259,
+      145,
+      272,
+      585,
+      614,
+      601,
+      708,
+      858,
+      611,
+      806,
+      111,
+      446,
+      258,
+      750,
+      309,
+      567,
+      548,
+      623,
+      714,
+      584,
+      501,
+      578,
+      510,
+      43,
+      699,
+      758,
+      844,
+      8,
+      613,
+      300,
+      212,
+      558,
+      14,
+      372,
+      648,
+      814,
+      190,
+      512,
+      817,
+      126
+    ],
+    "overall_mean_delta": 53.440345764160156,
+    "healthy_mean_delta": 49.894954681396484,
+    "healthy_functional_mean_delta": 57.635250091552734,
+    "corrupt_mean_delta": 113.21570587158203,
+    "healthy_functional_max_delta": 110.67276000976562,
+    "healthy_functional_median_delta": 63.81156539916992,
+    "n_healthy": 843,
+    "n_healthy_functional": 695,
+    "time_periods": {
+      "morning_peak": {
+        "mean_delta_healthy_functional": 45.29979705810547,
+        "max_delta_healthy_functional": 113.54175567626953,
+        "n_samples": 648
+      },
+      "midday": {
+        "mean_delta_healthy_functional": 39.366668701171875,
+        "max_delta_healthy_functional": 109.09750366210938,
+        "n_samples": 1296
+      },
+      "evening_peak": {
+        "mean_delta_healthy_functional": 47.27983856201172,
+        "max_delta_healthy_functional": 103.85173034667969,
+        "n_samples": 864
+      },
+      "night": {
+        "mean_delta_healthy_functional": 74.38434600830078,
+        "max_delta_healthy_functional": 114.84346771240234,
+        "n_samples": 2425
+      }
+    },
+    "distance_analysis": {
+      "hop_le_1": {
+        "mean_delta": 57.59251403808594,
+        "max_delta": 110.67276000976562,
+        "n_nodes": 683
+      },
+      "hop_le_2": {
+        "mean_delta": 57.635250091552734,
+        "max_delta": 110.67276000976562,
+        "n_nodes": 695
+      },
+      "hop_le_3": {
+        "mean_delta": 57.635250091552734,
+        "max_delta": 110.67276000976562,
+        "n_nodes": 695
+      },
+      "hop_le_5": {
+        "mean_delta": 57.635250091552734,
+        "max_delta": 110.67276000976562,
+        "n_nodes": 695
+      },
+      "hop_le_10": {
+        "mean_delta": 57.635250091552734,
+        "max_delta": 110.67276000976562,
+        "n_nodes": 695
+      }
+    }
+  }
+}

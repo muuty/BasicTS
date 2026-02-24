@@ -133,6 +133,9 @@ class STAEformer(nn.Module):
         num_layers=3,
         dropout=0.1,
         use_mixed_proj=True,
+        tod_index=-2,
+        dow_index=-1,
+        node_mask_ratio=0.0,
     ):
         super().__init__()
 
@@ -147,6 +150,9 @@ class STAEformer(nn.Module):
         self.dow_embedding_dim = dow_embedding_dim
         self.spatial_embedding_dim = spatial_embedding_dim
         self.adaptive_embedding_dim = adaptive_embedding_dim
+        self.tod_index = tod_index
+        self.dow_index = dow_index
+        self.node_mask_ratio = node_mask_ratio
         self.model_dim = (
             input_embedding_dim
             + tod_embedding_dim
@@ -201,9 +207,9 @@ class STAEformer(nn.Module):
         batch_size = x.shape[0]
 
         if self.tod_embedding_dim > 0:
-            tod = x[..., 1] * self.steps_per_day
+            tod = x[..., self.tod_index] * self.steps_per_day
         if self.dow_embedding_dim > 0:
-            dow = x[..., 2] * 7
+            dow = x[..., self.dow_index] * 7
         x = x[..., : self.input_dim]
 
         x = self.input_proj(x)  # (batch_size, in_steps, num_nodes, input_embedding_dim)
@@ -227,6 +233,15 @@ class STAEformer(nn.Module):
             adp_emb = self.adaptive_embedding.expand(
                 size=(batch_size, *self.adaptive_embedding.shape)
             )
+            # Masked Node Pre-training: randomly replace some nodes' embedding with mean
+            if self.training and self.node_mask_ratio > 0:
+                node_mask = torch.rand(self.num_nodes, device=adp_emb.device) < self.node_mask_ratio
+                if node_mask.any():
+                    mean_emb = self.adaptive_embedding.mean(dim=1, keepdim=True)  # (T, 1, D)
+                    adp_emb = adp_emb.clone()
+                    adp_emb[:, :, node_mask, :] = mean_emb.unsqueeze(0).expand(
+                        batch_size, -1, node_mask.sum(), -1
+                    )
             features.append(adp_emb)
         x = torch.cat(features, dim=-1)  # (batch_size, in_steps, num_nodes, model_dim)
 
@@ -254,4 +269,4 @@ class STAEformer(nn.Module):
                 out.transpose(1, 3)
             )  # (batch_size, out_steps, num_nodes, output_dim)
 
-        return out
+        return {'prediction': out}

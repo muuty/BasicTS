@@ -8,6 +8,8 @@ from .mse import masked_mse
 from .r_square import masked_r2
 from .rmse import masked_rmse
 from .smape import masked_smape
+from .unmasked import unmasked_mae, unmasked_rmse, unmasked_mse
+from .mask_aware import mask_aware_mae, mask_aware_mape, mask_aware_rmse
 from .wape import masked_wape
 
 ALL_METRICS = {
@@ -40,6 +42,9 @@ __all__ = [
     'masked_corr',
     'masked_huber',
     'accuracy',
+    'unmasked_mae',
+    'unmasked_rmse',
+    'unmasked_mse',
     'ALL_METRICS',
     'METRIC_METER'
 ]

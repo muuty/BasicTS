@@ -3,7 +3,7 @@ import os
 import time
 from abc import ABCMeta, abstractmethod
 from typing import Dict, Optional, Tuple, Union
-
+import json
 import setproctitle
 import torch
 from easytorch.config import get_ckpt_save_dir
@@ -118,6 +118,7 @@ class BaseEpochRunner(metaclass=ABCMeta):
         #           allowing them to continue training seamlessly after an interruption.
         self.early_stopping_patience = cfg.get('TRAIN', {}).get('EARLY_STOPPING_PATIENCE', None)
         self.current_patience = self.early_stopping_patience
+        self.early_stopping_completed = False  # Flag to track if early stopping was already completed
         assert self.early_stopping_patience is None or self.early_stopping_patience > 0, 'Early stopping patience must be a positive integer.'
 
         # set process title
@@ -135,6 +136,7 @@ class BaseEpochRunner(metaclass=ABCMeta):
             nn.Module: The model architecture.
         """
 
+        print(cfg['MODEL']['PARAM'])
         return cfg['MODEL']['ARCH'](**cfg['MODEL']['PARAM'])
 
     def build_model(self, cfg: Dict) -> nn.Module:
@@ -362,6 +364,50 @@ class BaseEpochRunner(metaclass=ABCMeta):
         if hasattr(cfg, 'TEST'):
             self.init_test(cfg)
 
+        if cfg.has('NOISE') and cfg['NOISE'].has('NOISE_RATIO'):
+            self.add_noise(cfg)
+        
+    def add_noise(self, cfg: Dict):
+        """Add noise to the data."""
+        import json
+        
+        if cfg.has('NOISE.NOISY_CLIENTS'):
+            client_nodes_list = self.model.get_client_nodes_list()
+            noisy_client_list = cfg['NOISE.NOISY_CLIENTS']
+        elif cfg['NOISE.PRE_COMPUTED']:
+            save_path = f'datasets/{cfg.DATASET.NAME}/noise'
+            client_node_list = []
+            noisy_client_list = []
+        else:
+            raise ValueError('Noisy clients or nodes not found in config.')
+        
+        # flatten해서 1차원 리스트로 만들기
+        noisy_node_index_list = []
+        for i in noisy_client_list:
+            noisy_node_index_list.extend(client_nodes_list[i])
+        
+        noise_ratio = cfg['NOISE.NOISE_RATIO']
+        seed = cfg['NOISE.SEED']
+        target_columns = cfg.get('NOISE.TARGET_COLUMNS', None)  # None이면 전체 컬럼
+
+        save_path = f'datasets/{cfg.DATASET.NAME}/noise'
+        
+        self.train_data_loader.dataset.add_noise(noisy_node_index_list, noise_ratio, seed, target_columns, save_path)
+        self.val_data_loader.dataset.add_noise(noisy_node_index_list, noise_ratio, seed, target_columns, save_path)
+        self.test_data_loader.dataset.add_noise(noisy_node_index_list, noise_ratio, seed, target_columns, save_path)
+        
+        # 설정 저장
+        with open(os.path.join(self.ckpt_save_dir, 'noise_config.json'), 'w') as f:
+            json.dump({
+                'noisy_clients': noisy_client_list,
+                'noisy_nodes': noisy_node_index_list,
+                'noise_ratio': noise_ratio,
+                'seed': seed,
+                'target_columns': target_columns,
+            }, f, indent=2)
+        # 프로그램 종료
+        exit(0)
+
     @master_only
     def init_validation(self, cfg: Dict):
         """Initialize validation
@@ -435,6 +481,12 @@ class BaseEpochRunner(metaclass=ABCMeta):
         """
 
         self.init_training(cfg)
+
+        # Skip training if early stopping was already completed
+        if self.early_stopping_completed:
+            self.logger.info('Training skipped: early stopping was already completed.')
+            self.on_training_end(cfg)
+            return
 
         # train time predictor
         train_time_predictor = TimePredictor(self.start_epoch, self.num_epochs)
@@ -854,8 +906,15 @@ class BaseEpochRunner(metaclass=ABCMeta):
                 self.best_metrics = checkpoint_dict['best_metrics']
             if self.scheduler is not None:
                 self.scheduler.last_epoch = checkpoint_dict['epoch']
-            self.logger.info('Resume training')
+            # Check if early stopping was already completed
+            if checkpoint_dict.get('early_stopping_completed', False):
+                self.early_stopping_completed = True
+                self.logger.info('Early stopping was already completed. Skipping training.')
+            else:
+                self.early_stopping_completed = False
+                self.logger.info('Resume training')
         except (IndexError, OSError, KeyError):
+            self.early_stopping_completed = False
             pass
 
     def backward(self, loss: torch.Tensor):
@@ -987,8 +1046,30 @@ class BaseEpochRunner(metaclass=ABCMeta):
         """Check if early stopping criteria are met."""
         if self.early_stopping_patience is not None and self.current_patience <= 0:
             self.logger.info('Early stopping.')
+            # Save early stopping completion flag to best checkpoints
+            self._save_early_stopping_flag()
             return True
         return False
+    
+    @master_only
+    def _save_early_stopping_flag(self):
+        """Save early stopping completion flag to all best checkpoints."""
+        import glob
+        if not os.path.exists(self.ckpt_save_dir):
+            return
+        
+        # Find all best checkpoint files
+        best_ckpt_pattern = os.path.join(self.ckpt_save_dir, f'{self.model_name}_best_*.pt')
+        best_ckpt_files = glob.glob(best_ckpt_pattern)
+        
+        for ckpt_path in best_ckpt_files:
+            try:
+                checkpoint_dict = load_ckpt(ckpt_path=ckpt_path, logger=self.logger)
+                checkpoint_dict['early_stopping_completed'] = True
+                save_ckpt(checkpoint_dict, ckpt_path, self.logger)
+                self.logger.info(f'Saved early stopping flag to {os.path.basename(ckpt_path)}')
+            except Exception as e:
+                self.logger.warning(f'Failed to save early stopping flag to {ckpt_path}: {e}')
 
     # endregion Misc Functions
 
