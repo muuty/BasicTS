@@ -33,9 +33,9 @@ os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from experiments.train import prepare_and_launch
 from experiments.discord_notifier import DiscordNotifier
 
-# Discord Configuration - Update these constants with your Discord bot credentials
-DISCORD_BOT_TOKEN = "REDACTED_TOKEN"
-DISCORD_CHANNEL_ID = "REDACTED_CHANNEL_ID"
+# Discord Configuration - Set via environment variables (e.g. in .bashrc)
+DISCORD_BOT_TOKEN = os.environ.get("DISCORD_BOT_TOKEN", "")
+DISCORD_CHANNEL_ID = os.environ.get("DISCORD_CHANNEL_ID", "")
 
 def generate_config(
     original_path: str,
@@ -226,14 +226,14 @@ def main():
     # Initialize Discord notifier if enabled
     notifier = None
     if not args.no_discord:
-        if DISCORD_BOT_TOKEN != "YOUR_BOT_TOKEN_HERE" and DISCORD_CHANNEL_ID != "YOUR_CHANNEL_ID_HERE":
+        if DISCORD_BOT_TOKEN and DISCORD_CHANNEL_ID:
             try:
                 notifier = DiscordNotifier(DISCORD_BOT_TOKEN, DISCORD_CHANNEL_ID)
                 print("Discord notifications enabled")
             except Exception as e:
                 print(f"Warning: Failed to initialize Discord notifier: {e}")
         else:
-            print("Warning: Discord credentials not configured. Update DISCORD_BOT_TOKEN and DISCORD_CHANNEL_ID constants in this file.")
+            print("Warning: Discord credentials not set. Export DISCORD_BOT_TOKEN and DISCORD_CHANNEL_ID in your environment.")
 
     # 2. Flatten all (config_path, run_num) pairs
     all_configs = [(cfg_path, run_num)

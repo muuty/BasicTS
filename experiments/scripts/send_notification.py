@@ -8,15 +8,16 @@ Usage:
 """
 
 import argparse
+import os
 import subprocess
 import time
 from typing import Dict, List, Optional, Tuple
 import requests
 
 
-# Discord Configuration - Same as run_experiments.py
-DISCORD_BOT_TOKEN = "REDACTED_TOKEN"
-DISCORD_CHANNEL_ID = "REDACTED_CHANNEL_ID"
+# Discord Configuration - Set via environment variables (e.g. in .bashrc)
+DISCORD_BOT_TOKEN = os.environ.get("DISCORD_BOT_TOKEN", "")
+DISCORD_CHANNEL_ID = os.environ.get("DISCORD_CHANNEL_ID", "")
 
 
 def get_job_final_status(job_id: str) -> Tuple[Optional[str], Optional[str]]:
