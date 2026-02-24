@@ -2,30 +2,29 @@
 
 ## Active Tasks
 
-_현재 진행 중인 작업을 여기에 기록한다._
-
-<!-- 형식:
-### [Task Name]
-- **상태**: 진행중 / 대기 / 완료
-- **설명**: 무엇을 하는지
-- **관련 파일**: 수정/생성할 파일
-- **메모**: 진행 중 발견한 것들
--->
-
----
-
-## Completed Tasks
-
-### Phase A: Distance Screening
-- **상태**: 진행중 (학습 결과 수집 중)
+### Phase A: Distance Screening (Training)
+- **상태**: 진행중 (학습 실행 중)
 - **설명**: Coreset selection에 최적인 distance function 찾기
 - **Config**: `experiments/config/phase_a_distance_screening.yaml`
 - **체크리스트**: `docs/phase_a_experiment_checklist.md`
 - **결과**: `experiments/result/phase_a_distance_screening.csv`
+- **진행률**: 87/220 runs 완료 (~40%)
+- **SLURM**: 4 running (1.5h~7h), 30 pending (QOSMaxJobsPerUserLimit)
+- **추가 대기**: fl_selection job 1개 (facility location 관련)
 - **메모**:
-  - Selection index 생성: 88/110 완료 (cosine pipeline 일부 미완)
-  - Training: 220 runs 예정
   - 초기 결과: K-Center + combined @ 0.7이 안정적
+  - 대기열 병목으로 한번에 4개씩 실행됨
+- **마지막 확인**: 2026-02-24
+
+### 코드 정리 (Git Commits)
+- **상태**: 완료
+- **설명**: ~220개 파일을 7개 논리적 커밋으로 정리
+- **커밋**: `834aeae`~`aec777b` (feature/incident-aware)
+- **주요 변경**: gate 코드 제거, STGformer 추가, MTGNN fix, 문서화
+
+---
+
+## Completed Tasks
 
 ### Coreset K-Medoids 기본 실험
 - **상태**: 완료
@@ -63,8 +62,9 @@ _향후 할 작업들._
 - **현황**: 설계 완료, 초기 구현 테스트 중
 
 ### Phase A 결과 분석 및 시각화
-- **설명**: Distance screening 전체 결과 분석
+- **설명**: Distance screening 전체 결과 분석 (220 runs 완료 후)
 - **관련 파일**: `experiments/result/phase_a_distance_screening.csv`
+- **분석 항목**: distance 별 성능 비교, selection method 별 비교, ratio 효과, 모델 간 차이
 
 ### 다른 데이터셋 (ALAMEDA, SACRAMENTO) 실험 확장
 - **설명**: SAN_BERNARDINO에서 확인된 best setting을 다른 데이터셋에 적용
