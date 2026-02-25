@@ -100,6 +100,18 @@ class BaseTimeSeriesForecastingRunner(BaseEpochRunner):
         self.evaluation_horizons = [_ - 1 for _ in cfg.get('EVAL', EasyDict()).get('HORIZONS', [])]
         assert len(self.evaluation_horizons) == 0 or min(self.evaluation_horizons) >= 0, 'The horizon should start counting from 1.'
 
+        # Noise robustness evaluation
+        noise_cfg = cfg.get('EVAL', EasyDict()).get('NOISE_ROBUSTNESS', False)
+        self._noise_eval_enabled = bool(noise_cfg)
+        if self._noise_eval_enabled:
+            if isinstance(noise_cfg, dict):
+                self._noise_eval_configs = noise_cfg.get('configs', None)
+                self._noise_eval_channels = noise_cfg.get('physical_channels', [0, 1, 2])
+            else:
+                self._noise_eval_configs = None  # use defaults
+                self._noise_eval_channels = [0, 1, 2]
+            self._noise_eval_dataset = cfg['DATASET']['NAME']
+
         # For saving test results
         self._inputs_memmap = None
         self._prediction_memmap = None
@@ -484,6 +496,11 @@ class BaseTimeSeriesForecastingRunner(BaseEpochRunner):
             all_sample_mae, all_node_mae, masked_ae_sum, nonzero_count
         )
 
+        # Noise robustness evaluation (test-time noise injection)
+        if self._noise_eval_enabled:
+            clean_node_mae = np.mean(all_node_mae, axis=0)  # (num_nodes,)
+            self._noise_robustness = self._eval_noise_robustness(clean_node_mae)
+
         if save_metrics:
             self._save_test_metrics()
 
@@ -600,8 +617,100 @@ class BaseTimeSeriesForecastingRunner(BaseEpochRunner):
         if hasattr(self, '_robustness_metrics') and self._robustness_metrics:
             metrics_results['robustness'] = self._robustness_metrics
 
+        # Add noise robustness metrics
+        if hasattr(self, '_noise_robustness') and self._noise_robustness:
+            metrics_results['noise_robustness'] = self._noise_robustness
+
         with open(os.path.join(self.ckpt_save_dir, 'test_metrics.json'), 'w') as f:
             json.dump(metrics_results, f, indent=4)
+
+    @torch.no_grad()
+    def _eval_noise_robustness(self, clean_node_mae: np.ndarray) -> Dict:
+        """Evaluate model robustness under test-time noise injection.
+
+        For each noise config, injects noise into test inputs and measures
+        MAE degradation on functional, corrupted, and healthy (uncorrupted) nodes.
+
+        Args:
+            clean_node_mae: Per-node MAE from clean test, shape (num_nodes,).
+
+        Returns:
+            Dict with clean baseline, and per-config degradation metrics.
+        """
+        from .noise_eval import (DEFAULT_NOISE_CONFIGS, inject_noise,
+                                 select_corrupt_nodes, load_functional_indices, SEED)
+
+        configs = self._noise_eval_configs or DEFAULT_NOISE_CONFIGS
+        physical_channels = self._noise_eval_channels
+        num_nodes = len(clean_node_mae)
+
+        functional = load_functional_indices(self._noise_eval_dataset, num_nodes)
+        clean_func_mae = float(clean_node_mae[functional].mean())
+
+        print(f"\n  Noise robustness evaluation ({len(configs)} configs, "
+              f"{len(functional)} functional nodes, channels={physical_channels})")
+
+        # Pre-compute corrupt node sets per rate
+        corrupt_sets = {}
+        for _, rate, _, _ in configs:
+            rate_key = f"r{int(rate*100)}"
+            if rate_key not in corrupt_sets:
+                corrupt_sets[rate_key] = select_corrupt_nodes(
+                    num_nodes, rate, functional)
+
+        results = {
+            'clean_mae_functional': clean_func_mae,
+            'n_functional': int(len(functional)),
+            'physical_channels': physical_channels,
+            'configs': {},
+        }
+
+        for noise_type, rate, severity, label in configs:
+            rate_key = f"r{int(rate*100)}"
+            corrupt, healthy = corrupt_sets[rate_key]
+            rng = np.random.RandomState(SEED)
+
+            # Collect per-node MAE under noise
+            all_noisy_node_mae = []
+            for batch in self.test_data_loader:
+                data = {k: v.clone() if isinstance(v, torch.Tensor) else v
+                        for k, v in batch.items()}
+                data['inputs'] = inject_noise(
+                    data['inputs'], noise_type, corrupt,
+                    severity, physical_channels, rng)
+
+                forward_return = self.forward(
+                    data, epoch=None, iter_num=None, train=False)
+                pred = forward_return['prediction'].detach().cpu()
+                target = forward_return['target'].detach().cpu()
+                node_mae = torch.abs(pred - target).mean(dim=(1, 3))  # (B, N)
+                all_noisy_node_mae.append(node_mae)
+
+            noisy_node_mae = torch.cat(all_noisy_node_mae, dim=0).numpy().mean(axis=0)
+
+            noisy_func = float(noisy_node_mae[functional].mean())
+            healthy_clean = float(clean_node_mae[healthy].mean())
+            healthy_noisy = float(noisy_node_mae[healthy].mean())
+            corrupt_clean = float(clean_node_mae[corrupt].mean())
+            corrupt_noisy = float(noisy_node_mae[corrupt].mean())
+
+            cfg_result = {
+                'noise_type': noise_type, 'rate': rate, 'severity': severity,
+                'n_corrupt': int(len(corrupt)),
+                'functional_noisy_mae': noisy_func,
+                'functional_degradation_pct': (noisy_func - clean_func_mae) / clean_func_mae * 100,
+                'healthy_noisy_mae': healthy_noisy,
+                'healthy_degradation_pct': (healthy_noisy - healthy_clean) / max(healthy_clean, 1e-8) * 100,
+                'corrupted_noisy_mae': corrupt_noisy,
+                'corrupted_degradation_pct': (corrupt_noisy - corrupt_clean) / max(corrupt_clean, 1e-8) * 100,
+            }
+            results['configs'][label] = cfg_result
+
+            print(f"    [{label}] func_mae={noisy_func:.2f} "
+                  f"(degrad={cfg_result['functional_degradation_pct']:+.1f}%, "
+                  f"spillover={cfg_result['healthy_degradation_pct']:+.1f}%)")
+
+        return results
 
     @torch.no_grad()
     @master_only
