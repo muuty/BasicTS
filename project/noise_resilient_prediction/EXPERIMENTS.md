@@ -188,6 +188,33 @@ Testing encoder effectiveness when plugged into clean-trained downstream models.
 
 ---
 
-*Evaluation: `experiments/eval_noise_vulnerability.py`*
-*Results: `experiments/noise_vulnerability_results/results.json`*
+## Cross-Dataset Generalization: CONTRA_COSTA
+
+Same approach evaluated on a second dataset to test generalizability.
+
+**Dataset**: CONTRA_COSTA — 773 nodes, 634 functional (104 dead, 35 major fail).
+
+| Model | Clean MAE | Gaussian | Bias | Stuck | Drift | Dead | Avg Deg (excl. dead) |
+|---|---|---|---|---|---|---|---|
+| STAEformer 5ch Baseline | 12.39 | +19.2% | +74.0% | +20.8% | +43.3% | +320.9% | +39.3% |
+| STAEformer 5ch + Denoising | **12.32** | **+17.1%** | +75.2% | **+19.8%** | **+42.7%** | +338.3% | **+38.7%** |
+
+### Spillover (Gaussian, 30% rate)
+
+| Model | Healthy Deg |
+|---|---|
+| Baseline | +5.4% |
+| Denoising | +5.9% |
+
+**Key findings**:
+- Denoising encoder provides **marginal improvement** on CONTRA_COSTA (avg deg 38.7% vs 39.3%) — much less than SAN_BERNARDINO (22.0% vs 41.8%)
+- Clean MAE slightly improved (12.32 vs 12.39)
+- Bias noise remains equally devastating with denoising (+75.2% ≈ +74.0%)
+- Spillover NOT reduced (5.9% vs 5.4%) — contrasts sharply with SAN_BERNARDINO (0.3% vs 20.3%)
+- **Possible causes**: (1) encoder pretrained with `residual_connection=False` and smaller hidden_dim=32 (vs 64 in SAN_BERNARDINO), (2) frozen encoder without noisy training limits effectiveness, (3) different noise characteristics between datasets
+
+---
+
+*Evaluation: `experiments/eval_noise_vulnerability.py` (SAN_BERNARDINO), `experiments/eval_contra_costa.py` (CONTRA_COSTA)*
+*Results: `experiments/noise_vulnerability_results/`*
 *Last updated: 2026-02-25*
