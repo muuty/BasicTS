@@ -9,6 +9,9 @@
 - **Proxy metric as selection criterion** — use OT divergence or FL objective to pick the best coreset without training, then only train the top-k candidates.
 
 ## Research Questions
+- FL vs k-medoids: 같은 목적함수(facility location)를 greedy vs PAM으로 푸는 차이. FL이 (1-1/e) 보장이 있지만, RBF similarity 변환으로 인해 k-medoids(raw distance)와 다른 결과 가능. Cosine pipeline에서는 더 유사할 수 있음.
+- Graph cut temporal bias: RBF sigma(median heuristic)와 lambda=1.0이 원인. Lambda tuning이나 sigma 조정으로 개선 가능한지 Phase B에서 검증.
+- Temporal representativeness와 downstream performance의 상관관계: DOW/TOD KL이 낮으면 MAE도 좋은가?
 - Why does 60-80% coreset beat full data? Is it noise reduction, implicit regularization, or removal of redundant normal-state samples that dilute incident signal?
 - Does the optimal distance function change across datasets (SAN_BERNARDINO vs ALAMEDA vs SACRAMENTO)?
 - Is Graph Cut's seed sensitivity a fundamental issue or fixable with better initialization?

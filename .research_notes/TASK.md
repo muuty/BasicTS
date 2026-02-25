@@ -1,8 +1,8 @@
 # Tasks — Incident-Aware Traffic Forecasting
 
 ## 🔥 In Progress
-- [ ] Complete Phase A distance screening training (135/220 runs done, SLURM bottleneck)
-- [ ] Monitor cosine pipeline: k_medoids running, graph_cut pending for cosine distances
+- [ ] Phase A training: 220 runs submitted (44 batch jobs), 4 RUNNING / 40 PENDING
+- [ ] Facility Location: selection job running (Job 21498425), 64 training runs pending after
 
 ## 📋 Backlog
 - [ ] Analyze Phase A results: rank distance functions across models, methods, ratios (after 220 runs complete)
@@ -17,13 +17,17 @@
 - [ ] Phase D: cross-model coreset transferability (~108 runs)
 
 ## 🚧 Blocked
-- [ ] Cosine graph_cut index computation — blocked by: SLURM job queue (QOSMaxJobsPerUserLimit, max 4 concurrent)
-- [ ] Phase A full analysis — blocked by: training runs not yet complete (~85 remaining)
+- [ ] Phase A full analysis — blocked by: training runs in progress (220 + 64 FL)
 
 ## ✅ Recently Done
+- [x] Complete all 110 coreset index files for SAN_BERNARDINO
+- [x] Implement Facility Location selection method (greedy submodular, (1-1/e) guarantee)
+- [x] Temporal distribution analysis (DOW/TOD KL divergence across all selections)
+- [x] Submit Phase A training: 220 runs in 44 batch jobs (batch-size=5)
+- [x] Move Discord tokens to env vars + git history rewrite
 - [x] Reorganize codebase into 7 logical git commits (834aeae → aec777b)
 - [x] Set up project documentation (CLAUDE.md, PROJECT_BACKGROUND.md, design.md)
-- [x] Pre-compute 88/110 coreset index files for SAN_BERNARDINO
+- [x] Pre-compute 110/110 coreset index files for SAN_BERNARDINO
 - [x] Complete adjacency matrix experiment (4 methods × 3 models × 2 datasets × 3 seeds)
 - [x] Complete experience replay experiment (STGCN: -22.7% incident MAE; STAEformer/STGformer: no effect)
 - [x] Complete node identity experiment (weakened MP hurts overall more than helps incidents)
