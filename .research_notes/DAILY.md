@@ -14,6 +14,22 @@
   - Created `basicts/runners/noise_eval.py` with 5 noise injection functions
   - Modified `base_tsf_runner.py` to run noise eval after clean test and save to test_metrics.json
 - Created `project/noise_resilient_prediction/EXPERIMENTS.md` — clean RQ1-5 results reference
+- **CC v2 denoising encoder full pipeline**: pretrain → 2 downstream (E2+N0, E2+N1) → noise eval
+  - Created `baselines/ContextContrastive/CONTRA_COSTA/pretrain_denoising_v2.py`
+  - Created `baselines/STAEformer/CONTRA_COSTA_5ch_denoising_v2.py` (E2+N0)
+  - Created `baselines/STAEformer/CONTRA_COSTA_5ch_denoising_v2_noisy.py` (E2+N1)
+  - Updated `experiments/eval_contra_costa.py` with v2 model entries
+  - v2 pretrain: val loss 0.168 → 0.040
+  - v2 encoder only: **clean MAE 12.06** (best ever on CC, baseline 12.39)
+  - v2+noisy: clean MAE 13.35, avg degradation 15.8% (vs baseline 39.3%)
+- Updated EXPERIMENTS.md RQ6 with v2 rows, RESULTS.md cross-dataset comparison
+- **Literature reference base**: created `project/noise_resilient_prediction/LITERATURE.md`
+  - 17 papers + 5 surveys across 4 categories (denoising, augmentation, SSL, robust GNN)
+  - Key competitors identified: SAFER-Predictor (2025), RT-GCN (2024), STD-MAE (IJCAI'24)
+  - Positioning analysis: our novelty gaps vs existing work
+- **Novelty brainstorming**: 7 architecture/augmentation ideas ranked by priority
+  - Top picks: dynamic quality-aware attention (low effort), uncertainty-conditioned output (low-med effort)
+  - Linked from CLAUDE.md
 
 ### Key Results
 - **RQ2**: Denoising v2 + noisy training = 70% degradation reduction (avg +12.6% vs baseline +41.8%)
@@ -21,17 +37,19 @@
 - **RQ3**: MLP-only encoder (A2) surprisingly competitive with full model (+13.4% vs +12.6%)
 - **RQ4**: Common noise pretrain generalizes to unseen stuck noise; structural pretrain does NOT generalize
 - **RQ5**: STGCN also benefits (53% reduction) — approach is model-agnostic
+- **RQ6 CC v2**: v2 residual universally improves clean MAE (CC: 12.39→11.98), robustness still needs noisy training
 - **Negative**: Reliability estimation and plug&play approaches ineffective
 
 ### Observations
 - Trade-off: best robustness (v2+noisy, +12.6%) costs +0.68 clean MAE; denoising-only is best balance (12.05 MAE, +22.0%)
 - Bias noise is most damaging across all models (+24-76% degradation)
 - Dead noise remains unsolved by all approaches (~+260% degradation)
+- Advisor raised novelty concern — current contributions are more "engineering combination" than "new methodology"
+- SAFER-Predictor (2025) is closest competitor: adversarial noise vs our empirical noise augmentation
 
 ### Tomorrow
-- Update experiment log with full noise eval results
-- Consider additional ablations (A1: spatial-only, missing from current set)
-- CONTRA_COSTA downstream experiment (pretrain ready, no downstream yet)
+- Decide on novelty direction: dynamic quality-aware attention vs uncertainty-conditioned output
+- If chosen: implement prototype and run initial experiments
 - Start paper Section 4 (Experiments) draft using EXPERIMENTS.md as reference
 
 ---

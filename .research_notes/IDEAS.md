@@ -29,6 +29,44 @@
 - **Domain adaptation**: pre-train on large multi-city corpus, fine-tune on target city with few-shot — foundation model for traffic
 - **Interpretable node health scoring**: unsupervised detection of sensor degradation from prediction residuals — practical deployment value
 
+## Literature-Backed Novelty Ideas (2026-02-25)
+> See `project/noise_resilient_prediction/LITERATURE.md` for full reference base.
+
+### Priority 1: Dynamic Quality-Aware Attention (LOW effort)
+- Extend `STAEformerCredibility` static bias → window-adaptive, input-dependent quality bias
+- `quality_score(v, t) = MLP(flow_std, zero_rate, occ_mean, speed_cv)` per window
+- Differentiates from RT-GCN (static Gaussian) — ours is multi-channel, dynamic
+- ~100-200 lines modification of existing code
+
+### Priority 2: Sensor-Health-Conditioned Uncertainty (LOW-MED effort)
+- Add 2nd output head: `mu, log_sigma = model(input)` with heteroscedastic NLL loss
+- sigma explicitly conditioned on sensor health features → "input quality → output uncertainty"
+- Gap: existing traffic uncertainty papers (DeepSTUQ, ICDM'23) only model future uncertainty, not input quality
+- Practical value: downstream systems discount uncertain predictions automatically
+
+### Priority 3: Noise Curriculum Learning (LOW effort)
+- Progressive noise injection: clean → mild → full noise during training
+- Based on RobustTSF (ICLR'24) curriculum concept applied to sensor reliability
+- No architectural changes — just modify training loop's noise scheduling
+- Unexplored in traffic forecasting
+
+### Priority 4: Failure-Mode-Aware Augmentation (LOW effort)
+- Extract empirical sensor failure patterns from SB/CC data (temporal structure of failures)
+- Real dead sensors: sudden 0 → intermittent recovery → permanent death
+- Current synthetic noise lacks this temporal structure
+- Differentiates from SAFER-Predictor (adversarial) — ours is empirical/physics-informed
+
+### Priority 5: Spatial Contrastive Denoising (MED effort)
+- Fix why cross-variable pretrain failed: contrastive loss > reconstruction loss for noise-invariant repr
+- DECL (IJCAI'24) + spatial graph structure = unexplored combination
+- Positive pairs: same sensor {clean vs noisy}, Negative: different cluster
+
+### Longer-Term: MoE with Sensor-Quality Routing (HIGH effort)
+- Expert 1: healthy sensors, Expert 2: degraded, Expert 3: dead
+- Router conditioned on real-time quality features
+- Theoretical backing: MoE sparse activation = noise filter (arXiv 2025)
+- Very novel but requires significant architecture changes
+
 ## Uncertain / Risky Ideas
 - Diffusion-based sensor imputation: generate realistic traffic data for dead sensors conditioned on neighbors — may be overkill vs simple interpolation
 - Causal attention: use intervention theory to identify true causal neighbors vs spurious correlations — theoretically appealing but computationally expensive

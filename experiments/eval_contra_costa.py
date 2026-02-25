@@ -151,28 +151,80 @@ def evaluate(model, encoder=None):
 
 
 if __name__ == '__main__':
-    # Model 1: Baseline
-    print('\n' + '=' * 60)
-    print('CONTRA_COSTA: STAEformer 5ch Baseline')
-    print('=' * 60)
-    ckpt = glob.glob('checkpoints/STAEformer_5ch/CONTRA_COSTA_30_12_12/*/STAEformer_5ch_best_val_MAE.pt')[0]
-    model = load_staeformer(ckpt)
-    baseline_results = evaluate(model)
-    del model
-    torch.cuda.empty_cache()
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--models', nargs='+', default=['baseline', 'denoising', 'noisy', 'denoising_noisy', 'denoising_v2', 'denoising_v2_noisy'],
+                        help='Models to evaluate')
+    args = parser.parse_args()
 
-    # Model 2: Denoising
-    print('\n' + '=' * 60)
-    print('CONTRA_COSTA: STAEformer 5ch + Denoising')
-    print('=' * 60)
-    ckpt = glob.glob('checkpoints/STAEformer_5ch_denoising/CONTRA_COSTA_30_12_12/*/STAEformer_5ch_denoising_best_val_MAE.pt')[0]
-    model = load_staeformer(ckpt)
-    encoder = load_encoder(ckpt)  # encoder config + weights stored in downstream checkpoint
-    denoising_results = evaluate(model, encoder)
-
-    # Save
-    output = {'baseline': baseline_results, 'denoising': denoising_results}
+    results_path = 'experiments/noise_vulnerability_results/contra_costa_results.json'
     os.makedirs('experiments/noise_vulnerability_results', exist_ok=True)
-    with open('experiments/noise_vulnerability_results/contra_costa_results.json', 'w') as f:
+
+    # Load existing results
+    if os.path.exists(results_path):
+        with open(results_path) as f:
+            output = json.load(f)
+    else:
+        output = {}
+
+    if 'baseline' in args.models:
+        print('\n' + '=' * 60)
+        print('CONTRA_COSTA: STAEformer 5ch Baseline')
+        print('=' * 60)
+        ckpt = glob.glob('checkpoints/STAEformer_5ch/CONTRA_COSTA_30_12_12/*/STAEformer_5ch_best_val_MAE.pt')[0]
+        model = load_staeformer(ckpt)
+        output['baseline'] = evaluate(model)
+        del model; torch.cuda.empty_cache()
+
+    if 'denoising' in args.models:
+        print('\n' + '=' * 60)
+        print('CONTRA_COSTA: STAEformer 5ch + Denoising')
+        print('=' * 60)
+        ckpt = glob.glob('checkpoints/STAEformer_5ch_denoising/CONTRA_COSTA_30_12_12/*/STAEformer_5ch_denoising_best_val_MAE.pt')[0]
+        model = load_staeformer(ckpt)
+        encoder = load_encoder(ckpt)
+        output['denoising'] = evaluate(model, encoder)
+        del model, encoder; torch.cuda.empty_cache()
+
+    if 'noisy' in args.models:
+        print('\n' + '=' * 60)
+        print('CONTRA_COSTA: STAEformer 5ch + Noisy Training')
+        print('=' * 60)
+        ckpt = glob.glob('checkpoints/STAEformer_5ch_noisy/CONTRA_COSTA_30_12_12/*/STAEformer_5ch_noisy_best_val_MAE.pt')[0]
+        model = load_staeformer(ckpt)
+        output['noisy'] = evaluate(model)
+        del model; torch.cuda.empty_cache()
+
+    if 'denoising_noisy' in args.models:
+        print('\n' + '=' * 60)
+        print('CONTRA_COSTA: STAEformer 5ch + Denoising + Noisy Training')
+        print('=' * 60)
+        ckpt = glob.glob('checkpoints/STAEformer_5ch_denoising_noisy/CONTRA_COSTA_30_12_12/*/STAEformer_5ch_denoising_noisy_best_val_MAE.pt')[0]
+        model = load_staeformer(ckpt)
+        encoder = load_encoder(ckpt)
+        output['denoising_noisy'] = evaluate(model, encoder)
+        del model, encoder; torch.cuda.empty_cache()
+
+    if 'denoising_v2' in args.models:
+        print('\n' + '=' * 60)
+        print('CONTRA_COSTA: STAEformer 5ch + Denoising v2 (residual+h64)')
+        print('=' * 60)
+        ckpt = glob.glob('checkpoints/STAEformer_5ch_denoising_v2/CONTRA_COSTA_30_12_12/*/STAEformer_5ch_denoising_v2_best_val_MAE.pt')[0]
+        model = load_staeformer(ckpt)
+        encoder = load_encoder(ckpt)
+        output['denoising_v2'] = evaluate(model, encoder)
+        del model, encoder; torch.cuda.empty_cache()
+
+    if 'denoising_v2_noisy' in args.models:
+        print('\n' + '=' * 60)
+        print('CONTRA_COSTA: STAEformer 5ch + Denoising v2 + Noisy Training')
+        print('=' * 60)
+        ckpt = glob.glob('checkpoints/STAEformer_5ch_denoising_v2_noisy/CONTRA_COSTA_30_12_12/*/STAEformer_5ch_denoising_v2_noisy_best_val_MAE.pt')[0]
+        model = load_staeformer(ckpt)
+        encoder = load_encoder(ckpt)
+        output['denoising_v2_noisy'] = evaluate(model, encoder)
+        del model, encoder; torch.cuda.empty_cache()
+
+    with open(results_path, 'w') as f:
         json.dump(output, f, indent=2)
-    print('\nSaved to experiments/noise_vulnerability_results/contra_costa_results.json')
+    print(f'\nSaved to {results_path}')

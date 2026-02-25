@@ -1,7 +1,10 @@
 # Project Guidelines
 
 ## 실험 로그 관리
-- 실험 결과, insight, 시도 이유는 `project/noise_resilient_prediction/representation_learning_experiment_log.md`에 기록
+- 실험 결과, insight, 시도 이유는 `project/noise_resilient_prediction/experiment_log.md`에 기록
+- 최종 결과 요약: `project/noise_resilient_prediction/RESULTS.md`
+- 상세 실험 결과: `project/noise_resilient_prediction/EXPERIMENTS.md`
+- 관련 논문 정리: `project/noise_resilient_prediction/LITERATURE.md`
 - 새 실험 완료 시 반드시 문서 업데이트
 - 형식: 날짜, 실험명, 목적, 결과, 인사이트
 
@@ -173,3 +176,11 @@ if adj_mx is None:
 # GOOD - 그냥 사용 (None이면 Python이 알아서 에러)
 adj_mx = self.adj_mx.to(device)  # self.adj_mx가 None이면 자연스럽게 실패
 ```
+
+# Error Handling
+
+커맨드 실행 중 에러가 발생하면:
+1. 절대 그냥 멈추지 말 것
+2. 에러 메시지를 분석하고 원인을 파악할 것
+3. 수정 후 다시 실행할 것
+4. 수정이 불가능하면 에러 내용과 원인을 반드시 보고할 것
