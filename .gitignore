@@ -204,6 +204,7 @@ experiments/ray_queue_state.json
 
 # Experiment results (large, regenerable)
 experiments_results/
+experiments/noise_vulnerability_results/results.json
 
 # Legacy / not needed
 new_baselines_jy/
