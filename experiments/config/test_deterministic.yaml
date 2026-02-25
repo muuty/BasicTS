@@ -1,0 +1,19 @@
+description: "Test: Deterministic training settings compatibility check"
+
+# Run STGCN with combined+k_medoids, seed=42, ratio=0.7
+# with full deterministic settings to check for RuntimeError
+
+runs:
+  - name: "test_deterministic"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["k_medoids"]
+      CORESET.SELECTION_RATIO: [0.7]
+      CORESET.DISTANCE_TYPE: ["combined"]
+      CORESET.SEED: [42]
+      ENV.SEED: [42]
+      ENV.DETERMINISTIC: [true]
+      ENV.CUDNN.ENABLED: [true]
+      ENV.CUDNN.BENCHMARK: [false]
+      ENV.CUDNN.DETERMINISTIC: [true]
