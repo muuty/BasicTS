@@ -190,28 +190,67 @@ Testing encoder effectiveness when plugged into clean-trained downstream models.
 
 ## Cross-Dataset Generalization: CONTRA_COSTA
 
-Same approach evaluated on a second dataset to test generalizability.
+Same denoising encoder approach (identical config: hidden=32, temporal=4L, spatial=1L, residual=False, frozen, no noisy training) evaluated on a second dataset.
 
 **Dataset**: CONTRA_COSTA — 773 nodes, 634 functional (104 dead, 35 major fail).
 
-| Model | Clean MAE | Gaussian | Bias | Stuck | Drift | Dead | Avg Deg (excl. dead) |
-|---|---|---|---|---|---|---|---|
-| STAEformer 5ch Baseline | 12.39 | +19.2% | +74.0% | +20.8% | +43.3% | +320.9% | +39.3% |
-| STAEformer 5ch + Denoising | **12.32** | **+17.1%** | +75.2% | **+19.8%** | **+42.7%** | +338.3% | **+38.7%** |
+### Clean Performance (from training)
 
-### Spillover (Gaussian, 30% rate)
+| Dataset | Model | MAE | RMSE | MAPE |
+|---|---|---|---|---|
+| CONTRA_COSTA | Baseline | 12.52 | 23.21 | 0.252 |
+| CONTRA_COSTA | Denoising | 12.43 | 23.34 | **0.216** |
+| SAN_BERNARDINO | Baseline | 12.26 | 22.92 | 0.222 |
+| SAN_BERNARDINO | Denoising | 12.13 | 22.95 | **0.180** |
 
-| Model | Healthy Deg |
-|---|---|
-| Baseline | +5.4% |
-| Denoising | +5.9% |
+### Noise Degradation (30% corruption rate)
 
-**Key findings**:
-- Denoising encoder provides **marginal improvement** on CONTRA_COSTA (avg deg 38.7% vs 39.3%) — much less than SAN_BERNARDINO (22.0% vs 41.8%)
-- Clean MAE slightly improved (12.32 vs 12.39)
-- Bias noise remains equally devastating with denoising (+75.2% ≈ +74.0%)
-- Spillover NOT reduced (5.9% vs 5.4%) — contrasts sharply with SAN_BERNARDINO (0.3% vs 20.3%)
-- **Possible causes**: (1) encoder pretrained with `residual_connection=False` and smaller hidden_dim=32 (vs 64 in SAN_BERNARDINO), (2) frozen encoder without noisy training limits effectiveness, (3) different noise characteristics between datasets
+| Noise Type | SB Baseline | SB Denoising | **SB Δ** | CC Baseline | CC Denoising | **CC Δ** |
+|---|---|---|---|---|---|---|
+| Clean MAE | 12.13 | 12.05 | -0.08 | 12.39 | 12.32 | -0.07 |
+| Gaussian | +33.4% | +9.6% | **-23.8pp** | +19.2% | +17.1% | -2.1pp |
+| Bias | +76.1% | +39.0% | **-37.1pp** | +74.0% | +75.2% | +1.2pp |
+| Stuck | +19.4% | +18.0% | -1.4pp | +20.8% | +19.8% | -1.0pp |
+| Drift | +38.1% | +21.4% | **-16.7pp** | +43.3% | +42.7% | -0.6pp |
+| Dead | — | — | — | +320.9% | +338.3% | +17.4pp |
+| **Avg (excl. dead)** | **+41.8%** | **+22.0%** | **-19.8pp** | **+39.3%** | **+38.7%** | **-0.6pp** |
+
+### Spillover to Healthy Nodes
+
+| Dataset | Noise | Baseline | Denoising | Δ |
+|---|---|---|---|---|
+| SAN_BERNARDINO | Gaussian | +20.3% | +0.3% | **-20.0pp** |
+| SAN_BERNARDINO | Bias | +27.9% | +1.9% | **-26.0pp** |
+| CONTRA_COSTA | Gaussian | +5.4% | +5.9% | +0.5pp |
+| CONTRA_COSTA | Bias | +12.3% | +5.7% | **-6.6pp** |
+
+### Analysis
+
+**Finding 1: Denoising encoder effect is dataset-dependent**
+- SAN_BERNARDINO: 47% robustness gain (avg deg 41.8% → 22.0%), spillover nearly eliminated
+- CONTRA_COSTA: <2% robustness gain (avg deg 39.3% → 38.7%), spillover unchanged
+- Both use **identical encoder config** (hidden=32, residual=False, frozen) — difference is **not** from encoder settings
+
+**Finding 2: CONTRA_COSTA baseline is already inherently robust**
+- Gaussian: CC baseline +19.2% vs SB +33.4% — already 43% lower vulnerability
+- Spillover: CC baseline +5.4% vs SB +20.3% — already 73% lower spillover
+- When baseline spillover is already low, encoder has no room to improve
+
+**Finding 3: MAPE improvement is universally consistent**
+- SAN_BERNARDINO: 0.222 → 0.180 (**-19%**)
+- CONTRA_COSTA: 0.252 → 0.216 (**-14%**)
+- Encoder consistently reduces relative error even when absolute MAE gain is marginal
+- Likely driven by improved predictions for low-flow/near-zero sensors
+
+**Finding 4: Dead noise — encoder worsens spillover**
+- CONTRA_COSTA dead degradation: +321% → +338% (+17pp worse)
+- Dead spillover: +4.9% → +13.5% (2.8x amplified)
+- Spatial layer propagates zero-signal from dead nodes to healthy neighbors
+
+**Finding 5: Noisy training is the missing ingredient**
+- Current CONTRA_COSTA setup: denoising only (frozen, no noisy training)
+- SAN_BERNARDINO shows noisy training alone achieves 60% reduction (vs 47% for denoising only)
+- **Next experiment**: CONTRA_COSTA + noisy training to test if pattern holds cross-dataset
 
 ---
 
