@@ -112,6 +112,9 @@ class InputSpilloverCorrector(BaseRepresentationEncoder):
         physical_channels: List[int] = None,
         residual_connection: bool = True,
         time_varying_correction: bool = False,
+        correction_mode: str = None,
+        disable_reliability: bool = False,
+        disable_cross_attn: bool = False,
         **kwargs,
     ):
         kwargs.pop('adj_path', None)
@@ -120,7 +123,16 @@ class InputSpilloverCorrector(BaseRepresentationEncoder):
         self.hidden_dim = hidden_dim
         self.physical_channels = physical_channels or [0, 1, 2]
         self.residual_connection = residual_connection
-        self.time_varying_correction = time_varying_correction
+        self.disable_reliability = disable_reliability
+        self.disable_cross_attn = disable_cross_attn
+
+        # correction_mode supersedes time_varying_correction
+        if correction_mode is not None:
+            self.correction_mode = correction_mode
+        elif time_varying_correction:
+            self.correction_mode = 'full'
+        else:
+            self.correction_mode = 'node'
         n_physical = len(self.physical_channels)
 
         # Input projection: physical channels → hidden
@@ -155,13 +167,36 @@ class InputSpilloverCorrector(BaseRepresentationEncoder):
         nn.init.zeros_(self.correction[-1].weight)
         nn.init.zeros_(self.correction[-1].bias)
 
-    def encode(self, x: torch.Tensor, **kwargs) -> torch.Tensor:
-        """
+    def _compute_reliability_and_propagation(self, h_input, **kwargs):
+        """Shared logic for reliability estimation + cross-attention propagation.
+
         Args:
-            x: [B, T, N, D_in] input with all features
+            h_input: [B_eff, N, hidden] — either pooled or per-timestep
         Returns:
-            [B, T, N, D_in] with corrected physical channels, tod/dow unchanged
+            propagated: [B_eff, N, hidden], r: [B_eff, N, 1]
         """
+        need_weights = kwargs.get('return_intermediates', False)
+
+        # Stage 1: Reliability
+        if self.disable_reliability:
+            r = torch.ones(h_input.shape[0], h_input.shape[1], 1, device=h_input.device)
+        else:
+            r = self.reliability(h_input)                     # [B_eff, N, 1]
+
+        # Stage 2: Cross-attention
+        if self.disable_cross_attn:
+            propagated = self.cross_norm(h_input)
+        else:
+            anomaly_signal = (1 - r) * h_input
+            attn_out, _ = self.cross_attn(
+                query=h_input, key=anomaly_signal, value=anomaly_signal,
+                need_weights=need_weights, average_attn_weights=True,
+            )
+            propagated = self.cross_norm(h_input + attn_out)  # [B_eff, N, hidden]
+
+        return propagated, r
+
+    def encode(self, x: torch.Tensor, **kwargs) -> torch.Tensor:
         B, T, N, D = x.shape
 
         # Extract physical channels
@@ -176,35 +211,28 @@ class InputSpilloverCorrector(BaseRepresentationEncoder):
             h = block(h)
         h = h.reshape(B, N, T, self.hidden_dim)  # [B, N, T, hidden]
 
-        if self.time_varying_correction:
-            # Per-timestep: no pooling, all ops on [B*T, N, hidden]
+        if self.correction_mode == 'full':
+            # All ops per-timestep: [B*T, N, hidden]
             h_flat = h.permute(0, 2, 1, 3).reshape(B * T, N, self.hidden_dim)
-
-            r = self.reliability(h_flat)                     # [B*T, N, 1]
-            anomaly_signal = (1 - r) * h_flat
-            propagated, attn_weights = self.cross_attn(
-                query=h_flat, key=anomaly_signal, value=anomaly_signal,
-                need_weights=kwargs.get('return_intermediates', False),
-                average_attn_weights=True,
-            )
-            propagated = self.cross_norm(h_flat + propagated) # [B*T, N, hidden]
-
-            delta = self.correction(propagated)               # [B*T, N, n_phys]
-            delta = delta.reshape(B, T, N, -1)                # [B, T, N, n_phys]
+            propagated, r = self._compute_reliability_and_propagation(h_flat, **kwargs)
+            delta = self.correction(propagated)
+            delta = delta.reshape(B, T, N, -1)
             r = r.reshape(B, T, N, 1)
-        else:
-            # Original: pool over time, broadcast correction
+
+        elif self.correction_mode == 'hybrid':
+            # Reliability + routing pooled, correction per-timestep
             h_pooled = h.mean(dim=2)                          # [B, N, hidden]
+            propagated, r = self._compute_reliability_and_propagation(h_pooled, **kwargs)
 
-            r = self.reliability(h_pooled)                    # [B, N, 1]
-            anomaly_signal = (1 - r) * h_pooled
-            propagated, attn_weights = self.cross_attn(
-                query=h_pooled, key=anomaly_signal, value=anomaly_signal,
-                need_weights=kwargs.get('return_intermediates', False),
-                average_attn_weights=True,
-            )
-            propagated = self.cross_norm(h_pooled + propagated) # [B, N, hidden]
+            # Inject spatial context into per-timestep features
+            h_corr = h + propagated.unsqueeze(2)              # [B, N, T, hidden]
+            delta = self.correction(h_corr)                   # [B, N, T, n_phys]
+            delta = delta.permute(0, 2, 1, 3)                 # [B, T, N, n_phys]
 
+        else:  # 'node'
+            # All pooled, broadcast correction
+            h_pooled = h.mean(dim=2)                          # [B, N, hidden]
+            propagated, r = self._compute_reliability_and_propagation(h_pooled, **kwargs)
             delta = self.correction(propagated)               # [B, N, n_phys]
             delta = delta.unsqueeze(1).expand(-1, T, -1, -1)  # [B, T, N, n_phys]
 
@@ -223,7 +251,6 @@ class InputSpilloverCorrector(BaseRepresentationEncoder):
             return out, {
                 'reliability': r,
                 'delta': delta,
-                'attn_weights': attn_weights,
             }
         return out
 
@@ -235,6 +262,8 @@ class InputSpilloverCorrector(BaseRepresentationEncoder):
             'temporal_layers': len(self.temporal_blocks),
             'physical_channels': self.physical_channels,
             'residual_connection': self.residual_connection,
-            'time_varying_correction': self.time_varying_correction,
+            'correction_mode': self.correction_mode,
+            'disable_reliability': self.disable_reliability,
+            'disable_cross_attn': self.disable_cross_attn,
         })
         return config
