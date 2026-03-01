@@ -1,0 +1,28 @@
+\section{Preliminaries}
+
+\subsection{Traffic Flow Prediction}
+
+The objective of traffic flow prediction is to predict the target flow in future steps based on historical observations over a sensor network. Given a window length $T_{in}$ for the input data, traffic prediction aims to predict future traffic flow values for the next $T_{out}$ timestamps. 
+
+Let \(\mathbf X\in\mathbb R^{N\times T\times F}\) denote the multivariate time series data collected from \(N\) sensors over \(T\) time steps with \(F\) features (e.g., flow, speed, occupancy).
+
+\begin{equation}\label{eq:forecast_centered}
+\begin{gathered}
+  \hat{\mathbf{Y}}_{t : t+T_{\text{out}}-1}
+      = f_{\theta}\!\left(\mathbf{X}_{t-T_{\text{in}} : t-1}\right)
+      \\[6pt]
+  \text{for } T_{\text{in}} + 1 \le t \le T - T_{\text{out}} + 1 .
+\end{gathered}
+\end{equation}
+%
+Here, \(\hat{\mathbf{Y}} \in \mathbb{R}^{N \times T_{\text{out}} \times 1}\) is the predicted traffic flow sequence. The learning pipeline updates the parameters \(\boldsymbol{\theta}\) of the function \(f_{\theta}\) by minimising a loss function \(\mathcal{L}(\hat{\mathbf{Y}}, \mathbf{Y})\), with ground-truth target data \(\mathbf{Y} \in \mathbb{R}^{N \times T_{\text{out}} \times 1}\). 
+
+
+\subsection{Coreset Selection}
+
+Given the entire training dataset $D_{train} = \{(\mathbf{X}_i, \mathbf{Y}_i)\}_{i=1}^{|D_{train}|}$, consisting of pairs of historical input sequences $\mathbf{X}_i$ and their corresponding future traffic flow sequences $\mathbf{Y}_i$, \textit{coreset selection} aims to identify a smaller and representative subset $S \subseteq D_{train}$ of size $|S| < |D_{train}|$. Given a desired coreset size $k$, the optimal coreset $S^*$ is defined as the training data subset of size $k$, i.e., $|S^*|=k$ that maximises prediction performance on an independent test dataset $D_{test}$:
+\begin{equation}
+S^* = \argmax_{S \subseteq D_{train},\, |S| = k} \mathrm{Perf}(f_{\theta_S}, D_{test})
+\end{equation}
+%
+where $f_{\theta_S}$ denotes a prediction model trained on the coreset $S$. The performance metric $\mathrm{Perf}(\cdot)$ typically measures predictive accuracy. Figure~\ref{fig:overall_workflow} illustrates the overall pipeline for coreset selection in this study.

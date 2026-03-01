@@ -1,0 +1,83 @@
+\section{Experiments}
+
+\subsection{Datasets}
+We conducted experiments on two traffic datasets collected directly from the Caltrans Performance Measurement System (PeMS)\footnote{\url{https://pems.dot.ca.gov/}}. We selected sensors with consistent latitude/longitude metadata and no null values across three features (speed, occupancy, flow) for selected period.
+\begin{itemize}
+    \item \textbf{PEMS04-2023}: Contains traffic data collected from Bay Area. This resulted in data from 2,474 sensors across 25,921 5-minute intervals on period from 1 April 2023 to 30 June 2023.
+    \item \textbf{PEMS07-2023}: Contains traffic data collected from Los Angeles County. This resulted data from 2,785 sensors across 25,621 5-minute intervals for the period from 1 January 2023 to 31 March 2023.
+\end{itemize}
+
+
+\subsection{Model Architecture}
+We utilised the Spatio-Temporal Graph Convolutional Network (STGCN) \cite{yu_spatio-temporal_2018} for all traffic flow forecasting tasks. The input sequence length ($T_{in}$) and the output prediction horizon ($T_{out}$) were set to 12 (representing 60 minutes, given the 5-minute data aggregation).
+
+To model spatial dependencies, we constructed an adjacency matrix $A$ based on  the sensor locations obtained from the metadata. Following the previous work \cite{li_diffusion_2018, liu_largest_2023}, the matrix elements were computed using a thresholded Gaussian kernel:
+\begin{equation}
+A_{ij} = \begin{cases}
+\exp\left(-\frac{\text{dist}(v_i, v_j)^2}{\sigma^2}\right), & \text{if } \exp\left(-\frac{\text{dist}(v_i, v_j)^2}{\sigma^2}\right) \ge 0.1 \\
+0, & \text{otherwise}
+\end{cases}
+\end{equation}
+where $\text{dist}(v_i, v_j)$ is the geographical distance between sensors $v_i$ and $v_j$, and $\sigma^2$ was set to the variance of the pairwise distances across all sensors in the respective dataset.
+
+\subsection{Coreset Selection Methods}\label{sec:coreset_methods}
+We evaluated eight \textit{model-free} coreset selection approaches. For geometric and submodular methods that require distance or similarity calculations, we used the Euclidean distance calculated directly on the raw input feature vectors ($\mathbf X\!\in\!\mathbb{R}^{N \times T_{\text{in}}\times C}$). No additional embedding or dimensionality reduction techniques were applied to keep the selection process focused on representativeness of raw data.
+
+% \subsection{Coreset Selection Methods}%
+% \label{sec:coreset_methods}
+% We benchmark eight \emph{training-free} subsetters.  
+% Whenever an algorithm requires pairwise affinities we compute plain Euclidean
+% distances on the raw tensors
+% $\mathbf X\!\in\!\mathbb{R}^{N \times T_{\text{in}}\times C}$; no learnable
+% embeddings or dimensionality reduction is introduced, ensuring that g2ains come
+% solely from the selection strategy.
+
+\begin{itemize}
+    \item \textbf{Random} — uniform sampling.
+    \item \textbf{Recent} — the $k$ most recent data points.
+    \item \textbf{Stride} — every $m$-th data point along the timeline ($k\!=\!\lfloor\!|D|/m\rfloor$).
+    \item \textbf{K-medoids} \cite{kaufmann_clustering_1987} — PAM(Partition Around Medoids) clustering in Euclidean space; the $k$ medoids form the coreset.
+    \item \textbf{K-center greedy} \cite{sener_active_2018} — iteratively select the data point that maximises the minimum distance to each step's coreset.
+    \item \textbf{Herding} \cite{welling_herding_2009} — sequentially picks data points whose addition best matches the empirical mean of the entire training set.
+  \item \textbf{Total Similarity}.  
+        For a entire set $\Omega$ and a similarity kernel 
+       \[
+s_{ij} = \exp\!\left(-\frac{\lVert x_i - x_j \rVert^{2}}{2\sigma^{2}}\right)
+\] where $\sigma$ is the median of all pairwise distances,
+        the \emph{Total Similarity} function is  
+        \[
+            f_{\mathrm{TS}}(A)=
+            \sum_{i\in\Omega}\sum_{a\in A}s_{ia}
+        \]
+        iteratively select data point that maximises total similarity objective.
+
+  \item \textbf{Facility-location} \cite{iyer_submodular_2021}.  
+        Using the same kernel with Graph-cut, the facility-location function is  
+        \[
+            f_{\mathrm{FL}}(A)=
+            \sum_{i\in\Omega}\max_{a\in A} s_{ia}.
+        \]
+        iteratively selection data point that maximises facility-location function.
+\end{itemize}
+
+
+\subsection{Experimental Settings}
+The data for each dataset were partitioned chronologically into training, validation and test sets as 6:2:2. All experiments were conducted using PyTorch, on AMD MI210, MI300. Input features were normalised using Z-score scaling based on training set statistics.
+
+We evaluated the performance of each coreset selection method by applying the following procedure: For a given coreset selection method and a specified sampling ratio, we first selected a subset of the training data according to the method. The `sampling ratio' represents the proportion of the original training dataset used. For example, a ratio of 0.2 means 20\% of the full training data is selected. Using only the sampled subset, which is the `coreset' identified by the given method, we trained the traffic prediction model from scratch.
+
+Models were trained for a fixed 100 epochs using the Adam optimiser and Mean Absolute Error (MAE) as the loss function. For robustness, all reported results are averaged over 3 independent runs using different random seeds. Performance was measured using Mean Absolute Error (MAE), Root Mean Square Error (RMSE), and Mean Absolute Percentage Error (MAPE), defined as follows:
+
+\begin{equation}
+\text{MAE} = \frac{1}{N \times T_{out}} \sum_{i=1}^{N} \sum_{t=1}^{T_{out}} |Y_{i,t} - \hat{Y}_{i,t}|,
+\end{equation}
+
+\begin{equation}
+\text{RMSE} = \sqrt{\frac{1}{N \times T_{out}} \sum_{i=1}^{N} \sum_{t=1}^{T_{out}} (Y_{i,t} - \hat{Y}_{i,t})^2},
+\end{equation}
+
+\begin{equation}
+\text{MAPE} = \frac{1}{N \times T_{out}} \sum_{i=1}^{N} \sum_{t=1}^{T_{out}} \left|\frac{Y_{i,t} - \hat{Y}{i,t}}{Y{i,t}}\right| \times 100%,
+\end{equation}
+
+where \( Y_{i,t} \) and \( \hat{Y}_{i,t} \) denote the ground truth data and predicted traffic flow for the sensor \( i \) at timestamp \( t \).

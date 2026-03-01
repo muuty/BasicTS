@@ -1,0 +1,1142 @@
+\documentclass[journal]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+% ================================================================
+% Packages
+% ================================================================
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{siunitx}
+\usepackage{threeparttable}
+
+% ================================================================
+% Math commands
+% ================================================================
+\newcommand{\MAE}{\mathrm{MAE}}
+\newcommand{\Wone}{W_1}
+\newcommand{\Xtrain}{X_{\mathrm{train}}}
+\newcommand{\Xtest}{X_{\mathrm{test}}}
+\newcommand{\Xcore}{X_{\mathrm{core}}}
+\newcommand{\Dtrain}{D_{\mathrm{train}}}
+\newcommand{\Dtest}{D_{\mathrm{test}}}
+\newcommand{\Dcore}{D_{\mathrm{core}}}
+\newcommand{\ftrain}{f_{\mathrm{train}}}
+\newcommand{\fcore}{f_{\mathrm{core}}}
+\newcommand{\Ltrain}{L_{\mathrm{train}}}
+\newcommand{\Lcore}{L_{\mathrm{core}}}
+\newcommand{\edisc}{\varepsilon_{\mathrm{disc}}}
+\newcommand{\Gtest}{G_{\mathrm{test}}}
+\newcommand{\Jkmed}{J_{\mathrm{kmed}}}
+
+% Draft mode helpers
+\newcommand{\todo}[1]{{\color{red}\textbf{[TODO: #1]}}}
+\newcommand{\rewrite}[1]{{\color{blue}#1}}
+
+\begin{document}
+
+% ================================================================
+\title{Quantization Cost as a Distribution-Aware Proxy \\
+for Coreset Selection in Traffic Forecasting}
+% ================================================================
+
+\author{
+  \todo{Author names}
+  \thanks{\todo{Affiliations and funding}}
+}
+
+\maketitle
+
+% ================================================================
+\begin{abstract}
+% ================================================================
+Deep learning models for large-scale traffic forecasting require
+substantial computation to train on massive spatio-temporal datasets.
+\emph{Coreset selection}---identifying a small, representative subset
+of training samples---can reduce this computational burden, but a
+critical question remains: how can one predict, before training,
+which coreset will produce the best-performing model?
+
+We address this question with three contributions.
+First, we conduct a systematic comparison of coreset selection methods
+(k-medoids, k-center, graph-cut) across multiple distance metrics and
+two forecasting architectures (STGCN, AGCRN) on a real-world traffic
+dataset comprising 893~sensors.
+Second, we propose \emph{quantization cost}---the average distance
+from each training sample to its nearest coreset point---as a
+pre-training proxy metric for coreset quality, achieving
+within-setting Pearson~$r > 0.94$ with downstream test MAE.
+Third, we provide theoretical justification through a Wasserstein-1
+bound on the test-set performance gap between full-data and coreset
+models.
+The bound reveals that the only term controllable by the selection
+algorithm is the weighted transport cost
+$\Wone(\Xtrain, C; \mathbf{w})$, which k-medoids directly minimises.
+Experiments confirm that k-medoids consistently achieves the lowest
+test MAE and is the only method for which the coreset distribution
+can be closer to the test distribution than the full training set.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Traffic forecasting, coreset selection, data pruning,
+Wasserstein distance, k-medoids, proxy metric
+\end{IEEEkeywords}
+
+
+% ================================================================
+\section{Introduction}
+\label{sec:introduction}
+% ================================================================
+
+\IEEEPARstart{T}{he} advancement of Intelligent Transportation
+Systems (ITS) has increased the importance and applicability of
+traffic prediction.
+Traffic forecasting plays a pivotal role in enhancing road traffic
+efficiency, supporting applications such as travel time estimation,
+congestion management, route guidance, and signal
+control~\cite{vlahogianni_short-term_2014}.
+The availability of extensive traffic data from network-wide loop
+detectors---for example, the Caltrans Performance Measurement System
+(PeMS) provides flow, speed, and density at 5-minute intervals from
+thousands of sensors across
+California~\cite{chen_freeway_2001}---has accelerated the development
+and validation of data-driven prediction models.
+
+Recent innovations in deep learning have demonstrated that Graph
+Neural Networks (GNNs) can capture complex spatio-temporal
+dependencies in traffic data, achieving superior performance compared
+to traditional methods such as ARIMA and
+LSTM~\cite{wu_graph_2019, yu_spatio-temporal_2018, cui_traffic_2019}.
+However, these models require substantial training data and extensive
+computation.
+Recent benchmarks show that training state-of-the-art GNN models on
+large-scale sensor networks can require over 100~GPU-hours on a single
+GPU~\cite{liu_largest_2023}.
+As sensor networks grow to thousands of detectors and data accumulates
+over months or years, the computational cost of training becomes a
+significant barrier to rapid model development and deployment.
+
+\textit{Coreset selection}, the task of identifying a small,
+representative subset of training samples from the original dataset,
+offers a principled approach to this challenge.
+In computer vision, coreset selection has demonstrated significant
+advances in image classification: models trained on coresets using
+only 50\% of the original data can achieve predictive performance
+within a few percent of the full-data
+baseline~\cite{xia_moderate_2022, maharana_d2_2023, tan_data_2025}.
+In our prior work~\cite{our_itsc}, we presented the first systematic
+benchmark of model-free coreset selection methods for GNN-based traffic
+forecasting, showing that 30--50\% of the training data is sufficient
+to maintain prediction accuracy near the full-data level.
+Furthermore, we observed that certain coresets (often at 50--90\%
+ratios) slightly \emph{outperformed} models trained on the entire
+dataset, suggesting that coreset selection can serve as an implicit
+form of data cleaning.
+
+However, two important gaps remain.
+First, there is no established \emph{pre-training quality metric}:
+given a candidate coreset, practitioners cannot predict how well the
+resulting model will perform without actually training it.
+Such a metric would enable rapid evaluation of selection algorithms,
+distance functions, and subset ratios, significantly reducing the
+trial-and-error cost of coreset design.
+Second, there is no \emph{theoretical understanding} of why certain
+selection methods (notably k-medoids) consistently outperform others
+in the traffic forecasting setting.
+Without such understanding, practitioners lack principled guidance
+for choosing a selection algorithm.
+
+In this paper, we address both gaps.
+Building on the empirical foundation of~\cite{our_itsc}, we extend
+our investigation from a single model (STGCN) to multiple
+architectures, from the PEMS datasets to a different regional
+network, and---most importantly---from purely empirical comparison
+to a theoretically grounded framework.
+
+The main contributions of this paper can be summarised as follows:
+\begin{itemize}
+  \item We conduct a systematic empirical comparison of three coreset
+    selection methods (k-medoids, k-center, graph-cut) with four
+    distance metrics across two forecasting architectures (STGCN,
+    AGCRN) on a large-scale traffic dataset (893~sensors, 3~months).
+    k-medoids consistently achieves the lowest test MAE across all
+    settings.
+
+  \item We propose \emph{quantization cost}---the average distance
+    from each training sample to its nearest coreset point---as a
+    pre-training proxy metric for coreset quality.
+    Within each experimental setting (fixed model and distance type),
+    quantization cost achieves Pearson~$r > 0.94$ with downstream
+    test MAE, substantially outperforming alternative metrics such as
+    Sinkhorn divergence ($r = -0.86$) or effective sample
+    size ($r = -0.73$).
+
+  \item We derive a Wasserstein-1 bound on the test-set performance
+    gap between the full-data and coreset models.
+    The bound identifies the weighted transport cost
+    $\Wone(\Xtrain, C; \mathbf{w})$ as the only term directly
+    controllable by the selection algorithm, and we prove that
+    k-medoids minimises an upper bound on this term.
+    We further explain why this bound is particularly tight for
+    traffic forecasting, where the MAE loss is Lipschitz and
+    targets are near-deterministic.
+\end{itemize}
+
+The remainder of this paper is organised as follows.
+Section~\ref{sec:related} reviews related work.
+Section~\ref{sec:formulation} formalises the problem.
+Section~\ref{sec:theory} presents the theoretical analysis.
+Section~\ref{sec:framework} describes the proposed framework.
+Section~\ref{sec:experiments} reports experimental results.
+Section~\ref{sec:conclusion} concludes.
+
+
+% ================================================================
+\section{Related Work}
+\label{sec:related}
+% ================================================================
+
+This section reviews previous work in three areas relevant to our
+study: deep learning for traffic forecasting, coreset selection
+methods, and distributional quality metrics.
+
+\subsection{Deep Learning for Traffic Forecasting}
+\label{sec:related-traffic}
+
+Traffic forecasting is a multivariate spatio-temporal time-series
+problem: given historical observations from a sensor network, the
+goal is to predict future traffic states (e.g., flow, speed,
+occupancy) across multiple locations.
+Since traffic states are influenced by both adjacent locations and
+past temporal patterns, it is essential to capture both spatial
+correlations among sensors and temporal dependencies across time
+steps.
+
+GNNs have emerged as the dominant paradigm for this task, as they
+can model road networks explicitly as graphs whose nodes represent
+sensors and edges represent spatial
+connectivity~\cite{yin_deep_2021}.
+Spatio-temporal GNNs have made significant progress in recent
+years.
+STGCN~\cite{yu_spatio-temporal_2018} combines graph convolutions
+with temporal convolutions for efficient feature extraction.
+DCRNN~\cite{li_diffusion_2018} employs diffusion convolutions with
+a recurrent architecture to model directed traffic flow.
+Graph WaveNet~\cite{wu_graph_2019} introduces an adaptive adjacency
+matrix alongside dilated causal convolutions, removing the
+dependence on a predefined graph structure.
+AGCRN~\cite{bai_adaptive_2020} further extends adaptive graph
+learning with node-specific parameters and a GRU-based temporal
+module.
+More recently, Transformer-based architectures have been applied
+to traffic forecasting, capturing long-range temporal dependencies
+through attention mechanisms~\cite{xu_spatial-temporal_2020,
+shao_decoupled_2022, li_dynamic_2024, wang_adaptive_2024}.
+
+Despite these architectural advances, the \emph{data efficiency}
+aspect of traffic forecasting has received comparatively little
+attention.
+Most studies assume that more training data is always beneficial,
+yet the computational cost of training scales linearly with dataset
+size.
+To address these bottlenecks, efficient learning paradigms have been
+proposed, including model compression and architectural
+optimisation~\cite{zheng_lightcast_2024, zhang_efficient_2025}.
+However, these approaches focus on \emph{model} efficiency rather
+than \emph{data} efficiency.
+Coreset selection offers a complementary, model-agnostic approach
+to reducing the computational burden by operating directly on the
+training data.
+
+
+\subsection{Coreset Selection and Data Pruning}
+\label{sec:related-coreset}
+
+Coreset selection aims to identify a small but representative subset
+of a training dataset while minimising the performance degradation
+when a model is trained on the subset rather than the full data.
+This technique directly reduces the computational burden associated
+with training deep models on massive datasets.
+Previous research has studied coreset selection extensively in the
+image classification domain, and methods can be broadly categorised
+into two groups.
+
+\subsubsection{Model-free methods}
+These methods select coresets purely based on data characteristics
+without requiring model training or gradient information.
+\emph{Geometric methods} exploit distance metrics in feature space.
+K-center greedy~\cite{sener_active_2018} iteratively selects the
+sample farthest from the current coreset, minimising the covering
+radius.
+Herding~\cite{welling_herding_2009} constructs a coreset by
+iteratively adding samples to match the empirical mean of the
+full dataset.
+K-medoids~\cite{kaufmann_clustering_1987} partitions data into
+clusters and selects actual data points as centres (medoids),
+minimising the average distance from each point to its nearest
+medoid.
+\emph{Submodular methods} leverage submodular objective functions
+to measure the information content of a subset.
+Facility location~\cite{iyer_submodular_2021,
+kothawade_prism_2022} selects samples that maximise total coverage,
+while graph-cut maximises cross-partition similarity to encourage
+diversity.
+
+\subsubsection{Model-dependent methods}
+These methods utilise information from a trained model (e.g.,
+gradients, losses, or learned representations) to select coresets.
+\emph{Gradient-based methods} select subsets whose aggregated
+gradients approximate the full-data gradient:
+CRAIG~\cite{mirzasoleiman_coresets_2020} formulates this as a
+facility location problem over gradient distances, while
+GradMatch~\cite{killamsetty_grad-match_2021} uses orthogonal
+matching pursuit.
+\emph{Score-based methods} rank samples by importance scores such
+as error norms (EL2N), gradient norms
+(GraNd)~\cite{paul_deep_2021}, or forgetting
+events~\cite{toneva_empirical_2018}.
+\emph{Hybrid methods} combine model-derived information with
+geometric principles:
+Moderate~\cite{xia_moderate_2022} selects samples near the median
+distance to class centres,
+D2~Pruning~\cite{maharana_d2_2023} balances difficulty and
+diversity via message passing, and
+Infomax~\cite{tan_data_2025} maximises information while
+penalising redundancy.
+
+The vast majority of coreset selection research targets image
+classification.
+Applying coreset selection to multivariate time-series forecasting,
+particularly traffic prediction, has received limited attention.
+In our prior work~\cite{our_itsc}, we presented the first benchmark
+of eight model-free methods for traffic forecasting, demonstrating
+that k-medoids achieves the strongest overall performance by
+maintaining broad feature-space coverage.
+The present study extends this line of work by providing a
+\emph{theoretical} explanation for why k-medoids excels and
+proposing a principled proxy metric for coreset quality.
+
+Since our primary motivation is to reduce the computational overhead
+of training large-scale forecasting models, we focus on
+\emph{model-free} methods that do not require additional model
+training during the selection phase.
+
+
+\subsection{Distributional Quality Metrics}
+\label{sec:related-metrics}
+
+Optimal transport (OT) distances provide a natural framework for
+measuring distributional similarity between datasets.
+The Wasserstein-1 distance ($\Wone$), also known as the earth
+mover's distance, computes the minimum cost of transporting mass
+from one distribution to another and has strong theoretical
+connections to the Kantorovich--Rubinstein
+duality~\cite{villani_optimal_2009}.
+The Sinkhorn divergence~\cite{cuturi_sinkhorn_2013} offers a
+computationally efficient, entropy-regularised approximation.
+Maximum Mean Discrepancy (MMD) provides a kernel-based alternative
+that is widely used in domain adaptation.
+
+These metrics have been employed in various machine learning
+contexts, including dataset distillation, domain adaptation, and
+fairness evaluation.
+However, their use as \emph{predictors of coreset quality}---that
+is, as pre-training indicators of how well a model trained on a
+coreset will perform---has not been systematically investigated.
+We fill this gap by evaluating multiple distributional metrics as
+proxy predictors and demonstrating that quantization cost
+(directly connected to $\Wone$) substantially outperforms
+alternatives.
+
+
+% ================================================================
+\section{Problem Formulation}
+\label{sec:formulation}
+% ================================================================
+
+\subsection{Traffic Flow Prediction}
+
+The objective of traffic flow prediction is to forecast future
+traffic states based on historical observations over a sensor
+network.
+Let $\mathbf{X} \in \mathbb{R}^{N \times T \times F}$ denote the
+multivariate time-series data collected from $N$ sensors over $T$
+time steps with $F$ features (e.g., flow, speed, occupancy).
+Given a window of $T_{\mathrm{in}}$ historical observations, the
+goal is to predict traffic states for the next
+$T_{\mathrm{out}}$ steps:
+\begin{equation}\label{eq:forecast}
+  \hat{\mathbf{Y}}_{t:t+T_{\mathrm{out}}-1}
+  = f_\theta\!\left(
+    \mathbf{X}_{t-T_{\mathrm{in}}:t-1}
+  \right),
+\end{equation}
+where $\hat{\mathbf{Y}} \in \mathbb{R}^{N \times T_{\mathrm{out}}
+\times 1}$ is the predicted traffic flow sequence.
+The parameters $\theta$ are learnt by minimising the mean absolute
+error (MAE) between predictions and ground-truth targets
+$\mathbf{Y}$:
+\begin{equation}\label{eq:mae}
+  \MAE_D(f) := \frac{1}{|D|}
+  \sum_{(X, Y) \in D} \| f(X) - Y \|_1.
+\end{equation}
+
+The dataset $\Dtrain = \{(X_i, Y_i)\}_{i=1}^{n}$ is formed by
+sliding a window over the time series, and is partitioned
+chronologically into training, validation, and test sets.
+
+
+\subsection{Coreset Selection}
+
+Given the entire training dataset $\Dtrain$, \emph{coreset
+selection} aims to identify a representative subset
+$\Dcore \subset \Dtrain$ of size $|\Dcore| = k = \lfloor rn \rfloor$
+for a specified selection ratio $r \in (0, 1)$.
+Let $\ftrain$ and $\fcore$ denote models trained on $\Dtrain$ and
+$\Dcore$, respectively.
+The quality of a coreset is measured by the test-set performance gap:
+\begin{equation}\label{eq:gtest}
+  \Gtest := \bigl|
+    \MAE_{\Dtest}(\ftrain) - \MAE_{\Dtest}(\fcore)
+  \bigr|.
+\end{equation}
+The ideal coreset minimises $\Gtest$ while maximising the data
+reduction (i.e., minimising $r$).
+
+
+\subsection{Selection Methods}
+\label{sec:methods}
+
+We evaluate three representative model-free coreset selection
+methods.
+For all methods that require distance calculations, we operate on
+PCA-reduced feature representations (Section~\ref{sec:distance}).
+
+\textbf{k-Medoids}~\cite{kaufmann_clustering_1987}.
+Partitions the training data into $k$ clusters and selects actual
+data points as cluster centres (medoids) by minimising the sum of
+distances from each point to its nearest medoid:
+\begin{equation}
+  \Jkmed(C) = \frac{1}{n}\sum_{i=1}^{n}\min_{c \in C} d(x_i, c).
+\end{equation}
+We employ the FasterPAM algorithm for scalable computation on
+large datasets.
+
+\textbf{k-Center Greedy}~\cite{sener_active_2018}.
+Iteratively selects the data point that is farthest from the
+current coreset, minimising the maximum distance from any
+training point to its nearest coreset member:
+$J_{\mathrm{kcen}}(C) = \max_{i}\min_{c \in C} d(x_i, c)$.
+
+\textbf{Graph-Cut}~\cite{iyer_submodular_2021}.
+Maximises cross-partition similarity between selected and
+unselected points.
+Using a Gaussian kernel
+$s_{ij} = \exp(-\|x_i - x_j\|^2 / 2\sigma^2)$, the graph-cut
+function is
+$f_{\mathrm{GC}}(A) = 2\sum_{i \in \Omega} \sum_{a \in A} s_{ia}
+- \sum_{a, a' \in A} s_{aa'}$,
+encouraging both coverage and diversity.
+
+
+\subsection{Distance Metrics and Feature Space}
+\label{sec:distance}
+
+Computing pairwise distances directly on the raw input features
+$\mathbf{X} \in \mathbb{R}^{N \times T_{\mathrm{in}} \times F}$
+is computationally expensive and may suffer from the curse of
+dimensionality.
+To address this, we project each sample into a lower-dimensional
+space using Principal Component Analysis (PCA) with
+$d_{\mathrm{PCA}} = 10$ components, which captures 82.2\% of the
+total variance in our dataset.
+
+Within this PCA embedding, we evaluate four distance types:
+\begin{itemize}
+  \item \textbf{Euclidean}: distance on the flattened
+    $T \times N \times F$ representation.
+  \item \textbf{Temporal}: distance on the mean-over-nodes
+    representation, capturing temporal patterns.
+  \item \textbf{Spatial}: distance on the mean-over-time
+    representation, capturing spatial patterns.
+  \item \textbf{Combined}: normalised sum of temporal and spatial
+    distances, capturing both dimensions simultaneously.
+\end{itemize}
+
+
+% ================================================================
+\section{Theoretical Analysis}
+\label{sec:theory}
+% ================================================================
+
+In this section, we derive a bound on the test-set performance gap
+$\Gtest$ and establish that k-medoids is the natural selection
+algorithm for minimising this bound.
+We then discuss conditions under which a coreset model can
+\emph{outperform} the full-data model, and explain why this
+theoretical framework is particularly well-suited to traffic
+forecasting.
+
+\subsection{Notation and Assumptions}
+
+Let $d$ be a metric on the input space $\mathcal{X}$
+(Euclidean distance in PCA space).
+For a fixed model~$f$, define the pointwise loss
+$\phi_f(x) := |f(x) - y(x)|$,
+where $y(x)$ is the ground-truth target associated with input~$x$.
+We assume $\phi_f$ is $L_f$-Lipschitz with respect to~$d$, i.e.,
+$|\phi_f(x) - \phi_f(x')| \le L_f \, d(x, x')$ for all
+$x, x' \in \mathcal{X}$.
+
+\subsection{Performance Gap Bound}
+
+\begin{theorem}\label{thm:main}
+Let $C = \{c_1, \ldots, c_k\}$ be the selected coreset points
+with cluster-size weights $w_\ell = n_\ell / n$, where $n_\ell$
+is the number of training points assigned to medoid $c_\ell$.
+Define the weighted coreset MAE as
+$\MAE^w_C(f) := \sum_{\ell=1}^{k} w_\ell \, |f(c_\ell) - y(c_\ell)|$
+and the model discrepancy as
+$\edisc := |\MAE^w_C(\ftrain) - \MAE^w_C(\fcore)|$.
+Then:
+\begin{equation}\label{eq:main-bound}
+\boxed{
+  \Gtest \le (\Ltrain + \Lcore)
+  \bigl[\Wone(\Xtest, \Xtrain) + \Wone(\Xtrain, C; \mathbf{w})\bigr]
+  + \edisc,
+}
+\end{equation}
+where $\Wone(\Xtrain, C; \mathbf{w})$ is the Wasserstein-1 distance
+with target marginal~$\mathbf{w}$:
+\begin{equation}\label{eq:w1w}
+  \Wone(\Xtrain, C; \mathbf{w})
+  := \min_{\substack{\Gamma \ge 0 \\
+    \sum_\ell \Gamma_{i\ell} = 1/n \\
+    \sum_i \Gamma_{i\ell} = w_\ell}}
+  \sum_{i,\ell} \Gamma_{i\ell} \, d(x_i, c_\ell).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+We decompose $\Gtest$ via the triangle inequality:
+\begin{align}\label{eq:triangle}
+  \Gtest &\le
+    \underbrace{|\MAE_{\Dtest}(\ftrain) -
+      \MAE_{\Dtrain}(\ftrain)|}_{\text{(A) test--train shift,
+      train model}}
+    \nonumber \\
+  &\quad + \underbrace{|\MAE_{\Dtrain}(\ftrain) -
+      \MAE_{\Dtrain}(\fcore)|}_{\text{(B) model gap on train set}}
+    \nonumber \\
+  &\quad + \underbrace{|\MAE_{\Dtrain}(\fcore) -
+      \MAE_{\Dtest}(\fcore)|}_{\text{(C) test--train shift,
+      core model}}.
+\end{align}
+
+\emph{Step~1 (Bounding A and C).}
+Both terms compare a fixed model's MAE on the test set versus the
+training set.
+By the Kantorovich--Rubinstein (KR) inequality for Lipschitz
+functions on empirical measures:
+\begin{equation}
+  \text{(A)} \le \Ltrain \Wone(\Xtest, \Xtrain), \quad
+  \text{(C)} \le \Lcore \Wone(\Xtest, \Xtrain).
+\end{equation}
+
+\emph{Step~2 (Bounding B).}
+We introduce $\MAE^w_C$ as a waypoint, decomposing term~(B) into
+three parts via a second application of the triangle inequality:
+\begin{align}
+  \text{(B)} &\le
+    |\MAE_{\Dtrain}(\ftrain) - \MAE^w_C(\ftrain)|
+    + \edisc \nonumber \\
+  &\quad + |\MAE^w_C(\fcore) - \MAE_{\Dtrain}(\fcore)|.
+\end{align}
+The first and third terms compare a fixed model's performance on the
+training set versus its weighted evaluation on coreset points.
+Applying the weighted KR inequality yields:
+\begin{equation}
+  \text{(B)} \le (\Ltrain + \Lcore) \Wone(\Xtrain, C; \mathbf{w})
+  + \edisc.
+\end{equation}
+
+Combining Steps~1 and~2 yields~\eqref{eq:main-bound}.
+\end{proof}
+
+\textbf{Interpretation.}
+The bound separates $\Gtest$ into three distinct contributions:
+\begin{itemize}
+  \item $\Wone(\Xtest, \Xtrain)$: the distributional shift between
+    test and training sets, determined entirely by the data split.
+    This term is \emph{uncontrollable} by the coreset design.
+
+  \item $\Wone(\Xtrain, C; \mathbf{w})$: the distributional mismatch
+    between the training set and coreset.
+    This is the \emph{only term directly controllable} by the
+    selection algorithm.
+
+  \item $\edisc$: the model discrepancy, measuring how differently
+    the full-data and coreset models perform on the coreset points
+    under cluster weights.
+    This term is indirectly influenced by coreset quality.
+
+  \item $\Ltrain, \Lcore$: the Lipschitz constants of the pointwise
+    loss for each model, measuring sensitivity to input perturbation.
+\end{itemize}
+
+
+\subsection{Connection to k-Medoids}
+\label{sec:theory-kmed}
+
+Having identified $\Wone(\Xtrain, C; \mathbf{w})$ as the
+controllable term, we now establish its connection to the k-medoids
+objective.
+
+\begin{proposition}\label{prop:kmed}
+For any coreset $C = \{c_1, \ldots, c_k\} \subset \Xtrain$ with
+nearest-medoid assignment weights~$\mathbf{w}$:
+\begin{equation}\label{eq:kmed-w1}
+  \Wone(\Xtrain, C; \mathbf{w}) \le \Jkmed(C).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The nearest-medoid assignment
+$\Gamma_{i\ell} = \frac{1}{n} \mathbf{1}[\pi(x_i) = c_\ell]$,
+where $\pi(x_i) = \arg\min_{c \in C} d(x_i, c)$,
+defines a feasible transport plan for~\eqref{eq:w1w}:
+its row marginals sum to $1/n$ (each point is assigned to exactly
+one medoid) and its column marginals sum to $w_\ell = n_\ell / n$
+(each medoid receives mass proportional to its cluster size).
+The cost of this plan is exactly $\Jkmed(C)$.
+Since $\Wone$ is the minimum over all feasible plans,
+$\Wone \le \Jkmed$.
+\end{proof}
+
+\textbf{Design principle.}
+Minimising $\Jkmed$ (the k-medoids objective) directly shrinks the
+only controllable term in the bound~\eqref{eq:main-bound}.
+Among the three methods we compare---k-medoids, k-center, and
+graph-cut---only k-medoids is designed to minimise this quantity.
+k-center minimises the \emph{maximum} rather than \emph{average}
+distance, and graph-cut maximises cross-partition similarity, neither
+of which provides guarantees on $\Wone(\Xtrain, C; \mathbf{w})$.
+
+\begin{remark}[Why not minimise $\Wone$ directly?]
+\label{rem:w1-direct}
+Computing the exact $\Wone(\Xtrain, C; \mathbf{w})$ requires solving
+a linear program of size $O(n \times k)$, which is cubic in the
+worst case.
+In contrast, k-medoids operates in $O(nk)$ per iteration with
+the FasterPAM algorithm and provides $\Jkmed \ge \Wone$ as an upper
+bound.
+Empirically, $\Jkmed$ is a tight surrogate for~$\Wone$, and the
+bound~\eqref{eq:main-bound} is dominated by~$\edisc$ rather than
+the $\Wone$ term (Section~\ref{sec:exp-bound}), making exact
+$\Wone$ minimisation an unnecessary computational expense.
+\end{remark}
+
+
+\subsection{When Can the Coreset Model Win?}
+\label{sec:theory-win}
+
+An intriguing empirical observation from our prior
+work~\cite{our_itsc} is that certain coresets can yield models that
+\emph{outperform} the full-data baseline.
+We now provide a distributional explanation for this phenomenon.
+
+Define the signed performance gap:
+\begin{equation}
+  \Delta_{\mathrm{test}} :=
+    \MAE_{\Dtest}(\fcore) - \MAE_{\Dtest}(\ftrain).
+\end{equation}
+We seek conditions under which $\Delta_{\mathrm{test}} < 0$, i.e.,
+the coreset model beats the full-data model on the test set.
+
+Motivated by the KR inequality, the test error of a model $f$
+trained on dataset $D$ can be decomposed as:
+\begin{equation}
+  \MAE_{\Dtest}(f)
+  \approx \MAE_D(f) + L_f \, \Wone(\Xtest, X_D).
+\end{equation}
+Applying this to both models and subtracting, under the assumptions
+that
+(i)~both models fit their respective training data equally well
+($\MAE_{\Dtrain}(\ftrain) \approx \MAE_{\Dcore}(\fcore)$) and
+(ii)~both models have similar sensitivity
+($\Ltrain \approx \Lcore \approx L$, as they share the same
+architecture and similar training), the training-set terms cancel:
+\begin{equation}\label{eq:delta-approx}
+\boxed{
+  \Delta_{\mathrm{test}}
+  \approx L \bigl[
+    \Wone(\Xtest, \Xcore) - \Wone(\Xtest, \Xtrain)
+  \bigr].
+}
+\end{equation}
+
+In words: the performance gap is governed by which
+distribution---coreset or full training set---is closer to the test
+set.
+When $\Wone(\Xtest, \Xcore) < \Wone(\Xtest, \Xtrain)$, the gap
+shrinks and may even reverse ($\Delta_{\mathrm{test}} < 0$, coreset
+model wins).
+
+\textbf{Role of k-medoids.}
+By the triangle inequality for~$\Wone$:
+\begin{equation}
+  \bigl|
+    \Wone(\Xtest, \Xcore) - \Wone(\Xtest, \Xtrain)
+  \bigr|
+  \le \Wone(\Xtrain, \Xcore).
+\end{equation}
+When k-medoids makes $\Wone(\Xtrain, \Xcore)$ small
+(Section~\ref{sec:theory-kmed}), the coreset and training
+distributions become nearly interchangeable from the test set's
+perspective:
+$\Wone(\Xtest, \Xcore) \approx \Wone(\Xtest, \Xtrain)$.
+Moreover, because the coreset is a selective subset, it may exclude
+training-time outlier patterns (e.g., incidents or holiday effects)
+that are absent from the test period, placing $\Xcore$ slightly
+closer to $\Xtest$ than $\Xtrain$ is.
+This mechanism explains the empirical observation
+from~\cite{our_itsc} that k-medoids coresets at 50--90\% ratios
+sometimes outperform full-data training.
+
+
+\subsection{Why Traffic Forecasting Is a Favourable Setting}
+\label{sec:theory-traffic}
+
+Our bound is particularly well-suited to traffic forecasting for
+several structural reasons that distinguish it from the
+classification setting where most coreset literature is focused:
+
+\begin{enumerate}
+  \item \textbf{Lipschitz loss.}
+    The MAE loss $\phi_f(x) = |f(x) - y(x)|$ is Lipschitz whenever
+    $f$ and $y$ are Lipschitz, which holds for smooth traffic
+    patterns.
+    In contrast, the 0-1 loss used in classification is
+    discontinuous and not Lipschitz, rendering KR-based bounds
+    inapplicable.
+
+  \item \textbf{Near-deterministic targets.}
+    Traffic flow $Y | X$ is nearly deterministic: the same input
+    pattern (time of day, day of week, upstream conditions) produces
+    a similar flow value.
+    This means the conditional noise
+    $\Delta_{\mathrm{cond}} \approx 0$, ensuring that the pointwise
+    loss $\phi_f$ varies smoothly as a function of~$x$.
+
+  \item \textbf{Density-proportional optimality.}
+    In classification, coreset quality hinges on coverage near
+    decision boundaries.
+    In regression, prediction error is distributed across the
+    entire input space proportionally to the data density, which
+    is precisely what k-medoids optimises through its
+    density-proportional clustering.
+
+  \item \textbf{Natural temporal distribution shift.}
+    Traffic data exhibits inherent temporal variation between
+    training and test periods (e.g., seasonal changes, evolving
+    demand patterns), making the $\Wone(\Xtest, \Xtrain)$ term
+    non-trivial and the distributional analysis practically
+    meaningful.
+\end{enumerate}
+
+
+% ================================================================
+\section{Proposed Framework}
+\label{sec:framework}
+% ================================================================
+
+\subsection{Coreset Selection Pipeline}
+
+Our framework comprises three stages, illustrated in
+Fig.~\ref{fig:pipeline}:
+
+\textbf{Stage~1: Feature extraction and embedding.}
+Each training sample $(X_i, Y_i)$ is flattened and projected to a
+$d_{\mathrm{PCA}}$-dimensional space via PCA.
+We use $d_{\mathrm{PCA}} = 10$ components, capturing 82.2\% of the
+total variance.
+This dimensionality reduction serves two purposes: it makes
+distance computation tractable for large datasets and mitigates the
+curse of dimensionality in high-dimensional feature spaces.
+
+\textbf{Stage~2: Offline coreset selection.}
+A selection algorithm (k-medoids, k-center, or graph-cut) operates
+on the PCA embeddings to choose $k = \lfloor rn \rfloor$ sample
+indices.
+Selection is performed \emph{once} offline, and the resulting
+indices are stored for reuse across multiple model architectures
+and hyperparameter configurations.
+This amortises the selection cost over all subsequent training runs.
+
+\textbf{Stage~3: Quality prediction and model training.}
+Before committing to an expensive training run, the practitioner
+computes the quantization cost (Section~\ref{sec:quant-metric})
+as a pre-training quality check.
+If the quantization cost is acceptably low, the model is trained
+on $\Dcore$ using the standard pipeline.
+
+\todo{Fig.~\ref{fig:pipeline}: Pipeline overview diagram}
+
+\subsection{Quantization Cost as Proxy Metric}
+\label{sec:quant-metric}
+
+We propose the \emph{quantization cost} as a pre-training proxy
+metric for coreset quality:
+\begin{equation}\label{eq:quant}
+  Q(C) := \frac{1}{n} \sum_{i=1}^{n}
+    \min_{c \in C} d_{\mathrm{PCA}}(x_i, c).
+\end{equation}
+This is precisely the k-medoids objective $\Jkmed(C)$, and by
+Proposition~\ref{prop:kmed}, it upper-bounds the controllable term
+$\Wone(\Xtrain, C; \mathbf{w})$ in the bound~\eqref{eq:main-bound}.
+
+Quantization cost possesses several desirable properties:
+\begin{itemize}
+  \item \textbf{Computationally efficient}: $O(nk)$ after PCA
+    projection, requiring no model training or gradient computation.
+  \item \textbf{Theoretically grounded}: directly connected to the
+    Wasserstein-1 distance through the k-medoids link
+    (Proposition~\ref{prop:kmed}).
+  \item \textbf{Model-agnostic}: depends only on the data geometry,
+    not on the forecasting architecture.
+  \item \textbf{Universally applicable}: can be computed for any
+    selection method, not only k-medoids.
+\end{itemize}
+
+
+% ================================================================
+\section{Experiments}
+\label{sec:experiments}
+% ================================================================
+
+\subsection{Experimental Setup}
+\label{sec:exp-setup}
+
+\textbf{Dataset.}
+We use traffic flow data from XTraffic~\cite{}, collected from
+893~loop detectors in San Bernardino County, California.
+We extract three months of data at 5-minute intervals
+(24{,}192~time steps in total), partitioned chronologically into
+training, validation, and test sets at a 7:1:2 ratio.
+
+\textbf{Models.}
+We evaluate two representative spatio-temporal forecasting
+architectures:
+\textbf{STGCN}~\cite{yu_spatio-temporal_2018}, which combines
+Chebyshev graph convolutions with temporal convolutions, and
+\textbf{AGCRN}~\cite{bai_adaptive_2020}, which employs adaptive
+graph learning with node-specific GRU modules.
+Both models use an input horizon of $T_{\mathrm{in}} = 12$ steps
+(60~minutes) and an output horizon of $T_{\mathrm{out}} = 12$ steps.
+
+\textbf{Coreset configurations.}
+We evaluate three selection methods (k-medoids, k-center, graph-cut)
+with four distance types (euclidean, temporal, spatial, combined)
+in PCA-10 space, at selection ratios $r \in \{0.3, 0.7\}$ with
+seeds 42 and 123.
+This yields $3 \times 4 \times 2 \times 2 = 48$ unique coresets,
+each trained with two model architectures, producing 96~training
+runs in total.
+
+\textbf{Full-data baselines.}
+For each model architecture, we train a full-data baseline
+($r = 1.0$) to serve as the reference point for computing $\Gtest$.
+
+\textbf{Metrics.}
+Performance is measured using MAE, RMSE, and MAPE.
+All reported results use the best validation checkpoint.
+
+% --------------------------------------------------
+\subsection{Quantization Cost Predicts MAE}
+\label{sec:exp-quant}
+% --------------------------------------------------
+
+\todo{Table: Method $\times$ distance, quant cost vs MAE at
+ratio = 0.3 and 0.7.
+Figure: Scatter plot of quant cost vs MAE, coloured by method.
+Key numbers: $r > 0.94$ within-setting, $r = 0.983$ global (STGCN).
+graph\_cut quant cost 6--7$\times$ higher $\to$ MAE~+2.5.
+Comparison with sinkhorn ($-0.86$), voronoi\_cv ($0.76$),
+ess\_ratio ($-0.73$).}
+
+% --------------------------------------------------
+\subsection{Coreset Advantage ($\Delta \Wone > 0$)}
+\label{sec:exp-advantage}
+% --------------------------------------------------
+
+\todo{Table: $SW_1$(test, core), $SW_1$(core, train), $\Delta W_1$
+by method.
+Key: k-medoids is the only method achieving $\Delta W_1 > 0$
+(8 out of 96 cases, all k-medoids).
+k-medoids $SW_1$(core, train) = 0.17--0.52
+(6--17\% of baseline 3.04).
+Mechanism: $\Jkmed$ minimisation $\to$ triangle inequality $\to$
+coreset $\approx$ train from test's perspective.}
+
+% --------------------------------------------------
+\subsection{Bound Verification}
+\label{sec:exp-bound}
+% --------------------------------------------------
+
+\todo{Table: (A)(B)(C) decomposition with measured values.
+$L$ values very small ($\sim$0.001).
+$\edisc$ dominates ($\sim$95\% of bound value).
+Bound holds: $L_{95}$ $\sim$77\%, $L_{\max}$ $\sim$82\%.
+graph\_cut at ratio = 0.3: 0\% (bound too loose).
+Discussion of tightness and dominant terms.}
+
+% --------------------------------------------------
+\subsection{Ablation Studies}
+\label{sec:exp-ablation}
+% --------------------------------------------------
+
+\todo{Distance type effect (combined vs.\ single modality).
+Ratio sensitivity (0.3 vs.\ 0.7).
+Seed stability across configurations.}
+
+
+% ================================================================
+\section{Discussion}
+\label{sec:discussion}
+% ================================================================
+
+\todo{
+\textbf{Dominant term.} $\edisc$ accounts for $\sim$95\% of the
+bound, suggesting that tighter bounds could be achieved by directly
+modelling model discrepancy. Future work could explore
+regularisation strategies that explicitly minimise $\edisc$.
+
+\textbf{Why graph-cut fails.} Graph-cut's objective (cross-partition
+similarity) does not control $\Wone(\Xtrain, C; \mathbf{w})$,
+leading to $\sim$6--7$\times$ larger quantization cost than
+k-medoids at ratio = 0.3 and substantially higher test MAE.
+
+\textbf{Practical implications.} Quantization cost provides a
+computationally cheap ($O(nk)$) ``sanity check'' before committing
+to expensive training. Practitioners can compute it for multiple
+candidate coresets and select the configuration with the lowest
+value.
+
+\textbf{Limitations.} Our evaluation uses a single metropolitan
+region (San Bernardino) and two model architectures. Future work
+should validate findings on additional datasets (e.g., PEMS04,
+PEMS07) and architectures (e.g., Transformer-based models).
+The PCA-10 embedding, while effective, may not capture all relevant
+structure; alternative representations (e.g., learned embeddings)
+warrant investigation.
+}
+
+
+% ================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+% ================================================================
+
+We presented a systematic study of coreset selection for traffic
+forecasting, extending beyond empirical benchmarking to provide
+theoretical foundations.
+Our three contributions are:
+(1)~a comprehensive comparison across methods, distances, and
+architectures, confirming that k-medoids consistently achieves the
+lowest test MAE;
+(2)~quantization cost as a pre-training proxy metric with
+Pearson~$r > 0.94$ within-setting correlation to downstream
+performance; and
+(3)~a Wasserstein-1 bound that identifies the train--coreset
+transport cost as the only controllable term and proves that
+k-medoids directly minimises its upper bound.
+
+These results provide practitioners with both a practical tool
+(quantization cost for rapid coreset evaluation) and a theoretical
+foundation (the $\Wone$-based bound) for principled coreset design
+in traffic forecasting.
+Future work will extend our evaluation to additional datasets and
+model architectures, investigate gradient-based selection methods
+as complements to geometric approaches, and explore tighter bounds
+that directly address the model discrepancy term~$\edisc$.
+
+
+% ================================================================
+% References
+% ================================================================
+\bibliographystyle{IEEEtran}
+% \bibliography{references/papers}
+
+\begin{thebibliography}{99}
+
+\bibitem{vlahogianni_short-term_2014}
+E.~I.~Vlahogianni, M.~G.~Karlaftis, and J.~C.~Golias,
+``Short-term traffic forecasting: Where we are and where we're going,''
+\emph{Transportation Research Part C: Emerging Technologies},
+vol.~43, pp.~3--19, 2014.
+
+\bibitem{chen_freeway_2001}
+C.~Chen, K.~Petty, A.~Skabardonis, P.~Varaiya, and Z.~Jia,
+``Freeway performance measurement system: Mining loop detector data,''
+\emph{Transportation Research Record}, vol.~1748, no.~1,
+pp.~96--102, 2001.
+
+\bibitem{yin_deep_2021}
+X.~Yin \emph{et~al.},
+``Deep learning on traffic prediction: Methods, analysis, and future directions,''
+\emph{IEEE Trans. Intell. Transp. Syst.}, vol.~23, no.~6,
+pp.~4927--4943, 2021.
+
+\bibitem{yu_spatio-temporal_2018}
+B.~Yu, H.~Yin, and Z.~Zhu,
+``Spatio-temporal graph convolutional networks: A deep learning framework for traffic forecasting,''
+in \emph{Proc. IJCAI}, 2018.
+
+\bibitem{li_diffusion_2018}
+Y.~Li, R.~Yu, C.~Shahabi, and Y.~Liu,
+``Diffusion convolutional recurrent neural network: Data-driven traffic forecasting,''
+in \emph{Proc. ICLR}, 2018.
+
+\bibitem{wu_graph_2019}
+Z.~Wu, S.~Pan, G.~Long, J.~Jiang, and C.~Zhang,
+``Graph WaveNet for deep spatial-temporal graph modeling,''
+\emph{arXiv preprint arXiv:1906.00121}, 2019.
+
+\bibitem{bai_adaptive_2020}
+L.~Bai, L.~Yao, C.~Li, X.~Wang, and C.~Wang,
+``Adaptive graph convolutional recurrent network for traffic forecasting,''
+in \emph{Proc. NeurIPS}, vol.~33, pp.~17804--17815, 2020.
+
+\bibitem{cui_traffic_2019}
+Z.~Cui, K.~Henrickson, R.~Ke, and Y.~Wang,
+``Traffic graph convolutional recurrent neural network,''
+\emph{IEEE Trans. Intell. Transp. Syst.}, vol.~21, no.~11,
+pp.~4883--4894, 2019.
+
+\bibitem{xu_spatial-temporal_2020}
+M.~Xu \emph{et~al.},
+``Spatial-temporal transformer networks for traffic flow forecasting,''
+\emph{arXiv preprint arXiv:2001.02908}, 2020.
+
+\bibitem{shao_decoupled_2022}
+Z.~Shao \emph{et~al.},
+``Decoupled dynamic spatial-temporal graph neural network for traffic forecasting,''
+\emph{Proc. VLDB Endowment}, vol.~15, no.~11, pp.~2733--2746, 2022.
+
+\bibitem{li_dynamic_2024}
+Z.~Li, J.~Zhou, Z.~Lin, and T.~Zhou,
+``Dynamic spatial aware graph transformer for spatiotemporal traffic flow forecasting,''
+\emph{Knowledge-Based Systems}, vol.~297, p.~111946, 2024.
+
+\bibitem{wang_adaptive_2024}
+R.~Wang \emph{et~al.},
+``Adaptive spatio-temporal relation based transformer for traffic flow prediction,''
+\emph{IEEE Trans. Vehicular Technology}, 2024.
+
+\bibitem{liu_largest_2023}
+X.~Liu \emph{et~al.},
+``LargeST: A benchmark dataset for large-scale traffic forecasting,''
+in \emph{Proc. NeurIPS}, vol.~36, pp.~75354--75371, 2023.
+
+\bibitem{zheng_lightcast_2024}
+R.~Zheng, D.~Zhang, C.~Dong, S.~Huang, and J.~Wang,
+``LightCast: Efficient traffic flow forecasting via an integrated compression framework,''
+\emph{IEEE Trans. Intelligent Vehicles}, 2024.
+
+\bibitem{zhang_efficient_2025}
+Q.~Zhang, X.~Gao, H.~Wang, S.~M.~Yiu, and H.~Yin,
+``Efficient traffic prediction through spatio-temporal distillation,''
+in \emph{Proc. AAAI}, 2025.
+
+\bibitem{sener_active_2018}
+O.~Sener and S.~Savarese,
+``Active learning for convolutional neural networks: A core-set approach,''
+in \emph{Proc. ICLR}, 2018.
+
+\bibitem{welling_herding_2009}
+M.~Welling,
+``Herding dynamical weights to learn,''
+in \emph{Proc. ICML}, 2009.
+
+\bibitem{kaufmann_clustering_1987}
+L.~Kaufmann and P.~Rousseeuw,
+``Clustering by means of medoids,''
+in \emph{Data Analysis Based on the L1-Norm and Related Methods},
+pp.~405--416, 1987.
+
+\bibitem{iyer_submodular_2021}
+R.~Iyer, N.~Khargoankar, J.~Bilmes, and H.~Asanani,
+``Submodular combinatorial information measures with applications in machine learning,''
+in \emph{Proc. ICML}, 2021.
+
+\bibitem{kothawade_prism_2022}
+S.~Kothawade, V.~Kaushal, G.~Ramakrishnan, J.~Bilmes, and R.~Iyer,
+``PRISM: A rich class of parameterized submodular information measures for guided data subset selection,''
+in \emph{Proc. AAAI}, 2022.
+
+\bibitem{mirzasoleiman_coresets_2020}
+B.~Mirzasoleiman, J.~Bilmes, and J.~Leskovec,
+``Coresets for data-efficient training of machine learning models,''
+in \emph{Proc. ICML}, 2020.
+
+\bibitem{killamsetty_grad-match_2021}
+K.~Killamsetty, S.~Durga, G.~Ramakrishnan, A.~De, and R.~Iyer,
+``Grad-Match: Gradient matching based data subset selection for efficient deep model training,''
+in \emph{Proc. ICML}, 2021.
+
+\bibitem{paul_deep_2021}
+M.~Paul, S.~Ganguli, and G.~K.~Dziugaite,
+``Deep learning on a data diet: Finding important examples early in training,''
+in \emph{Proc. NeurIPS}, vol.~34, pp.~20596--20607, 2021.
+
+\bibitem{toneva_empirical_2018}
+M.~Toneva, A.~Sordoni, R.~T.~des~Combes, A.~Trischler, Y.~Bengio,
+and G.~J.~Gordon,
+``An empirical study of example forgetting during deep neural network learning,''
+\emph{arXiv preprint arXiv:1812.05159}, 2018.
+
+\bibitem{xia_moderate_2022}
+X.~Xia, J.~Liu, J.~Yu, X.~Shen, B.~Han, and T.~Liu,
+``Moderate coreset: A universal method of data selection for real-world data-efficient deep learning,''
+in \emph{Proc. ICLR}, 2022.
+
+\bibitem{maharana_d2_2023}
+A.~Maharana, P.~Yadav, and M.~Bansal,
+``D2 Pruning: Message passing for balancing diversity and difficulty in data pruning,''
+\emph{arXiv preprint arXiv:2310.07931}, 2023.
+
+\bibitem{tan_data_2025}
+H.~Tan, S.~Wu, W.~Huang, S.~Zhao, and X.~Qi,
+``Data pruning by information maximization,''
+in \emph{Proc. ICLR}, 2025.
+
+\bibitem{sorscher_beyond_2022}
+B.~Sorscher, R.~Geirhos, S.~Shekhar, S.~Ganguli, and A.~Morcos,
+``Beyond neural scaling laws: Beating power law scaling via data pruning,''
+in \emph{Proc. NeurIPS}, 2022.
+
+\bibitem{villani_optimal_2009}
+C.~Villani,
+\emph{Optimal Transport: Old and New}.
+Berlin: Springer, 2009.
+
+\bibitem{cuturi_sinkhorn_2013}
+M.~Cuturi,
+``Sinkhorn distances: Lightspeed computation of optimal transport,''
+in \emph{Proc. NeurIPS}, vol.~26, 2013.
+
+\bibitem{our_itsc}
+\todo{Our ITSC paper reference.}
+
+\end{thebibliography}
+
+\end{document}

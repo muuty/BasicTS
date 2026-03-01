@@ -1,0 +1,36 @@
+\section{Related Works}
+This section reviews previous work in two key areas relevant to our study: deep learning models for traffic prediction and coreset selection selection.
+
+\subsection{Deep Learning Models for Traffic Prediction}\label{sec:traffic_forecasting}
+Traffic forecasting is a multivariate spatio-temporal time–series problem to predict future traffic states (e.g., speed, flow, occupancy) in multiple locations. Since traffic states are influenced by both adjacent locations and past states, it is important to capture (i) spatial correlations among locations and (ii) temporal patterns across different horizons.
+
+GNNs have become an emerging model for traffic forecasting since they can model the road network explicitly as a graph whose nodes represent sensors on road segments and edges represent connectivity between road segments. Especially, spatio-temporal GNNs have made significant progress in recent years by capturing hidden patterns of spatial-temporal graphs \cite{wu_graph_2019}, \cite{yu_spatio-temporal_2018}, \cite{cui_traffic_2019}, \cite{li_dynamic_2023}, \cite{bai_adaptive_2020}.
+
+
+However, compared to simpler models, GNNs generally rely on a higher computational burden during the training phase. Recent benchmark results show that training the state-of-the-art GNN model on one year’s data from 2,352 sensors requires 148 GPU-hours on a single GPU \cite{liu_largest_2023}. To address these computational bottlenecks, efficient learning paradigms have been proposed, including model compression and architectural optimisation \cite{zheng_lightcast_2024, zhang_efficient_2025}. 
+
+\subsection{Coreset Selection}
+Coreset selection aims to select a small but representative subset of a given dataset, while minimising the performance drop observed when training a model using the subset compared to training using the entire dataset. This technique directly reduces the computational burden associated with training complex models on massive datasets. Many previous research studied coreset selection in the image classification domain. They can be categorised into two main categories: \textit{Model-free} methods and \textit{Model-dependent} methods.
+
+\subsubsection{Model-free coreset selection}
+These methods select coresets purely based on data characteristics (e.g., distance metrics, similarity), without requiring model training or gradient information.
+\begin{itemize}
+    \item \textbf{Geometric methods:} Select a coreset using geometric measures like distances between data samples. For example, \textit{k-center greedy} \cite{sener_active_2018} iteratively selects data sample farthest from each step's coreset and \textit{herding} \cite{welling_herding_2009} constructs a coreset by iteratively adding data samples to match the average moment of the selected samples with the entire dataset's average moment.
+    \item \textbf{Submodular methods:} Select a coreset using a submodular function, which measures overall information of given subset. For example, \textit{facility-location} \cite{kothawade_prism_2022}, selects data samples that best "cover" the dataset based on a similarity measure.
+\end{itemize}
+These methods are generally computationally efficient, which makes them particularly suitable for large-scale datasets.
+
+\subsubsection{Model-dependent coreset selection}
+These methods utilise information from a trained model (e.g., gradients, losses, representations) to select coresets. They evaluate each data point under the model to choose the most informative subset and, thus, generally bring higher computational costs during the selection phase :
+
+\begin{itemize}
+    \item \textbf{Gradient-based methods:} Select a coreset whose aggregated gradients approximate the full data gradient. For instance, \textit{CRAIG} \cite{mirzasoleiman_coresets_2020} selects a coreset by greedily maximizing a submodular facility location function defined over distances between gradients. \textit{GradMatch} \cite{killamsetty_grad-match_2021} selects a subset by using orthogonal matching to align the subset's weighted gradient sum with a target gradient.
+    %(full training or validation).
+
+    \item \textbf{Score-based methods:} Select a coreset based on an importance score of each data point, such as prediction error, loss magnitude, gradient norm, or training dynamics. For instance, \textit{EL2N} \cite{paul_deep_2021} measures importance scores using squared L2 norm of the prediction error vector, and \textit{GraNd} \cite{paul_deep_2021} uses gradient norm of the loss of each training samples. \textit{Forgetting} \cite{toneva_empirical_2018} counts how often each sample switches from correct to incorrect during training. \textit{CCS} \cite{zheng_coverage-centric_2022} conducts stratified sampling based on importance scores to improve data coverage.
+
+
+    \item \textbf{Hybrid methods: } Combine model-derived information, such as learned representations or losses, with geometric principles like diversity or coverage. For instance, \textit{Moderate} \cite{xia_moderate_2022} measures the distance of each sample to its class center using extracted representation and selects samples near the median distance. \textit{D2 Pruning} \cite{maharana_d2_2023} applies a message passing approach based on embedding space, for balancing difficulty and diversity. \textit{Infomax} \cite{tan_data_2025} selects a coreset by formulating the problem as maximizing the sum of individual sample importance scores while penalizing pairwise similarities within the subset.
+\end{itemize}
+
+The primary motivation for using coresets in large-scale traffic forecasting is to reduce computational overhead. Since \textit{model-dependent} methods require additional resources for model training during the selection process, we focus on evaluating \textit{model-free} coreset selection methods in this paper.

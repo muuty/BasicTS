@@ -1,0 +1,42 @@
+
+\section{Results}
+
+This section presents empirical results from evaluating eight coreset selection methods on the PEMS04 and PEMS07 datasets using the STGCN model.
+
+
+\subsection{Overall Performance}
+
+Table~\ref{table:full_result} summarises the performance metrics (MAE, RMSE, MAPE) across coreset selection methods and sampling ratios for both PEMS04 and PEMS07 datasets. The results show that coresets enable substantial data reduction while preserving model performance. Performance generally improved (error decreased) as the coreset ratio increased, with several methods achieving near-baseline results using significantly less data. For instance, using only 50\% of the data often achieved errors within 0.1-0.5\% absolute MAPE difference of the full-data baseline, and some methods keep the model performance even at a 30\% ratio. Herding and k-medoids selection for mid-to-high ratio coresets (50-90\%) achieved slightly lower prediction errors than the full-data baseline. Overall, k-medoids selection delivered the most robust and accurate performance across all metrics and datasets.
+
+
+\input{tables/full_result}
+
+\subsection{Feature Space Coverage and Temporal Distribution}
+
+Figure~\ref{fig:tsne} visualises the coverage of feature space using t-SNE embeddings and KDE, comparing coresets (red) against the full dataset (grey) for the selection ratio 5\%. The quality of this coverage strongly correlates with forecasting accuracy (Table~\ref{table:full_result}). High accuracy methods (Random, Stride, Herding, and K-Medoids) demonstrate representative coverage, while keeping data distribution of entire dataset. In contrast, the poor accuracy of methods (Total Similarity, Recent) corresponds directly to their unbalanced feature space coverage. Consistent with previous coreset selection research in image classification, our findings confirm that better feature space coverage leads to better coreset performance in time-series forecasting problem.
+
+
+
+Temporal distribution of coreset samples is also related to the performance of trained model. High accuracy methods(Random, Stride, Herding, K-medoids, Facility Location) generally maintain balanced temporal diversity in terms of day of week and hour of day. It leads to preserve diverse temporal traffic patterns accross different time periods. Conversely, poor accuracy methods (Recent, Total Similarity, K-center-greedy) show unbalanced and biased temporal distribution in the heatmap. Thus, focusing on temporal diversity can be a practical and effective strategy to help achieve the high feature space coverage, offering a simpler alternative to directly handling feature space of complex, high-dimensional data.
+
+
+
+\subsection{Discussion}
+\subsubsection{Clustering-Based Selection Outperforms at Small Coreset Sampling Ratios
+}
+In multivariate traffic forecasting under low sampling ratios, a simple geometric distance-based clustering approach achieves strong performance when constructing coresets. This selection constructs a coreset by selecting the center points (medoids) of the data clusters \cite{kaufmann_clustering_1987}. This finding is consistent with previous research \cite{sorscher_beyond_2022}, which shows that retaining 'prototypical' samples rather than 'difficult' ones is more beneficial under low selection ratio. They also showed that a self-supervised prototypicality score, based on k-means centroid distance, outperformed supervised difficulty metrics. These observations suggest that clustering-based algorithms could be useful for measuring sample prototypicality and enable accurate coreset construnction in multivariate time-series domains.
+
+
+
+
+\subsubsection{Coreset Selection Can Increase Model Performance}
+Furthermore, we observed several coreset methods that produced slightly lower prediction errors than the entire dataset training baseline. Our observation aligns with previous studies \cite{paul_deep_2021}, \cite{tan_data_2025}, which showed that selective pruning of training samples can increase model accuracy. Our results indicate that coreset selection can perform as data cleaning, potentially removing less informative or confusing samples, on multivariate time-series forecasting.
+
+
+\subsection{Limitations}
+This study has three primary limitations. First, our evaluation involved only the STGCN model and two specific PEMS datasets. Future work will verify these results using datasets of other periods and districts and by applying other models such as Transformer and LSTM to check  whether our findings are broadly applicable.
+Second, distances for coreset selection were calculated directly on high-dimensional raw input features.  Meaningful representations of data samples can capture more semantic structure, as suggested by previous work \cite{zheng_coverage-centric_2022}, \cite{xia_moderate_2022}, \cite{maharana_d2_2023}, \cite{tan_data_2025}. Using such representations might enhance the interpretability and effectiveness of coreset selection for high-dimensional traffic datasets.
+Third, our current approach prioritizes the selection of representative samples, may lead to reduced representation of rare but meaningful events (e.g., accidents or unusual congestion patterns). By considering overall representativeness, coreset selection may underperform in these uncommon scenarios. Future work could explictly evaluate this risk and explore hybrid approach to capture traffic patterns from unique events.
+
+\subsubsection{Computational Efficiency and Practical Implications}
+While this study focuses on data reduction and predictive accuracy, the practical value of coreset selection in real-world ITS deployments hinges on computational efficiency. Coreset selection is lightweight compared to full model training, adding only a one‐time overhead. Once a coreset is constructed, every subsequent training iteration—whether for model updates or hyperparameter tuning—uses a smaller subset, providing continuous savings in compute and memory. This makes coreset reuse especially attractive for iterative development cycles and large‐scale traffic systems.

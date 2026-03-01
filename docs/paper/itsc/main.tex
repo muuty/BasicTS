@@ -1,0 +1,76 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{siunitx}
+\usepackage{threeparttable}
+\usepackage{svg}
+
+\usepackage{multirow}   
+\usepackage{url}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\DeclareMathOperator*{\argmax}{argmax} % thin space, limits underneath in displays
+
+
+\begin{document}
+
+
+
+\title{Scalable Traffic Prediction via Data Reduction with Coreset Selection}
+
+
+\input{sections/authors}
+\maketitle
+
+
+\input{sections/0_abstract}
+
+\begin{IEEEkeywords}
+traffic prediction, coreset selection, data-efficient learning, deep learning, multivariate time series prediction
+\end{IEEEkeywords}
+
+\input{sections/1_introduction.tex}
+\input{sections/2_related_work.tex}
+\input{sections/3_preliminaries}
+
+\begin{figure*}[t] 
+  \centering
+  \includegraphics[width=\textwidth]{figures/tsne.png} 
+  \caption{t-SNE visualization (center plots) and Kernel Density Estimates (marginal plots) of the full dataset (grey/darker shade) and the selected coresets (red/lighter shade) for each selection method.} 
+  \label{fig:tsne}
+\end{figure*}
+
+\begin{figure*}[t] 
+  \centering
+  \includegraphics[width=\textwidth]{figures/graph.png} 
+  \caption{Overall performance for each selection ratio on PEMS07 dataset} 
+  \label{fig:graph}
+\end{figure*}
+
+\input{sections/4_experiments}
+% Figure 2: Temporal Distribution Visualization
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/temporal.png} 
+  \caption{Heatmaps showing the temporal distribution (Day of Week vs. Hour of Day) of samples selected by each coreset method, for selection ratio 5\% on PEMS07 dataset. Other methods(Random, Herding, K-medoids, Facility-location) shows even distribution like stride.}
+  \label{fig:temporal}
+\end{figure*}
+
+
+\input{sections/5_results}
+\input{sections/6_conclusion}
+
+
+\input{sections/7_references}
+\vspace{12pt}
+
+\end{document}
+

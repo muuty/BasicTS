@@ -1,0 +1,265 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+
+\setlist[itemize]{leftmargin=*}
+\setlength{\parskip}{0.45em}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\title{Direct Bound for Coreset Forecasting (MAE, Finite/Discrete)}
+\author{}
+\date{}
+\maketitle
+
+%% ================================================================
+\section{Setup}
+%% ================================================================
+
+\textbf{Datasets and models.}
+\begin{equation}
+D_{\mathrm{train}}=\{(x_i,y_i)\}_{i=1}^{n},\quad
+D_{\mathrm{test}}=\{(x_j,y_j)\}_{j=1}^{m},\quad
+D_{\mathrm{coreset}}\subset D_{\mathrm{train}},\quad
+|D_{\mathrm{coreset}}|=k.
+\end{equation}
+Write $f_{\mathrm{coreset}}$ for the model trained on $D_{\mathrm{coreset}}$.
+Write $X_D:=\{x:(x,y)\in D\}$ for the input set of a dataset $D$,
+so that $X_{\mathrm{coreset}}=\{c_1,\dots,c_k\}$.
+
+\textbf{MAE on a finite set.}
+\begin{equation}
+\mathrm{MAE}_{D}(f):=\frac{1}{|D|}\sum_{(x,y)\in D}|f(x)-y|.
+\end{equation}
+
+\textbf{Ground distance and Wasserstein-1.}
+Let $d$ be a metric on the input space $\mathcal{X}$
+(e.g.\ Euclidean distance).
+For finite sets $X_A=\{a_i\}_{i=1}^{n_A}$ and $X_B=\{b_j\}_{j=1}^{n_B}$
+with uniform weights,
+\begin{equation}\label{eq:w1}
+W_1(X_A,X_B)
+\;:=\;
+\min_{\Gamma\ge 0}\;
+\sum_{i,j}\Gamma_{ij}\,d(a_i,b_j)
+\quad\text{s.t.}\quad
+\sum_j\Gamma_{ij}=\tfrac{1}{n_A},\;\;
+\sum_i\Gamma_{ij}=\tfrac{1}{n_B}.
+\end{equation}
+
+\textbf{Pointwise loss and Lipschitz constant.}
+Assume each input $x$ in the support has a unique target $y(x)$.
+For a fixed model $f$, define the pointwise loss
+$\phi_f(x):=|f(x)-y(x)|$.
+If $\phi_f$ is $L_f$-Lipschitz w.r.t.\ $d$, i.e.\
+$|\phi_f(x)-\phi_f(x')|\le L_f\,d(x,x')$ for all $x,x'$,
+then the Kantorovich--Rubinstein (KR) inequality gives
+\begin{equation}\label{eq:kr}
+\bigl|\,\mathbb{E}_P[\phi_f]-\mathbb{E}_Q[\phi_f]\,\bigr|
+\;\le\;
+L_f\;W_1(P,Q).
+\end{equation}
+
+%% ================================================================
+\section{Main Bound (Single-Model)}
+%% ================================================================
+
+\textbf{Goal.}
+We bound the test-set MAE of the coreset-trained model $f_{\mathrm{coreset}}$
+in terms of a weighted coreset MAE and two distributional distances.
+
+\textbf{Cluster-size weighted MAE.}
+Let $n_\ell$ be the number of training points assigned to $c_\ell$
+(nearest-neighbour assignment).
+Define weights $w_\ell:=n_\ell/n$ and
+\begin{equation}\label{eq:wmae}
+\mathrm{MAE}^{w}_{D_{\mathrm{coreset}}}(f)
+\;:=\;\sum_{\ell=1}^{k}w_\ell\,|f(c_\ell)-y(c_\ell)|.
+\end{equation}
+This is a proper weighted average ($\sum w_\ell=1$).
+
+\textbf{Weighted Wasserstein-1.}
+The corresponding transport cost with target marginal $\mathbf{w}$ is
+\begin{equation}\label{eq:w1w}
+W_1(X_{\mathrm{train}},X_{\mathrm{coreset}};\mathbf{w})
+\;:=\;
+\min_{\substack{\Gamma\ge 0\\[1pt]
+\sum_\ell\Gamma_{i\ell}=1/n\\[1pt]
+\sum_i\Gamma_{i\ell}=w_\ell}}
+\;\sum_{i,\ell}\Gamma_{i\ell}\,d(x_i,c_\ell).
+\end{equation}
+
+\bigskip
+\textbf{Derivation.}
+Write $L_{\mathrm{coreset}}$ for the Lipschitz constant of
+$\phi_{f_{\mathrm{coreset}}}$ w.r.t.\ $d$.
+We chain two applications of KR.
+
+\textit{Step 1: test $\to$ train.}
+Applying KR with the fixed model $f_{\mathrm{coreset}}$:
+\begin{equation}\label{eq:step1}
+\mathrm{MAE}_{D_{\mathrm{test}}}(f_{\mathrm{coreset}})
+\;\le\;
+\mathrm{MAE}_{D_{\mathrm{train}}}(f_{\mathrm{coreset}})
+\;+\;
+L_{\mathrm{coreset}}\,W_1(X_{\mathrm{test}},X_{\mathrm{train}}).
+\end{equation}
+
+\textit{Step 2: train $\to$ weighted coreset.}
+Applying weighted KR:
+\begin{equation}\label{eq:step2}
+\mathrm{MAE}_{D_{\mathrm{train}}}(f_{\mathrm{coreset}})
+\;\le\;
+\mathrm{MAE}^{w}_{D_{\mathrm{coreset}}}(f_{\mathrm{coreset}})
+\;+\;
+L_{\mathrm{coreset}}\,W_1(X_{\mathrm{train}},X_{\mathrm{coreset}};\mathbf{w}).
+\end{equation}
+
+\textit{Combining.}
+Substituting~\eqref{eq:step2} into~\eqref{eq:step1}:
+\begin{equation}\label{eq:final}
+\boxed{
+\mathrm{MAE}_{D_{\mathrm{test}}}(f_{\mathrm{coreset}})
+\;\le\;
+\mathrm{MAE}^{w}_{D_{\mathrm{coreset}}}(f_{\mathrm{coreset}})
+\;+\;
+L_{\mathrm{coreset}}\,
+\Bigl[\,
+W_1(X_{\mathrm{test}},X_{\mathrm{train}})
+\;+\;
+W_1(X_{\mathrm{train}},X_{\mathrm{coreset}};\mathbf{w})
+\,\Bigr].
+}
+\end{equation}
+
+\textbf{Interpretation.}
+\begin{itemize}
+\item $\mathrm{MAE}^{w}_{D_{\mathrm{coreset}}}(f_{\mathrm{coreset}})$\,:
+  the weighted training loss on coreset points, directly observable after training.
+\item $W_1(X_{\mathrm{test}},X_{\mathrm{train}})$\,:
+  test--train distributional shift.
+  Fixed by the data split; the coreset method cannot control this.
+\item $W_1(X_{\mathrm{train}},X_{\mathrm{coreset}};\mathbf{w})$\,:
+  train--coreset mismatch.
+  \textbf{Directly controllable} by the selection algorithm.
+\item $L_{\mathrm{coreset}}$\,:
+  Lipschitz constant of $\phi_{f_{\mathrm{coreset}}}$,
+  measuring the model's sensitivity to input perturbation.
+\end{itemize}
+
+%% ================================================================
+\section{k-medoids Link}
+%% ================================================================
+
+The k-medoids objective is
+\begin{equation}
+J_{\mathrm{kmed}}(X_{\mathrm{coreset}})
+\;:=\;\frac{1}{n}\sum_{i=1}^{n}\min_{c\in X_{\mathrm{coreset}}}d(x_i,c).
+\end{equation}
+
+\textbf{Claim.}\;
+$W_1(X_{\mathrm{train}},X_{\mathrm{coreset}};\mathbf{w})
+\le J_{\mathrm{kmed}}(X_{\mathrm{coreset}})$.
+
+\textit{Proof.}\;
+Set $\Gamma_{i\ell}:=\frac{1}{n}\,\mathbf{1}[\pi(x_i)=c_\ell]$
+where $\pi(x_i):=\arg\min_{c\in X_{\mathrm{coreset}}}d(x_i,c)$.
+\begin{itemize}
+\item Row marginals:
+  $\sum_\ell\Gamma_{i\ell}=1/n$\;
+  (each point is assigned to exactly one medoid).
+\item Column marginals:
+  $\sum_i\Gamma_{i\ell}=n_\ell/n=w_\ell$\;
+  (each medoid receives mass proportional to its cluster size).
+\end{itemize}
+So $\Gamma$ is feasible for~\eqref{eq:w1w}, and its cost is
+\begin{equation}
+\sum_{i,\ell}\Gamma_{i\ell}\,d(x_i,c_\ell)
+\;=\;\frac{1}{n}\sum_{i=1}^{n}d(x_i,\pi(x_i))
+\;=\;J_{\mathrm{kmed}}(X_{\mathrm{coreset}}).
+\end{equation}
+Since $W_1$ minimises over all feasible plans:
+\begin{equation}\label{eq:kmed-w1}
+\boxed{
+W_1(X_{\mathrm{train}},X_{\mathrm{coreset}};\mathbf{w})
+\;\le\;
+J_{\mathrm{kmed}}(X_{\mathrm{coreset}}).
+}
+\end{equation}
+
+\textbf{Design principle.}\;
+Substituting into~\eqref{eq:final}:
+\begin{equation}
+\mathrm{MAE}_{D_{\mathrm{test}}}(f_{\mathrm{coreset}})
+\;\le\;
+\mathrm{MAE}^{w}_{D_{\mathrm{coreset}}}(f_{\mathrm{coreset}})
+\;+\;
+L_{\mathrm{coreset}}\,\bigl[\,
+W_1(X_{\mathrm{test}},X_{\mathrm{train}})
+\;+\;
+J_{\mathrm{kmed}}(X_{\mathrm{coreset}})
+\,\bigr].
+\end{equation}
+Minimising $J_{\mathrm{kmed}}$ directly shrinks the controllable term
+in the bound.
+Among the methods we compare (k-medoids, k-center, graph-cut),
+only k-medoids is designed to minimise this quantity.
+
+%% ================================================================
+\section{When Can the Coreset Model Win?}
+%% ================================================================
+
+Define the signed gap
+\begin{equation}
+\Delta_{\mathrm{test}}
+:=
+\mathrm{MAE}_{D_{\mathrm{test}}}(f_{\mathrm{coreset}})
+-
+\mathrm{MAE}_{D_{\mathrm{test}}}(f_{\mathrm{train}}).
+\end{equation}
+We want conditions under which $\Delta_{\mathrm{test}}<0$
+(coreset model beats the full-data model on test).
+
+\textbf{Intuitive argument.}
+Applying the main bound~\eqref{eq:final} to $f_{\mathrm{coreset}}$
+and analogously bounding
+$\mathrm{MAE}_{D_{\mathrm{test}}}(f_{\mathrm{train}})
+\ge \mathrm{MAE}_{D_{\mathrm{train}}}(f_{\mathrm{train}})
+- L_{\mathrm{train}}\,W_1(X_{\mathrm{test}},X_{\mathrm{train}})$
+from below:
+\begin{align}
+\Delta_{\mathrm{test}}
+&\;\le\;
+\mathrm{MAE}^w_{D_{\mathrm{coreset}}}(f_{\mathrm{coreset}})
++ L_{\mathrm{coreset}}\bigl[W_1^{tt}+W_1^{tc}\bigr]
+- \mathrm{MAE}_{D_{\mathrm{train}}}(f_{\mathrm{train}})
++ L_{\mathrm{train}}\,W_1^{tt},
+\end{align}
+where $W_1^{tt}:=W_1(X_{\mathrm{test}},X_{\mathrm{train}})$ and
+$W_1^{tc}:=W_1(X_{\mathrm{train}},X_{\mathrm{coreset}};\mathbf{w})$.
+
+Assuming both models fit their training data equally well
+($\mathrm{MAE}^w_{D_{\mathrm{coreset}}}(f_{\mathrm{coreset}})
+\approx \mathrm{MAE}_{D_{\mathrm{train}}}(f_{\mathrm{train}})$)
+and have similar sensitivity
+($L_{\mathrm{train}}\approx L_{\mathrm{coreset}}\approx L$),
+the dominant residual is
+\begin{equation}\label{eq:delta-approx}
+\boxed{
+\Delta_{\mathrm{test}}
+\;\lessapprox\;
+L\cdot W_1(X_{\mathrm{train}},X_{\mathrm{coreset}};\mathbf{w}).
+}
+\end{equation}
+When $W_1^{tc}$ is small (k-medoids minimises this),
+$\Delta_{\mathrm{test}}$ is near zero.
+Moreover, because the coreset is a selective subset,
+it may drop training-time outlier patterns
+(e.g.\ incidents, holidays) that are absent from the test period,
+placing $X_{\mathrm{coreset}}$ slightly closer to $X_{\mathrm{test}}$
+than $X_{\mathrm{train}}$ is --- which can make $\Delta_{\mathrm{test}}<0$.
+
+\end{document}
