@@ -2,6 +2,38 @@
 
 ---
 
+## 2026-03-01
+
+### Done
+- **STID channel index fix** (`baselines/STID/arch/stid_arch.py`)
+  - Dataset has [flow, occ, speed, tod, dow] but STID hardcoded indices 1,2
+  - Changed to `history_data[..., -2]` (tod), `history_data[..., -1]` (dow)
+- **IncidentAwareRunner test hang fix** (`basicts/runners/incident_aware_runner.py`)
+  - Root cause: double forward pass (super().test() + _evaluate_incidents() both iterate test data) + `.item()` GPU-CPU sync × thousands of calls → intermittent 14h+ hangs
+  - Fix: override test() directly, collect indices in single forward pass, pass pre-computed data to _evaluate_incidents(), use batch `.cpu().tolist()` instead of per-element `.item()`
+- **Phase C experiment configs** (all euclidean distance)
+  - `phase_c_method_comparison.yaml`: 570 runs (6 methods × 3 ratios × 5 models × 2 datasets × 3 seeds + full data)
+  - `phase_c_ratio_sweep.yaml`: 180 runs (k_medoids × 6 ratios × 5 models × 2 datasets × 3 seeds)
+- **Phase C submission**: 400/570 runs submitted (100/143 batches); 43 batches hit QOSMaxSubmitJobPerUserLimit
+- **T-ITS paper readiness assessment**: 3 contributions confirmed sufficient
+  1. Theoretical framework: generalization bound via W1 distance
+  2. k-medoids justification: J_kmed ≥ W1 → minimizing J_kmed minimizes bound
+  3. Quantization cost proxy metric: r > 0.94 for predicting downstream MAE without training
+
+### Observations / Results
+- Checkpoint disk usage: ~251GB in checkpoints, /QRISdata/Q7977 has 292TB available
+- Combined vs euclidean results fully separated (different experiment names → different checkpoint dirs)
+- Method comparison covers ratios 0.3/0.5/0.7/1.0; ratio sweep adds 0.1/0.2/0.4/0.6/0.8/0.9 for k_medoids only
+- ~29 batches completed (~116 runs), 5 running, 66 pending at EOD
+
+### Tomorrow
+- Resubmit remaining 43 batches of phase_c_method_comparison (rerun same command)
+- Submit phase_c_ratio_sweep.yaml (180 runs)
+- Monitor Phase C progress
+- Begin paper writing preparation
+
+---
+
 ## 2026-02-26
 
 ### Done

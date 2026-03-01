@@ -1,25 +1,29 @@
 # Tasks — Incident-Aware Traffic Forecasting
 
 ## 🔥 In Progress
-- [ ] Phase A training: 220 runs submitted (44 batch jobs), 4 RUNNING / 40 PENDING
-- [ ] Facility Location: selection job running (Job 21498425), 64 training runs pending after
+- [ ] Phase C method comparison: 400/570 runs submitted, ~116 completed, remaining 43 batches pending QOS limit
+- [ ] Phase C ratio sweep: 180 runs ready to submit (after method comparison has queue room)
 
 ## 📋 Backlog
-- [ ] Analyze Phase A results: rank distance functions across models, methods, ratios (after 220 runs complete)
-- [ ] Visualize Phase A: heatmap of MAE by distance × method, seed variance analysis
-- [ ] Debug STGformer zero-MAE runs in Phase A (some combos produce MAE=0.0 — likely early termination)
+- [ ] Resubmit remaining 43 batches of phase_c_method_comparison
+- [ ] Submit phase_c_ratio_sweep.yaml (180 runs)
+- [ ] Collect Phase C results: `get_results.py --config phase_c_*.yaml`
+- [ ] Begin T-ITS paper writing (3 contributions: theory, k-medoids justification, proxy metric)
 - [ ] Implement severity-aware pre-training Stage 1 (contrastive, design in `docs/design.md`)
 - [ ] Integrate severity-aware encoder with STGCN and STAEformer backbones (Stage 2)
-- [ ] Run Phase A best settings on ALAMEDA and SACRAMENTO datasets (generalization check)
-- [ ] Add CLEAR, STD-MAE, SCPT baselines for comparison
-- [ ] Phase B: main benchmark (1,080 runs) with locked distance + expanded method/ratio grid
-- [ ] Phase C: dataset verification (~144 runs across ALAMEDA, SACRAMENTO)
-- [ ] Phase D: cross-model coreset transferability (~108 runs)
 
 ## 🚧 Blocked
-- [ ] Phase A full analysis — blocked by: training runs in progress (220 + 64 FL)
+- [ ] Phase C full analysis — blocked by: training runs in progress (~750 total)
 
 ## ✅ Recently Done
+- [x] Fix STID channel index mismatch for multi-feature datasets
+- [x] Fix IncidentAwareRunner test hang (double forward pass + .item() sync bottleneck)
+- [x] Create Phase C experiment configs (euclidean, 5 models, 2 datasets, 750 runs)
+- [x] Submit Phase C method comparison (400/570 runs)
+- [x] Create CONTRA_COSTA model configs (STGCN, AGCRN, DCRNN, STID, STAEformer)
+- [x] T-ITS paper readiness assessment — confirmed 3 contributions sufficient
+- [x] Phase A + Phase B training completed (SAN_BERNARDINO, STGCN/AGCRN/DCRNN)
+- [x] Theoretical bound analysis + quantization cost proxy metric development
 - [x] Complete all 110 coreset index files for SAN_BERNARDINO
 - [x] Implement Facility Location selection method (greedy submodular, (1-1/e) guarantee)
 - [x] Temporal distribution analysis (DOW/TOD KL divergence across all selections)
@@ -37,4 +41,4 @@
 - [x] Design severity-aware contrastive pre-training framework (`docs/design.md`)
 
 ## 📅 Deadlines
-- No hard deadlines currently. Paper submission target TBD.
+- T-ITS paper submission: target after Phase C experiments complete

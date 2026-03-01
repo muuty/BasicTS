@@ -1,12 +1,15 @@
 # Ideas — Incident-Aware Traffic Forecasting
 
 ## Experiment Ideas
-- **Weighted combined distance** — current combined distance averages normalized temporal + spatial equally. Try learned or tuned weights (e.g., 0.7 spatial + 0.3 temporal) since spatial structure may matter more for incident propagation.
 - **Curriculum coreset** — start training with full data, progressively switch to coreset. Hypothesis: early epochs need diversity, later epochs benefit from focused subset.
 - **Adaptive ratio per model** — STGCN optimal at 0.6, STAEformer at 0.8 (from K-Medoids experiment). Use model-specific ratios instead of fixed 0.3/0.7.
 - **Incident-weighted coreset selection** — modify facility location or graph cut objective to upweight timestamps near incidents. Current selection is incident-agnostic.
-- **Ensemble distance** — combine L2 and cosine distances (rank fusion or normalized sum) instead of choosing one.
-- **Proxy metric as selection criterion** — use OT divergence or FL objective to pick the best coreset without training, then only train the top-k candidates.
+
+## Paper Contributions (T-ITS)
+1. **Theoretical framework**: Generalization bound via W1 distance — only W1(X_train, C; w) is controllable
+2. **k-medoids justification**: J_kmed ≥ W1 → minimizing J_kmed is theoretically optimal for coreset selection
+3. **Quantization cost proxy metric**: Quant(S) = J_kmed, Pearson r > 0.94 within-setting, r = 0.983 global — training-free coreset quality prediction
+- Note: bound is loose (ratio_L95 = 0.3~66) but direction is consistent
 
 ## Research Questions
 - FL vs k-medoids: 같은 목적함수(facility location)를 greedy vs PAM으로 푸는 차이. FL이 (1-1/e) 보장이 있지만, RBF similarity 변환으로 인해 k-medoids(raw distance)와 다른 결과 가능. Cosine pipeline에서는 더 유사할 수 있음.
