@@ -35,6 +35,10 @@ from .multitask_staeformer import MultiTaskSTAEformer
 from .dual_head_forecaster import DualHeadForecaster
 from .residual_mlp import ResidualMLP
 from .gated_residual_mlp import GatedResidualMLP
+from .input_spillover_corrector import InputSpilloverCorrector
+from .input_corrector_pretrain_model import InputCorrectorPretrainModel
+from .input_spillover_corrector_v2 import InputSpilloverCorrectorV2
+from .input_corrector_pretrain_model_v2 import InputCorrectorPretrainModelV2
 
 # Augmentations
 from .augmentations import (
@@ -84,6 +88,10 @@ __all__ = [
     'DualHeadForecaster',
     'ResidualMLP',
     'GatedResidualMLP',
+    'InputSpilloverCorrector',
+    'InputCorrectorPretrainModel',
+    'InputSpilloverCorrectorV2',
+    'InputCorrectorPretrainModelV2',
     # Augmentations
     'ConfigurableAugmentation',
     'TemporalMasking',
