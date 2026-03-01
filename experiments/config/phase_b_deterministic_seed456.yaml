@@ -1,0 +1,66 @@
+description: "Phase B: Seed 456 — additional seed for statistical robustness"
+
+# Adds seed 456 to Phase B experiments (SAN_BERNARDINO).
+# Same settings as phase_b_deterministic.yaml but CORESET.SEED: [456] only.
+#
+# Smart methods: 5 models × 3 methods × 4 distances × 2 ratios × 1 seed = 120 runs
+# Baselines:     5 models × 3 methods × 1 distance  × 2 ratios × 1 seed =  30 runs
+# Full data:     5 models × 1 method  × 1 distance  × 1 ratio  × 1 seed =   5 runs
+# Total: 155 runs
+
+runs:
+  # --- Distance-dependent methods ---
+  - name: "phase_b_smart"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO_no_dropout.py"
+      - "baselines/AGCRN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/DCRNN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STID/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["k_center", "k_medoids", "graph_cut"]
+      CORESET.SELECTION_RATIO: [0.3, 0.7]
+      CORESET.DISTANCE_TYPE: ["euclidean", "temporal", "spatial", "combined"]
+      CORESET.SEED: [456]
+      ENV.SEED: [42]
+      ENV.DETERMINISTIC: [true]
+      ENV.CUDNN.ENABLED: [true]
+      ENV.CUDNN.BENCHMARK: [false]
+      ENV.CUDNN.DETERMINISTIC: [true]
+
+  # --- Baseline methods (distance-independent) ---
+  - name: "phase_b_baseline"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO_no_dropout.py"
+      - "baselines/AGCRN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/DCRNN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STID/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["random", "stride", "recent"]
+      CORESET.SELECTION_RATIO: [0.3, 0.7]
+      CORESET.DISTANCE_TYPE: ["euclidean"]
+      CORESET.SEED: [456]
+      ENV.SEED: [42]
+      ENV.DETERMINISTIC: [true]
+      ENV.CUDNN.ENABLED: [true]
+      ENV.CUDNN.BENCHMARK: [false]
+      ENV.CUDNN.DETERMINISTIC: [true]
+
+  # --- Full data baseline ---
+  - name: "phase_b_full"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO_no_dropout.py"
+      - "baselines/AGCRN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/DCRNN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STID/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["random"]
+      CORESET.SELECTION_RATIO: [1.0]
+      CORESET.SEED: [456]
+      ENV.SEED: [42]
+      ENV.DETERMINISTIC: [true]
+      ENV.CUDNN.ENABLED: [true]
+      ENV.CUDNN.BENCHMARK: [false]
+      ENV.CUDNN.DETERMINISTIC: [true]

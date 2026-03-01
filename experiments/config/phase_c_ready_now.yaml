@@ -1,0 +1,76 @@
+description: "Phase C - Ready to run now (k_center + baselines + full data)"
+
+# k_center indices are ready, k_medoids/graph_cut still computing
+# Baselines (random/stride/recent) and full data don't need pre-computed indices
+
+runs:
+  # --- k_center (indices ready) ---
+  - name: "phase_c_smart"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO_no_dropout.py"
+      - "baselines/AGCRN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/DCRNN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STID/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STGCN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/AGCRN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/DCRNN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/STID/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/STAEformer/CONTRA_COSTA/CONTRA_COSTA.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["k_center"]
+      CORESET.SELECTION_RATIO: [0.3, 0.5, 0.7]
+      CORESET.DISTANCE_TYPE: ["euclidean"]
+      CORESET.SEED: [42, 123, 456]
+      ENV.SEED: [42]
+      ENV.DETERMINISTIC: [true]
+      ENV.CUDNN.ENABLED: [true]
+      ENV.CUDNN.BENCHMARK: [false]
+      ENV.CUDNN.DETERMINISTIC: [true]
+
+  # --- Baseline methods (no pre-computed indices needed) ---
+  - name: "phase_c_baseline"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO_no_dropout.py"
+      - "baselines/AGCRN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/DCRNN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STID/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STGCN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/AGCRN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/DCRNN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/STID/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/STAEformer/CONTRA_COSTA/CONTRA_COSTA.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["random", "stride", "recent"]
+      CORESET.SELECTION_RATIO: [0.3, 0.5, 0.7]
+      CORESET.DISTANCE_TYPE: ["euclidean"]
+      CORESET.SEED: [42, 123, 456]
+      ENV.SEED: [42]
+      ENV.DETERMINISTIC: [true]
+      ENV.CUDNN.ENABLED: [true]
+      ENV.CUDNN.BENCHMARK: [false]
+      ENV.CUDNN.DETERMINISTIC: [true]
+
+  # --- Full data baseline ---
+  - name: "phase_c_full"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO_no_dropout.py"
+      - "baselines/AGCRN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/DCRNN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STID/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STGCN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/AGCRN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/DCRNN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/STID/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/STAEformer/CONTRA_COSTA/CONTRA_COSTA.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["random"]
+      CORESET.SELECTION_RATIO: [1.0]
+      CORESET.SEED: [42, 123, 456]
+      ENV.SEED: [42]
+      ENV.DETERMINISTIC: [true]
+      ENV.CUDNN.ENABLED: [true]
+      ENV.CUDNN.BENCHMARK: [false]
+      ENV.CUDNN.DETERMINISTIC: [true]

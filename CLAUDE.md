@@ -16,6 +16,19 @@
 ## Environment
 - Python 환경: `conda activate cuda` 필수 (easytorch, easydict, torch 등)
 - SLURM 제출: `experiments/scripts/submit_job_cuda.sh` (gpu_cuda partition)
+- Account: `a_civil_eng`
+
+### GPU Interactive (debug mode)
+단시간 GPU 작업에는 미리 정의된 alias 사용:
+```bash
+sgpu-cuda
+# = salloc --mem=32G --partition=gpu_cuda --qos=debug --gres=gpu:1 srun --export=PATH,TERM,HOME,LANG --pty /bin/bash -l
+```
+할당 후 바로 GPU 노드 bash 셸에 진입됨. 할당된 job에서 추가 명령 실행:
+```bash
+srun --jobid=<JOBID> --overlap bash -c "conda activate cuda && python ..."
+```
+- QOS 옵션: `debug` (높은 우선순위, 짧은 작업), `gpu` (최대 72h, 일반 학습용)
 
 ## Key Conventions
 - Config 파일에서 import: `from baselines.X` (not `from other_baselines.X`)

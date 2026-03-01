@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 """
-Additional coverage metrics: Coverage Gap (per-hour) + MMD.
+Additional coverage metrics: Coverage Gap (per-hour) + MMD + TCG.
 
 B1. Coverage Gap: per-hour relative deviation from full dataset distribution
 B2. MMD: Maximum Mean Discrepancy in PCA feature space
+B3. TCG (Tail Coverage Gap): 95th percentile of nearest coreset distance
 
 Usage:
     conda activate cuda && python scripts/analysis/additional_coverage_metrics.py
@@ -67,9 +68,11 @@ model_config = cfg['MODEL']
 inputs, targets = extract_features(dataset, model_config)
 features_combined = get_features_by_type(inputs, targets, 'combined')
 
-pca = PCA(n_components=10, random_state=42)
-features_pca = pca.fit_transform(features_combined)
-print(f"  PCA: {features_combined.shape[1]} -> 10 dims, var_explained={pca.explained_variance_ratio_.sum():.3f}")
+pca10 = PCA(n_components=10, random_state=42)
+features_pca = pca10.fit_transform(features_combined)
+print(f"  PCA(10): {features_combined.shape[1]} -> 10 dims, var_explained={pca10.explained_variance_ratio_.sum():.3f}")
+
+# TCG uses same PCA-10 features (avoid OOM with PCA-50 on large coresets)
 
 def compute_mmd_rbf(indices, features, sigma=None, subsample=2000):
     """Compute MMD^2 with RBF kernel between coreset and full dataset.
@@ -119,6 +122,25 @@ def compute_mmd_rbf(indices, features, sigma=None, subsample=2000):
 
     return max(0.0, mmd2), sigma
 
+# ── B3. TCG (Tail Coverage Gap) ───────────────────────────────────────────────
+print("B3. Computing TCG (95th percentile nearest coreset distance)...")
+
+def compute_tcg(indices, features, batch_size=200):
+    """TCG_95 = Q_0.95 of {d_i} where d_i = min_{s in S} ||x_i - x_s||."""
+    from scipy.spatial.distance import cdist
+    coreset_feat = features[indices]
+    N = len(features)
+    dists = np.zeros(N)
+    for start in range(0, N, batch_size):
+        end = min(start + batch_size, N)
+        d = cdist(features[start:end], coreset_feat, metric='euclidean')
+        dists[start:end] = d.min(axis=1)
+    return {
+        'tcg_95': float(np.percentile(dists, 95)),
+        'tcg_99': float(np.percentile(dists, 99)),
+        'tcg_mean': float(np.mean(dists)),
+    }
+
 # ── Compute for all index files ─────────────────────────────────────────────
 print("\nComputing metrics for all index files...")
 
@@ -150,15 +172,18 @@ for i, row in df.iterrows():
     mmd2, _ = compute_mmd_rbf(indices, features_pca, sigma=global_sigma)
     mmd_time = time.time() - t0
 
-    results[i] = {**cg, 'mmd_rbf': mmd2}
+    # TCG (using PCA-10 features)
+    tcg = compute_tcg(indices, features_pca)
+
+    results[i] = {**cg, 'mmd_rbf': mmd2, **tcg}
 
     if (i + 1) % 10 == 0:
         print(f"  [{i+1}/{len(df)}] {fname}: gap_mean={cg['coverage_gap_mean']:.4f}, "
-              f"gap_max={cg['coverage_gap_max']:.2f} (h{cg['coverage_gap_max_hour']}), "
+              f"TCG95={tcg['tcg_95']:.2f}, "
               f"MMD={mmd2:.6f} ({mmd_time:.1f}s)")
 
 # Add to dataframe
-for col in ['coverage_gap_mean', 'coverage_gap_max', 'coverage_gap_max_hour', 'underrep_hours', 'mmd_rbf']:
+for col in ['coverage_gap_mean', 'coverage_gap_max', 'coverage_gap_max_hour', 'underrep_hours', 'mmd_rbf', 'tcg_95', 'tcg_99', 'tcg_mean']:
     df[col] = df.index.map(lambda i: results.get(i, {}).get(col, np.nan))
 
 # Save updated table
@@ -171,14 +196,14 @@ print("COVERAGE GAP ANALYSIS (ratio=0.3)")
 print("="*80)
 
 r03 = df[df['ratio'] == 0.3]
-r03_avg = r03.groupby(['method', 'distance'])[['coverage_gap_mean', 'coverage_gap_max', 'underrep_hours', 'mmd_rbf']].mean()
+r03_avg = r03.groupby(['method', 'distance'])[['coverage_gap_mean', 'coverage_gap_max', 'underrep_hours', 'mmd_rbf', 'tcg_95']].mean()
 r03_avg = r03_avg.sort_values('coverage_gap_mean')
 
-print(f"\n{'method':12s} {'distance':10s} {'gap_mean':>9s} {'gap_max':>8s} {'#under':>6s} {'MMD':>10s}")
-print("-" * 60)
+print(f"\n{'method':12s} {'distance':10s} {'gap_mean':>9s} {'gap_max':>8s} {'#under':>6s} {'MMD':>10s} {'TCG95':>8s}")
+print("-" * 70)
 for (method, dist), row in r03_avg.iterrows():
     print(f"{method:12s} {dist:10s} {row['coverage_gap_mean']:9.4f} {row['coverage_gap_max']:8.2f} "
-          f"{row['underrep_hours']:6.1f} {row['mmd_rbf']:10.6f}")
+          f"{row['underrep_hours']:6.1f} {row['mmd_rbf']:10.6f} {row['tcg_95']:8.2f}")
 
 print("\n" + "="*80)
 print("MMD RANKING (ratio=0.3, lower=better)")
@@ -192,7 +217,7 @@ print("\n" + "="*80)
 print("CORRELATION WITH NEW METRICS (ratio=0.3)")
 print("="*80)
 corr_cols = ['ot_cost', 'sinkhorn_div', 'kl_tod', 'kl_feature', 'fl_objective',
-             'redundancy', 'h_tod', 'coverage_gap_mean', 'mmd_rbf']
+             'redundancy', 'h_tod', 'coverage_gap_mean', 'mmd_rbf', 'tcg_95']
 r03_corr = r03.groupby(['method', 'distance'])[corr_cols].mean()
 corr = r03_corr.corr()
 print("\nCorrelations with coverage_gap_mean:")

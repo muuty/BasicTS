@@ -1,0 +1,92 @@
+description: "Phase C Group 1: Method Comparison (distance=combined, 2 datasets, 3 seeds)"
+
+# Experimental design:
+#   - Distance fixed to 'combined' (Phase B showed distance doesn't affect k-medoids)
+#   - Ratios: 0.3, 0.5, 0.7 (added 0.5 vs Phase B)
+#   - Seeds: 42, 123, 456 (added 456 vs Phase B)
+#   - Datasets: SAN_BERNARDINO (893 nodes), CONTRA_COSTA (773 nodes)
+#
+# Smart methods: 10 configs × 3 methods × 3 ratios × 3 seeds = 270 runs
+# Baselines:     10 configs × 3 methods × 3 ratios × 3 seeds = 270 runs
+# Full data:     10 configs × 1 method  × 1 ratio  × 3 seeds =  30 runs
+# Total: 570 runs
+#
+# Workflow:
+#   1. Coreset selection:
+#      python experiments/select_coreset.py --cfg experiments/config/phase_c_method_comparison.yaml --gpus 0
+#   2. Training:
+#      python experiments/run_experiments.py --cfg experiments/config/phase_c_method_comparison.yaml --arch=cuda
+
+runs:
+  # --- Smart methods (distance-dependent) ---
+  - name: "phase_c_smart"
+    configs:
+      # SAN_BERNARDINO
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO_no_dropout.py"
+      - "baselines/AGCRN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/DCRNN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STID/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      # CONTRA_COSTA
+      - "baselines/STGCN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/AGCRN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/DCRNN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/STID/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/STAEformer/CONTRA_COSTA/CONTRA_COSTA.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["k_center", "k_medoids", "graph_cut"]
+      CORESET.SELECTION_RATIO: [0.3, 0.5, 0.7]
+      CORESET.DISTANCE_TYPE: ["euclidean"]
+      CORESET.SEED: [42, 123, 456]
+      ENV.SEED: [42]
+      ENV.DETERMINISTIC: [true]
+      ENV.CUDNN.ENABLED: [true]
+      ENV.CUDNN.BENCHMARK: [false]
+      ENV.CUDNN.DETERMINISTIC: [true]
+
+  # --- Baseline methods (distance-independent) ---
+  - name: "phase_c_baseline"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO_no_dropout.py"
+      - "baselines/AGCRN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/DCRNN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STID/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STGCN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/AGCRN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/DCRNN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/STID/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/STAEformer/CONTRA_COSTA/CONTRA_COSTA.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["random", "stride", "recent"]
+      CORESET.SELECTION_RATIO: [0.3, 0.5, 0.7]
+      CORESET.DISTANCE_TYPE: ["euclidean"]
+      CORESET.SEED: [42, 123, 456]
+      ENV.SEED: [42]
+      ENV.DETERMINISTIC: [true]
+      ENV.CUDNN.ENABLED: [true]
+      ENV.CUDNN.BENCHMARK: [false]
+      ENV.CUDNN.DETERMINISTIC: [true]
+
+  # --- Full data baseline (no coreset) ---
+  - name: "phase_c_full"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO_no_dropout.py"
+      - "baselines/AGCRN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/DCRNN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STID/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STGCN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/AGCRN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/DCRNN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/STID/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/STAEformer/CONTRA_COSTA/CONTRA_COSTA.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["random"]
+      CORESET.SELECTION_RATIO: [1.0]
+      CORESET.SEED: [42, 123, 456]
+      ENV.SEED: [42]
+      ENV.DETERMINISTIC: [true]
+      ENV.CUDNN.ENABLED: [true]
+      ENV.CUDNN.BENCHMARK: [false]
+      ENV.CUDNN.DETERMINISTIC: [true]

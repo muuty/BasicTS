@@ -1,0 +1,39 @@
+description: "Phase C Group 2: k-medoids Ratio Sweep (distance=euclidean, 2 datasets, 3 seeds)"
+
+# Fine-grained ratio sweep for k-medoids only.
+# Ratios 0.3, 0.5, 0.7 already covered by phase_c_method_comparison.yaml.
+# This config covers the remaining ratios: 0.1, 0.2, 0.4, 0.6, 0.8, 0.9.
+#
+# Runs: 10 configs × 6 ratios × 3 seeds = 180 runs
+#
+# Workflow:
+#   1. Coreset selection:
+#      python experiments/select_coreset.py --cfg experiments/config/phase_c_ratio_sweep.yaml --gpus 0
+#   2. Training:
+#      python experiments/run_experiments.py --cfg experiments/config/phase_c_ratio_sweep.yaml --arch=cuda
+
+runs:
+  - name: "phase_c_sweep"
+    configs:
+      # SAN_BERNARDINO
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO_no_dropout.py"
+      - "baselines/AGCRN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/DCRNN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STID/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      # CONTRA_COSTA
+      - "baselines/STGCN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/AGCRN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/DCRNN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/STID/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/STAEformer/CONTRA_COSTA/CONTRA_COSTA.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["k_medoids"]
+      CORESET.SELECTION_RATIO: [0.1, 0.2, 0.4, 0.6, 0.8, 0.9]
+      CORESET.DISTANCE_TYPE: ["euclidean"]
+      CORESET.SEED: [42, 123, 456]
+      ENV.SEED: [42]
+      ENV.DETERMINISTIC: [true]
+      ENV.CUDNN.ENABLED: [true]
+      ENV.CUDNN.BENCHMARK: [false]
+      ENV.CUDNN.DETERMINISTIC: [true]
