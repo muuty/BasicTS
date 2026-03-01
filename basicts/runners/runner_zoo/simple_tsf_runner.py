@@ -52,6 +52,8 @@ class SimpleTimeSeriesForecastingRunner(BaseTimeSeriesForecastingRunner):
             input_data['prediction'] = self.scaler.inverse_transform(input_data['prediction'])
             input_data['target'] = self.scaler.inverse_transform(input_data['target'])
             input_data['inputs'] = self.scaler.inverse_transform(input_data['inputs'])
+            if 'prediction_noisy' in input_data:
+                input_data['prediction_noisy'] = self.scaler.inverse_transform(input_data['prediction_noisy'])
 
         # subset forecasting
         if self.target_time_series is not None:

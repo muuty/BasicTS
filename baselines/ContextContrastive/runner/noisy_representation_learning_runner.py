@@ -4,12 +4,17 @@ Noisy Representation Learning Runner.
 Combines denoising encoder with training-time noise augmentation:
 - Noise injected BEFORE encoder → encoder practices denoising noisy input
 - Model learns to handle residual noise the encoder can't fully clean
+
+Clean regularization (identity constraint):
+- Each batch: encode clean input, enforce passthrough_loss = ||encoder(clean) - clean||
+- Prevents encoder from overcorrecting clean data (CycleGAN identity loss principle)
 """
 
 import random
 from typing import Dict, Optional
 
 import torch
+import torch.nn.functional as F
 
 from .representation_learning_runner import RepresentationLearningRunner
 
@@ -20,14 +25,38 @@ class NoisyRepresentationLearningRunner(RepresentationLearningRunner):
         super().__init__(cfg)
         noise_cfg = cfg.get('NOISE_AUGMENTATION', {})
         self.noise_rate_range = noise_cfg.get('rate_range', [0.05, 0.3])
-        self.noise_types = noise_cfg.get('types', ['gaussian', 'bias', 'stuck', 'drift'])
+        self.noise_types = noise_cfg.get('types', ['gaussian', 'drift', 'dead', 'spike'])
         self.noise_severity_range = noise_cfg.get('severity_range', [0.1, 0.5])
         self.noise_physical_channels = noise_cfg.get('physical_channels', [0, 1, 2])
         self.noise_prob = noise_cfg.get('prob', 0.5)
 
-    def _inject_noise(self, data: torch.Tensor) -> torch.Tensor:
+        # Clean regularization: identity constraint on clean inputs
+        self.identity_lambda = noise_cfg.get('identity_lambda', 0.0)
+        self.identity_channels = noise_cfg.get('physical_channels', [0, 1, 2])
+
+        # Curriculum: gradually ramp noise_prob over epochs
+        curriculum = noise_cfg.get('curriculum', None)
+        if curriculum is not None:
+            self.curriculum_clean_epochs = curriculum.get('clean_epochs', 10)
+            self.curriculum_ramp_epochs = curriculum.get('ramp_epochs', 10)
+        else:
+            self.curriculum_clean_epochs = None
+
+    def _get_noise_prob(self, epoch: Optional[int]) -> float:
+        """Get effective noise probability based on curriculum schedule."""
+        if self.curriculum_clean_epochs is None or epoch is None:
+            return self.noise_prob
+        if epoch < self.curriculum_clean_epochs:
+            return 0.0
+        ramp_progress = epoch - self.curriculum_clean_epochs
+        if ramp_progress >= self.curriculum_ramp_epochs:
+            return self.noise_prob
+        return self.noise_prob * (ramp_progress / self.curriculum_ramp_epochs)
+
+    def _inject_noise(self, data: torch.Tensor, epoch: Optional[int] = None) -> torch.Tensor:
         """Inject random noise into training inputs. [B, T, N, C]"""
-        if random.random() > self.noise_prob:
+        effective_prob = self._get_noise_prob(epoch)
+        if effective_prob <= 0 or random.random() > effective_prob:
             return data
 
         B, T, N, C = data.shape
@@ -66,6 +95,13 @@ class NoisyRepresentationLearningRunner(RepresentationLearningRunner):
         elif noise_type == 'dead':
             for ch in self.noise_physical_channels:
                 corrupted[:, :, corrupt_idx, ch] = 0.0
+        elif noise_type == 'spike':
+            spike_mask = torch.rand(B, T, n_corrupt, device=data.device) < 0.2
+            for ch in self.noise_physical_channels:
+                ch_std = data[:, :, :, ch].std().item() + 1e-8
+                signs = torch.sign(torch.randn(B, T, n_corrupt, device=data.device))
+                spikes = spike_mask * signs * severity * ch_std
+                corrupted[:, :, corrupt_idx, ch] += spikes
 
         return corrupted
 
@@ -100,9 +136,18 @@ class NoisyRepresentationLearningRunner(RepresentationLearningRunner):
             model_return = self.postprocessing(model_return)
             return model_return
 
+        # === CLEAN IDENTITY LOSS (before noise injection) ===
+        passthrough_loss = None
+        if train and self.identity_lambda > 0 and not self.encoder_freeze:
+            self.encoder.train()
+            clean_encoded = self.encoder.encode(history_data)
+            ch = self.identity_channels
+            passthrough_loss = self.identity_lambda * F.l1_loss(
+                clean_encoded[..., ch], history_data[..., ch])
+
         # === NOISE INJECTION (training only, BEFORE encoder) ===
         if train:
-            history_data = self._inject_noise(history_data)
+            history_data = self._inject_noise(history_data, epoch=epoch)
 
         # Encoder
         if train and not self.encoder_freeze:
@@ -145,6 +190,10 @@ class NoisyRepresentationLearningRunner(RepresentationLearningRunner):
             model_return['target'] = self.select_target_features(future_data)
 
         assert list(model_return['prediction'].shape)[:3] == [batch_size, length, num_nodes]
+
+        # Add passthrough loss for identity-regularized loss function
+        if passthrough_loss is not None:
+            model_return['passthrough_loss'] = passthrough_loss
 
         model_return = self.postprocessing(model_return)
         return model_return
