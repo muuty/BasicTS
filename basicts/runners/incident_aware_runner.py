@@ -1,11 +1,13 @@
 import os
 import json
-from typing import Dict, Optional, Set
+from typing import Dict, List, Optional, Set
 
+import numpy as np
 import pandas as pd
 import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
+from easytorch.utils import master_only
 
 from basicts.runners import SimpleTimeSeriesForecastingRunner
 from basicts.utils import get_regular_settings
@@ -17,12 +19,11 @@ class IncidentAwareRunner(SimpleTimeSeriesForecastingRunner):
     """
     Custom runner that supports incident-specific evaluation.
     """
-    
+
     def __init__(self, cfg: Dict):
         super().__init__(cfg)
-        self.incident_metadata_path = cfg['TEST']['INCIDENT_METADATA_PATH']
-        self.incident_slots = self._load_incident_metadata()
-        
+        self.incident_metadata_path = cfg.get('TEST', {}).get('INCIDENT_METADATA_PATH', None)
+        self.incident_slots = self._load_incident_metadata() if self.incident_metadata_path else None
 
         self.has_contrastive_loss = cfg.get('CONTRASTIVE_LOSS', None) is not None
         if self.has_contrastive_loss:
@@ -31,31 +32,29 @@ class IncidentAwareRunner(SimpleTimeSeriesForecastingRunner):
             self.register_epoch_meter('train/cl_loss', 'train', '{:.4f}')
             self.register_epoch_meter('train/pred_loss', 'train', '{:.4f}')
 
-
     def _load_incident_metadata(self) -> Optional[Dict]:
         """Load incident metadata and extract time slots by type."""
         if not os.path.exists(self.incident_metadata_path):
             print(f"Warning: Incident metadata file not found: {self.incident_metadata_path}")
             return None
-            
+
         incident_df = pd.read_csv(self.incident_metadata_path)
         incident_data = {}
-        
+
         for _, row in incident_df.iterrows():
-            # 사고 순간은 input의 마지막 샘플 (input_start_slot + 11)
             incident_slot = int(row['input_start_slot']) + 11
             incident_type = row['incident_type']
-            
+
             if incident_type not in incident_data:
                 incident_data[incident_type] = set()
             incident_data[incident_type].add(incident_slot)
-        
+
         print(f"Loaded incident time slots by type from {self.incident_metadata_path}")
         for incident_type, slots in incident_data.items():
             print(f"  {incident_type}: {len(slots)} incidents")
-        
+
         return incident_data
-    
+
     def _get_test_data_start_index(self) -> int:
         """Calculate the start index of test data."""
         dataset = self.test_data_loader.dataset
@@ -63,87 +62,109 @@ class IncidentAwareRunner(SimpleTimeSeriesForecastingRunner):
         valid_len = int(total_len * dataset.train_val_test_ratio[1])
         test_len = int(total_len * dataset.train_val_test_ratio[2])
         train_len = total_len - valid_len - test_len
-        
+
         offset = dataset.input_len - 1 if dataset.overlap else 0
         return train_len + valid_len - offset
-    
+
+    @torch.no_grad()
+    @master_only
     def test(self, train_epoch: Optional[int] = None, save_metrics: bool = False, save_results: bool = False) -> Dict:
-        """Test process with incident-specific evaluation support."""
-        # Run normal test first
-        results = super().test(train_epoch, save_metrics, save_results)
-        
-        # Run incident-specific evaluation if metadata is available
-        incident_metrics = self._evaluate_incidents()
-        self._save_incident_metrics(incident_metrics)
-        
-        return results
-    
-    def _evaluate_incidents(self) -> Optional[Dict]:
-        """Evaluate model performance on incident time slots by type."""
-        if self.incident_slots is None:
-            return None
-            
-        print("Evaluating on incident time slots by type...")
-        
-        test_start_idx = self._get_test_data_start_index()
-        
-        # Get test data range
-        dataset = self.test_data_loader.dataset
-        total_len = dataset.description['shape'][0]
-        test_len = int(total_len * dataset.train_val_test_ratio[2])
-        test_end_idx = test_start_idx + test_len
-        
-        # Collect all incident indices by type
-        incident_indices_by_type = {}
-        all_incident_indices = set()  # 전체 incident indices
-        
-        for incident_type, incident_slots in self.incident_slots.items():
-            # Filter incident slots to only those in test data range
-            test_incident_slots = {slot for slot in incident_slots if test_start_idx <= slot < test_end_idx}
-            
-            if test_incident_slots:
-                # Convert absolute incident slots to relative test indices
-                relative_incident_indices = {slot - test_start_idx for slot in test_incident_slots}
-                incident_indices_by_type[incident_type] = relative_incident_indices
-                all_incident_indices.update(relative_incident_indices)
-                print(f"  {incident_type}: {len(relative_incident_indices)} incidents in test range")
-        
-        if not incident_indices_by_type:
-            print("No incident types found in test data range")
-            return None
-        
-        print(f"  Total unique incidents: {len(all_incident_indices)}")
-        
-        # Run prediction once for all test data
-        print("Running predictions for all test data...")
-        all_predictions, all_targets, all_inputs, all_indices = [], [], [], []
-        
-        for data in tqdm(self.test_data_loader, desc="Test data evaluation"):
+        """Test process with incident-specific evaluation.
+
+        Extends parent's test loop to also collect sample indices,
+        then reuses predictions for incident evaluation (no redundant forward pass).
+        """
+
+        prediction, target, inputs, indices = [], [], [], []
+
+        for data in tqdm(self.test_data_loader):
             forward_return = self.forward(data, epoch=None, iter_num=None, train=False)
-            
+
+            loss = self.metric_forward(self.loss, forward_return)
+            self.update_epoch_meter('test/loss', loss.item())
+
             if not self.if_evaluate_on_gpu:
                 forward_return['prediction'] = forward_return['prediction'].detach().cpu()
                 forward_return['target'] = forward_return['target'].detach().cpu()
                 forward_return['inputs'] = forward_return['inputs'].detach().cpu()
-            
-            all_predictions.append(forward_return['prediction'])
-            all_targets.append(forward_return['target'])
-            all_inputs.append(forward_return['inputs'])
-            all_indices.append(data['index'])
-        
-        # Concatenate all test data
-        all_predictions = torch.cat(all_predictions, dim=0)
-        all_targets = torch.cat(all_targets, dim=0)
-        all_inputs = torch.cat(all_inputs, dim=0)
-        all_indices = torch.cat(all_indices, dim=0)
-        
+
+            prediction.append(forward_return['prediction'])
+            target.append(forward_return['target'])
+            inputs.append(forward_return['inputs'])
+            indices.append(data['index'])
+
+        prediction = torch.cat(prediction, dim=0)
+        target = torch.cat(target, dim=0)
+        inputs = torch.cat(inputs, dim=0)
+        all_indices = torch.cat(indices, dim=0)
+
+        returns_all = {'prediction': prediction, 'target': target, 'inputs': inputs}
+        self.compute_evaluation_metrics(returns_all)
+
+        if save_results:
+            test_results = {k: v.cpu().numpy() for k, v in returns_all.items()}
+            np.savez(os.path.join(self.ckpt_save_dir, 'test_results.npz'), **test_results)
+
+        if save_metrics:
+            metrics_results = self.compute_evaluation_metrics(returns_all)
+            with open(os.path.join(self.ckpt_save_dir, 'test_metrics.json'), 'w') as f:
+                json.dump(metrics_results, f, indent=4)
+
+        # Incident evaluation: reuse predictions, no second forward pass
+        if self.incident_slots is not None:
+            incident_metrics = self._evaluate_incidents(returns_all, all_indices)
+            self._save_incident_metrics(incident_metrics)
+
+        return returns_all
+
+    def _evaluate_incidents(self, returns_all: Dict, all_indices: torch.Tensor) -> Optional[Dict]:
+        """Evaluate model performance on incident time slots by type.
+
+        Reuses pre-computed predictions from test() instead of running
+        a redundant forward pass. Uses batch CPU transfer instead of
+        per-element .item() calls to avoid GPU-CPU sync bottleneck.
+        """
+        print("Evaluating on incident time slots by type...")
+
+        test_start_idx = self._get_test_data_start_index()
+
+        dataset = self.test_data_loader.dataset
+        total_len = dataset.description['shape'][0]
+        test_len = int(total_len * dataset.train_val_test_ratio[2])
+        test_end_idx = test_start_idx + test_len
+
+        incident_indices_by_type = {}
+        all_incident_indices = set()
+
+        for incident_type, incident_slots in self.incident_slots.items():
+            test_incident_slots = {slot for slot in incident_slots if test_start_idx <= slot < test_end_idx}
+
+            if test_incident_slots:
+                relative_incident_indices = {slot - test_start_idx for slot in test_incident_slots}
+                incident_indices_by_type[incident_type] = relative_incident_indices
+                all_incident_indices.update(relative_incident_indices)
+                print(f"  {incident_type}: {len(relative_incident_indices)} incidents in test range")
+
+        if not incident_indices_by_type:
+            print("No incident types found in test data range")
+            return None
+
+        print(f"  Total unique incidents: {len(all_incident_indices)}")
+
+        all_predictions = returns_all['prediction']
+        all_targets = returns_all['target']
+        all_inputs = returns_all['inputs']
+
+        # Single batch GPU→CPU transfer instead of per-element .item() calls
+        indices_list = all_indices.cpu().tolist()
+
         print(f"Total test samples: {len(all_predictions)}")
-        
+
         all_incident_metrics = {}
-        
+
         # === 1. Non-incident metrics ===
         non_incident_mask = torch.tensor(
-            [idx.item() not in all_incident_indices for idx in all_indices], 
+            [idx not in all_incident_indices for idx in indices_list],
             dtype=torch.bool
         )
         if non_incident_mask.any():
@@ -155,12 +176,9 @@ class IncidentAwareRunner(SimpleTimeSeriesForecastingRunner):
             }
             non_incident_metrics = self.compute_evaluation_metrics(non_incident_returns)
             all_incident_metrics.update({f'non_incident_{k}': v for k, v in non_incident_metrics.items()})
-        
+
         # === 2. All incidents combined metrics ===
-        all_incident_mask = torch.tensor(
-            [idx.item() in all_incident_indices for idx in all_indices],
-            dtype=torch.bool
-        )
+        all_incident_mask = ~non_incident_mask
         if all_incident_mask.any():
             print(f"Evaluating all incident samples: {all_incident_mask.sum().item()}")
             all_incident_returns = {
@@ -170,34 +188,30 @@ class IncidentAwareRunner(SimpleTimeSeriesForecastingRunner):
             }
             combined_metrics = self.compute_evaluation_metrics(all_incident_returns)
             all_incident_metrics.update({f'all_incident_{k}': v for k, v in combined_metrics.items()})
-        
-        # === 3. Per incident type metrics (기존 로직) ===
+
+        # === 3. Per incident type metrics ===
         for incident_type, incident_indices in incident_indices_by_type.items():
             print(f"Evaluating {incident_type} incidents...")
-            
+
             incident_mask = torch.tensor(
-                [idx.item() in incident_indices for idx in all_indices], 
+                [idx in incident_indices for idx in indices_list],
                 dtype=torch.bool
             )
-            
+
             if not incident_mask.any():
                 print(f"  No {incident_type} samples found in test data")
                 continue
-            
-            incident_prediction = all_predictions[incident_mask]
-            incident_target = all_targets[incident_mask]
-            incident_input = all_inputs[incident_mask]
-            
-            print(f"  Evaluating on {len(incident_prediction)} {incident_type} samples")
-            
+
+            print(f"  Evaluating on {incident_mask.sum().item()} {incident_type} samples")
+
             incident_returns = {
-                'prediction': incident_prediction,
-                'target': incident_target,
-                'inputs': incident_input
+                'prediction': all_predictions[incident_mask],
+                'target': all_targets[incident_mask],
+                'inputs': all_inputs[incident_mask]
             }
             incident_metrics = self.compute_evaluation_metrics(incident_returns)
             all_incident_metrics.update({f'{incident_type}_{k}': v for k, v in incident_metrics.items()})
-        
+
         return all_incident_metrics
     
     def _save_incident_metrics(self, incident_metrics: Dict):
