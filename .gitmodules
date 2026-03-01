@@ -1,0 +1,3 @@
+[submodule ".research-notes"]
+	path = .research-notes
+	url = git@github.com:muuty/research-notes.git
