@@ -894,3 +894,219 @@ CC에서는 v1 encoder(hidden=32, no residual)만 테스트됨. v1은 clean MAE 
 
 *Last updated: 2026-02-25*
 
+---
+
+## 22. InputSpilloverCorrector: Input-Level Denoising (2026-02-27~28)
+
+### 목적
+SpilloverCorrector(output-level, post-backbone)가 hidden space에서 corrupt/clean 분리 불가(0.9% separability)로 실패. 동일한 3-stage mechanistic 구조(reliability → cross-attention → correction)를 input level로 이동. Raw input에서는 noise pattern이 직접 관측 가능.
+
+### 아키텍처
+**InputSpilloverCorrector** (87K params):
+1. Temporal linear attention (ELU+1): per-node temporal feature extraction
+2. Reliability MLP: r ∈ [0,1] per node
+3. Reliability-gated cross-attention: anomaly_signal = (1-r)*h
+4. Correction head (zero-init): additive δ for physical channels
+
+### 실험 결과
+
+| Model | Clean MAE | Gauss | Bias | Stuck | Drift | Dead | Avg Deg |
+|---|---|---|---|---|---|---|---|
+| Baseline | **12.13** | +33% | +75% | +19% | +38% | +261% | +85% |
+| Denoise_v2+Aug | 12.81 | +5% | +24% | +10% | +11% | +266% | +63% |
+| **InputCorrector 30ep** | 13.35 | +4% | +19% | +10% | +13% | **+73%** | **+24%** |
+| InputCorrector 60ep | 13.41 | +6% | +32% | +11% | +15% | +91% | +31% |
+
+### Interpretability 분석
+
+**Reliability r의 의미**:
+- r은 "reliability"가 아닌 **"signal stability"** (temporal variance의 역수) 학습
+- Dead 센서: r≈1.0 (가장 안정적), Functional: r≈0.94
+- Dead/Gaussian AUROC 우수 (1.0/0.81), Stuck/Bias/Drift AUROC ≈ 0.5 (미검출)
+- 그럼에도 cross-attention이 보상: corrupt 노드가 5.4x 더 많은 attention weight 수신
+
+**Correction δ targeting**:
+- Dead: 2062x 비율로 corrupt 노드에 correction 집중
+- Bias: 423x, Drift: 166x, Gaussian: 24x — 모든 noise type에서 targeting 작동
+
+### 핵심 인사이트
+
+1. **역대 최고 robustness**: Avg deg +24%, Dead +73% — 모든 이전 방법 대비 압도적
+2. **Clean MAE 문제**: +1.22 penalty (13.35 vs 12.13). Replace strategy에서 clean data에도 미세한 correction 발생
+3. **60ep 효과 없음**: Pretrain loss 3.84→3.66 (미미), downstream MAE/robustness 모두 30ep 대비 악화. 30ep에서 이미 수렴
+4. **r의 한계**: Temporal-only feature로는 Stuck/Bias/Drift 검출 불가. Spatial context 추가 또는 explicit supervision 필요
+
+### 파일
+- Encoder: `baselines/ContextContrastive/arch/input_spillover_corrector.py`
+- Pretrain model: `baselines/ContextContrastive/arch/input_corrector_pretrain_model.py`
+- Pretrain config: `baselines/ContextContrastive/SAN_BERNARDINO/pretrain_input_corrector.py` (30ep)
+- Downstream: `baselines/STAEformer/SAN_BERNARDINO_5ch_input_corrector_noisy.py`
+- Interpretability: `experiments/analyze_input_corrector.py`
+
+---
+
+## 23. Robustness-Accuracy Tradeoff Analysis (2026-02-28)
+
+### 목적
+InputCorrector wClean (clean_prob=0.2)이 clean MAE는 개선(-0.31)하지만 robustness는 악화(+7pp)하는 원인 규명.
+
+### 핵심 발견: r Saturation
+
+wClean의 reliability r이 0.9986으로 포화 → anomaly_signal=(1-r)*h ≈ 0 → correction 불능.
+
+| Encoder | r_mean | Dead AUROC | Avg CDR | Clean δ |
+|---|---|---|---|---|
+| 30ep | 0.953 | **1.00** | **533** | 0.014 |
+| wClean | **0.999** | 0.002 | 90 | **0.010** |
+
+- wClean은 "모든 데이터가 reliable"이라고 학습 → dead 노드도 r=0.9998
+- Dead noise correction이 400x 약화 (δ: 21.03 → 0.053)
+- 이것은 fundamental tradeoff가 아닌 **training artifact** (r saturation)
+
+### Channel 분석
+- Speed 채널이 correction의 95% 차지 (z-score space에서 variance 높음)
+- Flow (MAE target) correction은 매우 작음 (0.007)
+- Clean MAE penalty의 주 원인: speed channel의 잔여 correction이 backbone input을 왜곡
+
+### 결론
+- wClean 접근법은 r saturation 때문에 실패
+- **Encoder fine-tune (freeze=False, low lr)**이 더 유망: downstream MAE loss가 직접 δ→0 유도, r을 건드리지 않으므로 detection 능력 보존 가능
+
+### 파일
+- 분석 스크립트: `experiments/analyze_tradeoff.py`
+- 시각화: `experiments/figures/tradeoff_*.png`
+
+*Last updated: 2026-02-28*
+
+---
+
+## 20. InputSpilloverCorrector V2: Memory-Augmented Cross-Attention (2026-02-28)
+
+### 목적
+v1의 근본 결함(per-node temporal-only reliability → spatial context 없음 → bias/stuck 감지 불가)을 해결하기 위한 완전 재설계.
+
+### 아키텍처
+v1 (87K params): x → proj → temporal_blocks(2 layers) → pool → reliability MLP → gated cross-attn → correction
+v2 (24K params): x → flatten(T*3) → Linear → CrossAttn(nodes+memory) → reliability → (1-r) gated correction
+
+핵심 변경:
+- Temporal blocks 제거, flatten+Linear로 대체
+- 32개 learnable memory bank (normal-pattern prototypes)
+- 단일 cross-attention (nodes + memory)
+- r supervision loss: BCE(r, 1-corrupt_mask) — pretrain 시 직접 감독
+- Post-multiply gating: δ * (1-r)
+
+### Pretrain 결과
+- 30ep, denoising + r_supervision loss (weight=0.1)
+- Loss: 6.66 → 수렴
+
+### Downstream 결과 (Clean MAE)
+| Model | Clean MAE |
+|---|---|
+| Baseline (no encoder) | 12.13 |
+| v1 wClean | 13.04 |
+| **v2** | **13.10** |
+| v1 30ep | 13.35 |
+
+### Noise Robustness (functional % degradation)
+| Config | baseline | v1_30ep | v2 |
+|---|---|---|---|
+| gauss s0.3 r30 | +33.5% | +4.3% | +5.6% |
+| bias s0.3 r30 | +75.2% | +19.3% | +22.5% |
+| stuck r30 | +19.4% | +10.1% | +12.4% |
+| drift s0.3 r30 | +38.1% | +12.8% | +18.4% |
+| dead r30 | +261.0% | +72.7% | +100.8% |
+| **Avg (all configs)** | **+122.4%** | **+24.9%** | **+33.4%** |
+
+**v2가 v1보다 모든 noise type에서 worse.**
+
+### r-AUROC 분석 (핵심)
+| Noise | v1 AUROC | v2 AUROC | 변화 |
+|---|---|---|---|
+| gaussian | 0.81 | **0.996** | +0.18 |
+| drift | 0.53 | **0.944** | +0.42 |
+| bias | 0.45 | 0.52 | +0.07 (여전히 ~random) |
+| stuck | 0.49 | 0.45 | -0.04 |
+| dead | 1.00 | 1.00 | 동일 |
+
+**gaussian/drift 감지는 dramatic 개선. bias/stuck은 여전히 실패.**
+
+### Memory Bank 분석
+- Memory에 할당된 attention: **0.01%** — 사실상 무시됨
+- 32개 slot이 925개 KV 중 softmax에서 자연스럽게 묻힘
+- Normal-pattern reference 역할 완전히 실패
+
+### Clean Reliability 분포
+- v1: Dead=0.9995, Func=0.9415 — clean 데이터에서 모든 노드를 "reliable"로 판단 (correction 억제, 올바름)
+- v2: Dead=0.622, Func=0.640 — 모든 노드에 0.38 수준의 correction 적용 (과도)
+- r이 잘 calibrate되지 않음
+
+### 근본 원인 분석
+1. **Memory collapse**: softmax에서 893 nodes vs 32 memory → memory가 자연스럽게 무시됨
+2. **Temporal information loss**: Linear(36→64) flatten이 v1의 2-layer temporal blocks보다 약함
+3. **r calibration 실패**: r supervision (BCE)가 있어도 r이 0.62 근처에 뭉침 → correction이 모든 노드에 균일하게 적용
+4. **Bias/stuck는 근본적으로 어려움**: magnitude는 정상 범위, pattern만 미묘하게 다름 → single cross-attention으로 부족
+
+### 인사이트
+- Spatial cross-attention은 gaussian/drift(magnitude 기반)에는 효과적이나 bias/stuck(pattern 기반)에는 여전히 부족
+- Memory bank 자체의 아이디어는 유효하나, softmax에서의 경쟁에서 자연스럽게 패배
+- v1의 temporal blocks가 dead/drift에서 더 유용했던 이유: temporal pattern (e.g., "항상 0" = dead)을 잘 포착
+
+### 파일
+- v2 encoder: `baselines/ContextContrastive/arch/input_spillover_corrector_v2.py`
+- v2 pretrain model: `baselines/ContextContrastive/arch/input_corrector_pretrain_model_v2.py`
+- Pretrain config: `baselines/ContextContrastive/SAN_BERNARDINO/pretrain_input_corrector_v2.py`
+- Downstream config: `baselines/STAEformer/SAN_BERNARDINO_5ch_input_corrector_v2_noisy.py`
+
+*Added: 2026-02-28*
+
+---
+
+## 22. Multi-Backbone Multi-Dataset Noise Vulnerability (2026-02-28)
+
+> **목적**: Noise vulnerability가 backbone-agnostic한 문제임을 실험적으로 증명. 3개 모델 × 2개 데이터셋.
+
+### 22.1 Setup
+
+- **Backbones**: STAEformer (5ch), STGCN (1ch, flow-only), AGCRN (1ch, flow-only)
+- **Datasets**: SAN_BERNARDINO (893 nodes), CONTRA_COSTA (773 nodes)
+- **Noise types**: Gaussian, Drift, Dead, Spike (4 target types, bias/stuck dropped)
+- **Spike noise**: 새로 추가 — 20% timesteps에 transient spike, magnitude = severity × ch_std
+
+### 22.2 Results: SAN_BERNARDINO
+
+| Model | Clean MAE | Gaussian | Drift | Dead | Spike | Avg |
+|---|---|---|---|---|---|---|
+| STAEformer (5ch) | 12.13 | +251.5% | +146.7% | +855.7% | +564.6% | +454.6% |
+| STGCN (1ch) | 13.34 | +75.5% | +128.8% | +517.9% | +161.7% | +221.0% |
+| AGCRN (1ch) | 12.39 | +58.0% | +109.4% | +702.0% | +149.8% | +254.8% |
+
+### 22.3 Results: CONTRA_COSTA
+
+| Model | Clean MAE | Gaussian | Drift | Dead | Spike | Avg |
+|---|---|---|---|---|---|---|
+| STAEformer (5ch) | 12.31 | +180.0% | +170.5% | +1070.8% | +665.9% | +521.8% |
+| STGCN (1ch) | 14.25 | +82.4% | +131.2% | +693.9% | +203.4% | +277.7% |
+| AGCRN (1ch) | 14.27 | +62.0% | +128.0% | +771.1% | +203.6% | +291.2% |
+
+### 22.4 Key Findings
+
+1. **Backbone-agnostic**: 모든 backbone이 동일한 noise vulnerability pattern을 보임 (Dead >> Spike > Gaussian/Drift)
+2. **STAEformer가 가장 취약**: 5ch input에서 dead가 3개 채널 모두 영향 → degradation 극대화
+3. **1ch 모델이 상대적으로 덜 취약**: flow 채널만 사용하므로 dead 영향이 제한됨
+4. **Cross-dataset 일관성**: SAN_BERNARDINO과 CONTRA_COSTA에서 동일한 패턴
+
+### 22.5 Scope Decision
+
+- **Drop bias/stuck**: 감지가 어렵고 (r-AUROC < 0.55), 그럴듯한 값을 생성함
+- **Focus on**: dead, gaussian, drift, spike — 감지 가능하고, 실제 degradation이 큰 noise types
+- 이 결정으로 memory bank 필요성 제거 (bias/stuck 감지를 위해 도입했던 구조)
+
+### 파일
+- Eval script: `experiments/eval_noise_vulnerability.py`
+- STGCN config: `baselines/STGCN/CONTRA_COSTA.py`
+- AGCRN config: `baselines/AGCRN/CONTRA_COSTA.py`
+- Node indices: `datasets/xtraffic/CONTRA_COSTA_indices/`
+
+*Added: 2026-02-28*
+

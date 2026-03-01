@@ -415,7 +415,202 @@ v2 combo best in **13/16** scenarios.
 
 ---
 
+## RQ7: Input-Level Denoising (InputSpilloverCorrector)
+
+Can a lightweight input-level denoising encoder (reliability-gated cross-attention) improve noise robustness without degrading clean performance?
+
+### Architecture
+**InputSpilloverCorrector** (87K params): operates on raw input before the backbone.
+1. **Temporal self-attention** (linear attention): per-node temporal feature extraction
+2. **Reliability MLP**: r ∈ [0,1] per node — estimates signal stability
+3. **Reliability-gated cross-attention**: anomaly_signal = (1-r)*h, propagates corrections from unreliable nodes
+4. **Correction head** (zero-init): outputs additive δ for physical channels only
+
+**Training**: 2-stage pipeline
+- Stage 1: Denoising pretraining (inject 5 noise types → reconstruct clean signal)
+- Stage 2: Frozen encoder + noise augmentation + STAEformer downstream
+
+### Results (Functional Nodes, s03_r30 severity)
+
+| Model | Clean MAE | Gaussian | Bias | Stuck | Drift | Dead | Avg Deg |
+|---|---|---|---|---|---|---|---|
+| Baseline (no encoder) | **12.13** | +33% | +75% | +19% | +38% | +261% | **+85%** |
+| Denoise_v2+Aug (best prior) | 12.81 | +5% | +24% | +10% | +11% | +266% | +63% |
+| **InputCorrector 30ep** | 13.35 | +4% | +19% | +10% | +13% | **+73%** | **+24%** |
+| InputCorrector 60ep | 13.41 | +6% | +32% | +11% | +15% | +91% | +31% |
+
+### Key Findings
+
+1. **Best robustness ever achieved**: Avg degradation +24% (vs +63% Denoise_v2+Aug, +85% Baseline)
+2. **Dead noise dramatically improved**: +73% vs +261% (Baseline) / +266% (Denoise_v2+Aug)
+3. **Clean MAE tradeoff**: +1.22 MAE penalty (13.35 vs 12.13) — significant
+4. **60ep pretraining worse**: Marginal pretrain loss improvement (3.84→3.66), but downstream WORSE (+31% avg deg vs +24%). The encoder was already converged at 30 epochs.
+
+### Interpretability Analysis (30ep checkpoint)
+
+**(a) Reliability vs Sensor Health (Clean Data)**
+| Category | n | r (mean) | r (std) | δ magnitude |
+|---|---|---|---|---|
+| Dead | 121 | 0.9995 | 0.0002 | 0.0001 |
+| Major Fail | 28 | 0.9741 | 0.0215 | 0.0096 |
+| Functional | 583 | 0.9415 | 0.0464 | 0.0272 |
+
+- **Counter-intuitive**: Dead sensors have HIGHEST r (most "reliable"). r learns **signal stability** (low temporal variance) not sensor health. Dead sensors are perfectly stable → r≈1.
+- Mann-Whitney U (functional r > dead r): p=1.00 (functional LOWER)
+
+**(b) Noise Detection (AUROC: can r distinguish corrupt from clean?)**
+| Noise Type | r_corrupt | r_clean | AUROC |
+|---|---|---|---|
+| Dead | 0.9998 | 0.9427 | **1.00** |
+| Gaussian | 0.9203 | 0.9443 | **0.81** |
+| Stuck | 0.9508 | 0.9399 | 0.55 |
+| Bias | 0.9436 | 0.9419 | 0.52 |
+| Drift | 0.9429 | 0.9419 | 0.48 |
+
+- Dead/Gaussian detection works because they change temporal variance
+- Stuck/Bias/Drift NOT detected — temporal-only features miss these patterns
+- Stuck fails because frozen signal = more stable → higher r (wrong direction)
+
+**(c) Correction Delta Targeting**
+| Noise | δ_corrupt | δ_clean | Ratio |
+|---|---|---|---|
+| Dead | 2062x | — | Perfectly targeted |
+| Bias | 423x | — | Well targeted |
+| Drift | 166x | — | Well targeted |
+| Gaussian | 24x | — | Targeted |
+
+- Cross-attention successfully routes corrections to corrupt nodes
+- Even without reliable detection (Bias/Drift AUROC≈0.5), the correction mechanism works via cross-attention weight patterns
+
+**(d) Cross-Attention Weights**
+- Corrupt nodes receive **5.4x more attention** than clean nodes (dead noise injection)
+- Clean data attention entropy: 5.54 (near-max=6.79) — attention is well-distributed
+
+### Checkpoints
+| Model | Clean MAE | Checkpoint |
+|---|---:|---|
+| InputCorrector 30ep pretrain | — | `checkpoints/InputCorrectorPretrain/SAN_BERNARDINO_30_12_12/` |
+| InputCorrector 60ep pretrain | — | `checkpoints/InputCorrectorPretrain60ep/SAN_BERNARDINO_60_12_12/` |
+| InputCorrector 30ep downstream | 13.55 | `checkpoints/STAEformer_5ch_input_corrector_noisy/SAN_BERNARDINO_30_12_12/` |
+| InputCorrector 60ep downstream | 13.49 | `checkpoints/STAEformer_5ch_input_corrector_noisy_60ep/SAN_BERNARDINO_30_12_12/` |
+
+### Analysis: Why Clean MAE Suffers
+- The encoder replaces physical channels with corrected versions (replace strategy, d_model=5)
+- On clean data, the correction δ should be near-zero, but r≈0.94 for functional nodes means small non-zero corrections
+- These corrections introduce slight distortion that the backbone can't fully compensate for
+- Potential fix: explicit r supervision or spatial context before reliability estimation
+
+### Discussion: Reliability r as "Signal Stability"
+The learned r is NOT reliability — it's signal stability (inverse of temporal variance):
+- Dead sensors (zero signal): r≈1.0 (perfectly stable)
+- Functional sensors (normal variation): r≈0.94 (some variation)
+- Gaussian-corrupted: r drops (increased variation → lower stability)
+
+This works for Dead/Gaussian detection but fails for Stuck/Bias/Drift:
+- Stuck: frozen signal = more stable → r increases (wrong direction)
+- Bias: multiplicative shift doesn't change variance much → near-invisible
+- Drift: gradual change doesn't affect short-term variance → near-invisible
+
+Despite imperfect detection, the **cross-attention routing** compensates: corrupt nodes get disproportionate attention weight, enabling targeted correction even when r is ambiguous.
+
+---
+
+## RQ8: Robustness-Accuracy Tradeoff Mechanism
+
+Why does including clean samples in pretraining (clean_prob=0.2) improve clean MAE but degrade robustness? Comparative analysis of 3 encoder variants.
+
+### Experimental Setup
+3 pretrained encoders analyzed on same test data (320 samples):
+- **30ep**: noise-only pretraining (clean_prob=0) — best robustness
+- **60ep**: noise-only, extended training (60 epochs)
+- **wClean**: 20% clean samples in pretraining (clean_prob=0.2)
+
+### Finding 1: r Saturation in wClean
+
+| Encoder | r mean | r std | r range |
+|---|---|---|---|
+| 30ep | 0.9534 | 0.0520 | 0.65–1.00 |
+| 60ep | 0.7343 | 0.1599 | 0.55–0.98 |
+| wClean | **0.9986** | **0.0013** | 0.975–1.00 |
+
+**wClean's r is saturated at ~1.0** for ALL nodes. This means:
+- `anomaly_signal = (1-r) * h` ≈ 0 for all nodes
+- Cross-attention receives near-zero signal → cannot route corrections
+- Encoder effectively becomes identity (δ≈0) regardless of input quality
+
+**Mechanism**: Clean samples teach "r should be high" → model generalizes aggressively → r→1 even for noisy inputs.
+
+### Finding 2: Dead Noise Detection Destroyed
+
+| Encoder | r_dead_corrupt | AUROC | CDR | δ_corrupt |
+|---|---|---|---|---|
+| 30ep | 0.0895 | **1.00** | 2195 | 21.03 |
+| 60ep | 0.6540 | 0.42 | 2352 | 20.00 |
+| wClean | **0.9998** | **0.002** | **4.75** | **0.053** |
+
+30ep perfectly detects dead nodes (r drops to 0.09) → strong correction (δ=21).
+wClean thinks dead nodes are "reliable" (r=0.9998) → no correction (δ=0.05) — **400x weaker**.
+
+### Finding 3: Per-Noise-Type CDR Comparison
+
+| Noise | CDR (30ep) | CDR (wClean) | Change |
+|---|---|---|---|
+| Gaussian | 26.6 | 25.6 | -4% |
+| Bias | 315.1 | 299.4 | -5% |
+| Stuck | 1.4 | 1.2 | -11% |
+| Drift | 128.0 | 120.3 | -6% |
+| Dead | **2195** | **4.75** | **-99.8%** |
+| **Average** | **533** | **90** | **-83%** |
+
+Dead noise CDR collapse (-99.8%) explains why dead degradation worsened most (+73%→+93%).
+Gaussian/Bias/Drift CDR relatively stable — their robustness changes are smaller.
+
+### Finding 4: Speed Channel Dominates Correction
+
+| Channel | δ_clean (30ep) | δ_noisy_corrupt (30ep, avg) |
+|---|---|---|
+| Flow | 0.0073 | 0.09 |
+| Occ | 0.0003 | 0.01 |
+| Speed | **0.0341** | **16.1** |
+
+Speed channel correction is 10-60x larger than flow/occ. This is because speed has higher variance in z-score space. However, MAE target is flow (ch0), so speed corrections may contribute less to downstream improvement but still affect backbone input.
+
+### Finding 5: 60ep is a Different Failure Mode
+- r drops to 0.73 (lower than 30ep's 0.95) — encoder becomes "less confident"
+- δ on noisy data is actually HIGHER (bias: 6.90 vs 4.20, drift: 3.70 vs 1.51)
+- But downstream performance worse — suggests encoder over-corrects or applies wrong corrections
+- CosineAnnealing lr→0 at epoch 60 may cause training instability
+
+### Proxy Metrics Summary
+
+| Metric | 30ep | 60ep | wClean | Best for robustness |
+|---|---|---|---|---|
+| Avg CDR | **533** | 583 | 90 | Higher = more selective |
+| Avg r-AUROC | **0.678** | 0.410 | 0.370 | Higher = better detection |
+| Avg Attn Conc | **4.67** | 1.38 | 1.13 | Higher = targeted routing |
+| Clean δ | 0.0139 | 0.0174 | **0.0096** | Lower = less clean distortion |
+
+30ep dominates on robustness metrics. wClean only wins on Clean δ (lower distortion on clean data).
+
+### Implications for Clean MAE Improvement
+
+The tradeoff mechanism is now clear:
+- **Pretraining with clean samples** → r saturates → kills detection & correction
+- **This is NOT a fundamental tradeoff** — it's a training artifact
+
+**Proposed solution**: Encoder fine-tuning (freeze=False, low lr)
+- Downstream loss (MAE) penalizes bad predictions, NOT r values
+- Clean training data (majority) → δ_clean↓ naturally
+- Noise augmentation (prob=0.5) → δ_noisy maintained
+- Key difference from wClean: fine-tuning adjusts δ directly through prediction loss, not through r saturation
+
+**Why this could work**: The 30ep encoder has perfect dead detection (AUROC=1.0) and strong CDR (533). Fine-tuning with low lr should preserve these while reducing the residual δ_clean=0.014 that causes the +1.22 MAE penalty.
+
+---
+
 *Evaluation: `experiments/eval_noise_vulnerability.py` (SAN_BERNARDINO), `experiments/eval_contra_costa.py` (CONTRA_COSTA)*
 *Results: `experiments/noise_vulnerability_results/`*
 *Dataset comparison: `experiments/compare_datasets.py`*
-*Last updated: 2026-02-25*
+*Interpretability: `experiments/analyze_input_corrector.py`*
+*Tradeoff analysis: `experiments/analyze_tradeoff.py`*
+*Last updated: 2026-02-28*

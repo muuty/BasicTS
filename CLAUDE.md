@@ -34,6 +34,20 @@
 - Config 파일: `baselines/` 하위 디렉토리
 - 단일 실행: `python -c "from basicts import launch_training; launch_training('path/to/config.py', gpus='0')"`
 
+### 실험 프로세스 관리 (중요!)
+- **반드시 `nohup`으로 실행**: 세션 종료 시에도 학습이 계속되도록 해야 함
+  ```bash
+  nohup bash -c 'source ~/.conda/etc/profile.d/conda.sh && conda activate basicts && python -c "
+  from basicts import launch_training
+  launch_training(\"config.py\", gpus=\"1\")
+  "' > /tmp/exp_name.log 2>&1 &
+  ```
+- **학습 완료 대기 및 후속 작업**: 실험을 nohup으로 시작한 후, `sleep`과 로그 확인을 반복하며 완료를 감지하고 즉시 다음 작업(결과 분석, 후속 실험 실행 등)을 이어간다
+  - 예상 완료 시간 파악: `grep "estimated.*finish" <log_path> | tail -1`
+  - 완료 감지: `test_metrics.json` 생성 여부 확인
+  - 패턴: `sleep <예상 남은 시간>` → 로그 확인 → 미완료 시 추가 sleep → 완료 시 결과 분석 및 다음 실험 진행
+- **주의**: `launch_training`은 auto-resume을 지원하지 않음 — 중단 시 처음부터 재학습
+
 ### GPU 선택
 - **`gpus` 파라미터 사용** (권장): `launch_training('config.py', gpus='1')` - GPU 1 사용
 - `CUDA_VISIBLE_DEVICES` 사용하지 말 것 - `gpus` 파라미터가 내부적으로 처리함
