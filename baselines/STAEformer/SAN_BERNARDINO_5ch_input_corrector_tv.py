@@ -7,6 +7,7 @@ Key change from v1: time_varying_correction=True
   - Same MLP weight shapes → loads v1 pretrained weights
 
 + Identity regularization (λ=0.1) + noise augmentation.
++ **unmasked_mae** for both training loss and evaluation metrics.
 50 epochs, CosineAnnealingLR.
 
 Usage:
@@ -14,14 +15,26 @@ Usage:
 """
 import os
 import sys
+import torch
 from easydict import EasyDict
 sys.path.append(os.path.abspath(__file__ + '/../../..'))
 
-from basicts.metrics import masked_mae, masked_mape, masked_rmse
+from basicts.metrics import unmasked_mae, unmasked_rmse
 from basicts.data import TimeSeriesForecastingDataset
 from basicts.scaler import ZScoreScaler
 from basicts.utils import get_regular_settings
-from basicts.losses.identity_loss import identity_regularized_mae
+
+
+def unmasked_identity_regularized_mae(
+    prediction: torch.Tensor,
+    target: torch.Tensor,
+    passthrough_loss: torch.Tensor = None,
+) -> torch.Tensor:
+    """Identity-regularized unmasked MAE. All targets (including zero) contribute."""
+    L_pred = torch.mean(torch.abs(prediction - target))
+    if passthrough_loss is None:
+        return L_pred
+    return L_pred + passthrough_loss
 
 from baselines.STAEformer.arch import STAEformer
 from baselines.ContextContrastive.runner.noisy_representation_learning_runner import NoisyRepresentationLearningRunner
@@ -61,7 +74,7 @@ NUM_EPOCHS = 50
 
 ############################## General Configuration ##############################
 CFG = EasyDict()
-CFG.DESCRIPTION = 'STAEformer 5ch + InputSpilloverCorrector (time-varying, unfrozen) + noise + identity'
+CFG.DESCRIPTION = 'STAEformer 5ch + RGCA (reliability-gated cross-attn, time-varying, unfrozen) + noise + identity + unmasked_mae'
 CFG.GPU_NUM = 1
 CFG.RUNNER = NoisyRepresentationLearningRunner
 
@@ -117,7 +130,7 @@ CFG.SCALER.PARAM = EasyDict({
 
 ############################## Model Configuration ##############################
 CFG.MODEL = EasyDict()
-CFG.MODEL.NAME = 'STAEformer_5ch_input_corrector_tv'
+CFG.MODEL.NAME = 'STAEformer_5ch_rgca_tv_unmasked'
 CFG.MODEL.ARCH = MODEL_ARCH
 CFG.MODEL.PARAM = MODEL_PARAM
 CFG.MODEL.FORWARD_FEATURES = [0, 1, 2, 3, 4]
@@ -126,12 +139,10 @@ CFG.MODEL.TARGET_FEATURES = [0]
 ############################## Metrics Configuration ##############################
 CFG.METRICS = EasyDict()
 CFG.METRICS.FUNCS = EasyDict({
-    'MAE': masked_mae,
-    'MAPE': masked_mape,
-    'RMSE': masked_rmse,
+    'MAE': unmasked_mae,
+    'RMSE': unmasked_rmse,
 })
 CFG.METRICS.TARGET = 'MAE'
-CFG.METRICS.NULL_VAL = NULL_VAL
 
 ############################## Training Configuration ##############################
 CFG.TRAIN = EasyDict()
@@ -141,7 +152,7 @@ CFG.TRAIN.CKPT_SAVE_DIR = os.path.join(
     CFG.MODEL.NAME,
     '_'.join([DATA_NAME, str(NUM_EPOCHS), str(INPUT_LEN), str(OUTPUT_LEN)])
 )
-CFG.TRAIN.LOSS = identity_regularized_mae
+CFG.TRAIN.LOSS = unmasked_identity_regularized_mae
 
 CFG.TRAIN.OPTIM = EasyDict()
 CFG.TRAIN.OPTIM.TYPE = "Adam"
@@ -171,3 +182,4 @@ CFG.TEST.DATA.BATCH_SIZE = 64
 CFG.EVAL = EasyDict()
 CFG.EVAL.HORIZONS = [3, 6, 12]
 CFG.EVAL.USE_GPU = True
+CFG.EVAL.NOISE_ROBUSTNESS = True

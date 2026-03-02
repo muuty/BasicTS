@@ -14,6 +14,13 @@
 - **Overall MAE 사용** (`overall.MAE`), horizon별 MAE (h3, h6, h12) 아님
 - 예시: `find checkpoints -name "test_metrics.json" -exec cat {} \;`
 
+### Noise Resilience 실험: Unmasked MAE 사용 (중요!)
+- **가정**: 명시적 imputation/missing value 처리 없이 raw input 그대로 사용
+- **평가 & 학습 모두 `unmasked_mae`** 사용 (`masked_mae(null_val=0)` 아님)
+- Dead sensor의 target=0은 실제 관측값 → 0을 predict하는 것이 올바른 행동
+- `masked_mae`는 target=0을 제외하므로 corrector가 dead sensor를 보정해도 metric에 반영 안 됨
+- Config에서: `CFG.METRICS.NULL_VAL` 제거하거나, loss를 `unmasked_mae`로 변경
+
 ### Robustness 지표 (test_metrics.json)
 `test_metrics.json`에 robustness 지표가 포함됨:
 - **per_sample**: 샘플별 에러 분포

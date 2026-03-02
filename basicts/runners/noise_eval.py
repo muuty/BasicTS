@@ -105,13 +105,27 @@ def select_corrupt_nodes(num_nodes: int, rate: float,
     return corrupt, healthy
 
 
-def load_functional_indices(dataset_name: str, num_nodes: int) -> np.ndarray:
-    """Load functional node indices if category files exist. Falls back to all nodes."""
+def load_functional_indices(dataset_name: str, num_nodes: int,
+                            node_indices: Optional[np.ndarray] = None) -> np.ndarray:
+    """Load functional node indices if category files exist. Falls back to all nodes.
+
+    Args:
+        dataset_name: Name of the dataset.
+        num_nodes: Number of nodes in the (possibly filtered) dataset.
+        node_indices: If dataset uses node filtering, the mapping from filtered
+            index to original index (e.g., keep_no_dead.npy). Needed to correctly
+            identify functional nodes in the filtered space.
+    """
     for base in ['datasets/xtraffic', 'datasets']:
         dead_path = os.path.join(base, dataset_name, 'dead_indices.npy')
         major_path = os.path.join(base, dataset_name, 'major_fail_indices.npy')
         if os.path.exists(dead_path):
             dead = np.load(dead_path)
             major = np.load(major_path) if os.path.exists(major_path) else np.array([], dtype=int)
-            return np.setdiff1d(np.arange(num_nodes), np.union1d(dead, major))
+            exclude = set(np.union1d(dead, major).tolist())
+            if node_indices is not None:
+                # node_indices[i] = original node index for filtered index i
+                return np.array([i for i, orig in enumerate(node_indices)
+                                 if orig not in exclude])
+            return np.setdiff1d(np.arange(num_nodes), exclude)
     return np.arange(num_nodes)

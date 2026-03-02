@@ -111,6 +111,8 @@ class BaseTimeSeriesForecastingRunner(BaseEpochRunner):
                 self._noise_eval_configs = None  # use defaults
                 self._noise_eval_channels = [0, 1, 2]
             self._noise_eval_dataset = cfg['DATASET']['NAME']
+            # node_indices for remapping functional indices in filtered datasets
+            self._noise_eval_node_indices = cfg['DATASET'].get('PARAM', {}).get('node_indices', None)
 
         # For saving test results
         self._inputs_memmap = None
@@ -496,8 +498,8 @@ class BaseTimeSeriesForecastingRunner(BaseEpochRunner):
             all_sample_mae, all_node_mae, masked_ae_sum, nonzero_count
         )
 
-        # Noise robustness evaluation (test-time noise injection)
-        if self._noise_eval_enabled:
+        # Noise robustness evaluation (test-time noise injection, final test only)
+        if self._noise_eval_enabled and save_metrics:
             clean_node_mae = np.mean(all_node_mae, axis=0)  # (num_nodes,)
             self._noise_robustness = self._eval_noise_robustness(clean_node_mae)
 
@@ -644,7 +646,8 @@ class BaseTimeSeriesForecastingRunner(BaseEpochRunner):
         physical_channels = self._noise_eval_channels
         num_nodes = len(clean_node_mae)
 
-        functional = load_functional_indices(self._noise_eval_dataset, num_nodes)
+        functional = load_functional_indices(self._noise_eval_dataset, num_nodes,
+                                             self._noise_eval_node_indices)
         clean_func_mae = float(clean_node_mae[functional].mean())
 
         print(f"\n  Noise robustness evaluation ({len(configs)} configs, "
