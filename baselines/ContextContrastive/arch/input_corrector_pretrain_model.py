@@ -26,9 +26,14 @@ class InputCorrectorPretrainModel(nn.Module):
         hidden_dim: int = 64,
         n_heads: int = 4,
         temporal_layers: int = 2,
+        spatial_layers: int = 0,
         dropout: float = 0.1,
         physical_channels: list = None,
         residual_connection: bool = True,
+        # Ablation params
+        disable_reliability: bool = False,
+        disable_cross_attn: bool = False,
+        gating_mode: str = 'anomaly',
         # Noise params
         noise_rate_range: tuple = (0.1, 0.5),
         noise_severity_range: tuple = (0.1, 0.5),
@@ -54,9 +59,13 @@ class InputCorrectorPretrainModel(nn.Module):
             hidden_dim=hidden_dim,
             n_heads=n_heads,
             temporal_layers=temporal_layers,
+            spatial_layers=spatial_layers,
             dropout=dropout,
             physical_channels=physical_channels,
             residual_connection=residual_connection,
+            disable_reliability=disable_reliability,
+            disable_cross_attn=disable_cross_attn,
+            gating_mode=gating_mode,
         )
 
         # Dummy predictor for basicts framework compatibility
@@ -133,7 +142,13 @@ class InputCorrectorPretrainModel(nn.Module):
             x_noisy = history_data
             noise_mask = torch.zeros(N, dtype=torch.bool, device=history_data.device)
 
-        z = self.encoder.encode(x_noisy)
+        result = self.encoder.encode(x_noisy, return_intermediates=True)
+        if isinstance(result, tuple):
+            z, intermediates = result
+            reliability = intermediates.get('reliability')
+        else:
+            z = result
+            reliability = None
 
         recon = z[..., self.physical_channels]
         recon_target = history_data[..., self.physical_channels]
@@ -142,9 +157,12 @@ class InputCorrectorPretrainModel(nn.Module):
         dummy = dummy.reshape(B, N, self.output_len, self.output_dim)
         dummy = dummy.permute(0, 2, 1, 3)
 
-        return {
+        out = {
             'prediction': dummy,
             'recon_pred': recon,
             'recon_target': recon_target,
             'noise_mask': noise_mask,
         }
+        if reliability is not None:
+            out['reliability'] = reliability
+        return out

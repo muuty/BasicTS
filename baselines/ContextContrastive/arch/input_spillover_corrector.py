@@ -108,6 +108,7 @@ class InputSpilloverCorrector(BaseRepresentationEncoder):
         hidden_dim: int = 64,
         n_heads: int = 4,
         temporal_layers: int = 2,
+        spatial_layers: int = 0,
         dropout: float = 0.1,
         physical_channels: List[int] = None,
         residual_connection: bool = True,
@@ -115,6 +116,7 @@ class InputSpilloverCorrector(BaseRepresentationEncoder):
         correction_mode: str = None,
         disable_reliability: bool = False,
         disable_cross_attn: bool = False,
+        gating_mode: str = 'anomaly',
         **kwargs,
     ):
         kwargs.pop('adj_path', None)
@@ -125,6 +127,7 @@ class InputSpilloverCorrector(BaseRepresentationEncoder):
         self.residual_connection = residual_connection
         self.disable_reliability = disable_reliability
         self.disable_cross_attn = disable_cross_attn
+        self.gating_mode = gating_mode
 
         # correction_mode supersedes time_varying_correction
         if correction_mode is not None:
@@ -144,6 +147,12 @@ class InputSpilloverCorrector(BaseRepresentationEncoder):
             for _ in range(temporal_layers)
         ])
 
+        # V3 path: spatial blocks (reuse TemporalBlock over N dimension)
+        self.spatial_blocks = nn.ModuleList([
+            TemporalBlock(hidden_dim, n_heads, dropout)
+            for _ in range(spatial_layers)
+        ])
+
         # Stage 1: Reliability estimation
         self.reliability = nn.Sequential(
             nn.Linear(hidden_dim, hidden_dim // 4),
@@ -152,11 +161,12 @@ class InputSpilloverCorrector(BaseRepresentationEncoder):
             nn.Sigmoid(),
         )
 
-        # Stage 2: Reliability-gated cross-attention (spatial, across nodes)
-        self.cross_attn = nn.MultiheadAttention(
-            hidden_dim, n_heads, dropout=dropout, batch_first=True,
-        )
-        self.cross_norm = nn.LayerNorm(hidden_dim)
+        # Stage 2: Reliability-gated cross-attention (V1 path only)
+        if spatial_layers == 0:
+            self.cross_attn = nn.MultiheadAttention(
+                hidden_dim, n_heads, dropout=dropout, batch_first=True,
+            )
+            self.cross_norm = nn.LayerNorm(hidden_dim)
 
         # Stage 3: Correction (zero-init for safe training start)
         self.correction = nn.Sequential(
@@ -187,9 +197,12 @@ class InputSpilloverCorrector(BaseRepresentationEncoder):
         if self.disable_cross_attn:
             propagated = self.cross_norm(h_input)
         else:
-            anomaly_signal = (1 - r) * h_input
+            if self.gating_mode == 'clean':
+                gated_signal = r * h_input
+            else:  # 'anomaly' (default)
+                gated_signal = (1 - r) * h_input
             attn_out, _ = self.cross_attn(
-                query=h_input, key=anomaly_signal, value=anomaly_signal,
+                query=h_input, key=gated_signal, value=gated_signal,
                 need_weights=need_weights, average_attn_weights=True,
             )
             propagated = self.cross_norm(h_input + attn_out)  # [B_eff, N, hidden]
@@ -211,8 +224,22 @@ class InputSpilloverCorrector(BaseRepresentationEncoder):
             h = block(h)
         h = h.reshape(B, N, T, self.hidden_dim)  # [B, N, T, hidden]
 
-        if self.correction_mode == 'full':
-            # All ops per-timestep: [B*T, N, hidden]
+        if len(self.spatial_blocks) > 0:
+            # V3 path: per-timestep spatial attention → r-gated correction
+            h_flat = h.permute(0, 2, 1, 3).reshape(B * T, N, self.hidden_dim)
+            for block in self.spatial_blocks:
+                h_flat = block(h_flat)              # spatial attn over N
+            delta = self.correction(h_flat)         # [B*T, N, n_phys]
+            if self.disable_reliability:
+                r = torch.ones(B * T, N, 1, device=x.device)
+            else:
+                r = self.reliability(h_flat)        # [B*T, N, 1]
+                delta = delta * (1 - r)             # r-gated: clean(r≈1)→0, noisy(r≈0)→full
+            delta = delta.reshape(B, T, N, -1)
+            r = r.reshape(B, T, N, 1)
+
+        elif self.correction_mode == 'full':
+            # V1 full: all ops per-timestep with cross-attention
             h_flat = h.permute(0, 2, 1, 3).reshape(B * T, N, self.hidden_dim)
             propagated, r = self._compute_reliability_and_propagation(h_flat, **kwargs)
             delta = self.correction(propagated)
@@ -220,14 +247,14 @@ class InputSpilloverCorrector(BaseRepresentationEncoder):
             r = r.reshape(B, T, N, 1)
 
         elif self.correction_mode == 'hybrid':
-            # Reliability + routing pooled, correction per-timestep
+            # Reliability + cross-attn at node level, correction per-timestep
             h_pooled = h.mean(dim=2)                          # [B, N, hidden]
-            propagated, r = self._compute_reliability_and_propagation(h_pooled, **kwargs)
+            _, r = self._compute_reliability_and_propagation(h_pooled, **kwargs)
 
-            # Inject spatial context into per-timestep features
-            h_corr = h + propagated.unsqueeze(2)              # [B, N, T, hidden]
-            delta = self.correction(h_corr)                   # [B, N, T, n_phys]
-            delta = delta.permute(0, 2, 1, 3)                 # [B, T, N, n_phys]
+            # Per-timestep correction from temporal features
+            h_flat = h.permute(0, 2, 1, 3).reshape(B * T, N, self.hidden_dim)
+            delta = self.correction(h_flat)                   # [B*T, N, n_phys]
+            delta = delta.reshape(B, T, N, -1)                # [B, T, N, n_phys]
 
         else:  # 'node'
             # All pooled, broadcast correction
@@ -260,10 +287,12 @@ class InputSpilloverCorrector(BaseRepresentationEncoder):
             'type': 'InputSpilloverCorrector',
             'hidden_dim': self.hidden_dim,
             'temporal_layers': len(self.temporal_blocks),
+            'spatial_layers': len(self.spatial_blocks),
             'physical_channels': self.physical_channels,
             'residual_connection': self.residual_connection,
             'correction_mode': self.correction_mode,
             'disable_reliability': self.disable_reliability,
             'disable_cross_attn': self.disable_cross_attn,
+            'gating_mode': self.gating_mode,
         })
         return config

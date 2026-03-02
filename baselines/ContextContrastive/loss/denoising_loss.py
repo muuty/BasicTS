@@ -91,8 +91,13 @@ def denoising_with_r_supervision_loss(
 
     if reliability is not None and noise_mask is not None:
         r_target = (~noise_mask).float()                        # [N], clean=1
-        r_target = r_target.unsqueeze(0).expand_as(reliability) # [B, N]
-        r_loss = F.binary_cross_entropy(reliability, r_target)
+        # Reshape r_target to match reliability: could be [B, N] or [B, T, N, 1]
+        r = reliability
+        if r.dim() == 4:
+            # V3 path: [B, T, N, 1] → average over T, squeeze last dim → [B, N]
+            r = r.mean(dim=1).squeeze(-1)
+        r_target = r_target.unsqueeze(0).expand_as(r)           # [B, N]
+        r_loss = F.binary_cross_entropy(r, r_target)
         return base + r_weight * r_loss
 
     return base
