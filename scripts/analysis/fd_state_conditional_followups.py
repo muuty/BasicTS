@@ -131,7 +131,16 @@ def persistence(fits) -> pd.DataFrame:
     for dataset in DATASETS:
         sensors, code = test_code(dataset, fits)
         base = PHASE_C / BACKBONE_DIR["STGCN"] / "xtraffic" / f"{dataset}_50_12_12"
-        npz = next(base.glob("*/*/test_results.npz"))
+        # model_skill needs the full-data (100%-selection) run; persistence_mae
+        # itself is model-free (inputs/target are identical across runs).
+        npz = None
+        for p in sorted(base.glob("*/*/test_results.npz")):
+            cfg = (p.parent / "cfg.txt").read_text()
+            if "CORESET:" not in cfg or "SELECTION_RATIO: 1.0" in cfg:
+                npz = p
+                break
+        if npz is None:
+            npz = next(base.glob("*/*/test_results.npz"))
         d = np.load(npz)
         inp = np.asarray(d["inputs"][:, :, sensors, 0])
         tgt = np.asarray(d["target"][:, :, sensors, 0])
