@@ -107,6 +107,110 @@ def detector_state_mae(pred, target, code):
     return out
 
 
+def detector_state_mae_perdet(pred, target, code, sensors):
+    """Per-(detector, state) MAE as a long DataFrame (sensor, state, mae)."""
+    mask = target != NULL_VAL
+    num = (np.abs(pred - target) * mask).sum(axis=1)
+    den = mask.sum(axis=1)
+    wd = np.divide(num, den, out=np.full_like(num, np.nan), where=den > 0)
+    rows = []
+    for c, name in STATES.items():
+        for sl in range(code.shape[1]):
+            col = wd[code[:, sl] == c, sl]
+            col = col[np.isfinite(col)]
+            if len(col):
+                rows.append({"sensor": int(sensors[sl]), "traffic_state_transition": name,
+                             "mae": float(col.mean())})
+    return pd.DataFrame(rows)
+
+
+def reducibility(fits, method="k_medoids", ratio=0.3, k_label="K50") -> pd.DataFrame:
+    """Per-(detector, state): support difficulty D, reducibility (model skill
+    over persistence), and realised reduced-data degradation.
+
+    Isolates the driver of degradation. Breakdown and sustained congestion have
+    nearly equal support difficulty D, so D cannot explain their opposite
+    degradation; reducibility (skill) can. Skill and persistence MAE use the
+    full-data STGCN run; degradation is the detector's k-medoids minus full MAE
+    averaged over backbones.
+    """
+    from scipy.stats import spearmanr
+    audit = pd.read_csv(AUDIT_CSV)
+    audit = audit[(audit.method == method) & (audit.ratio == ratio) & (audit.K_label == k_label)]
+    audit = (audit.groupby(["dataset", "sensor", "traffic_state_transition"], as_index=False)["D"].mean())
+
+    mae = pd.read_csv(MAE_DETECTOR_CSV)
+    full = mae[mae.method == "full"].groupby(
+        ["dataset", "sensor", "traffic_state_transition"], as_index=False)["mae"].mean()
+    full = full.rename(columns={"mae": "full_mae"})
+    red = mae[(mae.method == method) & (mae.ratio == ratio)].groupby(
+        ["dataset", "sensor", "traffic_state_transition"], as_index=False)["mae"].mean()
+    red = red.rename(columns={"mae": "red_mae"})
+    deg = red.merge(full, on=["dataset", "sensor", "traffic_state_transition"])
+    deg["degradation"] = deg["red_mae"] - deg["full_mae"]
+
+    # per-detector skill over persistence from the full-data STGCN run
+    skill_frames = []
+    for dataset in DATASETS:
+        sensors, code = test_code(dataset, fits)
+        base = PHASE_C / BACKBONE_DIR["STGCN"] / "xtraffic" / f"{dataset}_50_12_12"
+        npz = None
+        for p in sorted(base.glob("*/*/test_results.npz")):
+            cfg = (p.parent / "cfg.txt").read_text()
+            if "CORESET:" not in cfg or "SELECTION_RATIO: 1.0" in cfg:
+                npz = p
+                break
+        if npz is None:
+            npz = next(base.glob("*/*/test_results.npz"))
+        d = np.load(npz)
+        inp = np.asarray(d["inputs"][:, :, sensors, 0])
+        tgt = np.asarray(d["target"][:, :, sensors, 0])
+        model = np.asarray(d["prediction"][:, :, sensors, 0])
+        persist = np.repeat(inp[:, -1:, :], tgt.shape[1], axis=1)
+        pm = detector_state_mae_perdet(persist, tgt, code, sensors).rename(columns={"mae": "persist_mae"})
+        mm = detector_state_mae_perdet(model, tgt, code, sensors).rename(columns={"mae": "model_mae"})
+        s = pm.merge(mm, on=["sensor", "traffic_state_transition"])
+        s["dataset"] = dataset
+        s["skill"] = 1 - s["model_mae"] / s["persist_mae"]
+        skill_frames.append(s)
+    skill = pd.concat(skill_frames, ignore_index=True)
+
+    j = (deg.merge(audit, on=["dataset", "sensor", "traffic_state_transition"])
+            .merge(skill[["dataset", "sensor", "traffic_state_transition", "skill", "persist_mae", "model_mae"]],
+                   on=["dataset", "sensor", "traffic_state_transition"]))
+    j.to_csv(OUT / "fd_state_reducibility.csv", index=False)
+
+    # state-level summary: support D/free, skill, degradation excess over free
+    free_D = j[j.traffic_state_transition == "free_to_free"].groupby("dataset")["D"].mean()
+    lvl = (j.groupby(["dataset", "traffic_state_transition"], as_index=False)
+             .agg(D=("D", "mean"), skill=("skill", "mean"), degradation=("degradation", "mean")))
+    lvl["D_over_free"] = lvl.apply(lambda r: r.D / free_D[r.dataset], axis=1)
+    print("\n=== Reducibility: support D vs skill vs degradation (per state) ===")
+    print(lvl[["dataset", "traffic_state_transition", "D_over_free", "skill", "degradation"]]
+          .round(3).to_string(index=False), flush=True)
+
+    # key isolation: among the two support-thin states (breakdown, congestion),
+    # per detector, does skill predict degradation while D is ~matched?
+    print("\n=== Isolation: breakdown vs sustained congestion (support-matched) ===")
+    for dataset in DATASETS:
+        sub = j[j.dataset == dataset]
+        bd = sub[sub.traffic_state_transition == "breakdown"]
+        cg = sub[sub.traffic_state_transition == "congested_to_congested"]
+        print(f"  {dataset}: D bd={bd.D.mean():.3f} cong={cg.D.mean():.3f} (matched); "
+              f"skill bd={bd.skill.mean():.3f} cong={cg.skill.mean():.3f}; "
+              f"deg bd={bd.degradation.mean():+.3f} cong={cg.degradation.mean():+.3f}")
+
+    # per-detector correlation of degradation with skill and with D, pooled over
+    # the support-thin transition states (breakdown + recovery + congestion)
+    thin = j[j.traffic_state_transition != "free_to_free"].dropna(subset=["skill", "D", "degradation"])
+    rs_skill, ps = spearmanr(thin["skill"], thin["degradation"])
+    rs_D, pD = spearmanr(thin["D"], thin["degradation"])
+    print(f"\n=== Per-detector correlation (non-free states, n={len(thin)}) ===")
+    print(f"  degradation vs skill (reducibility): Spearman={rs_skill:+.3f} (p={ps:.2e})")
+    print(f"  degradation vs D (support difficulty): Spearman={rs_D:+.3f} (p={pD:.2e})", flush=True)
+    return lvl
+
+
 def decomposition(fits, method="k_medoids", ratio=0.3, k_label="K50") -> pd.DataFrame:
     b = pd.read_csv(AUDIT_CSV)
     b = b[(b.method == method) & (b.ratio == ratio) & (b.K_label == k_label)].copy()
@@ -226,8 +330,9 @@ def main() -> None:
         paired.to_csv(OUT / "fd_state_paired_test.csv", index=False)
         print("\n=== Paired detector test: excess degradation over free flow ===")
         print(paired.round(4).to_string(index=False), flush=True)
+        reducibility(fits)
     else:
-        print("\n[skip] paired test: run fd_state_conditional_mae.py first")
+        print("\n[skip] paired test / reducibility: run fd_state_conditional_mae.py first")
 
     print("\nwrote fd_state_{difficulty_decomposition,persistence_baseline,paired_test}.csv", flush=True)
 
