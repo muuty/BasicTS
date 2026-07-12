@@ -156,7 +156,16 @@ def persistence(fits) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def paired_test(method="k_medoids", ratio=0.3, n_boot=2000) -> pd.DataFrame:
+def paired_test(method="k_medoids", ratio=0.3, n_boot=5000) -> pd.DataFrame:
+    """Excess degradation over free flow, with the physical detector as the
+    clustering unit.
+
+    Each detector (dataset, sensor) contributes up to five backbone rows; those
+    are correlated, so we first average a detector's (state - free) excess
+    degradation over its backbones, giving one value per detector. Wilcoxon,
+    sign fraction, and the bootstrap all operate on those ~212 detector values,
+    i.e. a genuine detector-cluster bootstrap (resample detectors, not cells).
+    """
     m = pd.read_csv(MAE_DETECTOR_CSV)
     full = m[m.method == "full"][["dataset", "backbone", "sensor", "traffic_state_transition", "mae"]]
     full = full.rename(columns={"mae": "mae_full"})
@@ -165,26 +174,35 @@ def paired_test(method="k_medoids", ratio=0.3, n_boot=2000) -> pd.DataFrame:
     red = red.rename(columns={"mae": "mae_red"})
     j = red.merge(full, on=["dataset", "backbone", "sensor", "traffic_state_transition"])
     j["degradation"] = j["mae_red"] - j["mae_full"]
-    wide = j.pivot_table(index=["dataset", "backbone", "sensor"],
+    # per (detector, backbone): excess degradation of each state over free flow
+    wide = j.pivot_table(index=["dataset", "sensor", "backbone"],
                          columns="traffic_state_transition", values="degradation")
     rng = np.random.default_rng(42)
     rows = []
     for state in ("breakdown", "recovery", "congested_to_congested"):
         if state not in wide or "free_to_free" not in wide:
             continue
-        diff = (wide[state] - wide["free_to_free"]).dropna().to_numpy()
-        if len(diff) < 5:
+        excess = (wide[state] - wide["free_to_free"]).dropna()
+        # collapse backbones -> one value per physical detector (the cluster)
+        per_detector = excess.groupby(level=["dataset", "sensor"]).mean().to_numpy()
+        if len(per_detector) < 5:
             continue
-        stat, p = wilcoxon(diff)
-        boot = np.array([rng.choice(diff, len(diff), replace=True).mean() for _ in range(n_boot)])
+        _, p = wilcoxon(per_detector)
+        boot_mean, boot_med = [], []
+        for _ in range(n_boot):
+            s = rng.choice(per_detector, len(per_detector), replace=True)
+            boot_mean.append(s.mean())
+            boot_med.append(np.median(s))
         rows.append({
-            "state": state, "n_detector_cells": int(len(diff)),
-            "mean_excess_degradation": float(diff.mean()),
-            "median_excess_degradation": float(np.median(diff)),
-            "frac_positive": float((diff > 0).mean()),
+            "state": state, "n_detectors": int(len(per_detector)),
+            "mean_excess": float(per_detector.mean()),
+            "median_excess": float(np.median(per_detector)),
+            "frac_positive": float((per_detector > 0).mean()),
             "wilcoxon_p": float(p),
-            "boot_ci_lo": float(np.quantile(boot, 0.025)),
-            "boot_ci_hi": float(np.quantile(boot, 0.975)),
+            "mean_ci_lo": float(np.quantile(boot_mean, 0.025)),
+            "mean_ci_hi": float(np.quantile(boot_mean, 0.975)),
+            "median_ci_lo": float(np.quantile(boot_med, 0.025)),
+            "median_ci_hi": float(np.quantile(boot_med, 0.975)),
         })
     return pd.DataFrame(rows)
 
