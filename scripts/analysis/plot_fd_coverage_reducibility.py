@@ -23,7 +23,7 @@ OUT = REPO / "writing/CoresetSelection-paper/figures"
 
 ORDER = ["free_to_free", "breakdown", "recovery", "congested_to_congested"]
 LABEL = {"free_to_free": "Free", "breakdown": "Breakdown",
-         "recovery": "Recovery", "congested_to_congested": "Sustained\ncongestion"}
+         "recovery": "Recovery", "congested_to_congested": "Congestion"}
 
 # coverage difficulty D, dataset-averaged, relative to free
 dec = pd.read_csv(ANA / "fd_state_difficulty_decomposition.csv")
@@ -67,7 +67,7 @@ err_hi = [deg[s][2] - deg[s][0] for s in ORDER]
 axR.bar(x, vals, color=cols, edgecolor="#333333", width=0.62,
         yerr=[err_lo, err_hi], capsize=3, error_kw=dict(lw=1))
 axR.axhline(0.0, color="grey", lw=0.8)
-axR.set_ylabel("Excess degradation vs free (MAE)")
+axR.set_ylabel("Degradation over free flow (MAE)")
 axR.set_title("(b) Excess degradation by traffic state", fontsize=10)
 axR.set_xticks(x); axR.set_xticklabels([LABEL[s] for s in ORDER], fontsize=8)
 for xi, s in zip(x, ORDER):
