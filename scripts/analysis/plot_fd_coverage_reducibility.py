@@ -25,11 +25,13 @@ ORDER = ["free_to_free", "breakdown", "recovery", "congested_to_congested"]
 LABEL = {"free_to_free": "Free", "breakdown": "Breakdown",
          "recovery": "Recovery", "congested_to_congested": "Congestion"}
 
-# coverage difficulty D, dataset-averaged, relative to free
+# coverage difficulty D decomposed into history coverage (K J_X) and future
+# divergence (rho), dataset-averaged
 dec = pd.read_csv(ANA / "fd_state_difficulty_decomposition.csv")
-D = dec.groupby("traffic_state_transition")["D"].mean()
-Dfree = D["free_to_free"]
-Dratio = {s: D[s] / Dfree for s in ORDER}
+g = dec.groupby("traffic_state_transition")[["geometry", "residual", "D"]].mean()
+geo = {s: float(g.loc[s, "geometry"]) for s in ORDER}
+res = {s: float(g.loc[s, "residual"]) for s in ORDER}
+Dtot = {s: float(g.loc[s, "D"]) for s in ORDER}
 
 # reducibility s, mean over detectors and datasets
 red = pd.read_csv(ANA / "fd_state_reducibility.csv")
@@ -50,15 +52,18 @@ for s in ORDER:
 x = np.arange(len(ORDER))
 fig, (axL, axR) = plt.subplots(1, 2, figsize=(8.4, 3.3))
 
-# --- left: coverage difficulty ---
-barsL = axL.bar(x, [Dratio[s] for s in ORDER], color="#9ecae1", edgecolor="#3182bd", width=0.62)
-axL.axhline(1.0, color="grey", lw=0.8, ls="--")
-axL.set_ylabel(r"Coverage difficulty $D/\mathrm{free}$")
-axL.set_title("(a) Coverage difficulty by traffic state", fontsize=10)
+# --- left: coverage difficulty D = history coverage (K J_X) + future divergence (rho) ---
+gvals = [geo[s] for s in ORDER]
+rvals = [res[s] for s in ORDER]
+axL.bar(x, gvals, width=0.62, color="#c6dbef", edgecolor="#3182bd",
+        label=r"History coverage $K J_X$")
+axL.bar(x, rvals, bottom=gvals, width=0.62, color="#08519c", edgecolor="#3182bd",
+        label=r"Future divergence $\rho$")
+axL.set_ylabel(r"Coverage difficulty $D$")
+axL.set_title(r"(a) $D = K J_X + \rho$ by traffic state", fontsize=10)
 axL.set_xticks(x); axL.set_xticklabels([LABEL[s] for s in ORDER], fontsize=8)
-for xi, s in zip(x, ORDER):
-    axL.text(xi, Dratio[s] + 0.06, f"{Dratio[s]:.1f}", ha="center", va="bottom", fontsize=8)
-axL.set_ylim(0, max(Dratio.values()) * 1.18)
+axL.legend(fontsize=7, loc="upper left")
+axL.set_ylim(0, max(Dtot.values()) * 1.22)
 
 # --- right: degradation coloured by reducibility ---
 cmap = cm.get_cmap("viridis")
@@ -85,6 +90,6 @@ fig.tight_layout()
 for ext in ("png", "pdf"):
     fig.savefig(OUT / f"fd_coverage_reducibility.{ext}", dpi=200, bbox_inches="tight")
 print("wrote", OUT / "fd_coverage_reducibility.png")
-print("D/free:", {LABEL[s].replace(chr(10), ' '): round(Dratio[s], 2) for s in ORDER})
+print("geo+res:", {LABEL[s]: (round(geo[s],2), round(res[s],2)) for s in ORDER})
 print("skill :", {LABEL[s].replace(chr(10), ' '): round(float(skill[s]), 2) for s in ORDER})
 print("deg   :", {LABEL[s].replace(chr(10), ' '): round(deg[s][0], 2) for s in ORDER})
