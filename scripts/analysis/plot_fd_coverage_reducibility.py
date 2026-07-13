@@ -38,11 +38,14 @@ skill = red.groupby("traffic_state_transition")["skill"].mean()
 if "free_to_free" not in skill.index:
     skill["free_to_free"] = np.nan
 
-# excess degradation over free flow, detector-cluster median + CI
-pt = pd.read_csv(ANA / "fd_state_paired_test.csv").set_index("state")
-deg = {"free_to_free": (0.0, 0.0, 0.0)}
-for s in ("breakdown", "recovery", "congested_to_congested"):
-    deg[s] = (pt.loc[s, "median_excess"], pt.loc[s, "median_ci_lo"], pt.loc[s, "median_ci_hi"])
+# raw reduced-data degradation per state, detector-cluster bootstrap CI
+det = red.groupby(["dataset", "sensor", "traffic_state_transition"])["degradation"].mean().reset_index()
+rng = np.random.default_rng(42)
+deg = {}
+for s in ORDER:
+    v = det[det.traffic_state_transition == s].groupby(["dataset", "sensor"])["degradation"].mean().to_numpy()
+    boot = np.array([rng.choice(v, len(v), replace=True).mean() for _ in range(5000)])
+    deg[s] = (float(v.mean()), float(np.quantile(boot, 0.025)), float(np.quantile(boot, 0.975)))
 
 x = np.arange(len(ORDER))
 fig, (axL, axR) = plt.subplots(1, 2, figsize=(8.4, 3.3))
@@ -66,15 +69,13 @@ err_lo = [deg[s][0] - deg[s][1] for s in ORDER]
 err_hi = [deg[s][2] - deg[s][0] for s in ORDER]
 axR.bar(x, vals, color=cols, edgecolor="#333333", width=0.62,
         yerr=[err_lo, err_hi], capsize=3, error_kw=dict(lw=1))
-axR.axhline(0.0, color="grey", lw=0.8)
-axR.set_ylabel("Degradation over free flow (MAE)")
-axR.set_title("(b) Excess degradation by traffic state", fontsize=10)
+axR.set_ylabel("Reduced-data degradation (MAE)")
+axR.set_title("(b) Degradation by traffic state", fontsize=10)
 axR.set_xticks(x); axR.set_xticklabels([LABEL[s] for s in ORDER], fontsize=8)
 for xi, s in zip(x, ORDER):
     if not np.isnan(skill[s]):
-        axR.text(xi, deg[s][2] + 0.06 if deg[s][0] >= 0 else deg[s][1] - 0.06,
-                 f"$s$={skill[s]:.2f}", ha="center",
-                 va="bottom" if deg[s][0] >= 0 else "top", fontsize=8)
+        axR.text(xi, deg[s][2] + 0.05, f"$s$={skill[s]:.2f}", ha="center", va="bottom", fontsize=8)
+axR.set_ylim(0, max(deg[s][2] for s in ORDER) * 1.16)
 
 sm = cm.ScalarMappable(norm=norm, cmap=cmap); sm.set_array([])
 cb = fig.colorbar(sm, ax=axR, pad=0.02, fraction=0.05)
