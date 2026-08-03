@@ -184,3 +184,5 @@ logs/
 
 
 experiments/generated/
+# Derived per-run reductions of the archived test predictions; regenerable.
+experiments/result/analysis/_state_rows_cache/

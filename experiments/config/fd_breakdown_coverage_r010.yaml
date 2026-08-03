@@ -1,0 +1,51 @@
+description: "Breakdown-coverage frontier at r=0.1: stratified allocation vs split-budget hybrids"
+
+# Tests whether raising breakdown exposure recovers the state-conditional loss, and
+# separates that from the branch-prior shift that congestion-dense selection induces.
+#
+# Share of each state's atoms retained (San Bernardino / Contra Costa):
+#
+#   method        free          breakdown     recovery      sustained     calendar TV
+#   random        0.101 0.101   0.099 0.093   0.098 0.100   0.099 0.098   0.13 0.13
+#   stride        0.100 0.100   0.101 0.102   0.100 0.101   0.100 0.100   0.03 0.03
+#   fd_hyb0802    0.095 0.094   0.295 0.297   0.080 0.078   0.087 0.090   0.17 0.18
+#   fd_hyb0604    0.086 0.087   0.407 0.419   0.064 0.064   0.094 0.090   0.34 0.33
+#   fd_strat00    0.043 0.046   0.517 0.512   0.249 0.282   0.188 0.172   0.68 0.65
+#   oracle        0.057 0.067   0.607 0.617   0.016 0.016   0.137 0.113   0.72 0.72
+#
+# The two hybrids hold free-flow and sustained coverage near the random level while
+# multiplying breakdown exposure, so they raise coverage without adding congestion
+# mass.  fd_strat00 reaches 85% of the oracle count but spends the budget on
+# congestion-dense windows.  Comparing the two isolates coverage from prior shift.
+#
+# Index files are pre-generated:
+#   conda activate cuda && python scripts/analysis/select_fd_hybrid.py
+#   conda activate cuda && python scripts/analysis/select_fd_stratified.py
+# Submission:
+#   python experiments/run_experiments.py --cfg experiments/config/fd_breakdown_coverage_r010.yaml \
+#          --arch=cuda --batch-size 6
+# 3 methods x 5 architectures x 2 networks = 30 runs, 5 batches of 6.
+
+runs:
+  - name: "fd_bdcov"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO_no_dropout.py"
+      - "baselines/AGCRN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/DCRNN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STID/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STGCN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/AGCRN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/DCRNN/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/STID/CONTRA_COSTA/CONTRA_COSTA.py"
+      - "baselines/STAEformer/CONTRA_COSTA/CONTRA_COSTA.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["fd_strat00", "fd_hyb0802", "fd_hyb0604"]
+      CORESET.SELECTION_RATIO: [0.1]
+      CORESET.DISTANCE_TYPE: ["euclidean"]
+      CORESET.SEED: [42]
+      ENV.SEED: [42]
+      ENV.DETERMINISTIC: [true]
+      ENV.CUDNN.ENABLED: [true]
+      ENV.CUDNN.BENCHMARK: [false]
+      ENV.CUDNN.DETERMINISTIC: [true]

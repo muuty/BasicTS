@@ -1,0 +1,45 @@
+description: "Split budget with a head for each transition state: 0.04 uniform + 0.03 breakdown + 0.03 recovery at r=0.1"
+
+# The single-head split (fd_hyb0604) raises breakdown exposure to 4.07x the neutral
+# level and lowers recovery to 0.64x, so it never tests whether recovery responds to
+# coverage.  Section 6.5 predicts it should: at recovery the future divergence is
+# proportionate to the assigned history distance, at breakdown it is not.
+#
+# Retained share of each state's atoms relative to the neutral level r (uniform window
+# sampling retains a share r of every state), computed before training:
+#
+#   objective        free   breakdown   recovery   sustained
+#   random           1.00x     1.00x      0.98x       0.99x
+#   fd_hyb0604       0.86x     4.07x      0.64x       0.94x
+#   fd_hyb040303     0.76x     3.30x      4.07x       0.89x   (San Bernardino)
+#   fd_hyb040303     0.76x     3.41x      3.97x       0.89x   (Contra Costa)
+#
+# Both transition states rise while free flow and sustained congestion stay below the
+# neutral level, which is the condition that separates the objectives that recover the
+# breakdown loss from those that do not.
+#
+# Index files are pre-generated:
+#   conda activate cuda && python scripts/analysis/select_fd_two_state.py
+# Submission:
+#   python experiments/run_experiments.py --cfg experiments/config/fd_two_state_r010.yaml \
+#          --arch=cuda --batch-size 5
+# 1 method x 5 architectures x 1 network = 5 runs.
+
+runs:
+  - name: "fd_twostate"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO_no_dropout.py"
+      - "baselines/AGCRN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/DCRNN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STID/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["fd_hyb040303"]
+      CORESET.SELECTION_RATIO: [0.1]
+      CORESET.DISTANCE_TYPE: ["euclidean"]
+      CORESET.SEED: [42]
+      ENV.SEED: [42]
+      ENV.DETERMINISTIC: [true]
+      ENV.CUDNN.ENABLED: [true]
+      ENV.CUDNN.BENCHMARK: [false]
+      ENV.CUDNN.DETERMINISTIC: [true]

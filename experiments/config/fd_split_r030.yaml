@@ -1,0 +1,49 @@
+description: "Split budget at r=0.3: composition-preserving (0.27+0.03) against proportional scaling (0.18+0.12)"
+
+# The split budget was tested at r=0.1 only, where it lowers the breakdown loss from
+# 5.47 to 2.69 MAE in all ten network--architecture cells at unchanged aggregate MAE.
+# Two questions remain open and one experiment closes both.
+#
+# Scope. r=0.1 discards 90% of the archive. Whether the result survives a milder
+# reduction decides whether the method has a practical operating range.
+#
+# Split point. The retained composition crosses the neutral level r at a different
+# place at r=0.3 than at r=0.1, so the winner at r=0.1 cannot simply be rescaled:
+#
+#   ranked share   free   breakdown   recovery   congestion
+#     0.03        0.290     0.535      0.272       0.295     <- congestion below r
+#     0.06        0.275     0.648      0.247       0.316
+#     0.12        0.248     0.777      0.206       0.362
+#
+#   fd_hyb2703  0.27 uniform + 0.03 ranked   10% of budget, composition preserved
+#   fd_hyb1812  0.18 uniform + 0.12 ranked   40% of budget, the r=0.1 winner rescaled
+#
+# If the composition-preserving setting wins, the crossing is a design rule; if the
+# rescaled one wins, the composition is a necessary condition and not a guide; if
+# neither beats Random, the operating range is aggressive reduction only.
+#
+# Index files are pre-generated:
+#   conda activate cuda && python scripts/analysis/select_fd_hybrid.py --ratio 0.3 --uniform 0.27 0.18
+# Submission:
+#   python experiments/run_experiments.py --cfg experiments/config/fd_split_r030.yaml \
+#          --arch=cuda --batch-size 5
+# 2 methods x 5 architectures x 1 network = 10 runs, 2 batches of 5.
+
+runs:
+  - name: "fd_split_r030"
+    configs:
+      - "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO_no_dropout.py"
+      - "baselines/AGCRN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/DCRNN/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STID/SAN_BERNARDINO/SAN_BERNARDINO.py"
+      - "baselines/STAEformer/SAN_BERNARDINO/SAN_BERNARDINO.py"
+    params:
+      CORESET.SELECTION_STRATEGY: ["fd_hyb2703", "fd_hyb1812"]
+      CORESET.SELECTION_RATIO: [0.3]
+      CORESET.DISTANCE_TYPE: ["euclidean"]
+      CORESET.SEED: [42]
+      ENV.SEED: [42]
+      ENV.DETERMINISTIC: [true]
+      ENV.CUDNN.ENABLED: [true]
+      ENV.CUDNN.BENCHMARK: [false]
+      ENV.CUDNN.DETERMINISTIC: [true]
