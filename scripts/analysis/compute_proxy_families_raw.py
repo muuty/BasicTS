@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import time
 from pathlib import Path
@@ -40,6 +41,7 @@ import torch
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 sys.path.insert(0, str(REPO))
+os.chdir(REPO)  # import_config resolves a config path as a module, so it must be relative
 
 from coreset.distance import extract_features, get_features_by_type  # noqa: E402
 
@@ -92,10 +94,10 @@ def main() -> None:
         if dataset not in args.datasets:
             continue
         sys.path.insert(0, str(REPO))
-        from basicts.utils import import_config
+        from easytorch.config import import_config
         from basicts.data import TimeSeriesForecastingDataset
 
-        cfg = import_config(str(REPO / cfg_path), verbose=False)
+        cfg = import_config(cfg_path, verbose=False)
         ds = TimeSeriesForecastingDataset(mode="train", **cfg["DATASET"]["PARAM"])
         inputs, targets = extract_features(ds, cfg["MODEL"])
         feat = torch.from_numpy(

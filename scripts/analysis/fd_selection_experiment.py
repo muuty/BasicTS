@@ -43,7 +43,7 @@ import fd_spatial_synchronisation as sync  # noqa: E402
 
 OUT = REPO / "experiments" / "result" / "analysis"
 ROOTS = ("phase_c_method_comparison", "phase_c_extra_ratios", "phase_d_kmedoids_rerun",
-         "fd_stratified_r010", "fd_breakdown_coverage_r010", "fd_two_state_r010")
+         "fd_stratified_r010", "fd_breakdown_coverage_r010", "fd_two_state_r010", "fd_split_r030", "fd_frontier_r010")
 STATES = {0: "free", 1: "breakdown", 2: "recovery", 3: "sustained"}
 STATE_ORDER = ["free", "breakdown", "recovery", "sustained"]
 FULL_KEY = ("random", 1.0)

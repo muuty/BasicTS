@@ -254,6 +254,13 @@ def main():
         if not m:
             continue
         method, distance, ratio_pct, seed = m.groups()
+        # Match Phase B checkpoints to their original Euclidean K-medoids
+        # indices.  The canonical files now hold the later Phase D PCA/L1
+        # selections; the Phase B copies are retained under *_old_* names.
+        if method == 'k_medoids' and distance == 'euclidean':
+            continue
+        if method == 'k_medoids_old' and distance == 'euclidean':
+            method = 'k_medoids'
         ratio = int(ratio_pct) / 100.0
 
         with open(idx_file) as f:

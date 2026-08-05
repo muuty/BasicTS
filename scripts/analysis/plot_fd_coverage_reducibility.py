@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
-"""Discovery figure: coverage difficulty is not enough; reducibility decides.
+"""Plot coverage difficulty, degradation, and reducibility by traffic state.
 
 Left panel  - coverage difficulty D/free by traffic state (breakdown and
               sustained congestion are comparably hard to cover).
-Right panel - excess reduced-data degradation over free flow, with a 95%
+Right panel - reduced-data degradation, with a 95%
               detector-cluster interval, coloured by reducibility s.
-The pairing shows breakdown and sustained congestion sit at comparable coverage
-difficulty, yet only breakdown degrades, and the sign of degradation tracks
-reducibility.
 """
 from pathlib import Path
 import numpy as np
@@ -23,7 +20,7 @@ OUT = REPO / "writing/CoresetSelection-paper/figures"
 
 ORDER = ["free_to_free", "breakdown", "recovery", "congested_to_congested"]
 LABEL = {"free_to_free": "Free", "breakdown": "Breakdown",
-         "recovery": "Recovery", "congested_to_congested": "Congestion"}
+         "recovery": "Recovery", "congested_to_congested": "Sustained\ncongestion"}
 
 # coverage difficulty D decomposed into history coverage (K J_X) and future
 # divergence (rho), dataset-averaged

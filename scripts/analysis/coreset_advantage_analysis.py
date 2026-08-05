@@ -184,6 +184,15 @@ def main():
         if not m:
             continue
         method, distance, ratio_pct, seed_str = m.groups()
+        # Phase B Euclidean K-medoids checkpoints used the original selector.
+        # Canonical k_medoids_euclidean_* files were later replaced by the
+        # Phase D PCA/L1 selector, while the original files were preserved as
+        # k_medoids_old_euclidean_*.  Map the preserved files back to the
+        # checkpoint method label and skip the overwritten canonical copies.
+        if method == 'k_medoids' and distance == 'euclidean':
+            continue
+        if method == 'k_medoids_old' and distance == 'euclidean':
+            method = 'k_medoids'
         if method not in ('k_medoids', 'k_center', 'graph_cut'):
             continue
         ratio = int(ratio_pct) / 100.0
