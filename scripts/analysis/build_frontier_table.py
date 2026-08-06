@@ -61,9 +61,9 @@ def frontier_table(f: pd.DataFrame, ratio: float) -> str:
         "\\caption{The largest breakdown retention a budget of "
         f"$r={ratio:g}$ admits while the guarded state is held at or above $\\tau$, from the "
         "linear programme of Proposition~\\ref{prop:frontier}. Entries are the relaxation "
-        "value; the bracket width is what the one-exchange rounding loses, against an "
+        "value. The bracket width is what the one-exchange rounding loses, against an "
         f"a-priori bound of ${certificate:.4f}$, one window's worth of the state. A dash marks "
-        "a guard level no budget of this size can reach: the largest free-flow retention "
+        "a guard level no budget of this size can reach. The largest free-flow retention "
         f"available is ${largest['SAN_BERNARDINO']:.3f}$ and ${largest['CONTRA_COSTA']:.3f}$. "
         "Guarding congestion in place of free flow costs nothing until $\\tau$ passes $0.15$, "
         "because the windows carrying breakdown carry congestion with it.}",

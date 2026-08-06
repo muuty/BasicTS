@@ -59,8 +59,8 @@ def main() -> None:
             r"free$\rightarrow$free windows. Remaining entries are the mean "
             r"detector-paired ratio to that detector's free$\rightarrow$free value, "
             r"with 95\% detector-cluster bootstrap intervals. States use each "
-            r"detector's fitted flow--occupancy branches with speed confirmation; "
-            r"ambiguous observations remain unresolved. $K_{50}$ is calibrated per "
+            r"detector's fitted flow--occupancy branches with speed confirmation, "
+            r"and ambiguous observations remain unresolved. $K_{50}$ is calibrated per "
             r"detector from selector-independent calendar-lag pairs. These quantities "
             r"diagnose local support coverage and are not neural-network risk bounds.}"
         ),

@@ -84,10 +84,10 @@ def main() -> None:
         "\\renewcommand{\\arraystretch}{1.06}",
         "\\caption{MAE increase over full-data training, averaged over five architectures, "
         "five sampling ratios and two networks. The aggregate column covers all detectors "
-        "and windows; the state columns cover the screened detectors that carry a fitted "
+        "and windows. The state columns cover the screened detectors that carry a fitted "
         "critical point, so they compare objectives with each other and not with the "
         "aggregate. Mean rank is taken within each network--architecture--ratio block, "
-        "lower is better. The aggregate separates the objectives and the breakdown column does not: five of the six lie within $0.16$ MAE of each other there while their aggregate increases span a factor of two.}",
+        "lower is better. The aggregate separates the objectives and the breakdown column does not, since five of the six lie within $0.16$ MAE of each other there while their aggregate increases span a factor of two.}",
         "\\label{tab:accuracy_summary}",
         "\\small",
         "\\begin{tabular}{lrrrrrr}",

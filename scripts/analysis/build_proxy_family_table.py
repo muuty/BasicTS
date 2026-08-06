@@ -141,8 +141,8 @@ def main() -> None:
         "representations. Each entry is the rank correlation with test MAE over the six "
         "seed-averaged objectives in a cell, taken over the ten architecture--network cells "
         "at that budget, averaged within architecture and reported as the absolute value "
-        "over the five. The four coverage scores are one distance under different summaries; "
-        "the median is zero for every objective at the two largest budgets. No family "
+        "over the five. The four coverage scores are one distance under different summaries. "
+        "The median is zero for every objective at the two largest budgets. No family "
         "separates where reduction is aggressive, and the ordering at milder budgets is not "
         "consistent across them.}",
         "\\label{tab:proxy_families}",

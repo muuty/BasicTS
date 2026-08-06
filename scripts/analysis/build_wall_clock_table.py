@@ -71,7 +71,7 @@ def build(df: pd.DataFrame, gpu: str, label: str) -> str:
     lines.append(
         r"\caption{Per-run training wall-clock on a single AMD " + label + r" GPU. "
         r"Each cell is the median over selection methods, selection-seed labels, and the two datasets, "
-        r"in seconds; numbers in parentheses are the speedup over the full-data baseline. "
+        r"in seconds. Numbers in parentheses are the speedup over the full-data baseline. "
         r"The training seed is fixed at 42. "
         r"Selection cost is performed once per dataset and shared across all five backbones, "
         r"so it is amortised over repeated model runs.}"

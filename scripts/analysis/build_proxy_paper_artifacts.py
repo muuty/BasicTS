@@ -58,7 +58,10 @@ def build_correlation_table() -> str:
     lines.append(r"\setlength{\tabcolsep}{4pt}")
     lines.append(r"\renewcommand{\arraystretch}{1.05}")
     lines.append(
-        r"\caption{Per-model Pearson correlation between proxy metrics and test MAE on the paper grid (179--180 samples per model, pooling all selection methods, ratios, subset-selection seeds, and the two datasets; training seed fixed at 42). Sign convention follows each metric's natural direction; large $|r|$ indicates a strong predictor of MAE. \textbf{Bold} marks the strongest predictor per model.}"
+        "\\caption{Pearson correlation between pre-training metrics and test MAE, pooled over "
+        "objectives, ratios, selection seeds, and datasets (179--180 observations per model). "
+        "Quantization uses raw standardised history--future trajectories and $\\ell_1$ "
+        "distance. Bold marks the largest absolute correlation in each column.}"
     )
     lines.append(r"\label{tab:proxy_correlations}")
     lines.append(r"\small")
