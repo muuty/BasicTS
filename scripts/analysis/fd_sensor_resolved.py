@@ -28,7 +28,9 @@ from scipy.optimize import lsq_linear
 REPO = Path(__file__).resolve().parents[2]
 OUT = REPO / "experiments" / "result" / "analysis"
 DATASETS = ("SAN_BERNARDINO", "CONTRA_COSTA")
-METHODS = ("k_medoids", "random", "stride", "graph_cut")
+METHODS = ("k_medoids", "random", "stride", "graph_cut",
+           # deterministic constructions, written at r=0.1 under seed 42 only
+           "fd_hyb0604", "fd_front10", "fd_front3g")
 SEEDS = (42, 123, 456)
 RATIOS = (0.1, 0.3)
 T_IN = T_OUT = 12
@@ -569,6 +571,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--min-fit-improvement", type=float, default=0.10)
     parser.add_argument("--min-valid-fraction", type=float, default=2 / 3)
     parser.add_argument("--min-agreement", type=float, default=0.75)
+    parser.add_argument("--out-suffix", default="",
+                        help="appended to every output filename, so a run over a "
+                             "different method set does not overwrite an earlier one")
     parser.add_argument("--fit-only", action="store_true")
     parser.add_argument(
         "--max-detectors",
@@ -646,19 +651,19 @@ def main() -> None:
             ))
 
     pd.concat(all_screens, ignore_index=True).to_csv(
-        OUT / "fd_sensor_resolved_fits.csv", index=False
+        OUT / f"fd_sensor_resolved_fits{args.out_suffix}.csv", index=False
     )
     pd.concat(all_bins, ignore_index=True).to_csv(
-        OUT / "fd_sensor_resolved_bins.csv", index=False
+        OUT / f"fd_sensor_resolved_bins{args.out_suffix}.csv", index=False
     )
     pd.DataFrame(all_counts).to_csv(
-        OUT / "fd_sensor_resolved_state_counts.csv", index=False
+        OUT / f"fd_sensor_resolved_state_counts{args.out_suffix}.csv", index=False
     )
     if all_rows:
         rows = pd.concat(all_rows, ignore_index=True)
-        rows.to_csv(OUT / "fd_sensor_resolved_by_detector.csv", index=False)
+        rows.to_csv(OUT / f"fd_sensor_resolved_by_detector{args.out_suffix}.csv", index=False)
         summarise_detector_rows(rows).to_csv(
-            OUT / "fd_sensor_resolved_summary.csv", index=False
+            OUT / f"fd_sensor_resolved_summary{args.out_suffix}.csv", index=False
         )
     print("wrote detector-resolved FD audit artifacts", flush=True)
 

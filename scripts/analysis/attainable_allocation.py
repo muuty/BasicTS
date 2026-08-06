@@ -131,9 +131,55 @@ def frontier(target: np.ndarray, guarded: np.ndarray, k: int, tau: float) -> dic
             "guarded_at_attainable": achieved_guard, "index": keep}
 
 
+def multi_guard(counts: dict[int, np.ndarray], target_code: int, k: int,
+                tau: float) -> dict:
+    """Largest retention of one state with every other state guarded at `tau`.
+
+    Part (ii) of the proposition takes $p$ guard rows, and `frontier` above uses
+    one. With one guard the states nobody named absorb the cost of the maximisation,
+    which is what the frontier set does to recovery. Guarding all of them prices the
+    same target against a set that gives nothing up.
+
+    The rounding tops up on the guard that is tightest at the relaxed optimum, so the
+    reported set is feasible for every guard it was solved under.
+    """
+    shares = {a: c / c.sum() for a, c in counts.items()}
+    guards = [a for a in counts if a != target_code]
+    t_share = shares[target_code]
+
+    for a in guards:                        # a guard no budget of this size can meet
+        if tau > float(np.sort(shares[a])[-k:].sum()) + 1e-12:
+            return {"tau": tau, "lp": np.nan, "attainable": np.nan, "feasible": False,
+                    "binding": None, "index": None}
+
+    result = linprog(
+        c=-t_share,
+        A_ub=np.vstack([-shares[a] for a in guards]), b_ub=np.full(len(guards), -tau),
+        A_eq=np.ones((1, len(t_share))), b_eq=np.array([float(k)]),
+        bounds=(0.0, 1.0), method="highs")
+    if not result.success:
+        return {"tau": tau, "lp": np.nan, "attainable": np.nan, "feasible": False,
+                "binding": None, "index": None}
+
+    x = result.x
+    slack = {a: float(shares[a] @ x) - tau for a in guards}
+    tightest = min(slack, key=slack.get)
+    integral = np.isclose(x, 1.0, atol=1e-9)
+    fractional = np.flatnonzero(~integral & ~np.isclose(x, 0.0, atol=1e-9))
+    keep = list(np.flatnonzero(integral))
+    if fractional.size:
+        keep += list(fractional[np.argsort(-shares[tightest][fractional],
+                                           kind="stable")][:k - len(keep)])
+    keep = np.asarray(sorted(keep)[:k], dtype=int)
+    realised = {a: float(shares[a][keep].sum()) for a in counts}
+    return {"tau": tau, "lp": float(-result.fun), "attainable": realised[target_code],
+            "feasible": all(realised[a] >= tau - 1e-9 for a in guards),
+            "binding": STATES[tightest], "realised": realised, "index": keep}
+
+
 def main() -> None:
     args = parse_args()
-    rows, selector_rows = [], []
+    rows, selector_rows, multi_rows = [], [], []
     for dataset in args.datasets:
         counts = state_counts(dataset)
         n_windows = len(counts[0])
@@ -192,8 +238,26 @@ def main() -> None:
                         "guard_binds": bool(bound["lp"] < frontier(target, guarded, k, 0.0)["lp"] - 1e-9),
                     })
 
+            if args.emit_multi_guard is not None and ratio == 0.1:
+                result = multi_guard(counts, 1, k, args.emit_multi_guard)
+                index = result.pop("index")
+                if index is None:
+                    print(f"  r={ratio}  breakdown, every other state guarded at "
+                          f"{args.emit_multi_guard:.3f}   infeasible", flush=True)
+                else:
+                    out = INDEX / dataset / f"fd_front3g_euclidean_010_seed42.json"
+                    out.write_text(json.dumps([int(i) for i in index]))
+                    print(f"  r={ratio}  breakdown, every other state guarded at "
+                          f"{args.emit_multi_guard:.3f}   LP={result['lp']:.4f}  "
+                          f"attained={result['attainable']:.4f}  "
+                          f"binding={result['binding']}  wrote {out.name}", flush=True)
+                    multi_rows.append({"dataset": dataset, "ratio": ratio, **result})
+
     OUT.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(rows).to_csv(OUT / "attainable_allocation.csv", index=False)
+    if multi_rows:
+        pd.DataFrame(multi_rows).to_csv(OUT / "attainable_allocation_multi_guard.csv",
+                                        index=False)
     selectors = pd.DataFrame(selector_rows)
     selectors.to_csv(OUT / "attainable_allocation_selectors.csv", index=False)
     print("\n=== objectives against the bound ===")
@@ -212,6 +276,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--emit-index", type=float, default=0.10,
                         help="write the frontier index set at this guard level")
+    parser.add_argument("--emit-multi-guard", type=float, default=None,
+                        help="also solve with every state other than the target guarded "
+                             "at this level, and write the resulting index set")
     parser.add_argument("--objectives", nargs="+", default=[
         "random", "stride", "recent", "k_medoids", "k_center", "graph_cut",
         "fd_grp00", "fd_strat00", "fd_hyb0802", "fd_hyb0604", "fd_hyb2703", "fd_hyb1812", "fd_front10"])
