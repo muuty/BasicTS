@@ -25,7 +25,7 @@ LABEL = {"random": "Random", "stride": "Stride", "recent": "Recent",
          "k_medoids": "K-medoids", "k_center": "K-center", "graph_cut": "Graph Cut",
          "fd_grp00": "Quota, $\\beta=0$", "fd_strat00": "Stratified allocation",
          "fd_hyb0802": "Split $0.08+0.02$", "fd_hyb0604": "Split $0.06+0.04$",
-         "fd_front10": "Frontier set, $\\tau=0.10$"}
+         "fd_front10": "Retention-maximising set, $\\tau=0.10$"}
 ORDER = ["random", "stride", "recent", "k_medoids", "k_center", "graph_cut",
          "fd_grp00", "fd_hyb0802", "fd_hyb0604", "fd_strat00", "fd_front10"]
 
