@@ -3,7 +3,7 @@
 
 Ten scores were reported earlier as ten competing proxies, which hid two things.
 Four of them are the same quantity under different summaries: the mean, median and
-maximum distance from a training window to its nearest retained one, and the
+maximum distance from a training window to its nearest kept one, and the
 facility-location objective, which is that distance passed through a similarity
 kernel and summed. And they were not computed in the same space, the coverage scores
 on a 50-component projection and the rest on raw standardised trajectories, so any
@@ -17,7 +17,7 @@ The correlation is Spearman inside a fixed architecture, network and budget, ove
 six seed-averaged objectives that cell contains. It is reported per budget and not
 pooled, for two reasons. Pooling budgets moves both the score and the error, and one
 pooled number per family is decided by which cells enter it: the median
-nearest-distance is zero for every objective once most windows are retained, so
+nearest-distance is zero for every objective once most windows are kept, so
 requiring all scores to vary restricts the comparison to the three smallest budgets,
 which is enough to reverse the family ranking.
 
@@ -40,20 +40,20 @@ TABLE = REPO / "writing" / "CoresetSelection-paper" / "tables" / "proxy_families
 # score -> (family, description). Orientation is not encoded: the table reports the
 # absolute correlation, since the question is which property tracks accuracy at all.
 FAMILY = {
-    "qc_mean":      ("Coverage", "Mean distance to the nearest retained window, the quantity the coverage proposition names"),
-    "qc_median":    ("Coverage", "Median distance to the nearest retained window"),
+    "qc_mean":      ("Coverage", "Mean distance to the nearest kept window, the quantity the coverage proposition names"),
+    "qc_median":    ("Coverage", "Median distance to the nearest kept window"),
     "qc_max":       ("Coverage", "Largest such distance, what K-center minimises"),
     "fl_objective": ("Coverage", "Facility location, that distance through a kernel"),
-    "redundancy":   ("Diversity", "Summed similarity inside the retained set"),
+    "redundancy":   ("Diversity", "Summed similarity inside the kept set"),
     "sinkhorn":     ("Distribution matching", "Entropic transport cost at uniform weights"),
-    "h_tod":        ("Temporal diversity", "Hour-of-day entropy of the retained set"),
-    "h_dow":        ("Temporal diversity", "Day-of-week entropy of the retained set"),
+    "h_tod":        ("Temporal diversity", "Hour-of-day entropy of the kept set"),
+    "h_dow":        ("Temporal diversity", "Day-of-week entropy of the kept set"),
 }
 ORDER = ["Coverage", "Diversity", "Distribution matching", "Temporal diversity"]
 
 
 def scores() -> pd.DataFrame:
-    """One row per retained set, every family in the raw space."""
+    """One row per kept set, every family in the raw space."""
     d = pd.read_csv(OUT / "proxy_families_raw.csv")
     parsed = d.index_file.str.extract(
         r"^(?P<method>.+)_euclidean_(?P<ratio>\d+)_seed(?P<seed>\d+)\.json$")
