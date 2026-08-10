@@ -202,8 +202,14 @@ def main():
         ax2.hexbin(o_full, q_full, gridsize=45, cmap="Greys", bins="log",
                    mincnt=1, linewidths=0, alpha=0.55, zorder=0,
                    extent=(o_lo, o_hi, q_lo, q_hi))
-        # faint fitted piecewise-linear FD over the occupancy range it was fit on
-        og = np.linspace(max(o_lo, o_full.min()), min(o_hi, np.percentile(o_full, 99.8)), 200)
+        # Fitted piecewise-linear FD, drawn only across the occupancy the binned
+        # medians actually cover. Equal-count binning puts most bins near the mode
+        # of the occupancy distribution, so the highest bin median can sit well
+        # below the largest observed occupancy. Drawing to a percentile of the raw
+        # occupancy extrapolated the congested branch over as much as two thirds of
+        # the plotted range, where it overstated the observed flow.
+        fit_bins = fr.binned_detector(raw, fd_sensor, 40)
+        og = np.linspace(float(fit_bins.occupancy.min()), float(fit_bins.occupancy.max()), 200)
         qg = qc + fs * np.minimum(og - oc, 0.0) + cs * np.maximum(og - oc, 0.0)
         ax2.plot(og, qg, color="#e08214", lw=1.3, ls="-", alpha=0.9, zorder=1)
         pts = np.column_stack([o, q]).reshape(-1, 1, 2)
