@@ -41,7 +41,9 @@ CONFIGS = {
     "SAN_BERNARDINO": "baselines/STGCN/SAN_BERNARDINO/SAN_BERNARDINO_no_dropout.py",
     "CONTRA_COSTA": "baselines/STGCN/CONTRA_COSTA/CONTRA_COSTA.py",
 }
-METHODS = ("k_medoids", "k_center", "graph_cut")
+METHODS = ("k_medoids", "k_center", "graph_cut", "random", "stride",
+           # the state-aware constructions of the selection experiment
+           "fd_hyb0802", "fd_hyb0604", "fd_front10")
 RATIOS = (0.1, 0.3)
 
 
